@@ -120,7 +120,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         }
 
         fantasyLeader.golfersRemain = remain;
-        fantasyLeader.position = '1';
+        fantasyLeader.position = 1 + 1;
         this.fantasyLeaders.push(fantasyLeader);
       }
       this.fantasyLeaderObj.data = this.fantasyLeaders;

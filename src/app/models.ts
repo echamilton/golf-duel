@@ -17,7 +17,7 @@ export interface userGolfPicks {
   }
 
 export interface leaderResults {
-    position: string;
+    position: number;
     team: string;
     score: number;
     golfersRemain: number;
