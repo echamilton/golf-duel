@@ -20,6 +20,7 @@ import { environment } from '../environments/environment';
 import { MatDialogModule} from '@angular/material/dialog';
 import { PickTeamComponent } from './pick-team/pick-team.component';
 import { PopupComponent } from './popup/popup.component';
+import { ScorecardComponent } from './scorecard/scorecard.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { PopupComponent } from './popup/popup.component';
     ToolbarComponent,
     LeaderboardComponent,
     PickTeamComponent,
-    PopupComponent
+    PopupComponent,
+    ScorecardComponent
   ],
   imports: [
     BrowserModule,

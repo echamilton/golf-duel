@@ -120,11 +120,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         }
 
         fantasyLeader.golfersRemain = remain;
-        fantasyLeader.position = 1 + 1;
         this.fantasyLeaders.push(fantasyLeader);
       }
+
+      this.getSortedData(this.fantasyLeaders);
       this.fantasyLeaderObj.data = this.fantasyLeaders;
-      this.getSortedData(this.fantasyLeaderObj.data);
+
+      this.rankEntries();
+
     })
   }
 
@@ -137,6 +140,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       pick.score = pgaPlayer.total;
       pick.thru = pgaPlayer.thru;
       this.picks.push(pick);
+    }
+  }
+
+  rankEntries() {
+    let position = 1;
+    for(let key in this.fantasyLeaders){
+      this.fantasyLeaders[key].position = position;
+      position++;
     }
   }
 
