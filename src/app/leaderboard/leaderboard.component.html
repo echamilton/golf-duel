@@ -1,27 +1,24 @@
 <div class="mat-elevation-z8">
   <table mat-table class="full-width-table" [dataSource]="fantasyLeaderObj" multiTemplateDataRows matSort aria-label="Elements">
 
-    <!-- <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-    </ng-container> -->
 
-<ng-container matColumnDef="position">
-  <th mat-header-cell *matHeaderCellDef>Position</th>
-  <td mat-cell *matCellDef="let element">  <img class="pic" mat-card-image src='./assets/{{element.position}}.png'> </td>
-</ng-container> --> -->
-<ng-container matColumnDef="team">
-  <th mat-header-cell *matHeaderCellDef>Team</th>
-  <td mat-cell *matCellDef="let element"> {{element.team}} </td>
-</ng-container> --> -->
-<ng-container matColumnDef="golfersRemain">
-  <th mat-header-cell *matHeaderCellDef>Golfers Remain</th>
-  <td mat-cell *matCellDef="let element"> {{element.golfersRemain}} </td>
-</ng-container> --> -->
-<ng-container matColumnDef="score">
-  <th mat-header-cell *matHeaderCellDef>Score</th>
-  <td mat-cell *matCellDef="let element"> {{element.score}} </td>
-</ng-container> --> -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef>Position</th>
+      <td mat-cell *matCellDef="let element"> <img class="pic" mat-card-image src='./assets/{{element.position}}.png'>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="team">
+      <th mat-header-cell *matHeaderCellDef>Team</th>
+      <td mat-cell *matCellDef="let element"> {{element.team}} </td>
+    </ng-container>
+    <ng-container matColumnDef="golfersRemain">
+      <th mat-header-cell *matHeaderCellDef>Golfers Remain</th>
+      <td mat-cell *matCellDef="let element"> {{element.golfersRemain}} </td>
+    </ng-container>
+    <ng-container matColumnDef="score">
+      <th mat-header-cell *matHeaderCellDef>Score</th>
+      <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+    </ng-container>
 
     <ng-container matColumnDef="expandedDetail">
       <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
@@ -29,40 +26,64 @@
           <ul class="review_bottom">
             <li>
               {{element.golfer1}}
+              <button mat-menu-item (click)="scorecard(element.id1)">
+                <mat-icon class="icon">golf_course</mat-icon>
+              </button>
             </li>
             <li>
               {{element.golfer2}}
+              <button mat-menu-item (click)="scorecard(element.id2)">
+                <mat-icon class="icon">golf_course</mat-icon>
+              </button>
             <li>
               {{element.golfer3}}
+              <button mat-menu-item (click)="scorecard(element.id3)">
+                <mat-icon class="icon">golf_course</mat-icon>
+              </button>
             </li>
             <li>
               {{element.golfer4}}
+              <button mat-menu-item (click)="scorecard(element.id4)">
+                <mat-icon class="icon">golf_course</mat-icon>
+              </button>
             </li>
             <li>
               {{element.golfer5}}
+              <button mat-menu-item (click)="scorecard(element.id5)">
+                <mat-icon class="icon">golf_course</mat-icon>
+              </button>
             </li>
             <li>
               {{element.golfer6}}
+              <button mat-menu-item (click)="scorecard(element.id6)">
+                <mat-icon class="icon">golf_course</mat-icon>
+              </button>
             </li>
             <li>
               {{element.golfer7}}
+              <button mat-menu-item (click)="scorecard(element.id7)">
+                <mat-icon class="icon">golf_course</mat-icon>
+              </button>
             </li>
             <li>
               {{element.golfer8}}
+              <button mat-menu-item (click)="scorecard(element.id8)">
+                <mat-icon class="icon">golf_course</mat-icon>
+              </button>
             </li>
           </ul>
         </div>
       </td>
     </ng-container>
 
- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
     <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
       [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
- 
 
-</table>
+
+  </table>
   <mat-paginator #paginator [pageIndex]="0" [pageSize]="50" [showFirstLastButtons]="false" [hidePageSize]="true"
     [pageSizeOptions]="[20]">
   </mat-paginator>

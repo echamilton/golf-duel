@@ -56,8 +56,8 @@ export class PickTeamComponent implements OnInit {
     }
   }
 
-  checkData(golferID, currentVal) {
-    if (golferID === currentVal) {
+  checkData(golferID, currentGolfer) {
+    if (golferID === currentGolfer) {
       return true;
     }
   }

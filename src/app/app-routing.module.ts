@@ -12,12 +12,11 @@ import { ScorecardComponent } from './scorecard/scorecard.component';
           path: '', component: ToolbarComponent, children: [
         { path: 'pick', component: PickTeamComponent },
         { path: 'leader', component: LeaderboardComponent },
-        { path: 'score', component: ScorecardComponent },
+        { path: 'scorecard/:golferId', component: ScorecardComponent },
         { path: '', redirectTo: 'leader', pathMatch: 'full' }
       ]
     },
   ], {useHash: true}),
-
 
 ],
   exports: [RouterModule]

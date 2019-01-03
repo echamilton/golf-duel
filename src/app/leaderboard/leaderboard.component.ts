@@ -6,6 +6,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { userGolfPicks, leaderResults, indGolferResult } from '../models';
 import { leadResultsObj } from './leaderboard-datasource';
 import { sportsApiService } from '../sports-api';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   pgaTournyRespPlayers: any[];
   picks: Array<indGolferResult> = [];
 
-  constructor(private firebaseDb: AngularFireDatabase, private sportsApi: sportsApiService) {
+  constructor(private router: Router, private firebaseDb: AngularFireDatabase, private sportsApi: sportsApiService) {
   }
 
   ngOnInit() {
@@ -101,6 +102,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
         for (let pick of this.picks) {
           j++
+          fantasyLeader['id' + j] = pick.golferId;
           if (pick.status === "active") {
             if (i < 5) {
               i++;
@@ -127,7 +129,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       this.fantasyLeaderObj.data = this.fantasyLeaders;
 
       this.rankEntries();
-
     })
   }
 
@@ -149,6 +150,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       this.fantasyLeaders[key].position = position;
       position++;
     }
+  }
+
+  scorecard(golferId){
+    this.router.navigate(['/scorecard', golferId]);
   }
 
   getSortedData(data) {
