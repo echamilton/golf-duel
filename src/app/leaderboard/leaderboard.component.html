@@ -1,7 +1,5 @@
 <div class="mat-elevation-z8">
   <table mat-table class="full-width-table" [dataSource]="fantasyLeaderObj" multiTemplateDataRows matSort aria-label="Elements">
-
-
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef>Position</th>
       <td mat-cell *matCellDef="let element"> <img class="pic" mat-card-image src='./assets/{{element.position}}.png'>
@@ -24,59 +22,65 @@
       <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
         <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <ul class="review_bottom">
-            <li>
+              <li *ngFor="let golfer of element.golfers">
+                  {{golfer.name}}
+                  <!-- <button mat-menu-item (click)="scorecard(element.id1)"> -->
+                    <mat-icon class="icon">launch</mat-icon>
+                  <!-- </button> -->
+                </li>
+            <!-- <li>
               {{element.golfer1}}
               <button mat-menu-item (click)="scorecard(element.id1)">
-                <mat-icon class="icon">golf_course</mat-icon>
+                <mat-icon class="icon">launch</mat-icon>
               </button>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
               {{element.golfer2}}
               <button mat-menu-item (click)="scorecard(element.id2)">
-                <mat-icon class="icon">golf_course</mat-icon>
+                <mat-icon class="icon">launch</mat-icon>
               </button>
             <li>
               {{element.golfer3}}
               <button mat-menu-item (click)="scorecard(element.id3)">
-                <mat-icon class="icon">golf_course</mat-icon>
+                <mat-icon class="icon">launch</mat-icon>
               </button>
             </li>
             <li>
               {{element.golfer4}}
               <button mat-menu-item (click)="scorecard(element.id4)">
-                <mat-icon class="icon">golf_course</mat-icon>
+                <mat-icon class="icon">launch</mat-icon>
               </button>
             </li>
             <li>
               {{element.golfer5}}
               <button mat-menu-item (click)="scorecard(element.id5)">
-                <mat-icon class="icon">golf_course</mat-icon>
+                <mat-icon class="icon">launch</mat-icon>
               </button>
             </li>
             <li>
               {{element.golfer6}}
               <button mat-menu-item (click)="scorecard(element.id6)">
-                <mat-icon class="icon">golf_course</mat-icon>
+                <mat-icon class="icon">launch</mat-icon>
               </button>
             </li>
             <li>
               {{element.golfer7}}
               <button mat-menu-item (click)="scorecard(element.id7)">
-                <mat-icon class="icon">golf_course</mat-icon>
+                <mat-icon class="icon">launch</mat-icon>
               </button>
             </li>
             <li>
               {{element.golfer8}}
               <button mat-menu-item (click)="scorecard(element.id8)">
-                <mat-icon class="icon">golf_course</mat-icon>
+                <mat-icon class="icon">launch</mat-icon>
               </button>
-            </li>
+            </li> -->
           </ul>
         </div>
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
       [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
     </tr>

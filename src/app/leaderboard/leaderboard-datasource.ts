@@ -4,17 +4,6 @@ import { map } from 'rxjs/operators';
 import { leaderResults } from '../models';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
-
-// TODO: replace this with real data from your application
-// const EXAMPLE_DATA: leaderResults[] = [
-
-// ];
-
-/**
- * Data source for the Leaderboard view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
 export class leadResultsObj extends DataSource<leaderResults> {
   data: leaderResults[];
 

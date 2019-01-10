@@ -1,4 +1,10 @@
 import { golfers } from './models';
+import { tournament } from './models';
+
+export const _tourny: tournament[] = [
+  {tournyId: 'MASTERS', url: 'https://statdata.pgatour.com/r/014/2018/leaderboard-v2.json'},
+  {tournyId: 'SONY', url: 'https://statdata.pgatour.com/r/006/2019/leaderboard-v2.json'}  
+]
 
 export const _golferGrpA: golfers[] = [
     { id: '30925', name: 'Dustin Johnson' },

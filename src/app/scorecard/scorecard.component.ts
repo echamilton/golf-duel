@@ -52,7 +52,7 @@ export class ScorecardComponent implements OnInit {
     let holeIn = 0;
     let holeOut = 0;
     holes = playerData.holes;
-    console.log(playerData);
+    
     for (let hole of holes) {
       i++;
       this.scoreCard['par' + i] = hole.par;

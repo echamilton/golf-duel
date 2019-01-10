@@ -16,7 +16,19 @@ export interface userGolfPicks {
     name: string;
   }
 
-export interface leaderResults {
+  export interface scrollBar {
+    name: string;
+    score: string;
+    position: string;
+    hole:string;
+  }
+
+export interface tournament {
+  tournyId: string;
+  url: string;
+}
+
+export interface leaderResultsOLD {
     position: number;
     team: string;
     score: number;
@@ -38,6 +50,21 @@ export interface leaderResults {
     id7: string;
     golfer8: string;
     id8: string;
+  }
+  export interface golferItem {
+    name: string;
+    id  : string;
+    thru: string;
+    score: number;
+  }
+
+  export interface leaderResults {
+    position: number;
+    team: string;
+    score: number;
+    golfersRemain: number;
+    description: string;
+    golfers: Array<golferItem>;
   }
 
   export interface golferDetail{

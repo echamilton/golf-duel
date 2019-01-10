@@ -3,7 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatPaginator, MatSort } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { userGolfPicks, leaderResults, indGolferResult } from '../models';
+import { userGolfPicks, golferItem, leaderResults, indGolferResult } from '../models';
 import { leadResultsObj } from './leaderboard-datasource';
 import { sportsApiService } from '../sports-api';
 import { Router } from '@angular/router';
@@ -30,6 +30,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   fantasyLeaderObj: leadResultsObj;
   fantasyLeaders: Array<leaderResults> = [];
+  golferItems: Array<golferItem> = [];
   pgaTournyRespPlayers: any[];
   picks: Array<indGolferResult> = [];
 
@@ -50,11 +51,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   getGolferLeaderBoard(userGolfPicks) {
     this.sportsApi.getGolfScores().subscribe(apiData => {
-
       for (let userGolfKey in userGolfPicks) {
         let fantasyLeader = {} as leaderResults;
         let pgaPlayer = {} as any;
-        fantasyLeader.team = userGolfPicks[userGolfKey].email;
+        if (userGolfPicks[userGolfKey].email === undefined) {
+          fantasyLeader.team = userGolfPicks[userGolfKey].team;
+        } else {
+          fantasyLeader.team = userGolfPicks[userGolfKey].email;
+        }
         fantasyLeader.score = 0;
 
         this.pgaTournyRespPlayers = apiData.leaderboard.players;
@@ -99,22 +103,36 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         let j = 0;
         this.getSortedData(this.picks);
 
-
-        for (let pick of this.picks) {
-          j++
-          fantasyLeader['id' + j] = pick.golferId;
-          if (pick.status === "active") {
-            if (i < 5) {
-              i++;
-              golferScore = pick.score;
-              fantasyLeader.score = +fantasyLeader.score + +golferScore;
+        if (apiData.leaderboard.round_state === 'Official') {
+          this.golferItems = [];
+          for (let pick of this.picks) {
+            let golferItem = {} as golferItem;
+            j++
+            fantasyLeader['id' + j] = pick.golferId;
+            golferItem.id = pick.golferId;
+            golferItem.name = pick.golferName;
+            if (pick.status === "active") {
+              if (i < 5) {
+                i++;
+                golferScore = pick.score;
+                fantasyLeader.score = +fantasyLeader.score + +golferScore;
+              }
+              remain++;
+              fantasyLeader['golfer' + j] = pick.golferName + ' | ' + 'Thru ' + pick.thru + ' | ' + 'Total ' + pick.score;
+              golferItem.thru = 'Thru' + ' ' + pick.thru;
+              golferItem.score = pick.score;
+            } else {
+              fantasyLeader['golfer' + j] = pick.golferName + ' | ' + 'CUT' + ' | ' + 'CUT';
             }
-            remain++;
-            fantasyLeader['golfer' + j] = pick.golferName + ' | ' + 'Thru ' + pick.thru + ' | ' + 'Total ' + pick.score;
-          } else {
-            fantasyLeader['golfer' + j] = pick.golferName + ' | ' + 'CUT' + ' | ' + 'CUT';
+            this.golferItems.push(golferItem);
           }
+        }else{
+          /**Default to 8 active golfers and 99 score when golf tourny not active */
+          remain = 8;
+          fantasyLeader.score = 99.
         }
+
+        fantasyLeader.golfers = this.golferItems;
 
         /** if less than 5 golfers then we know that they didnt' make the cut */
         if (remain < 5) {
@@ -146,13 +164,13 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   rankEntries() {
     let position = 1;
-    for(let key in this.fantasyLeaders){
+    for (let key in this.fantasyLeaders) {
       this.fantasyLeaders[key].position = position;
       position++;
     }
   }
 
-  scorecard(golferId){
+  scorecard(golferId) {
     this.router.navigate(['/scorecard', golferId]);
   }
 

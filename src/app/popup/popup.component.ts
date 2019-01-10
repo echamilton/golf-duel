@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-popup',
@@ -10,18 +10,18 @@ export class PopupComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<PopupComponent>,
-        @Inject(MAT_DIALOG_DATA) data)  {
-        }
+    @Inject(MAT_DIALOG_DATA) data) {
+  }
 
   ngOnInit() {
   }
 
   onYes() {
     this.dialogRef.close('Yes');
-}
+  }
 
-onClose() {
+  onClose() {
     this.dialogRef.close('No');
-}
+  }
 
 }

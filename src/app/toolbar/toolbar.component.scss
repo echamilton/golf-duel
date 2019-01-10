@@ -13,6 +13,28 @@
   .sidenav {
     width: 180px;
   }
+
+  .evan{
+    height: 40px;
+    background: black;
+    color: #E4E4E4;
+    font: 500 10px/12px Roboto,"Helvetica Neue",sans-serif;
+}
+
+.scrolling-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  text-align: center;
+  &::-webkit-scrollbar {
+    display: none;
+}
+
+  .card {
+    display: inline-block;
+    margin: 10px;
+  }
+}
   
   .sidenav .mat-toolbar {
     background: inherit;
