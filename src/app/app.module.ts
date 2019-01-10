@@ -14,12 +14,14 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { HttpModule } from '@angular/http'; 
+import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { MatDialogModule} from '@angular/material/dialog';
 import { PickTeamComponent } from './pick-team/pick-team.component';
 import { PopupComponent } from './popup/popup.component';
+import { MatChipsModule } from '@angular/material/chips';
 import { ScorecardComponent } from './scorecard/scorecard.component';
 
 @NgModule({
@@ -35,6 +37,8 @@ import { ScorecardComponent } from './scorecard/scorecard.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MatChipsModule,
+    MatDividerModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatInputModule,

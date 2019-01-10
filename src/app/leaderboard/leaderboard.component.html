@@ -22,59 +22,9 @@
       <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
         <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <ul class="review_bottom">
-              <li *ngFor="let golfer of element.golfers">
-                  {{golfer.name}}
-                  <!-- <button mat-menu-item (click)="scorecard(element.id1)"> -->
-                    <mat-icon class="icon">launch</mat-icon>
-                  <!-- </button> -->
+              <li *ngFor="let golfer of element.golfers" (click)="scorecard(golfer.id)">
+                  <button mat-raised-button color="{{golfer.color}}">{{golfer.name}} | Own% {{golfer.ownPct}} | {{golfer.thru}} | {{golfer.score}}</button>
                 </li>
-            <!-- <li>
-              {{element.golfer1}}
-              <button mat-menu-item (click)="scorecard(element.id1)">
-                <mat-icon class="icon">launch</mat-icon>
-              </button>
-            </li> -->
-            <!-- <li>
-              {{element.golfer2}}
-              <button mat-menu-item (click)="scorecard(element.id2)">
-                <mat-icon class="icon">launch</mat-icon>
-              </button>
-            <li>
-              {{element.golfer3}}
-              <button mat-menu-item (click)="scorecard(element.id3)">
-                <mat-icon class="icon">launch</mat-icon>
-              </button>
-            </li>
-            <li>
-              {{element.golfer4}}
-              <button mat-menu-item (click)="scorecard(element.id4)">
-                <mat-icon class="icon">launch</mat-icon>
-              </button>
-            </li>
-            <li>
-              {{element.golfer5}}
-              <button mat-menu-item (click)="scorecard(element.id5)">
-                <mat-icon class="icon">launch</mat-icon>
-              </button>
-            </li>
-            <li>
-              {{element.golfer6}}
-              <button mat-menu-item (click)="scorecard(element.id6)">
-                <mat-icon class="icon">launch</mat-icon>
-              </button>
-            </li>
-            <li>
-              {{element.golfer7}}
-              <button mat-menu-item (click)="scorecard(element.id7)">
-                <mat-icon class="icon">launch</mat-icon>
-              </button>
-            </li>
-            <li>
-              {{element.golfer8}}
-              <button mat-menu-item (click)="scorecard(element.id8)">
-                <mat-icon class="icon">launch</mat-icon>
-              </button>
-            </li> -->
           </ul>
         </div>
       </td>

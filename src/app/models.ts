@@ -28,34 +28,13 @@ export interface tournament {
   url: string;
 }
 
-export interface leaderResultsOLD {
-    position: number;
-    team: string;
-    score: number;
-    golfersRemain: number;
-    description: string;
-    golfer1: string;
-    id1: string;
-    golfer2: string;
-    id2: string;
-    golfer3: string;
-    id3: string;
-    golfer4: string;
-    id4: string;
-    golfer5: string;
-    id5: string;
-    golfer6: string;
-    id6: string;
-    golfer7: string;
-    id7: string;
-    golfer8: string;
-    id8: string;
-  }
   export interface golferItem {
     name: string;
     id  : string;
     thru: string;
     score: number;
+    ownPct: number;
+    color: string;
   }
 
   export interface leaderResults {
@@ -69,7 +48,9 @@ export interface leaderResultsOLD {
 
   export interface golferDetail{
     golferId: string;
+    count: number;
     detail: string;
+    pct: number;
   }
 
   export interface indGolferResult {

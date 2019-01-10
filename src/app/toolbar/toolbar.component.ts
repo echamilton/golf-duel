@@ -10,6 +10,7 @@ import { scrollBar } from '../models';
 export class ToolbarComponent implements OnInit {
   pgaTournyRespPlayers: any[];
   golfers: Array<scrollBar> = [];
+  enablePicks: boolean;
   constructor(private sportsApi: sportsApiService) { }
 
   ngOnInit() {
@@ -24,13 +25,14 @@ export class ToolbarComponent implements OnInit {
         golfer.name = this.pgaTournyRespPlayers[key].player_bio.first_name + ' ' + this.pgaTournyRespPlayers[key].player_bio.last_name;
         golfer.score = this.pgaTournyRespPlayers[key].total;
         golfer.hole = this.pgaTournyRespPlayers[key].thru;
-        if (this.pgaTournyRespPlayers[key].round_state === 'Official') {
+        if (apiData.leaderboard.round_state === 'Official') {
           if (golfer.hole.toString() == '18') {
             golfer.hole = 'F';
           } else {
             golfer.hole = 'Thru' + golfer.hole.toString();
           }
         } else {
+          this.enablePicks = true;
           golfer.position = '-'
           golfer.hole = '-';
           golfer.score = '-';
@@ -38,6 +40,7 @@ export class ToolbarComponent implements OnInit {
 
         this.golfers.push(golfer);
       }
+      console.log(this.golfers);
     }
     )
   }

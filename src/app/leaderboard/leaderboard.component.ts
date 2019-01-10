@@ -3,7 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatPaginator, MatSort } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { userGolfPicks, golferItem, leaderResults, indGolferResult } from '../models';
+import { userGolfPicks, golferDetail, golferItem, leaderResults, indGolferResult } from '../models';
 import { leadResultsObj } from './leaderboard-datasource';
 import { sportsApiService } from '../sports-api';
 import { Router } from '@angular/router';
@@ -32,7 +32,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   fantasyLeaders: Array<leaderResults> = [];
   golferItems: Array<golferItem> = [];
   pgaTournyRespPlayers: any[];
+  ownPct: Array<golferDetail> = [];
   picks: Array<indGolferResult> = [];
+  entries: number;
 
   constructor(private router: Router, private firebaseDb: AngularFireDatabase, private sportsApi: sportsApiService) {
   }
@@ -41,6 +43,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     this.subscription = this.firebaseDb.list<userGolfPicks>('myGolfers').valueChanges().subscribe(userGolfPicks => {
 
       this.fantasyLeaderObj = new leadResultsObj(this.paginator, this.sort);
+      this.entries = userGolfPicks.length;
       this.getGolferLeaderBoard(userGolfPicks);
     });
   }
@@ -118,15 +121,18 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
                 fantasyLeader.score = +fantasyLeader.score + +golferScore;
               }
               remain++;
-              fantasyLeader['golfer' + j] = pick.golferName + ' | ' + 'Thru ' + pick.thru + ' | ' + 'Total ' + pick.score;
               golferItem.thru = 'Thru' + ' ' + pick.thru;
               golferItem.score = pick.score;
+              golferItem.color = 'primary';
+              golferItem.ownPct = 50;
             } else {
-              fantasyLeader['golfer' + j] = pick.golferName + ' | ' + 'CUT' + ' | ' + 'CUT';
+              golferItem.score = 99;
+              golferItem.thru = 'CUT';
+              golferItem.color = 'warn';
             }
             this.golferItems.push(golferItem);
           }
-        }else{
+        } else {
           /**Default to 8 active golfers and 99 score when golf tourny not active */
           remain = 8;
           fantasyLeader.score = 99.
@@ -142,10 +148,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         fantasyLeader.golfersRemain = remain;
         this.fantasyLeaders.push(fantasyLeader);
       }
-
       this.getSortedData(this.fantasyLeaders);
       this.fantasyLeaderObj.data = this.fantasyLeaders;
-
       this.rankEntries();
     })
   }
@@ -156,17 +160,46 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       pick.golferId = pgaPlayer.player_id;
       pick.status = pgaPlayer.status;
       pick.golferName = pgaPlayer.player_bio.first_name + ' ' + pgaPlayer.player_bio.last_name;
-      pick.score = pgaPlayer.total;
       pick.thru = pgaPlayer.thru;
+      if(pick.status === 'active'){
+        pick.score = pgaPlayer.total;
+      }else{
+        pick.score = 99;
+      }
       this.picks.push(pick);
+
+      /** Check if entry exists for golfer, if not create and add 1, otherwise
+       * increment the counter...       */
+
+      let ownPct = this.ownPct.find(x => x.golferId === pick.golferId);
+      if(ownPct != undefined){
+        ownPct.count++;
+        ownPct.pct = ownPct.count / this.entries *100;
+      }else{
+        let ownPct = {} as golferDetail;
+        ownPct.golferId = pick.golferId;
+        ownPct.count = 1;
+        ownPct.pct = ownPct.count / this.entries *100;
+        this.ownPct.push(ownPct);
+      }
     }
   }
 
   rankEntries() {
-    let position = 1;
+    let position = 0;
+    let dupPos = 0;
+    let prevScore = 999;
     for (let key in this.fantasyLeaders) {
-      this.fantasyLeaders[key].position = position;
-      position++;
+      if (this.fantasyLeaders[key].score == prevScore) {
+        this.fantasyLeaders[key].position = position;
+        dupPos++;
+      } else {
+        position++;
+        position = position + dupPos;
+        dupPos = 0;
+        this.fantasyLeaders[key].position = position;
+      }
+      prevScore = this.fantasyLeaders[key].score;
     }
   }
 
