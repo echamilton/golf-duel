@@ -26,6 +26,7 @@ export class leadResultsObj extends DataSource<leaderResults> {
     ];
 
     // Set the paginator's length
+    // if(this.data != undefined){
     this.paginator.length = this.data.length;
 
     return merge(...dataMutations).pipe(map(() => {

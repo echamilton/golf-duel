@@ -4,10 +4,11 @@
       <mat-card-title></mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div style="text-align: center;">
-            <mat-form-field>
-              <input matInput name="team" required [(ngModel)]="picks.team" placeholder="Team Name">
-            </mat-form-field></div>
+      <div style="text-align: center;">
+        <mat-form-field>
+          <input matInput name="team" required [(ngModel)]="picks.team" placeholder="Team Name">
+        </mat-form-field>
+      </div>
       <h4>Group A</h4>
       <div style="text-align: center;">
         <mat-form-field>
@@ -79,9 +80,6 @@
       </div>
     </mat-card-content>
     <div style="text-align: center;">
-      <!-- <mat-form-field>
-        <input matInput name="team" [(ngModel)]="picks.team" placeholder="Team Name">
-      </mat-form-field> -->
       <button mat-raised-button (click)="openPopup()">Submit Team</button>
     </div>
   </mat-card>

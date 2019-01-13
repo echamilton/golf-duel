@@ -26,21 +26,19 @@ export class ToolbarComponent implements OnInit {
         golfer.score = this.pgaTournyRespPlayers[key].total;
         golfer.hole = this.pgaTournyRespPlayers[key].thru;
         if (apiData.leaderboard.round_state === 'Official') {
-          if (golfer.hole.toString() == '18') {
+          if (golfer.hole == '18') {
             golfer.hole = 'F';
           } else {
-            golfer.hole = 'Thru' + golfer.hole.toString();
+            golfer.hole = 'Thru' + golfer.hole;
           }
         } else {
-          this.enablePicks = true;
+          this.enablePicks = true; //take this out after  
           golfer.position = '-'
           golfer.hole = '-';
           golfer.score = '-';
         }
-
         this.golfers.push(golfer);
       }
-      console.log(this.golfers);
     }
     )
   }

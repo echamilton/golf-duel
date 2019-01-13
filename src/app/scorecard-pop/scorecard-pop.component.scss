@@ -8,8 +8,6 @@
 }
 
 .scorecards-slider {
-    // margin: 0 0 15px;
-    // list-style: none
     list-style-position: center;
 }
 
@@ -34,6 +32,10 @@
 .hole-picker{
     padding: 3px;
 }
+.pic{
+    height: 85px;
+    width: 85px;
+}
 
 .scorecard-scorecards {
     width: 100%;
@@ -43,7 +45,7 @@
     font-size: 14px;
     line-height: 30px;
     table-layout: fixed;
-}
+}   
 ul, menu, dir {
     display: block;
     list-style-type: disc;

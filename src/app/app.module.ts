@@ -23,6 +23,7 @@ import { PickTeamComponent } from './pick-team/pick-team.component';
 import { PopupComponent } from './popup/popup.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { ScorecardComponent } from './scorecard/scorecard.component';
+import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ScorecardComponent } from './scorecard/scorecard.component';
     LeaderboardComponent,
     PickTeamComponent,
     PopupComponent,
-    ScorecardComponent
+    ScorecardComponent,
+    ScorecardPopComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,7 @@ import { ScorecardComponent } from './scorecard/scorecard.component';
     MatSortModule,
   ],
   providers: [],
-  entryComponents: [PopupComponent],
+  entryComponents: [PopupComponent, ScorecardPopComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

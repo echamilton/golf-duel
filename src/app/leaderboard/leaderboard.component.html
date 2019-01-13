@@ -22,9 +22,19 @@
       <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
         <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <ul class="review_bottom">
-              <li *ngFor="let golfer of element.golfers" (click)="scorecard(golfer.id)">
-                  <button mat-raised-button color="{{golfer.color}}">{{golfer.name}} | Own% {{golfer.ownPct}} | {{golfer.thru}} | {{golfer.score}}</button>
-                </li>
+            <ng-container *ngFor="let golfer of element.golfers">
+              <!-- <div class="container-fluid" (click)="scorecard(golfer.id)"> -->
+                  <div class="container-fluid"  (click)="openPopup(golfer.id)">
+                <div class="stats">
+                  <div class="stats-container">
+                    <span class="product_price">{{golfer.score}}</span>
+                    <span class="product_name">{{golfer.name}}</span>
+                    <p>Round {{golfer.round}} | {{golfer.thru}} | Owned {{golfer.ownPct | number}}%</p>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+              </div>
+            </ng-container>
           </ul>
         </div>
       </td>
@@ -35,10 +45,8 @@
       [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-
-
   </table>
-  <mat-paginator #paginator [pageIndex]="0" [pageSize]="50" [showFirstLastButtons]="false" [hidePageSize]="true"
+  <mat-paginator #paginator  [pageIndex]="0" [pageSize]="50" [showFirstLastButtons]="false" [hidePageSize]="true"
     [pageSizeOptions]="[20]">
   </mat-paginator>
 </div>

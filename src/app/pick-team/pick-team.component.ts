@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { userGolfPicks, golfers } from '../models';
-import { _golferGrpA, _golferGrpB, _golferGrpC } from '../constants';
+import { userGolfPicks, golfers, golferGrouping } from '../models';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { sportsApiService } from '../sports-api';
 import { PopupComponent } from '../popup/popup.component';
 
 @Component({
@@ -13,40 +14,39 @@ import { PopupComponent } from '../popup/popup.component';
 })
 
 export class PickTeamComponent implements OnInit {
+  subscription: Subscription;
   picks: userGolfPicks;
   answer: string;
   golferGrpA: Array<golfers> = [];
   golferGrpB: Array<golfers> = [];
   golferGrpC: Array<golfers> = [];
 
-  constructor(private router: Router, private fireDb: AngularFireDatabase, private popup: MatDialog) {
+  constructor(private sportsApi: sportsApiService, private router: Router, private fireDb: AngularFireDatabase, private popup: MatDialog) {
     this.picks = {
       golfer1: '', golfer2: '', golfer3: '', golfer4: '',
       golfer5: '', golfer6: '', golfer7: '', golfer8: '',
-      eventId: 0, team: ''
+      eventId: '', team: ''
     };
-    this.golferGrpA = _golferGrpA;
-    this.golferGrpB = _golferGrpB;
-    this.golferGrpC = _golferGrpC;
   }
 
   ngOnInit() {
-    this.picks.eventId = 1;
+    this.picks.eventId = this.sportsApi.getEventId();
+
+    this.getGolferGroupings();
   }
 
   openPopup() {
-    console.log(this.picks);
 
     /** *check if fields are populated */
-    if(this.picks.golfer1 == '' || this.picks.golfer2 == '' ||
-       this.picks.golfer3 == '' || this.picks.golfer4 == '' ||
-       this.picks.golfer5 == '' || this.picks.golfer6 == '' ||
-       this.picks.golfer7 == '' || this.picks.golfer8 == '' ||
-       this.picks.team == '' ){
-         console.log('works1');
+    if (this.picks.golfer1 == '' || this.picks.golfer2 == '' ||
+      this.picks.golfer3 == '' || this.picks.golfer4 == '' ||
+      this.picks.golfer5 == '' || this.picks.golfer6 == '' ||
+      this.picks.golfer7 == '' || this.picks.golfer8 == '' ||
+      this.picks.team == '') {
+      console.log('User did not complete all picks');
       return;
     }
-     
+
     const popupConfig = new MatDialogConfig();
 
     popupConfig.disableClose = false;
@@ -87,4 +87,22 @@ export class PickTeamComponent implements OnInit {
     }
   }
 
+  getGolferGroupings() {
+    this.subscription = this.fireDb.list<golferGrouping>('golferGroups').valueChanges().subscribe(golferGroupings => {
+      for (let groupsKey in golferGroupings) {
+        if (golferGroupings[groupsKey].eventId != this.sportsApi.getEventId()) { continue };
+        let group = {} as golfers;
+        group.id = golferGroupings[groupsKey].golferId;
+        group.name = golferGroupings[groupsKey].name;
+
+        if (golferGroupings[groupsKey].group == 'A') {
+          this.golferGrpA.push(group);
+        } else if (golferGroupings[groupsKey].group == 'B') {
+          this.golferGrpB.push(group);
+        } else {
+          this.golferGrpC.push(group);
+        }
+      }
+    });
+  }
 }

@@ -7,7 +7,8 @@ import { userGolfPicks, golferDetail, golferItem, leaderResults, indGolferResult
 import { leadResultsObj } from './leaderboard-datasource';
 import { sportsApiService } from '../sports-api';
 import { Router } from '@angular/router';
-
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 
 @Component({
   selector: 'app-leader',
@@ -29,21 +30,23 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   expandedElement: leaderResults | null;
   subscription: Subscription;
   fantasyLeaderObj: leadResultsObj;
+  answer: string;
   fantasyLeaders: Array<leaderResults> = [];
   golferItems: Array<golferItem> = [];
   pgaTournyRespPlayers: any[];
   ownPct: Array<golferDetail> = [];
   picks: Array<indGolferResult> = [];
+  eventId: string;
   entries: number;
 
-  constructor(private router: Router, private firebaseDb: AngularFireDatabase, private sportsApi: sportsApiService) {
+  constructor(private popup: MatDialog, private router: Router, private firebaseDb: AngularFireDatabase, private sportsApi: sportsApiService) {
   }
 
   ngOnInit() {
     this.subscription = this.firebaseDb.list<userGolfPicks>('myGolfers').valueChanges().subscribe(userGolfPicks => {
 
       this.fantasyLeaderObj = new leadResultsObj(this.paginator, this.sort);
-      this.entries = userGolfPicks.length;
+
       this.getGolferLeaderBoard(userGolfPicks);
     });
   }
@@ -54,7 +57,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   getGolferLeaderBoard(userGolfPicks) {
     this.sportsApi.getGolfScores().subscribe(apiData => {
+      this.entries = userGolfPicks.length;
+
       for (let userGolfKey in userGolfPicks) {
+        if (userGolfPicks[userGolfKey].eventId != this.sportsApi.getEventId()) {
+          continue;
+        }
         let fantasyLeader = {} as leaderResults;
         let pgaPlayer = {} as any;
         if (userGolfPicks[userGolfKey].email === undefined) {
@@ -68,35 +76,35 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         this.picks = [];
 
         //Golfer1
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id === userGolfPicks[userGolfKey].golfer1);
+        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer1);
         this.setPlayerPicks(pgaPlayer);
 
         //Golfer2
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id === userGolfPicks[userGolfKey].golfer2);
+        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer2);
         this.setPlayerPicks(pgaPlayer);
 
         //Golfer3
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id === userGolfPicks[userGolfKey].golfer3);
+        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer3);
         this.setPlayerPicks(pgaPlayer);
 
         //Golfer4
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id === userGolfPicks[userGolfKey].golfer4);
+        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer4);
         this.setPlayerPicks(pgaPlayer);
 
         //Golfer5
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id === userGolfPicks[userGolfKey].golfer5);
+        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer5);
         this.setPlayerPicks(pgaPlayer);
 
         //Golfer6
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id === userGolfPicks[userGolfKey].golfer6);
+        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer6);
         this.setPlayerPicks(pgaPlayer);
 
         //Golfer7
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id === userGolfPicks[userGolfKey].golfer7);
+        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer7);
         this.setPlayerPicks(pgaPlayer);
 
         //Golfer8
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id === userGolfPicks[userGolfKey].golfer8);
+        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer8);
         this.setPlayerPicks(pgaPlayer);
 
         /**This is where we will check how many active golfers are left */
@@ -114,6 +122,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
             fantasyLeader['id' + j] = pick.golferId;
             golferItem.id = pick.golferId;
             golferItem.name = pick.golferName;
+            golferItem.round = pick.round;
             if (pick.status === "active") {
               if (i < 5) {
                 i++;
@@ -121,7 +130,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
                 fantasyLeader.score = +fantasyLeader.score + +golferScore;
               }
               remain++;
-              golferItem.thru = 'Thru' + ' ' + pick.thru;
+              if(pick.thru == 18 ){ golferItem.thru = 'F' }else{
+              golferItem.thru = 'Thru' + ' ' + pick.thru;}
               golferItem.score = pick.score;
               golferItem.color = 'primary';
               golferItem.ownPct = 50;
@@ -161,9 +171,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       pick.status = pgaPlayer.status;
       pick.golferName = pgaPlayer.player_bio.first_name + ' ' + pgaPlayer.player_bio.last_name;
       pick.thru = pgaPlayer.thru;
-      if(pick.status === 'active'){
+      pick.round = pgaPlayer.current_round;
+      if (pick.status === 'active') {
         pick.score = pgaPlayer.total;
-      }else{
+      } else {
         pick.score = 99;
       }
       this.picks.push(pick);
@@ -172,14 +183,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
        * increment the counter...       */
 
       let ownPct = this.ownPct.find(x => x.golferId === pick.golferId);
-      if(ownPct != undefined){
+      if (ownPct != undefined) {
         ownPct.count++;
-        ownPct.pct = ownPct.count / this.entries *100;
-      }else{
+        ownPct.pct = ownPct.count / this.entries * 100;
+      } else {
         let ownPct = {} as golferDetail;
         ownPct.golferId = pick.golferId;
         ownPct.count = 1;
-        ownPct.pct = ownPct.count / this.entries *100;
+        ownPct.pct = ownPct.count / this.entries * 100;
         this.ownPct.push(ownPct);
       }
     }
@@ -200,6 +211,18 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         this.fantasyLeaders[key].position = position;
       }
       prevScore = this.fantasyLeaders[key].score;
+
+
+      /** This will iterate through the golfers and map the value of  */
+      for (let golferKey in this.fantasyLeaders[key].golfers){
+        for(let ownKey in this.ownPct){
+          if(this.ownPct[ownKey].golferId == this.fantasyLeaders[key].golfers[golferKey].id){
+            this.fantasyLeaders[key].golfers[golferKey].ownPct = this.ownPct[ownKey].pct;
+            this.fantasyLeaders[key].golfers[golferKey].ownPct.toFixed[0];
+
+          }
+        }
+      }
     }
   }
 
@@ -223,4 +246,19 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  openPopup(golferId) {
+
+    const popupConfig = new MatDialogConfig();
+
+    popupConfig.disableClose = false;
+    popupConfig.autoFocus = true;
+    popupConfig.data = { golfer: golferId };
+
+    const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
+
+    dialogRef.afterClosed().subscribe(
+    );
+  }
+
 }
