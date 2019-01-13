@@ -22,7 +22,6 @@ import { MatDialogModule} from '@angular/material/dialog';
 import { PickTeamComponent } from './pick-team/pick-team.component';
 import { PopupComponent } from './popup/popup.component';
 import { MatChipsModule } from '@angular/material/chips';
-import { ScorecardComponent } from './scorecard/scorecard.component';
 import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
 
 @NgModule({
@@ -32,7 +31,6 @@ import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
     LeaderboardComponent,
     PickTeamComponent,
     PopupComponent,
-    ScorecardComponent,
     ScorecardPopComponent
   ],
   imports: [
