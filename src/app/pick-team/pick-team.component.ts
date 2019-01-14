@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { userGolfPicks, golfers, golferGrouping } from '../models';
+import { UserGolfPicks, Golfers, GolferGrouping } from '../models';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { sportsApiService } from '../sports-api';
+import { SportsApiService } from '../sports-api';
 import { PopupComponent } from '../popup/popup.component';
 
 @Component({
@@ -15,13 +15,13 @@ import { PopupComponent } from '../popup/popup.component';
 
 export class PickTeamComponent implements OnInit {
   subscription: Subscription;
-  picks: userGolfPicks;
+  picks: UserGolfPicks;
   answer: string;
-  golferGrpA: Array<golfers> = [];
-  golferGrpB: Array<golfers> = [];
-  golferGrpC: Array<golfers> = [];
+  golferGrpA: Array<Golfers> = [];
+  golferGrpB: Array<Golfers> = [];
+  golferGrpC: Array<Golfers> = [];
 
-  constructor(private sportsApi: sportsApiService, private router: Router, private fireDb: AngularFireDatabase, private popup: MatDialog) {
+  constructor(private sportsApi: SportsApiService, private router: Router, private fireDb: AngularFireDatabase, private popup: MatDialog) {
     this.picks = {
       golfer1: '', golfer2: '', golfer3: '', golfer4: '',
       golfer5: '', golfer6: '', golfer7: '', golfer8: '',
@@ -88,10 +88,10 @@ export class PickTeamComponent implements OnInit {
   }
 
   getGolferGroupings() {
-    this.subscription = this.fireDb.list<golferGrouping>('golferGroups').valueChanges().subscribe(golferGroupings => {
+    this.subscription = this.fireDb.list<GolferGrouping>('golferGroups').valueChanges().subscribe(golferGroupings => {
       for (let groupsKey in golferGroupings) {
-        if (golferGroupings[groupsKey].eventId != this.sportsApi.getEventId()) { continue };
-        let group = {} as golfers;
+        if (golferGroupings[groupsKey].eventId != this.sportsApi.getEventId()) { continue }
+        let group = {} as Golfers;
         group.id = golferGroupings[groupsKey].golferId;
         group.name = golferGroupings[groupsKey].name;
 

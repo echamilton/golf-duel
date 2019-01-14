@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { sportsApiService } from '../sports-api';
-// import { ActivatedRoute } from '@angular/router';
-import { scoreCard } from '../models';
+import { SportsApiService } from '../sports-api';
+import { ScoreCard } from '../models';
 
 @Component({
   selector: 'app-scorecard-pop',
@@ -11,41 +10,37 @@ import { scoreCard } from '../models';
 })
 export class ScorecardPopComponent implements OnInit {
   pgaTournyRespPlayers: any[];
-  sub: any;
-  scoreCard: scoreCard;
+  scoreCard: ScoreCard;
   golferId: string;
 
-  constructor( private sportsApi: sportsApiService, 
+  constructor(private sportsApi: SportsApiService,
     private dialogRef: MatDialogRef<ScorecardPopComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
-      this.golferId = data.golfer;
-      this.scoreCard = {
-        hole1: '', hole2: '', hole3: '', hole4: '', hole5: '', hole6: '', hole7: '', hole8: '',
-        hole9: '', hole10: '', hole11: '', hole12: '', hole13: '', hole14: '', hole15: '', hole16: '', hole17: '', hole18: '',
-        par1: '', par2: '', par3: '', par4: '', par5: '', par6: '', par7: '', par8: '', par9: '', par10: '', par11: '', par12: '',
-        par13: '', par14: '', par15: '', par16: '', par17: '', par18: '', holeIn: '', holeOut: '', parIn: '', parOut: '',
-        holeTot: '', parTot: '', playerName: ''
-      };
-    }
-  
+    this.golferId = data.golfer;
+    this.scoreCard = {
+      hole1: '', hole2: '', hole3: '', hole4: '', hole5: '', hole6: '', hole7: '', hole8: '',
+      hole9: '', hole10: '', hole11: '', hole12: '', hole13: '', hole14: '', hole15: '', hole16: '', hole17: '', hole18: '',
+      par1: '', par2: '', par3: '', par4: '', par5: '', par6: '', par7: '', par8: '', par9: '', par10: '', par11: '', par12: '',
+      par13: '', par14: '', par15: '', par16: '', par17: '', par18: '', holeIn: '', holeOut: '', parIn: '', parOut: '',
+      holeTot: '', parTot: '', playerName: ''
+    };
+  }
+
 
   ngOnInit() {
-    // this.sub = this.route.params.subscribe(params => {
-    //   this.golferId = params['golferId'];
-      //*Execute API to fetch data and return the player scorecard
-      this.sportsApi.getGolfScores().subscribe(apiData => {
+    this.sportsApi.getGolfScores().subscribe(apiData => {
 
-        let pgaPlayer = {} as any;
-        this.pgaTournyRespPlayers = apiData.leaderboard.players;
-        pgaPlayer = this.pgaTournyRespPlayers.find(player =>
-          player.player_id == this.golferId);
+      let pgaPlayer = {} as any;
+      this.pgaTournyRespPlayers = apiData.leaderboard.players;
+      pgaPlayer = this.pgaTournyRespPlayers.find(player =>
+        player.player_id == this.golferId);
 
-        this.buildScorecard(pgaPlayer);
-      }
-      )
+      this.buildScorecard(pgaPlayer);
     }
-    
-  
+    );
+  }
+
+
 
   buildScorecard(playerData) {
     let holes: any[];
@@ -55,7 +50,7 @@ export class ScorecardPopComponent implements OnInit {
     let holeIn = 0;
     let holeOut = 0;
     holes = playerData.holes;
-    
+
     for (let hole of holes) {
       i++;
       this.scoreCard['par' + i] = hole.par;

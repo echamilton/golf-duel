@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { tournament } from './models';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Tournament } from './models';
 import { _tourny } from './constants';
 import { map } from 'rxjs/operators';
 
@@ -9,9 +9,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class sportsApiService {
+export class SportsApiService {
   eventId: string;
-  tournaments: Array<tournament> = [];
+  tournaments: Array<Tournament> = [];
 
   constructor(private service: HttpClient) {
     this.tournaments = _tourny;
@@ -20,6 +20,7 @@ export class sportsApiService {
   getGolfScores(): Observable<any> {
     return this.service.get(this.getEventEndpoint()).pipe(
       map(this.extractData));
+      
   }
 
   getEventId() {

@@ -1,42 +1,42 @@
-export interface userGolfPicks {
-  eventId: string,
-  team: string,
-  golfer1: string,
-  golfer2: string,
-  golfer3: string,
-  golfer4: string,
-  golfer5: string,
-  golfer6: string,
-  golfer7: string,
-  golfer8: string,
+export interface UserGolfPicks {
+  eventId: string;
+  team: string;
+  golfer1: string;
+  golfer2: string;
+  golfer3: string;
+  golfer4: string;
+  golfer5: string;
+  golfer6: string;
+  golfer7: string;
+  golfer8: string;
 }
 
-export interface golferGrouping {
+export interface GolferGrouping {
   eventId: string;
   group: string;
   golferId: string;
   name: string;
 }
 
-export interface golfers {
+export interface Golfers {
   id: string;
   name: string;
 }
 
-export interface scrollBar {
+export interface ScrollBar {
   name: string;
   score: string;
   position: string;
   hole: string;
 }
 
-export interface tournament {
+export interface Tournament {
   eventId: string;
   tournyId: string;
   url: string;
 }
 
-export interface golferItem {
+export interface GolferItem {
   name: string;
   id: string;
   thru: string;
@@ -46,23 +46,23 @@ export interface golferItem {
   round: string;
 }
 
-export interface leaderResults {
+export interface LeaderResults {
   position: number;
   team: string;
   score: number;
   golfersRemain: number;
   description: string;
-  golfers: Array<golferItem>;
+  golfers: Array<GolferItem>;
 }
 
-export interface golferDetail {
+export interface GolferDetail {
   golferId: string;
   count: number;
   detail: string;
   pct: number;
 }
 
-export interface indGolferResult {
+export interface IndGolferResult {
   golferId: string;
   golferName: string;
   score: number;
@@ -71,7 +71,7 @@ export interface indGolferResult {
   round: string;
 }
 
-export interface scoreCard {
+export interface ScoreCard {
   hole1: string;
   hole2: string;
   hole3: string;

@@ -7,18 +7,18 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { MatToolbarModule, MatSelectModule, MatCardModule, MatFormFieldModule, MatTableModule, MatIconModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatToolbarModule, MatSelectModule, MatCardModule, MatFormFieldModule } from '@angular/material';
+import { MatTableModule, MatIconModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
-import { HttpModule } from '@angular/http'; 
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { PickTeamComponent } from './pick-team/pick-team.component';
 import { PopupComponent } from './popup/popup.component';
 import { MatChipsModule } from '@angular/material/chips';
@@ -44,7 +44,6 @@ import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
     MatInputModule,
     MatSelectModule,
     HttpClientModule,
-    HttpModule,
     RouterModule,
     MatIconModule,
     LayoutModule,
