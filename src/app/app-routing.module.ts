@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { PickTeamComponent } from './pick-team/pick-team.component';
-import { ScorecardComponent } from './scorecard/scorecard.component';
 
 @NgModule({
   imports: [
@@ -12,7 +11,6 @@ import { ScorecardComponent } from './scorecard/scorecard.component';
           path: '', component: ToolbarComponent, children: [
         { path: 'pick', component: PickTeamComponent },
         { path: 'leader', component: LeaderboardComponent },
-        { path: 'scorecard/:golferId', component: ScorecardComponent },
         { path: '', redirectTo: 'leader', pathMatch: 'full' }
       ]
     },

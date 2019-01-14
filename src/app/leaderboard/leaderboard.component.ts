@@ -4,7 +4,7 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { userGolfPicks, golferDetail, golferItem, leaderResults, indGolferResult } from '../models';
-import { leadResultsObj } from './leaderboard-datasource';
+// import { leadResultsObj } from './leaderboard-datasource';
 import { sportsApiService } from '../sports-api';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
@@ -29,8 +29,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   displayedColumns = ['position', 'team', 'golfersRemain', 'score'];
   expandedElement: leaderResults | null;
   subscription: Subscription;
-  fantasyLeaderObj: leadResultsObj;
+  // fantasyLeaderObj: leadResultsObj;
   answer: string;
+  dataSource: any[];
   fantasyLeaders: Array<leaderResults> = [];
   golferItems: Array<golferItem> = [];
   pgaTournyRespPlayers: any[];
@@ -45,7 +46,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.firebaseDb.list<userGolfPicks>('myGolfers').valueChanges().subscribe(userGolfPicks => {
 
-      this.fantasyLeaderObj = new leadResultsObj(this.paginator, this.sort);
+      // this.fantasyLeaderObj = new leadResultsObj(this.paginator, this.sort);
 
       this.getGolferLeaderBoard(userGolfPicks);
     });
@@ -159,7 +160,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         this.fantasyLeaders.push(fantasyLeader);
       }
       this.getSortedData(this.fantasyLeaders);
-      this.fantasyLeaderObj.data = this.fantasyLeaders;
+      // this.fantasyLeaderObj.data = this.fantasyLeaders;
+      this.dataSource = this.fantasyLeaders;
       this.rankEntries();
     })
   }

@@ -37,7 +37,6 @@ export class ScorecardPopComponent implements OnInit {
 
         let pgaPlayer = {} as any;
         this.pgaTournyRespPlayers = apiData.leaderboard.players;
-        console.log(this.golferId);
         pgaPlayer = this.pgaTournyRespPlayers.find(player =>
           player.player_id == this.golferId);
 
