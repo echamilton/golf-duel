@@ -34,6 +34,7 @@ export interface Tournament {
   eventId: string;
   tournyId: string;
   url: string;
+  active: string;
 }
 
 export interface GolferItem {

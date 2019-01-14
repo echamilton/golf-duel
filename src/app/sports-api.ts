@@ -20,12 +20,16 @@ export class SportsApiService {
   getGolfScores(): Observable<any> {
     return this.service.get(this.getEventEndpoint()).pipe(
       map(this.extractData));
-      
+
   }
 
   getEventId() {
     this.eventId = 'MASTERS';
     return this.eventId;
+  }
+
+  setEventId(setEventId) {
+    this.eventId = setEventId;
   }
 
   getEventEndpoint() {

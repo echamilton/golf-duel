@@ -23,8 +23,7 @@
         <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <ul class="review_bottom">
             <ng-container *ngFor="let golfer of element.golfers">
-              <!-- <div class="container-fluid" (click)="scorecard(golfer.id)"> -->
-                  <div class="container-fluid"  (click)="openPopup(golfer.id)">
+              <div class="container-fluid" (click)="openPopup(golfer.id)">
                 <div class="stats">
                   <div class="stats-container">
                     <span class="product_price">{{golfer.score}}</span>
@@ -46,7 +45,7 @@
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>
-  <mat-paginator #paginator  [pageIndex]="0" [pageSize]="50" [showFirstLastButtons]="false" [hidePageSize]="true"
+  <!-- <mat-paginator #paginator [pageIndex]="0" [pageSize]="50" [showFirstLastButtons]="false" [hidePageSize]="true"
     [pageSizeOptions]="[20]">
-  </mat-paginator>
+  </mat-paginator> -->
 </div>
