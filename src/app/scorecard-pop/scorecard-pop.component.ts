@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material';
 import { SportsApiService } from '../sports-api';
 import { ScoreCard } from '../models';
 
@@ -14,7 +14,6 @@ export class ScorecardPopComponent implements OnInit {
   golferId: string;
 
   constructor(private sportsApi: SportsApiService,
-    private dialogRef: MatDialogRef<ScorecardPopComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
     this.golferId = data.golfer;
     this.scoreCard = {
@@ -26,21 +25,13 @@ export class ScorecardPopComponent implements OnInit {
     };
   }
 
-
   ngOnInit() {
-    this.sportsApi.getGolfScores().subscribe(apiData => {
-
-      let pgaPlayer = {} as any;
-      this.pgaTournyRespPlayers = apiData.leaderboard.players;
-      pgaPlayer = this.pgaTournyRespPlayers.find(player =>
-        player.player_id == this.golferId);
-
-      this.buildScorecard(pgaPlayer);
-    }
-    );
+    let pgaPlayer = {} as any;
+    this.pgaTournyRespPlayers = this.sportsApi.getApiData().leaderboard.players;
+    pgaPlayer = this.pgaTournyRespPlayers.find(player =>
+      player.player_id == this.golferId);
+    this.buildScorecard(pgaPlayer);
   }
-
-
 
   buildScorecard(playerData) {
     let holes: any[];
@@ -71,7 +62,5 @@ export class ScorecardPopComponent implements OnInit {
     this.scoreCard.holeIn = holeIn.toString();
     this.scoreCard.parTot = (parIn + parOut).toString();
     this.scoreCard.holeTot = (holeIn + holeOut).toString();
-
   }
-
 }

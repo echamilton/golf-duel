@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 export class SportsApiService {
   eventId: string;
   tournaments: Array<Tournament> = [];
+  cacheData: any;
 
   constructor(private service: HttpClient) {
     this.tournaments = _tourny;
@@ -32,6 +33,14 @@ export class SportsApiService {
     this.eventId = setEventId;
   }
 
+  setApiData(data){
+   this.cacheData = data;
+  }
+
+  getApiData(){
+    return this.cacheData;
+  }
+
   getEventEndpoint() {
     let tourny = this.tournaments.find(data => data.eventId === this.getEventId());
     if (tourny != undefined) {
@@ -43,6 +52,6 @@ export class SportsApiService {
 
   private extractData(res: Response) {
     let body = res;
-    return body || {};
+    return body || [];
   }
 }
