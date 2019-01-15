@@ -25,7 +25,7 @@ export class SportsApiService {
   }
 
   getEventId() {
-    this.eventId = 'MASTERS';
+    this.eventId = 'DESERT';
     return this.eventId;
   }
 
