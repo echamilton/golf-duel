@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SportsApiService } from '../sports-api';
-import { ScrollBar } from '../models';
+import { _tourny } from '../constants';
+import { Router } from '@angular/router';
+import { ScrollBar, Tournament } from '../models';
 
 @Component({
   selector: 'app-toolbar',
@@ -11,9 +13,12 @@ export class ToolbarComponent implements OnInit {
   pgaTournyRespPlayers: any[];
   golfers: Array<ScrollBar> = [];
   enablePicks: boolean;
-  constructor(private sportsApi: SportsApiService) { }
+  tournaments: Array<Tournament> = [];
+  constructor(private sportsApi: SportsApiService, private router: Router ) { }
 
   ngOnInit() {
+    this.tournaments = _tourny;
+    this.golfers = [];
 
     // Execute API to fetch data and return the player scorecard
     this.enablePicks = true;
@@ -42,5 +47,11 @@ export class ToolbarComponent implements OnInit {
       }
     }
     );
+  }
+
+  onTournySelect(eventId) {
+    this.sportsApi.setEventId(eventId);
+    this.ngOnInit();
+    this.router.navigate(['/leader']);
   }
 }

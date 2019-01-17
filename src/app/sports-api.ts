@@ -25,7 +25,10 @@ export class SportsApiService {
   }
 
   getEventId() {
-    this.eventId = 'DESERT';
+    if (this.eventId == undefined) {
+      this.eventId = 'DESERT'
+    }
+
     return this.eventId;
   }
 
@@ -33,11 +36,11 @@ export class SportsApiService {
     this.eventId = setEventId;
   }
 
-  setApiData(data){
-   this.cacheData = data;
+  setApiData(data) {
+    this.cacheData = data;
   }
 
-  getApiData(){
+  getApiData() {
     return this.cacheData;
   }
 

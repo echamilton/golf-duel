@@ -3,10 +3,17 @@
             <span>443 Fantasy Golf</span>
             <span><img class="main-img" src='./assets/flag.svg'></span>
             <span class="example-fill-remaining-space"></span>
-            <button mat-button routerLink="/leader">Standings</button>
-            <button *ngIf="enablePicks" mat-button routerLink="/pick">Pick Team</button>
+            <button mat-button routerLink="/leader">Leaders
+            </button>
+            <!-- <mat-menu #menu="matMenu">
+                  <ng-container *ngFor="let tourny of tournaments">
+                        <button mat-menu-item (click)="onTournySelect(tourny.eventId)">
+                              <span>{{tourny.tournyId}}</span>
+                        </button>
+                  </ng-container>
+            </mat-menu> -->
+            <button *ngIf="enablePicks" mat-button routerLink="/pick">Picks</button>
       </mat-toolbar-row>
-
       <mat-toolbar-row class="evan">
             <div class="scrolling-wrapper">
                   <div *ngFor="let golfer of golfers" class="card">
