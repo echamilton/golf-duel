@@ -15,7 +15,10 @@
     </ng-container>
     <ng-container matColumnDef="score">
       <th mat-header-cell *matHeaderCellDef>Score</th>
-      <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+      <td mat-cell *matCellDef="let element"> 
+        <div *ngIf="element.score !== 99">{{element.score}}</div> 
+        <div *ngIf="element.score === 99"> - </div> 
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="expandedDetail">

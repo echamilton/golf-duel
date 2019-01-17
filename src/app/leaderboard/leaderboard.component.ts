@@ -131,11 +131,15 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
               }
               remain++;
               if (pick.thru == 18) { golferItem.thru = 'F'; } else {
+                if (pick.thru !== null){
                 golferItem.thru = 'Thru' + ' ' + pick.thru;
+                }else
+                {
+                  golferItem.thru = 'Thru 0';
+                }
               }
               golferItem.score = pick.score;
               golferItem.color = 'primary';
-              golferItem.ownPct = 50;
             } else {
               golferItem.score = 99;
               golferItem.thru = 'CUT';
@@ -186,12 +190,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       let ownPct = this.ownPct.find(x => x.golferId === pick.golferId);
       if (ownPct != undefined) {
         ownPct.count++;
-        ownPct.pct = ownPct.count / this.entries * 100;
       } else {
         let ownPct = {} as GolferDetail;
         ownPct.golferId = pick.golferId;
         ownPct.count = 1;
-        ownPct.pct = ownPct.count / this.entries * 100;
         this.ownPct.push(ownPct);
       }
     }
@@ -218,10 +220,11 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       for (let golferKey in this.fantasyLeaders[key].golfers) {
         for (let ownKey in this.ownPct) {
           if (this.ownPct[ownKey].golferId == this.fantasyLeaders[key].golfers[golferKey].id) {
-            this.fantasyLeaders[key].golfers[golferKey].ownPct = this.ownPct[ownKey].pct;
+            this.fantasyLeaders[key].golfers[golferKey].ownPct = this.ownPct[ownKey].count / this.entries * 100;
           }
         }
       }
+      console.log(this.fantasyLeaders);
     }
   }
 
