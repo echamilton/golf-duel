@@ -114,7 +114,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         let j = 0;
         this.getSortedData(this.picks);
 
-        if (apiData.leaderboard.round_state === 'Official') {
+        if (apiData.leaderboard.round_state === 'Official' || apiData.leaderboard.round_state === 'In Progress' ) {
           this.golferItems = [];
           for (let pick of this.picks) {
             let golferItem = {} as GolferItem;

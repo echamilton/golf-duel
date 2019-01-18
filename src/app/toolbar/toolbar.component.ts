@@ -31,12 +31,16 @@ export class ToolbarComponent implements OnInit {
         golfer.name = this.pgaTournyRespPlayers[key].player_bio.first_name + ' ' + this.pgaTournyRespPlayers[key].player_bio.last_name;
         golfer.score = this.pgaTournyRespPlayers[key].total;
         golfer.hole = this.pgaTournyRespPlayers[key].thru;
-        if (apiData.leaderboard.round_state === 'Official') {
+        if (apiData.leaderboard.round_state === 'Official' || apiData.leaderboard.round_state === 'In Progress') {
           this.enablePicks = false;
           if (golfer.hole == '18') {
             golfer.hole = 'F';
           } else {
-            golfer.hole = 'Thru' + golfer.hole;
+            if(golfer.hole == null ){
+              golfer.hole = 'Thru 0';
+            }else{
+            golfer.hole = 'Thru' + ' ' + golfer.hole;
+            }
           }
         } else {
           golfer.position = '-';
