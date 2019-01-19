@@ -72,48 +72,33 @@ export interface IndGolferResult {
   round: string;
 }
 
+export interface Hole {
+  score: string;
+  par: string;
+  indicator: string;
+}
+
 export interface ScoreCard {
-  hole1: string;
-  hole2: string;
-  hole3: string;
-  hole4: string;
-  hole5: string;
-  hole6: string;
-  hole7: string;
-  hole8: string;
-  hole9: string;
-  hole10: string;
-  hole11: string;
-  hole12: string;
-  hole13: string;
-  hole14: string;
-  hole15: string;
-  hole16: string;
-  hole17: string;
-  hole18: string;
-  par1: string;
-  par2: string;
-  par3: string;
-  par4: string;
-  par5: string;
-  par6: string;
-  par7: string;
-  par8: string;
-  par9: string;
-  par10: string;
-  par11: string;
-  par12: string;
-  par13: string;
-  par14: string;
-  par15: string;
-  par16: string;
-  par17: string;
-  par18: string;
-  parIn: string;
-  parOut: string;
-  holeIn: string;
-  holeOut: string;
-  parTot: string;
-  holeTot: string;
   playerName: string;
+  hole1: Hole;
+  hole2: Hole;
+  hole3: Hole;
+  hole4: Hole;
+  hole5: Hole;
+  hole6: Hole;
+  hole7: Hole;
+  hole8: Hole;
+  hole9: Hole;
+  hole10: Hole;
+  hole11: Hole;
+  hole12: Hole;
+  hole13: Hole;
+  hole14: Hole;
+  hole15: Hole;
+  hole16: Hole;
+  hole17: Hole;
+  hole18: Hole;
+  In: Hole;
+  Out: Hole;
+  Total: Hole;
 }

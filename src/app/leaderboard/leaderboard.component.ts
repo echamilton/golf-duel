@@ -224,7 +224,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
           }
         }
       }
-      console.log(this.fantasyLeaders);
     }
   }
 
