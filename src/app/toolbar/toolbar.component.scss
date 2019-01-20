@@ -1,12 +1,4 @@
-.example-icon {
-    padding: 0 11px;
-  }
-  
-  .example-spacer {
-    flex: 1 1 auto;
-  }
-  
-  .sidenav-container {
+    .sidenav-container {
     height: 100%;
   }
   
@@ -16,11 +8,17 @@
   
  .main-img{
    margin-left: 10px;
+   margin-top: 8px;
    width: 40px;
    height: 29px;
  }
 
-  .evan{
+ .title{
+   text-align: center;
+   margin-left: 10px;
+ }
+
+  .leaders{
     height: 40px;
     background: black;
     color: #E4E4E4;
@@ -54,10 +52,5 @@
   }
   
   .spacer {
-    flex: 1 1 auto;
-  }
-  .example-fill-remaining-space {
-    /* This fills the remaining space, by using flexbox. 
-       Every toolbar row uses a flexbox row layout. */
     flex: 1 1 auto;
   }

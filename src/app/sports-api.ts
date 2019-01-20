@@ -13,6 +13,7 @@ export class SportsApiService {
   eventId: string;
   tournaments: Array<Tournament> = [];
   cacheData: any;
+  status: string;
 
   constructor(private service: HttpClient) {
     this.tournaments = _tourny;
@@ -21,7 +22,6 @@ export class SportsApiService {
   getGolfScores(): Observable<any> {
     return this.service.get(this.getEventEndpoint()).pipe(
       map(this.extractData));
-
   }
 
   getEventId() {

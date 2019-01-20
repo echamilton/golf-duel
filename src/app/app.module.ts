@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ToolbarComponent } from './toolbar/toolbar.component';
-import { MatToolbarModule, MatSelectModule, MatCardModule, MatFormFieldModule } from '@angular/material';
-import { MatTableModule, MatIconModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatToolbarModule, MatSelectModule, MatCardModule, MatFormFieldModule, MatListModule } from '@angular/material';
+import { MatTableModule, MatIconModule, MatPaginatorModule, MatSortModule, MatSidenavModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
@@ -23,7 +23,9 @@ import { PickTeamComponent } from './pick-team/pick-team.component';
 import { PopupComponent } from './popup/popup.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
     LeaderboardComponent,
     PickTeamComponent,
     PopupComponent,
-    ScorecardPopComponent
+    ScorecardPopComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,9 @@ import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
     FormsModule,
     MatSnackBarModule,
     MatChipsModule,
+    MatListModule,
     MatDividerModule,
+    MatSidenavModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatInputModule,

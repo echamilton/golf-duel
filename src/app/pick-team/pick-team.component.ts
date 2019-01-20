@@ -19,6 +19,7 @@ export class PickTeamComponent implements OnInit {
   subscription: Subscription;
   picks: UserGolfPicks;
   answer: string;
+  status: string;
   golferGrpA: Array<Golfers> = [];
   golferGrpB: Array<Golfers> = [];
   golferGrpC: Array<Golfers> = [];
@@ -77,6 +78,18 @@ export class PickTeamComponent implements OnInit {
   checkData(golferID, currentGolfer) {
     if (golferID === currentGolfer) {
       return true;
+    }
+  }
+
+  getActive() {
+    let apiData: any;
+    apiData = this.sportsApi.getApiData();
+    if (apiData == undefined) { return };
+    this.status = apiData.leaderboard.round_state;
+    if (this.status == 'Official' || this.status == 'In Progress') {
+      return true;
+    } else {
+      return false;
     }
   }
 

@@ -1,22 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SportsApiService } from '../sports-api';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { _tourny } from '../constants';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ScrollBar, Tournament } from '../models';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit {
+// export class ToolbarComponent implements OnInit {
+  export class ToolbarComponent{
+  @ViewChild('sidenav') sidenav: MatSidenav;
+
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(result => result.matches)
+  );
+
   pgaTournyRespPlayers: any[];
   golfers: Array<ScrollBar> = [];
   enablePicks: boolean;
   tournaments: Array<Tournament> = [];
-  constructor(private sportsApi: SportsApiService, private router: Router ) { }
+  constructor(private sportsApi: SportsApiService, private router: Router,
+    private breakpointObserver: BreakpointObserver ) { }
 
   ngOnInit() {
+    // this.sidenavService = this.sidenav;
     this.tournaments = _tourny;
     this.golfers = [];
 
@@ -25,6 +38,7 @@ export class ToolbarComponent implements OnInit {
     this.sportsApi.getGolfScores().subscribe(apiData => {
 
       this.pgaTournyRespPlayers = apiData.leaderboard.players;
+      this.sportsApi.setApiData(apiData);
       for (let key in this.pgaTournyRespPlayers) {
         let golfer = {} as ScrollBar;
         golfer.position = this.pgaTournyRespPlayers[key].current_position;
@@ -36,10 +50,10 @@ export class ToolbarComponent implements OnInit {
           if (golfer.hole == '18') {
             golfer.hole = 'F';
           } else {
-            if(golfer.hole == null ){
+            if (golfer.hole == null) {
               golfer.hole = 'Thru 0';
-            }else{
-            golfer.hole = 'Thru' + ' ' + golfer.hole;
+            } else {
+              golfer.hole = 'Thru' + ' ' + golfer.hole;
             }
           }
         } else {
