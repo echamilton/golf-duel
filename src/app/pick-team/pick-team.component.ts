@@ -5,6 +5,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SportsApiService } from '../sports-api';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material';
 import { PopupComponent } from '../popup/popup.component';
 
 @Component({
@@ -21,7 +23,8 @@ export class PickTeamComponent implements OnInit {
   golferGrpB: Array<Golfers> = [];
   golferGrpC: Array<Golfers> = [];
 
-  constructor(private sportsApi: SportsApiService, private router: Router, private fireDb: AngularFireDatabase, private popup: MatDialog) {
+  constructor(private sportsApi: SportsApiService, private router: Router, private snackBar: MatSnackBar,
+    private fireDb: AngularFireDatabase, private popup: MatDialog, private snack: MatSnackBarModule) {
     this.picks = {
       golfer1: '', golfer2: '', golfer3: '', golfer4: '',
       golfer5: '', golfer6: '', golfer7: '', golfer8: '',
@@ -66,6 +69,7 @@ export class PickTeamComponent implements OnInit {
         console.log('Team has been submitted');
         /**log any errors , or handle exceptions here */
         this.router.navigate(['/leader']);
+        this.snackBar.open('Picks have been submitted!', 'Close');
       });
     }
   }
