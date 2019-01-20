@@ -45,6 +45,7 @@ export interface GolferItem {
   ownPct: number;
   color: string;
   round: string;
+  status: string;
 }
 
 export interface LeaderResults {

@@ -217,17 +217,25 @@ list-style: none;
 }
 
 .stats-container .product_name{
-	font-size:16px;
+  font-size:16px;
+  margin-left: 11px;
 	color:#393c45;	
 }
 .stats-container p{
 	font-size:12px;
   color:#8181fc;	
-	padding:2px 0 20px 0;
+	// padding:2px 0 20px 0;
 }
 .stats-container .product_price{
 	float:right;
 	color:#48cfad;
+	font-size:18px;
+	font-weight:600;
+}
+.stats-container .pic{
+  float:left;
+  height: 30px;
+  width: 30px;
 	font-size:18px;
 	font-weight:600;
 }

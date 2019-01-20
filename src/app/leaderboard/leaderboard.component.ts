@@ -36,11 +36,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   ownPct: Array<GolferDetail> = [];
   picks: Array<IndGolferResult> = [];
   eventId: string;
+  status: string;
   entries: number;
 
   constructor(private popup: MatDialog, private router: Router,
-              private firebaseDb: AngularFireDatabase,
-              private sportsApi: SportsApiService) {
+    private firebaseDb: AngularFireDatabase,
+    private sportsApi: SportsApiService) {
   }
 
   ngOnInit() {
@@ -58,6 +59,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     this.sportsApi.getGolfScores().subscribe(apiData => {
       this.sportsApi.setApiData(apiData);
       this.entries = 0;
+      this.status = apiData.leaderboard.round_state;
+
       for (let userGolfKey in userGolfPicks) {
         if (userGolfPicks[userGolfKey].eventId != this.sportsApi.getEventId()) {
           continue;
@@ -114,7 +117,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         let j = 0;
         this.getSortedData(this.picks);
 
-        if (apiData.leaderboard.round_state === 'Official' || apiData.leaderboard.round_state === 'In Progress' ) {
+        if (this.isTournyActive() == true) {
           this.golferItems = [];
           for (let pick of this.picks) {
             let golferItem = {} as GolferItem;
@@ -123,6 +126,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
             golferItem.id = pick.golferId;
             golferItem.name = pick.golferName;
             golferItem.round = pick.round;
+            golferItem.status = pick.status;
             if (pick.status === 'active') {
               if (i < 5) {
                 i++;
@@ -131,10 +135,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
               }
               remain++;
               if (pick.thru == 18) { golferItem.thru = 'F'; } else {
-                if (pick.thru !== null){
-                golferItem.thru = 'Thru' + ' ' + pick.thru;
-                }else
-                {
+                if (pick.thru !== null) {
+                  golferItem.thru = 'Thru' + ' ' + pick.thru;
+                } else {
                   golferItem.thru = 'Thru 0';
                 }
               }
@@ -177,6 +180,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       pick.golferName = pgaPlayer.player_bio.first_name + ' ' + pgaPlayer.player_bio.last_name;
       pick.thru = pgaPlayer.thru;
       pick.round = pgaPlayer.current_round;
+      pick.status = pgaPlayer.status;
       if (pick.status === 'active') {
         pick.score = pgaPlayer.total;
       } else {
@@ -262,4 +266,19 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     );
   }
 
+  isTournyActive() {
+    if (this.status === 'Official' || this.status === 'In Progress') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isCut(status: string) {
+    if (status == "cut") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

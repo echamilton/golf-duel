@@ -15,9 +15,10 @@
     </ng-container>
     <ng-container matColumnDef="score">
       <th mat-header-cell *matHeaderCellDef>Score</th>
-      <td mat-cell *matCellDef="let element"> 
-        <div *ngIf="element.score !== 99">{{element.score}}</div> 
-        <div *ngIf="element.score === 99"> - </div> 
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="element.score !== 99">{{element.score}}</div>
+        <div *ngIf="element.score === 99 && isTournyActive() == false"> - </div>
+        <div *ngIf="element.score === 99 && isTournyActive() == true"> CUT </div>
       </td>
     </ng-container>
 
@@ -29,9 +30,13 @@
               <div class="container-fluid" (click)="openPopup(golfer.id)">
                 <div class="stats">
                   <div class="stats-container">
-                    <span class="product_price">{{golfer.score}}</span>
+                    <span class="pic"> <img class="pic" src='https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_face:center,q_auto,t_headshots_leaderboard_l,w_160/headshots_{{golfer.id}}.png'></span>
+                    <span class="product_price" *ngIf="golfer.status != 'cut'">{{golfer.score}}</span>
+                    <span class="product_price" *ngIf="golfer.status == 'cut'">CUT</span>
                     <span class="product_name">{{golfer.name}}</span>
-                    <p>Round {{golfer.round}} | {{golfer.thru}} | Owned {{golfer.ownPct | number}}%</p>
+                    <p *ngIf="golfer.status != 'cut'">Round {{golfer.round}} | {{golfer.thru}} | Owned {{golfer.ownPct
+                      | number}}%</p>
+                    <p *ngIf="golfer.status == 'cut'">Owned {{golfer.ownPct | number}}%</p>
                   </div>
                 </div>
                 <mat-divider></mat-divider>
