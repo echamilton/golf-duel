@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../authservice';
-import { ScrollBar, Tournament } from '../models';
+import { IScrollBar, ITournament } from '../models';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -14,8 +14,8 @@ import { MatSidenav } from '@angular/material/sidenav';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-// export class ToolbarComponent implements OnInit {
-  export class ToolbarComponent{
+
+export class ToolbarComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -23,14 +23,14 @@ import { MatSidenav } from '@angular/material/sidenav';
   );
 
   pgaTournyRespPlayers: any[];
-  golfers: Array<ScrollBar> = [];
+  golfers: Array<IScrollBar> = [];
   enablePicks: boolean;
-  tournaments: Array<Tournament> = [];
+  tournaments: Array<ITournament> = [];
+
   constructor(private sportsApi: SportsApiService, private router: Router,
     private breakpointObserver: BreakpointObserver, private authService: AuthService) { }
 
   ngOnInit() {
-    // this.sidenavService = this.sidenav;
     this.tournaments = _tourny;
     this.golfers = [];
 
@@ -40,8 +40,9 @@ import { MatSidenav } from '@angular/material/sidenav';
 
       this.pgaTournyRespPlayers = apiData.leaderboard.players;
       this.sportsApi.setApiData(apiData);
+
       for (let key in this.pgaTournyRespPlayers) {
-        let golfer = {} as ScrollBar;
+        let golfer = {} as IScrollBar;
         golfer.position = this.pgaTournyRespPlayers[key].current_position;
         golfer.name = this.pgaTournyRespPlayers[key].player_bio.first_name + ' ' + this.pgaTournyRespPlayers[key].player_bio.last_name;
         golfer.score = this.pgaTournyRespPlayers[key].total;
@@ -70,13 +71,6 @@ import { MatSidenav } from '@angular/material/sidenav';
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/leader']);
-  }
-
-
-  onTournySelect(eventId) {
-    this.sportsApi.setEventId(eventId);
-    this.ngOnInit();
     this.router.navigate(['/leader']);
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Tournament } from './models';
+import { ITournament } from './models';
 import { _tourny } from './constants';
 import { map } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 
 export class SportsApiService {
   eventId: string;
-  tournaments: Array<Tournament> = [];
+  tournaments: Array<ITournament> = [];
   cacheData: any;
   status: string;
 

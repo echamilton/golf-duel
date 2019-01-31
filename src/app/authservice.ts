@@ -38,7 +38,7 @@ export class AuthService {
     }
 
     getCurrentUser() {
-        if(this.user1 != undefined){
+        if (this.user1 !== undefined) {
             return this.user1.user.email;
         }
     }

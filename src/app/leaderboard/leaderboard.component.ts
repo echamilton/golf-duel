@@ -3,7 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatPaginator, MatSort } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { UserGolfPicks, GolferDetail, GolferItem, LeaderResults, IndGolferResult } from '../models';
+import { IUserGolfPicks, IGolferDetail, IGolferItem, ILeaderResults, IIndGolferResult } from '../models';
 import { SportsApiService } from '../sports-api';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
@@ -26,15 +26,15 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   displayedColumns = ['position', 'team', 'golfersRemain', 'holesRemain', 'score'];
-  expandedElement: LeaderResults | null;
+  expandedElement: ILeaderResults | null;
   subscription: Subscription;
   answer: string;
   dataSource: any[];
-  fantasyLeaders: Array<LeaderResults> = [];
-  golferItems: Array<GolferItem> = [];
+  fantasyLeaders: Array<ILeaderResults> = [];
+  golferItems: Array<IGolferItem> = [];
   pgaTournyRespPlayers: any[];
-  ownPct: Array<GolferDetail> = [];
-  picks: Array<IndGolferResult> = [];
+  ownPct: Array<IGolferDetail> = [];
+  picks: Array<IIndGolferResult> = [];
   eventId: string;
   status: string;
   entries: number;
@@ -45,7 +45,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.firebaseDb.list<UserGolfPicks>('myGolfers').valueChanges().subscribe(userGolfPicks => {
+    this.subscription = this.firebaseDb.list<IUserGolfPicks>('myGolfers').valueChanges().subscribe(userGolfPicks => {
 
       this.getGolferLeaderBoard(userGolfPicks);
     });
@@ -63,24 +63,21 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
 
       for (let userGolfKey in userGolfPicks) {
-        if (userGolfPicks[userGolfKey].eventId != this.sportsApi.getEventId()) {
+        if (userGolfPicks[userGolfKey].eventId !== this.sportsApi.getEventId()) {
           continue;
         }
         this.entries++;
-        let fantasyLeader = {} as LeaderResults;
+        let fantasyLeader = {} as ILeaderResults;
         let pgaPlayer = {} as any;
-        // if (userGolfPicks[userGolfKey].email === undefined) {
-          fantasyLeader.team = userGolfPicks[userGolfKey].team;
-        // } else {
-        //   fantasyLeader.team = userGolfPicks[userGolfKey].email;
-        // }
+        fantasyLeader.team = userGolfPicks[userGolfKey].team;
+
         fantasyLeader.score = 0;
         /**4 rounds, 5 golfers, 18 holes */
-        if (apiData.leaderboard.current_round == '4') {
+        if (apiData.leaderboard.current_round === 4 ) {
           fantasyLeader.holesRemain = 1 * 5 * 18;
-        } else if (apiData.leaderboard.current_round == '3') {
+        } else if (apiData.leaderboard.current_round === 3 ) {
           fantasyLeader.holesRemain = 2 * 5 * 18;
-        } else if (apiData.leaderboard.current_round == '2') {
+        } else if (apiData.leaderboard.current_round === 2 ) {
           fantasyLeader.holesRemain = 3 * 5 * 18;
         } else {
           fantasyLeader.holesRemain = 4 * 5 * 18;
@@ -132,7 +129,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         if (this.isTournyActive() == true) {
           this.golferItems = [];
           for (let pick of this.picks) {
-            let golferItem = {} as GolferItem;
+            let golferItem = {} as IGolferItem;
             j++;
             fantasyLeader['id' + j] = pick.golferId;
             golferItem.id = pick.golferId;
@@ -187,7 +184,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   setPlayerPicks(pgaPlayer) {
-    let pick = {} as IndGolferResult;
+    let pick = {} as IIndGolferResult;
     if (pgaPlayer != undefined) {
       pick.golferId = pgaPlayer.player_id;
       pick.status = pgaPlayer.status;
@@ -204,12 +201,11 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
       /** Check if entry exists for golfer, if not create and add 1, otherwise
        * increment the counter...       */
-
       let ownPct = this.ownPct.find(x => x.golferId === pick.golferId);
       if (ownPct != undefined) {
         ownPct.count++;
       } else {
-        let ownPct = {} as GolferDetail;
+        let ownPct = {} as IGolferDetail;
         ownPct.golferId = pick.golferId;
         ownPct.count = 1;
         this.ownPct.push(ownPct);

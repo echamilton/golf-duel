@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserGolfPicks, Golfers, GolferGrouping } from '../models';
+import { IUserGolfPicks, IGolfers, IGolferGrouping } from '../models';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material';
 import { AuthService } from '../authservice';
 import { DatabaseQuery } from '@angular/fire/database/interfaces';
 import { PopupComponent } from '../popup/popup.component';
-import { FirebaseApp } from 'angularfire2';
+
 
 @Component({
   selector: 'app-pick-team',
@@ -20,13 +20,13 @@ import { FirebaseApp } from 'angularfire2';
 
 export class PickTeamComponent implements OnInit {
   subscription: Subscription;
-  picks: UserGolfPicks;
-  picksBuffer: UserGolfPicks;
+  picks: IUserGolfPicks;
+  picksBuffer: IUserGolfPicks;
   answer: string;
   status: string;
-  golferGrpA: Array<Golfers> = [];
-  golferGrpB: Array<Golfers> = [];
-  golferGrpC: Array<Golfers> = [];
+  golferGrpA: Array<IGolfers> = [];
+  golferGrpB: Array<IGolfers> = [];
+  golferGrpC: Array<IGolfers> = [];
 
   constructor(private sportsApi: SportsApiService, private router: Router, private snackBar: MatSnackBar,
     private fireDb: AngularFireDatabase, private popup: MatDialog, private snack: MatSnackBarModule,
@@ -73,7 +73,7 @@ export class PickTeamComponent implements OnInit {
 
   processData(answer) {
     if (answer === 'Yes') {
-      if( this.picksBuffer != undefined ){
+      // if( this.picksBuffer != undefined ){
         //*process delete
         // this.fireDb.list('myGolfers').update(this.picksBuffer);
         // var ref = FirebaseApp.database().ref("dinosaurs");
@@ -81,10 +81,10 @@ export class PickTeamComponent implements OnInit {
         // query.equalTo('evanchamilton@gmail.com','email');
 
         // this.fireDb.list('myGolfers').query(query);
-      }
+      // }
 
 
-      this.picks.email = this.authService.getCurrentUser();
+      // this.picks.email = this.authService.getCurrentUser();
       this.fireDb.list('myGolfers').push(this.picks).then(_ => {
         console.log('Team has been submitted');
         this.router.navigate(['/leader']);
@@ -130,10 +130,10 @@ export class PickTeamComponent implements OnInit {
   }
 
   getGolferGroupings() {
-    this.subscription = this.fireDb.list<GolferGrouping>('golferGroups').valueChanges().subscribe(golferGroupings => {
+    this.subscription = this.fireDb.list<IGolferGrouping>('golferGroups').valueChanges().subscribe(golferGroupings => {
       for (let groupsKey in golferGroupings) {
         if (golferGroupings[groupsKey].eventId != this.sportsApi.getEventId()) { continue }
-        let group = {} as Golfers;
+        let group = {} as IGolfers;
         group.id = golferGroupings[groupsKey].golferId;
         group.name = golferGroupings[groupsKey].name;
 
@@ -150,7 +150,7 @@ export class PickTeamComponent implements OnInit {
 
 
   private loadUserPicks() {
-    this.subscription = this.fireDb.list<UserGolfPicks>('myGolfers').valueChanges().subscribe(golferPicks => {
+    this.subscription = this.fireDb.list<IUserGolfPicks>('myGolfers').valueChanges().subscribe(golferPicks => {
       for (let picksKey in golferPicks) {
         if (this.authService.getCurrentUser() == golferPicks[picksKey].email) {
           if (golferPicks[picksKey].eventId == this.sportsApi.getEventId() && golferPicks[picksKey].team == 'Hampion') {

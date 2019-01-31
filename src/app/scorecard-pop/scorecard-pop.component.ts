@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { SportsApiService } from '../sports-api';
-import { ScoreCard } from '../models';
+import { IScoreCard } from '../models';
 
 @Component({
   selector: 'app-scorecard-pop',
@@ -11,7 +11,7 @@ import { ScoreCard } from '../models';
 export class ScorecardPopComponent implements OnInit {
   pgaTournyRespPlayers: any[];
   golferId: string;
-  scoreCard: ScoreCard;
+  scoreCard: IScoreCard;
 
   constructor(private sportsApi: SportsApiService,
     @Inject(MAT_DIALOG_DATA) data) {

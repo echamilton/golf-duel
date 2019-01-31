@@ -1,4 +1,4 @@
-export interface UserGolfPicks {
+export interface IUserGolfPicks {
   eventId: string;
   team: string;
   email: string;
@@ -12,33 +12,33 @@ export interface UserGolfPicks {
   golfer8: string;
 }
 
-export interface GolferGrouping {
+export interface IGolferGrouping {
   eventId: string;
   group: string;
   golferId: string;
   name: string;
 }
 
-export interface Golfers {
+export interface IGolfers {
   id: string;
   name: string;
 }
 
-export interface ScrollBar {
+export interface IScrollBar {
   name: string;
   score: string;
   position: string;
   hole: string;
 }
 
-export interface Tournament {
+export interface ITournament {
   eventId: string;
   tournyId: string;
   url: string;
   active: string;
 }
 
-export interface GolferItem {
+export interface IGolferItem {
   name: string;
   id: string;
   thru: string;
@@ -49,24 +49,24 @@ export interface GolferItem {
   status: string;
 }
 
-export interface LeaderResults {
+export interface ILeaderResults {
   position: number;
   team: string;
   score: number;
   holesRemain: number;
   golfersRemain: number;
   description: string;
-  golfers: Array<GolferItem>;
+  golfers: Array<IGolferItem>;
 }
 
-export interface GolferDetail {
+export interface IGolferDetail {
   golferId: string;
   count: number;
   detail: string;
   pct: number;
 }
 
-export interface IndGolferResult {
+export interface IIndGolferResult {
   golferId: string;
   golferName: string;
   score: number;
@@ -75,33 +75,33 @@ export interface IndGolferResult {
   round: string;
 }
 
-export interface Hole {
+export interface IHole {
   score: string;
   par: string;
   indicator: string;
 }
 
-export interface ScoreCard {
+export interface IScoreCard {
   playerName: string;
-  hole1: Hole;
-  hole2: Hole;
-  hole3: Hole;
-  hole4: Hole;
-  hole5: Hole;
-  hole6: Hole;
-  hole7: Hole;
-  hole8: Hole;
-  hole9: Hole;
-  hole10: Hole;
-  hole11: Hole;
-  hole12: Hole;
-  hole13: Hole;
-  hole14: Hole;
-  hole15: Hole;
-  hole16: Hole;
-  hole17: Hole;
-  hole18: Hole;
-  In: Hole;
-  Out: Hole;
-  Total: Hole;
+  hole1: IHole;
+  hole2: IHole;
+  hole3: IHole;
+  hole4: IHole;
+  hole5: IHole;
+  hole6: IHole;
+  hole7: IHole;
+  hole8: IHole;
+  hole9: IHole;
+  hole10: IHole;
+  hole11: IHole;
+  hole12: IHole;
+  hole13: IHole;
+  hole14: IHole;
+  hole15: IHole;
+  hole16: IHole;
+  hole17: IHole;
+  hole18: IHole;
+  In: IHole;
+  Out: IHole;
+  Total: IHole;
 }
