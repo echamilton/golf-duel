@@ -25,7 +25,7 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
 export class LeaderboardComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns = ['position', 'team', 'golfersRemain', 'score'];
+  displayedColumns = ['position', 'team', 'golfersRemain', 'holesRemain', 'score'];
   expandedElement: LeaderResults | null;
   subscription: Subscription;
   answer: string;
@@ -61,6 +61,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       this.entries = 0;
       this.status = apiData.leaderboard.round_state;
 
+
       for (let userGolfKey in userGolfPicks) {
         if (userGolfPicks[userGolfKey].eventId != this.sportsApi.getEventId()) {
           continue;
@@ -68,12 +69,23 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         this.entries++;
         let fantasyLeader = {} as LeaderResults;
         let pgaPlayer = {} as any;
-        if (userGolfPicks[userGolfKey].email === undefined) {
+        // if (userGolfPicks[userGolfKey].email === undefined) {
           fantasyLeader.team = userGolfPicks[userGolfKey].team;
-        } else {
-          fantasyLeader.team = userGolfPicks[userGolfKey].email;
-        }
+        // } else {
+        //   fantasyLeader.team = userGolfPicks[userGolfKey].email;
+        // }
         fantasyLeader.score = 0;
+        /**4 rounds, 5 golfers, 18 holes */
+        if (apiData.leaderboard.current_round == '4') {
+          fantasyLeader.holesRemain = 1 * 5 * 18;
+        } else if (apiData.leaderboard.current_round == '3') {
+          fantasyLeader.holesRemain = 2 * 5 * 18;
+        } else if (apiData.leaderboard.current_round == '2') {
+          fantasyLeader.holesRemain = 3 * 5 * 18;
+        } else {
+          fantasyLeader.holesRemain = 4 * 5 * 18;
+        }
+
 
         this.pgaTournyRespPlayers = apiData.leaderboard.players;
         this.picks = [];
@@ -132,6 +144,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
                 i++;
                 golferScore = pick.score;
                 fantasyLeader.score = +fantasyLeader.score + +golferScore;
+                fantasyLeader.holesRemain = fantasyLeader.holesRemain - pick.thru;
               }
               remain++;
               if (pick.thru == 18) { golferItem.thru = 'F'; } else {
@@ -161,6 +174,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         /** if less than 5 golfers then we know that they didnt' make the cut */
         if (remain < 5) {
           fantasyLeader.score = 99;
+          fantasyLeader.holesRemain = 0;
         }
 
         fantasyLeader.golfersRemain = remain;

@@ -26,7 +26,7 @@ export class SportsApiService {
 
   getEventId() {
     if (this.eventId == undefined) {
-      this.eventId = 'DESERT'
+      this.eventId = 'WASTE'
     }
 
     return this.eventId;
@@ -55,6 +55,11 @@ export class SportsApiService {
 
   private extractData(res: Response) {
     let body = res;
+    let responseData: any;
+    responseData = res;
+    // responseData.leaderboard.round_state = 'NA';
+    // responseData.leaderboard.current_round = 0;
+    body = responseData;
     return body || [];
   }
 }

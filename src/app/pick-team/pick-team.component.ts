@@ -7,7 +7,10 @@ import { Subscription } from 'rxjs';
 import { SportsApiService } from '../sports-api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBar } from '@angular/material';
+import { AuthService } from '../authservice';
+import { DatabaseQuery } from '@angular/fire/database/interfaces';
 import { PopupComponent } from '../popup/popup.component';
+import { FirebaseApp } from 'angularfire2';
 
 @Component({
   selector: 'app-pick-team',
@@ -18,6 +21,7 @@ import { PopupComponent } from '../popup/popup.component';
 export class PickTeamComponent implements OnInit {
   subscription: Subscription;
   picks: UserGolfPicks;
+  picksBuffer: UserGolfPicks;
   answer: string;
   status: string;
   golferGrpA: Array<Golfers> = [];
@@ -25,11 +29,12 @@ export class PickTeamComponent implements OnInit {
   golferGrpC: Array<Golfers> = [];
 
   constructor(private sportsApi: SportsApiService, private router: Router, private snackBar: MatSnackBar,
-    private fireDb: AngularFireDatabase, private popup: MatDialog, private snack: MatSnackBarModule) {
+    private fireDb: AngularFireDatabase, private popup: MatDialog, private snack: MatSnackBarModule,
+    private authService: AuthService) {
     this.picks = {
       golfer1: '', golfer2: '', golfer3: '', golfer4: '',
       golfer5: '', golfer6: '', golfer7: '', golfer8: '',
-      eventId: '', team: ''
+      eventId: '', team: '', email: '',
     };
   }
 
@@ -37,6 +42,7 @@ export class PickTeamComponent implements OnInit {
     this.picks.eventId = this.sportsApi.getEventId();
 
     this.getGolferGroupings();
+    // this.loadUserPicks();
   }
 
   openPopup() {
@@ -48,6 +54,7 @@ export class PickTeamComponent implements OnInit {
       this.picks.golfer7 == '' || this.picks.golfer8 == '' ||
       this.picks.team == '') {
       console.log('User did not complete all picks');
+      this.snackBar.open('Complete all picks!', 'Close');
       return;
     }
 
@@ -66,9 +73,20 @@ export class PickTeamComponent implements OnInit {
 
   processData(answer) {
     if (answer === 'Yes') {
+      if( this.picksBuffer != undefined ){
+        //*process delete
+        // this.fireDb.list('myGolfers').update(this.picksBuffer);
+        // var ref = FirebaseApp.database().ref("dinosaurs");
+        // let query: DatabaseQuery;
+        // query.equalTo('evanchamilton@gmail.com','email');
+
+        // this.fireDb.list('myGolfers').query(query);
+      }
+
+
+      this.picks.email = this.authService.getCurrentUser();
       this.fireDb.list('myGolfers').push(this.picks).then(_ => {
         console.log('Team has been submitted');
-        /**log any errors , or handle exceptions here */
         this.router.navigate(['/leader']);
         this.snackBar.open('Picks have been submitted!', 'Close');
       });
@@ -81,10 +99,17 @@ export class PickTeamComponent implements OnInit {
     }
   }
 
+  isLoggedIn(){
+    // let email = this.authService.getCurrentUser();
+    // if(email != null){
+      return true;
+    // }else{return false};
+  }
+
   getActive() {
     let apiData: any;
     apiData = this.sportsApi.getApiData();
-    if (apiData == undefined) { return };
+    if (apiData == undefined) { return false };
     this.status = apiData.leaderboard.round_state;
     if (this.status == 'Official' || this.status == 'In Progress') {
       return true;
@@ -121,5 +146,20 @@ export class PickTeamComponent implements OnInit {
         }
       }
     });
+  }
+
+
+  private loadUserPicks() {
+    this.subscription = this.fireDb.list<UserGolfPicks>('myGolfers').valueChanges().subscribe(golferPicks => {
+      for (let picksKey in golferPicks) {
+        if (this.authService.getCurrentUser() == golferPicks[picksKey].email) {
+          if (golferPicks[picksKey].eventId == this.sportsApi.getEventId() && golferPicks[picksKey].team == 'Hampion') {
+            this.picks = golferPicks[picksKey];
+            this.picksBuffer = golferPicks[picksKey];
+            return;
+          }
+        }
+      }
+    })
   }
 }

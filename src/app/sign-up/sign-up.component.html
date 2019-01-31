@@ -1,0 +1,41 @@
+<mat-card class="memory-card">
+  <div style="text-align: center;">
+    <mat-card-header>
+      <mat-card-title>Sign up</mat-card-title>
+    </mat-card-header>
+  </div>
+  <mat-card-content>
+    <form class="example-form">
+      <table class="example-full-width" cellspacing="0">
+        <!-- <tr>
+              <td>
+                <mat-form-field class="example-full-width">
+                <input matInput placeholder="Team Name" [(ngModel)]="team" name="team" required>
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr> -->
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Email" [(ngModel)]="email" name="email" required>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </mat-card-content>
+  <div style="text-align: center;">
+    <mat-card-actions>
+      <button mat-raised-button (click)="signup()" color="primary">Sign Up</button>
+      <label class="success">{{successMessage}}</label>
+    </mat-card-actions>
+  </div>
+</mat-card>

@@ -1,6 +1,7 @@
 export interface UserGolfPicks {
   eventId: string;
   team: string;
+  email: string;
   golfer1: string;
   golfer2: string;
   golfer3: string;
@@ -52,6 +53,7 @@ export interface LeaderResults {
   position: number;
   team: string;
   score: number;
+  holesRemain: number;
   golfersRemain: number;
   description: string;
   golfers: Array<GolferItem>;

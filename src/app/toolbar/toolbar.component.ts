@@ -5,6 +5,7 @@ import { _tourny } from '../constants';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../authservice';
 import { ScrollBar, Tournament } from '../models';
 import { MatSidenav } from '@angular/material/sidenav';
 
@@ -26,7 +27,7 @@ import { MatSidenav } from '@angular/material/sidenav';
   enablePicks: boolean;
   tournaments: Array<Tournament> = [];
   constructor(private sportsApi: SportsApiService, private router: Router,
-    private breakpointObserver: BreakpointObserver ) { }
+    private breakpointObserver: BreakpointObserver, private authService: AuthService) { }
 
   ngOnInit() {
     // this.sidenavService = this.sidenav;
@@ -66,6 +67,12 @@ import { MatSidenav } from '@angular/material/sidenav';
     }
     );
   }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/leader']);
+  }
+
 
   onTournySelect(eventId) {
     this.sportsApi.setEventId(eventId);

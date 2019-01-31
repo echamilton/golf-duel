@@ -22,10 +22,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { PickTeamComponent } from './pick-team/pick-team.component';
 import { PopupComponent } from './popup/popup.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { AuthService } from './authservice';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
 import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
 import { HistoryComponent } from './history/history.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { HistoryComponent } from './history/history.component';
     PickTeamComponent,
     PopupComponent,
     ScorecardPopComponent,
-    HistoryComponent
+    HistoryComponent,
+    SignUpComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -61,11 +66,12 @@ import { HistoryComponent } from './history/history.component';
     MatButtonModule,
     AngularFireModule.initializeApp(environment.firebase, 'legbreaker-app'),
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
   ],
-  providers: [],
+  providers: [AuthService],
   entryComponents: [PopupComponent, ScorecardPopComponent],
   bootstrap: [AppComponent]
 })
