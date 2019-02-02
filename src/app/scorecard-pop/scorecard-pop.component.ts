@@ -24,7 +24,7 @@ export class ScorecardPopComponent implements OnInit {
     let pgaPlayer = {} as any;
     this.pgaTournyRespPlayers = this.sportsApi.getApiData().leaderboard.players;
     pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == this.golferId);
-   
+
     this.buildScorecard(pgaPlayer);
   }
 
@@ -72,20 +72,15 @@ export class ScorecardPopComponent implements OnInit {
 
     if (diff == 0) {
       return 'PAR';
-    }
-    else if (diff == -1) {
+    } else if (diff == -1) {
       return 'BIRDIE';
-    }
-    else if (diff == -2) {
+    } else if (diff == -2) {
       return 'EAGLE';
-    }
-    else if (diff == 1) {
+    } else if (diff == 1) {
       return 'BOGEY';
-    }
-    else if (diff == 2) {
+    } else if (diff == 2) {
       return 'DOUBLE';
-    }
-    else {
+    } else {
       return 'DOUBLE';
     }
   }

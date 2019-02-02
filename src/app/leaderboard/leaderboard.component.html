@@ -39,8 +39,8 @@
                     <span class="score" *ngIf="golfer.status == 'cut'">CUT</span>
                     <span class="golfer-name">{{golfer.name}}</span>
                     <p *ngIf="golfer.status != 'cut'">Round {{golfer.round}} | {{golfer.thru}} | Owned {{golfer.ownPct
-                      | number}}%</p>
-                    <p *ngIf="golfer.status == 'cut'">Owned {{golfer.ownPct | number}}%</p>
+                      | number:'1.1-1'}}%</p>
+                    <p *ngIf="golfer.status == 'cut'">Owned {{golfer.ownPct | number:'1.1-1'}}%</p>
                   </div>
                 </div>
                 <mat-divider></mat-divider>

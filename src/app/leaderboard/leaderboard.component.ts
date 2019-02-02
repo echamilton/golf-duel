@@ -73,11 +73,11 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
         fantasyLeader.score = 0;
         /**4 rounds, 5 golfers, 18 holes */
-        if (apiData.leaderboard.current_round === 4 ) {
+        if (apiData.leaderboard.current_round === 4) {
           fantasyLeader.holesRemain = 1 * 5 * 18;
-        } else if (apiData.leaderboard.current_round === 3 ) {
+        } else if (apiData.leaderboard.current_round === 3) {
           fantasyLeader.holesRemain = 2 * 5 * 18;
-        } else if (apiData.leaderboard.current_round === 2 ) {
+        } else if (apiData.leaderboard.current_round === 2) {
           fantasyLeader.holesRemain = 3 * 5 * 18;
         } else {
           fantasyLeader.holesRemain = 4 * 5 * 18;
@@ -285,7 +285,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   isCut(status: string) {
-    if (status == "cut") {
+    if (status == 'cut') {
       return true;
     } else {
       return false;

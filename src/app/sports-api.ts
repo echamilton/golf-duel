@@ -26,7 +26,7 @@ export class SportsApiService {
 
   getEventId() {
     if (this.eventId == undefined) {
-      this.eventId = 'WASTE'
+      this.eventId = 'WASTE';
     }
 
     return this.eventId;
