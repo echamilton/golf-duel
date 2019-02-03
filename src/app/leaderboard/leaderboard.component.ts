@@ -39,8 +39,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   status: string;
   entries: number;
 
-  constructor(private popup: MatDialog, private router: Router,
-    private firebaseDb: AngularFireDatabase,
+  constructor(private popup: MatDialog, private router: Router, private firebaseDb: AngularFireDatabase,
     private sportsApi: SportsApiService) {
   }
 
@@ -152,11 +151,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
                 }
               }
               golferItem.score = pick.score;
-              golferItem.color = 'primary';
             } else {
               golferItem.score = 99;
               golferItem.thru = 'CUT';
-              golferItem.color = 'warn';
             }
             this.golferItems.push(golferItem);
           }
@@ -192,7 +189,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       pick.thru = pgaPlayer.thru;
       pick.round = pgaPlayer.current_round;
       pick.status = pgaPlayer.status;
-      if (pick.status === 'active') {
+      if ( this.sportsApi.isGolferActive(pick.status) == true ) {
         pick.score = pgaPlayer.total;
       } else {
         pick.score = 99;
@@ -277,18 +274,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   isTournyActive() {
-    if (this.status === 'Official' || this.status === 'In Progress') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  isCut(status: string) {
-    if (status == 'cut') {
-      return true;
-    } else {
-      return false;
-    }
+    return this.sportsApi.isTournamentActive(this.status);
   }
 }

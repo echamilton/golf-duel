@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SportsApiService } from '../sports-api';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { _tourny } from '../constants';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../authservice';
-import { IScrollBar, ITournament } from '../models';
+import { IScrollBar } from '../models';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -24,18 +23,14 @@ export class ToolbarComponent implements OnInit {
 
   pgaTournyRespPlayers: any[];
   golfers: Array<IScrollBar> = [];
-  enablePicks: boolean;
-  tournaments: Array<ITournament> = [];
 
   constructor(private sportsApi: SportsApiService, private router: Router,
     private breakpointObserver: BreakpointObserver, private authService: AuthService) { }
 
   ngOnInit() {
-    this.tournaments = _tourny;
     this.golfers = [];
 
     // Execute API to fetch data and return the player scorecard
-    this.enablePicks = true;
     this.sportsApi.getGolfScores().subscribe(apiData => {
 
       this.pgaTournyRespPlayers = apiData.leaderboard.players;
@@ -43,12 +38,16 @@ export class ToolbarComponent implements OnInit {
 
       for (let key in this.pgaTournyRespPlayers) {
         let golfer = {} as IScrollBar;
+
+        if ( this.sportsApi.isGolferActive(this.pgaTournyRespPlayers[key].status) == false ) {
+          continue;
+        }
+
         golfer.position = this.pgaTournyRespPlayers[key].current_position;
         golfer.name = this.pgaTournyRespPlayers[key].player_bio.first_name + ' ' + this.pgaTournyRespPlayers[key].player_bio.last_name;
         golfer.score = this.pgaTournyRespPlayers[key].total;
         golfer.hole = this.pgaTournyRespPlayers[key].thru;
-        if (apiData.leaderboard.round_state === 'Official' || apiData.leaderboard.round_state === 'In Progress') {
-          this.enablePicks = false;
+        if (this.sportsApi.isTournamentActive(apiData.leaderboard.round_state) == true) {
           if (golfer.hole == '18') {
             golfer.hole = 'F';
           } else {

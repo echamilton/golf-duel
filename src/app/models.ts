@@ -44,7 +44,6 @@ export interface IGolferItem {
   thru: string;
   score: number;
   ownPct: number;
-  color: string;
   round: string;
   status: string;
 }

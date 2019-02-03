@@ -13,16 +13,9 @@ export class AuthService {
     public authState$: Observable<firebase.User>;
     public email: string;
     public user1: any;
+    
     constructor(private firebaseAuth: AngularFireAuth) {
         this.user = null;
-
-        // this.authState$ = firebaseAuth.authState;
-        // this.authState$.subscribe((user: firebase.User) => {
-        //     this.user = user;
-        //     if (this.user != undefined) {
-        //         this.email = this.user.email;
-        //     }
-        // });
     }
 
     signup(email: string, password: string) {
