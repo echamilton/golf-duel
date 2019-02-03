@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ITournament } from './models';
+import { Observable, Subscription } from 'rxjs';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { ITournament, IUserGolfPicks, IGolferGrouping } from './models';
 import { tournamentConfig } from './constants';
 import { map } from 'rxjs/operators';
 
@@ -10,25 +11,23 @@ import { map } from 'rxjs/operators';
 })
 
 export class SportsApiService {
+  subscription: Subscription;
   eventId: string;
   tournaments: Array<ITournament> = [];
   cacheData: any;
-  status: string;
 
-  constructor(private service: HttpClient) {
+  constructor(private service: HttpClient, private fireDb: AngularFireDatabase) {
     this.tournaments = tournamentConfig;
   }
 
   getGolfScores(): Observable<any> {
-    return this.service.get(this.getEventEndpoint()).pipe(
-      map(this.extractData));
+    return this.service.get(this.getEventEndpoint()).pipe(map(this.extractData));
   }
 
   getEventId() {
     if (this.eventId == undefined) {
       this.eventId = 'WASTE';
     }
-
     return this.eventId;
   }
 
@@ -53,9 +52,13 @@ export class SportsApiService {
     }
   }
 
+  getGolferGroupings(): Observable<any> {
+    return this.fireDb.list<IGolferGrouping>('golferGroups').valueChanges();
+  }
+
+
   isTournamentActive(status) {
-    if (status === 'Official' || status === 'In Progress' ||
-      status === 'Play Complete'
+    if (status === 'Official' || status === 'In Progress' || status === 'Play Complete'
     ) {
       return true;
     } else {
@@ -71,11 +74,18 @@ export class SportsApiService {
     }
   }
 
+  getGolferPicks(): Observable<any> {
+    return this.fireDb.list<IUserGolfPicks>('myGolfers').valueChanges();
+  }
+
+  saveGolferPicks(userPicks: IUserGolfPicks) {
+    this.fireDb.list('myGolfers').push(userPicks).then(_ => {
+    });
+  }
+
   private extractData(res: Response) {
     let body = res;
-    let responseData: any;
-    responseData = res;
-    body = responseData;
+    body = res;
     return body || [];
   }
 }

@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IUserGolfPicks, IGolfers, IGolferGrouping } from '../models';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { IUserGolfPicks, IGolfers } from '../models';
+import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarModule } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SportsApiService } from '../sports-api';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSnackBar } from '@angular/material';
 import { AuthService } from '../authservice';
 import { PopupComponent } from '../popup/popup.component';
 
@@ -22,29 +19,22 @@ export class PickTeamComponent implements OnInit {
   picks: IUserGolfPicks;
   picksBuffer: IUserGolfPicks;
   answer: string;
-  status: string;
   golferGrpA: Array<IGolfers> = [];
   golferGrpB: Array<IGolfers> = [];
   golferGrpC: Array<IGolfers> = [];
 
   constructor(private sportsApi: SportsApiService, private router: Router, private snackBar: MatSnackBar,
-    private fireDb: AngularFireDatabase, private popup: MatDialog, private snack: MatSnackBarModule,
-    private authService: AuthService) {
-    this.picks = {
-      golfer1: '', golfer2: '', golfer3: '', golfer4: '',
-      golfer5: '', golfer6: '', golfer7: '', golfer8: '',
-      eventId: '', team: '', email: '',
-    };
+    private popup: MatDialog, private authService: AuthService) {
+
+    this.initialize();
   }
 
   ngOnInit() {
     this.picks.eventId = this.sportsApi.getEventId();
-
     this.getGolferGroupings();
   }
 
   openPopup() {
-
     /** *check if fields are populated */
     if (this.picks.golfer1 == '' || this.picks.golfer2 == '' ||
       this.picks.golfer3 == '' || this.picks.golfer4 == '' ||
@@ -70,10 +60,9 @@ export class PickTeamComponent implements OnInit {
 
   processData(answer) {
     if (answer === 'Yes') {
-      this.fireDb.list('myGolfers').push(this.picks).then(_ => {
-        this.router.navigate(['/leader']);
-        this.snackBar.open('Picks have been submitted!', 'Close');
-      });
+      this.sportsApi.saveGolferPicks(this.picks);
+      this.router.navigate(['/leader']);
+      this.snackBar.open('Picks have been submitted!', 'Close');
     }
   }
 
@@ -94,8 +83,7 @@ export class PickTeamComponent implements OnInit {
       return false;
     }
 
-    this.status = apiData.leaderboard.round_state;
-    if (this.status == 'Official' || this.status == 'In Progress') {
+    if (this.sportsApi.isTournamentActive(apiData.leaderboard.round_state) == true) {
       return true;
     } else {
       return false;
@@ -114,9 +102,11 @@ export class PickTeamComponent implements OnInit {
   }
 
   getGolferGroupings() {
-    this.subscription = this.fireDb.list<IGolferGrouping>('golferGroups').valueChanges().subscribe(golferGroupings => {
+    this.subscription = this.sportsApi.getGolferGroupings().subscribe(golferGroupings => {
       for (let groupsKey in golferGroupings) {
-        if (golferGroupings[groupsKey].eventId !== this.sportsApi.getEventId()) { continue; }
+        if (golferGroupings[groupsKey].eventId !== this.sportsApi.getEventId()) {
+          continue;
+        }
         let group = {} as IGolfers;
         group.id = golferGroupings[groupsKey].golferId;
         group.name = golferGroupings[groupsKey].name;
@@ -129,12 +119,19 @@ export class PickTeamComponent implements OnInit {
           this.golferGrpC.push(group);
         }
       }
-    });
+    })
   }
 
+  private initialize() {
+    this.picks = {
+      golfer1: '', golfer2: '', golfer3: '', golfer4: '',
+      golfer5: '', golfer6: '', golfer7: '', golfer8: '',
+      eventId: '', team: '', email: '',
+    };
+  }
 
   private loadUserPicks() {
-    this.subscription = this.fireDb.list<IUserGolfPicks>('myGolfers').valueChanges().subscribe(golferPicks => {
+    this.subscription = this.sportsApi.getGolferPicks().subscribe(golferPicks => {
       for (let picksKey in golferPicks) {
         if (this.authService.getCurrentUser() == golferPicks[picksKey].email) {
           if (golferPicks[picksKey].eventId == this.sportsApi.getEventId() && golferPicks[picksKey].team == 'Hampion') {

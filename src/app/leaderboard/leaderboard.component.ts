@@ -1,12 +1,10 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatPaginator, MatSort } from '@angular/material';
-import { Subscription } from 'rxjs';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { IUserGolfPicks, IGolferDetail, IGolferItem, ILeaderResults, IIndGolferResult } from '../models';
+import { MatSort, MatDialog, MatDialogConfig } from '@angular/material';
+import { IGolferDetail, IGolferItem, ILeaderResults, IIndGolferResult } from '../models';
 import { SportsApiService } from '../sports-api';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 
 @Component({
@@ -23,29 +21,26 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
 })
 
 export class LeaderboardComponent implements OnInit, OnDestroy {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   displayedColumns = ['position', 'team', 'golfersRemain', 'holesRemain', 'score'];
   expandedElement: ILeaderResults | null;
-  subscription: Subscription;
   answer: string;
   dataSource: any[];
+  subscription: Subscription;
   fantasyLeaders: Array<ILeaderResults> = [];
   golferItems: Array<IGolferItem> = [];
   pgaTournyRespPlayers: any[];
   ownPct: Array<IGolferDetail> = [];
   picks: Array<IIndGolferResult> = [];
-  eventId: string;
   status: string;
   entries: number;
 
-  constructor(private popup: MatDialog, private router: Router, private firebaseDb: AngularFireDatabase,
-    private sportsApi: SportsApiService) {
+  constructor(private popup: MatDialog, private router: Router, private sportsApi: SportsApiService) {
   }
 
   ngOnInit() {
-    this.subscription = this.firebaseDb.list<IUserGolfPicks>('myGolfers').valueChanges().subscribe(userGolfPicks => {
 
+    this.subscription = this.sportsApi.getGolferPicks().subscribe(userGolfPicks => {
       this.getGolferLeaderBoard(userGolfPicks);
     });
   }
@@ -189,7 +184,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       pick.thru = pgaPlayer.thru;
       pick.round = pgaPlayer.current_round;
       pick.status = pgaPlayer.status;
-      if ( this.sportsApi.isGolferActive(pick.status) == true ) {
+      if (this.sportsApi.isGolferActive(pick.status) == true) {
         pick.score = pgaPlayer.total;
       } else {
         pick.score = 99;
