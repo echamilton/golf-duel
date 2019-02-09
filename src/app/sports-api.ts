@@ -78,8 +78,18 @@ export class SportsApiService {
     return this.fireDb.list<IUserGolfPicks>('myGolfers').valueChanges();
   }
 
+  updateGolferPicks(userPicks: IUserGolfPicks) {
+    this.fireDb.object('myGolfers/' + this.getEventId() + '-' + userPicks.team).update(userPicks).then(_ => {
+    });
+  }
+
   saveGolferPicks(userPicks: IUserGolfPicks) {
-    this.fireDb.list('myGolfers').push(userPicks).then(_ => {
+    this.fireDb.list('myGolfers').push('myGolfers/' + this.getEventId() + '-' + userPicks.team).then(_ => {
+    });
+  }
+
+  deleteGolferPicks(userPicks: IUserGolfPicks) {
+    this.fireDb.list('myGolfers').remove('myGolfers/' + this.getEventId() + '-' + userPicks.team).then(_ => {
     });
   }
 

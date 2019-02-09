@@ -19,6 +19,7 @@ export class PickTeamComponent implements OnInit {
   picks: IUserGolfPicks;
   picksBuffer: IUserGolfPicks;
   answer: string;
+  existingPicks: boolean;
   golferGrpA: Array<IGolfers> = [];
   golferGrpB: Array<IGolfers> = [];
   golferGrpC: Array<IGolfers> = [];
@@ -32,6 +33,7 @@ export class PickTeamComponent implements OnInit {
   ngOnInit() {
     this.picks.eventId = this.sportsApi.getEventId();
     this.getGolferGroupings();
+    this.loadUserPicks();
   }
 
   openPopup() {
@@ -60,10 +62,18 @@ export class PickTeamComponent implements OnInit {
 
   processData(answer) {
     if (answer === 'Yes') {
-      this.sportsApi.saveGolferPicks(this.picks);
+      if (this.existingPicks == true) {
+        this.sportsApi.updateGolferPicks(this.picks);
+      } else {
+        this.sportsApi.saveGolferPicks(this.picks);
+      }
       this.router.navigate(['/leader']);
       this.snackBar.open('Picks have been submitted!', 'Close');
     }
+  }
+
+  deleteEntry() {
+    this.sportsApi.deleteGolferPicks(this.picks);
   }
 
   checkData(golferID, currentGolfer) {
@@ -77,6 +87,7 @@ export class PickTeamComponent implements OnInit {
   }
 
   getActive() {
+    return false;
     let apiData: any;
     apiData = this.sportsApi.getApiData();
     if (apiData == undefined) {
@@ -135,6 +146,7 @@ export class PickTeamComponent implements OnInit {
       for (let picksKey in golferPicks) {
         if (this.authService.getCurrentUser() == golferPicks[picksKey].email) {
           if (golferPicks[picksKey].eventId == this.sportsApi.getEventId() && golferPicks[picksKey].team == 'Hampion') {
+            this.existingPicks = true;
             this.picks = golferPicks[picksKey];
             this.picksBuffer = golferPicks[picksKey];
             return;
