@@ -29,6 +29,8 @@ import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
 import { HistoryComponent } from './history/history.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import { LoginComponent } from './login/login.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
   ],
   providers: [AuthService],
   entryComponents: [PopupComponent, ScorecardPopComponent],
