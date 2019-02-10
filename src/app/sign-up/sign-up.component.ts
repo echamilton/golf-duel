@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../authservice';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,29 +13,15 @@ export class SignUpComponent implements OnInit {
   password: string;
   team: string;
   successMessage: string;
-  constructor(private router: Router, public authService: AuthService, private dataB: AngularFireDatabase, ) { }
+  constructor(private router: Router, public authService: AuthService ) { }
 
   ngOnInit() {
-
   }
+
   signup() {
     this.authService.signup(this.email, this.password);
-
-
-    const userProfile = {
-      teamName: '',
-      email: '',
-    };
-
-    userProfile.email = this.email;
-    userProfile.teamName = this.team;
-
-    this.dataB.list('userProfile').push(userProfile)
-      .then(_ => {
-        console.log('success');
-
-      });
     this.email = this.password = '';
     this.successMessage = 'Your account has been created';
+    this.router.navigate(['/leader']);
   }
 }

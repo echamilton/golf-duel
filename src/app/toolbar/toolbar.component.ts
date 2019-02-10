@@ -1,12 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SportsApiService } from '../sports-api';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AuthService } from '../authservice';
 import { IScrollBar } from '../models';
-import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-toolbar',
@@ -15,24 +11,14 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 
 export class ToolbarComponent implements OnInit {
-  @ViewChild('sidenav') sidenav: MatSidenav;
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(result => result.matches)
-  );
-
   pgaTournyRespPlayers: any[];
   golfers: Array<IScrollBar> = [];
 
-  constructor(private sportsApi: SportsApiService, private router: Router,
-    private breakpointObserver: BreakpointObserver, private authService: AuthService) { }
+  constructor(private sportsApi: SportsApiService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.golfers = [];
-
-    // Execute API to fetch data and return the player scorecard
     this.sportsApi.getGolfScores().subscribe(apiData => {
-
       this.pgaTournyRespPlayers = apiData.leaderboard.players;
       this.sportsApi.setApiData(apiData);
 

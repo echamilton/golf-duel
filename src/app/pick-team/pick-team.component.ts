@@ -67,7 +67,11 @@ export class PickTeamComponent implements OnInit {
         this.sportsApi.saveGolferPicks(this.picks);
       }
       this.router.navigate(['/leader']);
-      this.snackBar.open('Picks have been submitted!', 'Close');
+      this.snackBar.open('Picks have been submitted!', 'Close',
+      {
+        duration: 10,
+        panelClass: ["font-family:'Open Sans', sans-serif;"]
+      });
     }
   }
 

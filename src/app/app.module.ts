@@ -8,23 +8,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatToolbarModule, MatSelectModule, MatCardModule, MatFormFieldModule, MatListModule } from '@angular/material';
-import { MatTableModule, MatIconModule, MatPaginatorModule, MatSortModule, MatSidenavModule } from '@angular/material';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
+import { MatTableModule, MatIconModule, MatSortModule, MatButtonModule, MatInputModule } from '@angular/material';
+import { MatDividerModule, MatMenuModule, MatDialogModule, MatSnackBarModule } from '@angular/material';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatMenuModule } from '@angular/material/menu';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { MatDialogModule } from '@angular/material/dialog';
 import { PickTeamComponent } from './pick-team/pick-team.component';
 import { PopupComponent } from './popup/popup.component';
-import { MatChipsModule } from '@angular/material/chips';
 import { AuthService } from './authservice';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
 import { HistoryComponent } from './history/history.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -52,10 +46,8 @@ import { LoaderComponent } from './loader/loader.component';
     AppRoutingModule,
     FormsModule,
     MatSnackBarModule,
-    MatChipsModule,
     MatListModule,
     MatDividerModule,
-    MatSidenavModule,
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
     MatToolbarModule,
@@ -74,7 +66,6 @@ import { LoaderComponent } from './loader/loader.component';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     MatTableModule,
-    MatPaginatorModule,
     MatSortModule,
     StoreModule.forRoot(reducers, { metaReducers }),
   ],
