@@ -45,7 +45,7 @@ export class SportsApiService {
 
   getEventEndpoint() {
     let tourny = this.tournaments.find(data => data.eventId === this.getEventId());
-    if (tourny != undefined) {
+    if (tourny !== undefined) {
       return tourny.url;
     } else {
       console.log('Could not retrieve PGA Tour data');

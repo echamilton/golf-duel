@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { SportsApiService } from '../sports-api';
 import { IScoreCard } from '../models';
+import { ScoreValues } from '../constants';
 
 @Component({
   selector: 'app-scorecard-pop',
@@ -71,17 +72,19 @@ export class ScorecardPopComponent implements OnInit {
     diff = score - par;
 
     if (diff == 0) {
-      return 'PAR';
+      return ScoreValues.par;
     } else if (diff == -1) {
-      return 'BIRDIE';
+      return ScoreValues.birdie;
     } else if (diff == -2) {
-      return 'EAGLE';
+      return ScoreValues.eagle;
     } else if (diff == 1) {
-      return 'BOGEY';
+      return ScoreValues.bogey;
     } else if (diff == 2) {
-      return 'DOUBLE';
+      return ScoreValues.double;
+    } else if (diff == 3) {
+      return ScoreValues.triple;
     } else {
-      return 'DOUBLE';
+      return ScoreValues.triple;
     }
   }
 
@@ -116,23 +119,23 @@ export class ScorecardPopComponent implements OnInit {
   getColor(score) {
     let color: string;
     switch (score) {
-      case 'PAR': {
+      case ScoreValues.par: {
         color = 'black';
         break;
       }
-      case 'BIRDIE': {
+      case ScoreValues.birdie: {
         color = 'blue';
         break;
       }
-      case 'BOGEY': {
+      case ScoreValues.bogey: {
         color = 'red';
         break;
       }
-      case 'EAGLE': {
+      case ScoreValues.eagle: {
         color = 'green';
         break;
       }
-      case 'DOUBLE': {
+      case ScoreValues.double: {
         color = 'purple';
         break;
       }

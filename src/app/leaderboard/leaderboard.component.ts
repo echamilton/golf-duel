@@ -38,7 +38,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.subscription = this.sportsApi.getGolferPicks().subscribe(userGolfPicks => {
       this.getGolferLeaderBoard(userGolfPicks);
     });

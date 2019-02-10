@@ -22,18 +22,20 @@
 }
 
 .scrolling-wrapper {
- overflow: auto;
+  display: flex; /* [1] */
+  flex-wrap: nowrap; /* [1] */
+  overflow-x: auto; /* [1] */
   text-align: center;
-  &::-webkit-scrollbar {
-    display: none;
-    -webkit-overflow-scrolling: touch;
-}
-
+  -webkit-overflow-scrolling: touch; /* [4] */
+  -ms-overflow-style: -ms-autohiding-scrollbar; /* [5] */ }
+  
   .card {
     display: inline-block;
     margin: 1.0rem;
   }
-}
+
+.scrolling-wrapper::-webkit-scrollbar {
+  display: none; }
   
   .sidenav .mat-toolbar {
     background: inherit;
