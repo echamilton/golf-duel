@@ -20,7 +20,6 @@ import { PopupComponent } from './popup/popup.component';
 import { AuthService } from './authservice';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
-import { HistoryComponent } from './history/history.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -36,7 +35,6 @@ import { LoaderComponent } from './loader/loader.component';
     PickTeamComponent,
     PopupComponent,
     ScorecardPopComponent,
-    HistoryComponent,
     SignUpComponent,
     LoginComponent,
     LoaderComponent

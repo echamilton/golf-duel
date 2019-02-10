@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IUserGolfPicks, IGolfers } from '../models';
-import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarModule } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SportsApiService } from '../sports-api';
 import { AuthService } from '../authservice';
 import { PopupComponent } from '../popup/popup.component';
-
 
 @Component({
   selector: 'app-pick-team',
@@ -17,13 +16,14 @@ import { PopupComponent } from '../popup/popup.component';
 export class PickTeamComponent implements OnInit {
   subscription: Subscription;
   picks: IUserGolfPicks;
-  picksBuffer: IUserGolfPicks;
   answer: string;
+  popupText: string;
   existingPicks: boolean;
   golferGrpA: Array<IGolfers> = [];
   golferGrpB: Array<IGolfers> = [];
   golferGrpC: Array<IGolfers> = [];
   isLoading: boolean;
+  config = new MatSnackBarConfig();
 
   constructor(private sportsApi: SportsApiService, private router: Router, private snackBar: MatSnackBar,
     private popup: MatDialog, private authService: AuthService) {
@@ -37,20 +37,24 @@ export class PickTeamComponent implements OnInit {
     this.loadUserPicks();
   }
 
-  openPopup() {
+  openPopup(action: string) {
+    if(action == 'update'){
     if (this.picks.golfer1 == '' || this.picks.golfer2 == '' ||
       this.picks.golfer3 == '' || this.picks.golfer4 == '' ||
       this.picks.golfer5 == '' || this.picks.golfer6 == '' ||
       this.picks.golfer7 == '' || this.picks.golfer8 == '' ||
       this.picks.team == '') {
-      this.snackBar.open('Complete all picks!', 'Close');
+      this.openSnackBar('Complete your entry!');
       return;
     }
-
+    this.popupText = 'Are you sure you want to submit your team?';
+  } else {
+    this.popupText = 'Are you sure you want to cancel your entry?';
+  }
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
-    popupConfig.data = { answer: this.answer };
+    popupConfig.data = { answer: this.answer, text: this.popupText };
 
     const dialogRef = this.popup.open(PopupComponent, popupConfig);
 
@@ -66,13 +70,14 @@ export class PickTeamComponent implements OnInit {
       } else {
         this.sportsApi.saveGolferPicks(this.picks);
       }
+      this.openSnackBar('Picks have been submitted!');
       this.router.navigate(['/leader']);
-      this.snackBar.open('Picks have been submitted!', 'Close',
-      {
-        duration: 10,
-        panelClass: ["font-family:'Open Sans', sans-serif;"]
-      });
     }
+  }
+
+  openSnackBar(Text: string) {
+    this.config.duration = 2500;
+    this.snackBar.open(Text, 'Close', this.config);
   }
 
   deleteEntry() {
@@ -151,7 +156,6 @@ export class PickTeamComponent implements OnInit {
           if (golferPicks[picksKey].eventId == this.sportsApi.getEventId() && golferPicks[picksKey].team == 'Hampion') {
             this.existingPicks = true;
             this.picks = golferPicks[picksKey];
-            this.picksBuffer = golferPicks[picksKey];
             this.isLoading = false;
             return;
           }

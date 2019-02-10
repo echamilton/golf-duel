@@ -112,4 +112,35 @@ export class ScorecardPopComponent implements OnInit {
     };
   }
 
+
+  getColor(score) {
+    let color: string;
+    switch (score) {
+      case 'PAR': {
+        color = 'black';
+        break;
+      }
+      case 'BIRDIE': {
+        color = 'blue';
+        break;
+      }
+      case 'BOGEY': {
+        color = 'red';
+        break;
+      }
+      case 'EAGLE': {
+        color = 'green';
+        break;
+      }
+      case 'DOUBLE': {
+        color = 'purple';
+        break;
+      }
+      default: {
+        color = 'purple';
+        break;
+      }
+    }
+    return color;
+  }
 }

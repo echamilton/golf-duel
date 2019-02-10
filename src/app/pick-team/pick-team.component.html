@@ -93,8 +93,13 @@
         </div>
 
         <div style="text-align: center;">
-          <button mat-raised-button (click)="openPopup()">Submit Team</button>
+          <button mat-raised-button (click)="openPopup('update')">Submit Team</button>
+          
+          <button mat-raised-button (click)="openPopup('delete')">Cancel Entry</button>
         </div>
+        <!-- <div style="text-align: center;">
+           
+          </div> -->
       </mat-card-content>
     </ng-container>
     <ng-container *ngIf="getActive() == true">

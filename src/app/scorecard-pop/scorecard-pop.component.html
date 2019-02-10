@@ -1,7 +1,8 @@
 <div class="header">{{scoreCard.playerName}}</div>
 <div> </div>
 <div class="header">
-  <img class="pic" src='https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_face:center,q_auto,t_headshots_leaderboard_l,w_160/headshots_{{golferId}}.png'>
+  <img class="pic"
+    src='https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_face:center,q_auto,t_headshots_leaderboard_l,w_160/headshots_{{golferId}}.png'>
 </div>
 <div class="scorecards-box">
   <ul class="scorecards-slider">
@@ -88,34 +89,43 @@
           </tr>
           <tr>
             <td class="first-col">
-              <div> ROUND</div>
+              <div>ROUND</div>
             </td>
-            <td class="hole-selectable  result0" data-hole-number="1">
-              <div>{{scoreCard.hole1.score}}<span class="has-video" style="display: none;"> </span> </div>
+            <td class="hole-selectable result-0" data-hole-number="1">
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole1.indicator)}">
+                {{scoreCard.hole1.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result-1" data-hole-number="2">
-              <div>{{scoreCard.hole2.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole2.indicator)}">
+                {{scoreCard.hole2.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result-1" data-hole-number="3">
-              <div>{{scoreCard.hole3.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole3.indicator)}">
+                {{scoreCard.hole3.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result1" data-hole-number="4">
-              <div>{{scoreCard.hole4.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole4.indicator)}">
+                {{scoreCard.hole4.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result0" data-hole-number="5">
-              <div>{{scoreCard.hole5.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole5.indicator)}">
+                {{scoreCard.hole5.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result0" data-hole-number="6">
-              <div>{{scoreCard.hole6.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole6.indicator)}">
+                {{scoreCard.hole6.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result-1" data-hole-number="7">
-              <div>{{scoreCard.hole7.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole7.indicator)}">
+                {{scoreCard.hole7.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result0" data-hole-number="8">
-              <div>{{scoreCard.hole8.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole8.indicator)}">
+                {{scoreCard.hole8.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result0" data-hole-number="9">
-              <div>{{scoreCard.hole9.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole9.indicator)}">
+                {{scoreCard.hole9.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td>
               <div>{{scoreCard.Out.score}}</div>
@@ -208,31 +218,40 @@
               <div> ROUND</div>
             </td>
             <td class="hole-selectable  result0" data-hole-number="10">
-              <div>{{scoreCard.hole10.score}}</div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole10.indicator)}">
+                {{scoreCard.hole10.score}}</div>
             </td>
             <td class="hole-selectable  result0" data-hole-number="11">
-              <div>{{scoreCard.hole11.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole11.indicator)}">
+                {{scoreCard.hole11.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable result0 active" data-hole-number="12">
-              <div>{{scoreCard.hole12.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole12.indicator)}">
+                {{scoreCard.hole12.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result-1" data-hole-number="13">
-              <div>{{scoreCard.hole13.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole13.indicator)}">
+                {{scoreCard.hole13.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result-1" data-hole-number="14">
-              <div>{{scoreCard.hole14.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole14.indicator)}">
+                {{scoreCard.hole14.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result1" data-hole-number="15">
-              <div>{{scoreCard.hole15.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole15.indicator)}">
+                {{scoreCard.hole15.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result0" data-hole-number="16">
-              <div>{{scoreCard.hole16.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole16.indicator)}">
+                {{scoreCard.hole16.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result0" data-hole-number="17">
-              <div>{{scoreCard.hole17.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole17.indicator)}">
+                {{scoreCard.hole17.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td class="hole-selectable  result0" data-hole-number="18">
-              <div>{{scoreCard.hole18.score}}<span class="has-video" style="display: none;"> </span> </div>
+              <div [ngStyle]="{'background-color':getColor(scoreCard.hole18.indicator)}">
+                {{scoreCard.hole18.score}}<span class="has-video" style="display: none;"> </span> </div>
             </td>
             <td>
               <div>{{scoreCard.In.score}}</div>

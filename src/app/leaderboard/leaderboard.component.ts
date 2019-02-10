@@ -24,7 +24,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   displayedColumns = ['position', 'team', 'golfersRemain', 'holesRemain', 'score'];
   expandedElement: ILeaderResults | null;
-  answer: string;
   dataSource: any[];
   subscription: Subscription;
   fantasyLeaders: Array<ILeaderResults> = [];
@@ -130,7 +129,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
             golferItem.name = pick.golferName;
             golferItem.round = pick.round;
             golferItem.status = pick.status;
-            if (pick.status === 'active') {
+            if (this.sportsApi.isGolferActive(pick.status) === true) {
               if (i < 5) {
                 i++;
                 golferScore = pick.score;
@@ -205,7 +204,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  rankEntries() {
+  private rankEntries() {
     let position = 0;
     let dupPos = 0;
     let prevScore = 999;

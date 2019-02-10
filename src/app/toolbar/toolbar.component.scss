@@ -15,16 +15,14 @@
  }
 
   .leaders{
-    height: 80px;
+    height: 85px;
     background: black;
     color: #E4E4E4;
     font: 500 12px/14px Roboto,"Helvetica Neue",sans-serif;
 }
 
 .scrolling-wrapper {
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
+ overflow: auto;
   text-align: center;
   &::-webkit-scrollbar {
     display: none;

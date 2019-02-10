@@ -19,6 +19,7 @@
 .mat-raised-button{
    color: white;
    background: blue;
+   margin-left: 10px;
 }
 .email-full-width {
     width: 100%;
@@ -29,7 +30,6 @@
   }
 
   .spinner {
-    margin-left: 25%;
-    margin-right:25%;
-    width: 50%;
+    position: relative;
+    margin-left: 32%;
   }
