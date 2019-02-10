@@ -212,14 +212,10 @@ list-style: none;
 	left:0;
 	width:205px;
 	height:30px;
-  // padding:20px 20px 20px;	
   padding-top: 7px;
   padding-left: 25px;
   padding-right: 25px;
   padding-bottom: 18px;
-  // border-bottom-color: black;
-  // border-bottom-style: solid;
-  // border-bottom-width: 2px;
 }
 
 .stats-container .golfer-name{
@@ -234,7 +230,7 @@ list-style: none;
 }
 .stats-container .score{
 	float:right;
-	color:#48cfad;
+	color:#b60707;
 	font-size:15px;
 	font-weight:600;
 }
@@ -242,5 +238,5 @@ list-style: none;
   float:left;
   margin-left: -8px;
   height: 40px;
-  width: 40px;;
+  width: 40px;
 }

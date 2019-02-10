@@ -39,11 +39,12 @@ export class ToolbarComponent implements OnInit {
       for (let key in this.pgaTournyRespPlayers) {
         let golfer = {} as IScrollBar;
 
-        if ( this.sportsApi.isGolferActive(this.pgaTournyRespPlayers[key].status) == false ) {
+        if (this.sportsApi.isGolferActive(this.pgaTournyRespPlayers[key].status) == false) {
           continue;
         }
 
         golfer.position = this.pgaTournyRespPlayers[key].current_position;
+        golfer.golferId = this.pgaTournyRespPlayers[key].player_id;
         golfer.name = this.pgaTournyRespPlayers[key].player_bio.first_name + ' ' + this.pgaTournyRespPlayers[key].player_bio.last_name;
         golfer.score = this.pgaTournyRespPlayers[key].total;
         golfer.hole = this.pgaTournyRespPlayers[key].thru;
@@ -57,6 +58,11 @@ export class ToolbarComponent implements OnInit {
               golfer.hole = 'Thru' + ' ' + golfer.hole;
             }
           }
+
+          if (golfer.score == '0') {
+            golfer.score = 'E';
+          }
+
         } else {
           golfer.position = '-';
           golfer.hole = '-';
@@ -66,6 +72,15 @@ export class ToolbarComponent implements OnInit {
       }
     }
     );
+  }
+
+  isLoggedIn() {
+    let email = this.authService.getCurrentUser();
+    if (email != null || email != undefined) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   logout() {

@@ -2,9 +2,13 @@
   <mat-card class="memory-card">
     <ng-container *ngIf="getActive() == false">
       <mat-card-header>
-        <mat-card-title></mat-card-title>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content *ngIf="isLoading == true">
+        <div class="spinner">
+          <app-loader></app-loader>
+        </div>
+      </mat-card-content>
+      <mat-card-content *ngIf="isLoading == false">
         <div style="text-align: center;">
           <mat-form-field>
             <input matInput name="team" required [(ngModel)]="picks.team" placeholder="Team Name">
@@ -14,14 +18,16 @@
         <div style="text-align: center;">
           <mat-form-field>
             <mat-select required name="golfer1" placeholder="Golfer 1" [(ngModel)]="picks.golfer1">
-              <mat-option *ngFor="let golfer of golferGrpA" [value]="golfer.id" [disabled]=checkData(golfer.id,picks.golfer2)>
+              <mat-option *ngFor="let golfer of golferGrpA" [value]="golfer.id"
+                [disabled]=checkData(golfer.id,picks.golfer2)>
                 {{golfer.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
             <mat-select required name="golfer2" placeholder="Golfer 2" [(ngModel)]="picks.golfer2">
-              <mat-option *ngFor="let golfer of golferGrpA" [value]="golfer.id" [disabled]=checkData(golfer.id,picks.golfer1)>
+              <mat-option *ngFor="let golfer of golferGrpA" [value]="golfer.id"
+                [disabled]=checkData(golfer.id,picks.golfer1)>
                 {{golfer.name}}
               </mat-option>
             </mat-select>
@@ -33,14 +39,16 @@
         <div style="text-align: center;">
           <mat-form-field>
             <mat-select required name="golfer3" placeholder="Golfer 1" [(ngModel)]="picks.golfer3">
-              <mat-option *ngFor="let golfer of golferGrpB" [value]="golfer.id" [disabled]=checkData(golfer.id,picks.golfer4)>
+              <mat-option *ngFor="let golfer of golferGrpB" [value]="golfer.id"
+                [disabled]=checkData(golfer.id,picks.golfer4)>
                 {{golfer.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
             <mat-select required name="golfer4" placeholder="Golfer 2" [(ngModel)]="picks.golfer4">
-              <mat-option *ngFor="let golfer of golferGrpB" [value]="golfer.id" [disabled]=checkData(golfer.id,picks.golfer3)>
+              <mat-option *ngFor="let golfer of golferGrpB" [value]="golfer.id"
+                [disabled]=checkData(golfer.id,picks.golfer3)>
                 {{golfer.name}}
               </mat-option>
             </mat-select>
@@ -52,37 +60,42 @@
         <div style="text-align: center;">
           <mat-form-field>
             <mat-select required name="golfer5" placeholder="Golfer 1" [(ngModel)]="picks.golfer5">
-              <mat-option *ngFor="let golfer of golferGrpC" [value]="golfer.id" [disabled]=checkData2(golfer.id,picks.golfer5)>
+              <mat-option *ngFor="let golfer of golferGrpC" [value]="golfer.id"
+                [disabled]=checkData2(golfer.id,picks.golfer5)>
                 {{golfer.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
             <mat-select required name="golfer6" placeholder="Golfer 2" [(ngModel)]="picks.golfer6">
-              <mat-option *ngFor="let golfer of golferGrpC" [value]="golfer.id" [disabled]=checkData2(golfer.id,picks.golfer6)>
+              <mat-option *ngFor="let golfer of golferGrpC" [value]="golfer.id"
+                [disabled]=checkData2(golfer.id,picks.golfer6)>
                 {{golfer.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
             <mat-select required name="golfer7" placeholder="Golfer 3" [(ngModel)]="picks.golfer7">
-              <mat-option *ngFor="let golfer of golferGrpC" [value]="golfer.id" [disabled]=checkData2(golfer.id,picks.golfer7)>
+              <mat-option *ngFor="let golfer of golferGrpC" [value]="golfer.id"
+                [disabled]=checkData2(golfer.id,picks.golfer7)>
                 {{golfer.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
             <mat-select required name="golfer8" placeholder="Golfer 4" [(ngModel)]="picks.golfer8">
-              <mat-option *ngFor="let golfer of golferGrpC" [value]="golfer.id" [disabled]=checkData2(golfer.id,picks.golfer8)>
+              <mat-option *ngFor="let golfer of golferGrpC" [value]="golfer.id"
+                [disabled]=checkData2(golfer.id,picks.golfer8)>
                 {{golfer.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
+
+        <div style="text-align: center;">
+          <button mat-raised-button (click)="openPopup()">Submit Team</button>
+        </div>
       </mat-card-content>
-      <div style="text-align: center;">
-        <button mat-raised-button (click)="openPopup()">Submit Team</button>
-      </div>
     </ng-container>
     <ng-container *ngIf="getActive() == true">
       <mat-card-header>
@@ -96,15 +109,15 @@
       </mat-card-header>
     </ng-container>
     <ng-container *ngIf="getActive() == false && isLoggedIn() == false">
-        <mat-card-header>
-          <mat-card-content>
-            <div style="text-align: center;">
-              <h4>
-                Login to view or make picks!
-              </h4>
-            </div>
-          </mat-card-content>
-        </mat-card-header>
-      </ng-container>
+      <mat-card-header>
+        <mat-card-content>
+          <div style="text-align: center;">
+            <h4>
+              Login to view or make picks!
+            </h4>
+          </div>
+        </mat-card-content>
+      </mat-card-header>
+    </ng-container>
   </mat-card>
 </form>

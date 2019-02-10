@@ -29,6 +29,7 @@ export interface IScrollBar {
   score: string;
   position: string;
   hole: string;
+  golferId: string;
 }
 
 export interface ITournament {

@@ -29,8 +29,10 @@ import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
 import { HistoryComponent } from './history/history.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { reducers, metaReducers } from './reducers';
     ScorecardPopComponent,
     HistoryComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { reducers, metaReducers } from './reducers';
     MatListModule,
     MatDividerModule,
     MatSidenavModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatInputModule,

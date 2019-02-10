@@ -27,15 +27,15 @@
                         <mat-icon>account_circle</mat-icon>
                   </button>
                   <mat-menu #menu="matMenu">
-                        <button mat-menu-item [routerLink]="['/signup']">
+                        <button mat-menu-item [routerLink]="['/signup']" *ngIf="isLoggedIn() == false">
                               <mat-icon>person_add</mat-icon>
                               <span>Sign up</span>
                         </button>
-                        <button mat-menu-item [routerLink]="['/login']">
+                        <button mat-menu-item [routerLink]="['/login']" *ngIf="isLoggedIn() == false">
                               <mat-icon>person</mat-icon>
                               <span>Login</span>
                         </button>
-                        <button mat-menu-item (click)="logout()">
+                        <button mat-menu-item (click)="logout()" *ngIf="isLoggedIn() == true">
                               <mat-icon>exit_to_app</mat-icon>
                               <span>Logout</span>
                         </button>
@@ -45,6 +45,7 @@
                   <div class="scrolling-wrapper">
                         <div *ngFor="let golfer of golfers" class="card">
                               <span class="example-spacer">
+                  <img class="pic" src='https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_face:center,q_auto,t_headshots_leaderboard_l,w_160/headshots_{{golfer.golferId}}.png'>
                                     <div>{{golfer.position}} | {{golfer.name}}</div>
                                     <div>{{golfer.score}} | {{golfer.hole}}</div>
                               </span>

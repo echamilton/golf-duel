@@ -23,21 +23,21 @@ export class PickTeamComponent implements OnInit {
   golferGrpA: Array<IGolfers> = [];
   golferGrpB: Array<IGolfers> = [];
   golferGrpC: Array<IGolfers> = [];
+  isLoading: boolean;
 
   constructor(private sportsApi: SportsApiService, private router: Router, private snackBar: MatSnackBar,
     private popup: MatDialog, private authService: AuthService) {
-
     this.initialize();
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.picks.eventId = this.sportsApi.getEventId();
     this.getGolferGroupings();
     this.loadUserPicks();
   }
 
   openPopup() {
-    /** *check if fields are populated */
     if (this.picks.golfer1 == '' || this.picks.golfer2 == '' ||
       this.picks.golfer3 == '' || this.picks.golfer4 == '' ||
       this.picks.golfer5 == '' || this.picks.golfer6 == '' ||
@@ -48,7 +48,6 @@ export class PickTeamComponent implements OnInit {
     }
 
     const popupConfig = new MatDialogConfig();
-
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
     popupConfig.data = { answer: this.answer };
@@ -149,6 +148,7 @@ export class PickTeamComponent implements OnInit {
             this.existingPicks = true;
             this.picks = golferPicks[picksKey];
             this.picksBuffer = golferPicks[picksKey];
+            this.isLoading = false;
             return;
           }
         }
