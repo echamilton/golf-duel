@@ -69,7 +69,6 @@ export class PickTeamComponent implements OnInit {
         this.sportsApi.updateGolferPicks(this.picks);
       } else {
         this.picks.email = this.authService.getCurrentUser();
-        // this.sportsApi.saveGolferPicks(this.picks);
         this.sportsApi.updateGolferPicks(this.picks);
       }
       this.openSnackBar('Picks have been submitted!');
@@ -100,11 +99,9 @@ export class PickTeamComponent implements OnInit {
     } else {
       return false;
     }
-
   }
 
   getActive() {
-    return false;
     let apiData: any;
     apiData = this.sportsApi.getApiData();
     if (apiData == undefined) {
