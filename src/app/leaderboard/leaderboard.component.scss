@@ -1,72 +1,36 @@
 table {
   width: 100%;
 }
-
-.pic1{
+.position {
   width: 25px;
   height: 25px;
 }
-
-.pic {
-  width: 30px;
-  height: 30px;
-  margin: auto;
-  @media screen and(max-width: 600px ){
-      width: 30px;
-      height: 30px;
-      background-size: contain;
-  }
-  @media screen and(max-width: 900px ){
-      width: 30px;
-      height: 30px;
-      background-size:  contain;
-  }
-}
-
 .mat-raised-button{
-width: 1px;
-height: 25px;
-color: white;
-background-color: grey;
+  width: 1px;
+  height: 25px;
+  color: white;
+  background-color: grey;
 }
-
-tr.example-detail-row {
+tr.team-detail-row {
   height: 0;
   background: rgb(182, 182, 189);
-  
 }
-
-tr.example-element-row:not(.example-expanded-row):hover {
-  background: #f5f5f5;
+tr.team-element-row:not(.team-expanded-row):hover {
+  background: #cecccc;
 }
-
-
-tr.example-element-row:not(.example-expanded-row):active {
+tr.team-element-row:not(.team-expanded-row):active {
   background: #e3efef;
 }
-
-.example-element-row td {
+.team-element-row td {
   border-bottom-width: 0;
 }
-
-.divider {
-  width: 250px;
-  background-color: #f5f5f5;
-}
-
-.example-element-detail {
+.team-element-detail {
   overflow: hidden;
   display: flex;
   text-align: left;
 }
-
-.example-element-description-attribution {
+.team-element-description-attribution {
   opacity: 0.5;
-}
-
-.golf-details{
-  padding: 3px;
-  text-align: left;
 }
 .mat-menu-item{
   background: #f5f5f5;
@@ -74,165 +38,40 @@ tr.example-element-row:not(.example-expanded-row):active {
   height: 22px;
   outline: none;
 }
-.material-icons {
-  font-size: 18px;
-}
 li {
   list-style-type: none;
   margin: 0;
   padding: 3px;
   clear: both;
   text-align: left;
-  color:  #f5f5f5;
+  color: #f5f5f5;
 }
-.review_bottom li {
-list-style: none;
-}
-
-
-.last-item {
-  div {
-    .row {
-      .tiles_container {
-        border-bottom: 1px solid #979797;
-      }
-    }
-  }
-}
-
-.tiles_container {
-  display: flex;
-  border-top: 1px solid #000000;
-  background-color: black;
-  color: white;
-  border-left: 0;
-  border-right: 0;
-  height: 45px;
-  padding: 0;
-
-  &__date-section {
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &--switch {
-      font-size: 12px;
-      font-weight: 300;
-      color: #dd5858;
-    }
-
-    &--date {
-      padding: 5px;
-      border-right: 1px solid white;
-      border-top: 1px solid white;
-      border-bottom: 1px solid white;
-      border-left:  1px solid white;
-      text-align: center;
-      font-size: 13px;
-      width: 20px;
-    }
-
-    &--type {
-      font-size: 11px;
-      font-weight: 300;
-      margin-left: 10px;
-      padding: 10px;
-    }
-    &--blank {
-      height: 5px;
-      background-color: grey;
-    }
-  }
-
-  &__description {
-    width: 100%;
-
-    &--name {
-      background-color: #F3F7F8;
-      padding: 16px;
-      font-size: 22px;
-    }
-
-    &--status {
-      padding: 16px 16px 16px 0;
-      margin: 6px;
-
-
-
-      span {
-        padding-left: 16px;
-        padding-top: 4px;
-        border-left: 1px solid #DBDBDB;
-        display: inline-block;
-        font-size: 20px;
-        font-weight: 300;
-        line-height: 30px;
-        display: flex;
-        justify-content: column;
-        align-items: center;
-
-        .blocked-icon {
-          background:  no-repeat;
-          width: 34px;
-          height: 28px;
-          display: inline-block;
-          margin-right: 16px;
-        }
-      }
-    }
-  }
-
-  &__clickable {
-    a {
-      width: 40px;
-      background: #F5FCFF no-repeat center;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: none;
-      transition: background-position-x 1s;
-      transition-timing-function: ease-in-out;
-
-      &:hover {
-        background-position-x: 12px;
-        cursor: pointer;
-      }
-    }
-
-  }
-
-}
-
 .stats-container{
-	background:#fff;	
-	position: center;
-	// top:386px;
-	left:0;
-	width:205px;
-	height:30px;
+  background:#fff;
+  position: center;
+  left:0;
+  width:205px;
+  height:30px;
   padding-top: 7px;
   padding-left: 25px;
   padding-right: 25px;
   padding-bottom: 18px;
 }
-
 .stats-container .golfer-name{
   font-size:14px;
   margin-left: 11px;
-	color:#393c45;	
+  color:#393c45;
 }
-.stats-container p{
-	font-size:11px;
-  color:#8181fc;	
+.stats-container .summary{
+  font-size:11px;
+  color:#8181fc;
   margin-left: 43px;
 }
 .stats-container .score{
-	float:right;
-	color:#b60707;
-	font-size:15px;
-	font-weight:600;
+  float:right;
+  color:#b60707;
+  font-size:15px;
+  font-weight:600;
 }
 .stats-container .pic{
   float:left;
@@ -240,9 +79,7 @@ list-style: none;
   height: 40px;
   width: 40px;
 }
-
 .spinner {
-  // position: relative;
   margin-left: 32%;
   margin-top: 20px;
 }

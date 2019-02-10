@@ -3,27 +3,18 @@
     margin: auto;
     @media screen and(max-width: 600px ){
         width: 300px;
-        background-size:  contain;
-    }
+        background-size: contain;
+   }
     @media screen and(max-width: 900px ){
         width: 320px;
-        background-size:  contain;
-    }
+        background-size: contain;
+   }
 }
-
 .mat-form-field {
     width: 100%;
     margin: 7px;
 }
-
 .mat-raised-button{
-   color: white;
-   background: blue;
+    color: white;
+    background: blue;
 }
-.email-full-width {
-    width: 100%;
-  }
-
-  .success{
-    color: green;
-  }

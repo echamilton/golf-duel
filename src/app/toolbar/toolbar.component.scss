@@ -1,68 +1,51 @@
- .main-img{
-   margin-top: 8px;
-   width: 40px;
-   height: 29px;
- }
-
- .golf-pic{
-   height: 40px;
-   width: 40px;
- }
-
- .title{
-   text-align: center;
-   margin-left: 10px;
- }
-
-  .leaders{
-    height: 85px;
-    background: black;
-    color: #E4E4E4;
-    font: 500 12px/14px Roboto,"Helvetica Neue",sans-serif;
-}
-
-.scrolling-wrapper {
-  display: flex; /* [1] */
-  flex-wrap: nowrap; /* [1] */
-  overflow-x: auto; /* [1] */
+// .main-img{
+//   margin-top: 8px;
+//   width: 40px;
+//   height: 29px;
+// }
+// .golf-pic{
+//   height: 40px;
+//   width: 40px;
+// }
+.title{
   text-align: center;
-  -webkit-overflow-scrolling: touch; /* [4] */
-  -ms-overflow-style: -ms-autohiding-scrollbar; /* [5] */ }
-  
-  .card {
-    display: inline-block;
-    margin: 1.0rem;
-  }
-
+  margin-left: 10px;
+}
+.leaders{
+  height: 85px;
+  background: black;
+  color: #E4E4E4;
+  font: 500 12px/14px Roboto,"Helvetica Neue",sans-serif;
+}
+.mat-toolbar-row{
+  padding-left: 3px;
+  padding-right: 0px;
+}
+.scrolling-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  text-align: center;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.card {
+  display: inline-block;
+  margin: 1.1rem;
+}
 .scrolling-wrapper::-webkit-scrollbar {
-  display: none; }
-  
-  .sidenav .mat-toolbar {
-    background: inherit;
-  }
-  
-  .mat-toolbar.mat-primary {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-  
-  .spacer {
-    flex: 1 1 auto;
-  }
-
-  .pic {
-    width: 45px;
-    height: 45px;
-    margin: auto;
-    @media screen and(max-width: 600px ){
-      width: 45px;
-      height: 45px;
-        background-size: contain;
-    }
-    @media screen and(max-width: 900px ){
-        width: 45px;
-        height: 45px;
-        background-size:  contain;
-    }
-  }
+  display: none;
+}
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.golfer-pic {
+  width: 45px;
+  height: 45px;
+  margin: auto;
+}
