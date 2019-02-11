@@ -16,10 +16,10 @@ tr.team-detail-row {
   background: rgb(182, 182, 189);
 }
 tr.team-element-row:not(.team-expanded-row):hover {
-  background: #cecccc;
+  background: #ffffff;
 }
 tr.team-element-row:not(.team-expanded-row):active {
-  background: #e3efef;
+  background: #becccc;
 }
 .team-element-row td {
   border-bottom-width: 0;
@@ -59,6 +59,7 @@ li {
 }
 .stats-container .golfer-name{
   font-size:14px;
+  font-weight: bold;
   margin-left: 11px;
   color:#393c45;
 }
@@ -69,7 +70,7 @@ li {
 }
 .stats-container .score{
   float:right;
-  color:#b60707;
+  color:#d41616;
   font-size:15px;
   font-weight:600;
 }

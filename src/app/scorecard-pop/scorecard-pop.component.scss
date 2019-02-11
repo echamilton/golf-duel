@@ -4,14 +4,18 @@
     border-spacing: 0;
     text-align: center;
     line-height: 20px;
-    table-layout: fixed;    
+    table-layout: fixed;
 }
-
-.scorecards-slider {
-    list-style-position: center;
+.score {
+ width: 19px;
 }
-
-
+.head{
+ padding-left: 2px;
+ padding-right: 2px;
+}
+.mat-dialog-container{
+    padding: 1px;
+}
 .header{
     width: 100%;
     border-collapse: collapse;
@@ -19,16 +23,15 @@
     text-align: center;
     line-height: 20px;
     font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif;
-    table-layout: fixed;   
+    table-layout: fixed;
 }
-
-.evan{
-    background-color: black; table-layout: flex;    
+.list{
+    background-color: black;
+    table-layout: flex;
     color: #E4E4E4;
     text-align: center;
     width: 100%;
 }
-
 .hole-picker{
     padding: 2px;
     font-size: 11px;
@@ -41,7 +44,6 @@ li{
     font-size: 11px;
     list-style-type: none;
 }
-
 .scorecard-scorecards {
     width: 100%;
     border-collapse: collapse;
@@ -50,7 +52,7 @@ li{
     font-size: 13px;
     line-height: 30px;
     table-layout: fixed;
-}   
+}
 ul, menu, dir{
     display: block;
     list-style-type: disc;
@@ -60,10 +62,33 @@ ul, menu, dir{
     margin-inline-end: 0px;
     padding-inline-start: 1px;
 }
-
-.clearfix:after,
-.clearfix:before {
-    display: table;
-    content: "";
-    line-height: 0
+.legend {
+    font-size: 12px;
+    display: flex;
+    text-align: center;
+}
+.eagle {
+    background-color: green;
+    color: #ffffff;
+    padding: 6px;
+}
+.birdie {
+    background-color: blue;
+    color: #ffffff;
+    padding: 6px;
+}
+.par {
+    background-color: black;
+    color: #ffffff;
+    padding: 6px;
+}
+.bogey {
+    background-color: red;
+    color: #ffffff;
+    padding: 6px;
+}
+.double {
+    background-color: purple;
+    color: #ffffff;
+    padding: 6px;
 }

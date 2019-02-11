@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatSort, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatSort, MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { IGolferDetail, IGolferItem, ILeaderResults, IIndGolferResult } from '../models';
 import { SportsApiService } from '../sports-api';
 import { Subscription } from 'rxjs';
@@ -33,8 +33,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   picks: Array<IIndGolferResult> = [];
   status: string;
   entries: number;
+  config = new MatSnackBarConfig();
 
-  constructor(private popup: MatDialog, private router: Router, private sportsApi: SportsApiService) {
+  constructor(private popup: MatDialog, private router: Router, private sportsApi: SportsApiService,
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -252,7 +254,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  openPopup(golferId) {
+  openPopup(golferId: string, status: string) {
+
+    //*Golfer is not active, do not show scorecard
+    if (this.sportsApi.isGolferActive(status) != true) {
+      this.openSnackBar();
+      return;
+    }
+
 
     const popupConfig = new MatDialogConfig();
 
@@ -269,4 +278,11 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   isTournyActive() {
     return this.sportsApi.isTournamentActive(this.status);
   }
+
+  private openSnackBar() {
+    let text = 'Golfer has been cut!';
+    this.config.duration = 2500;
+    this.snackBar.open(text, 'Close', this.config);
+  }
+
 }
