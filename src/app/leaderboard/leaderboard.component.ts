@@ -3,7 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatSort, MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { IGolferDetail, IGolferItem, ILeaderResults, IIndGolferResult } from '../models';
 import { SportsApiService } from '../sports-api';
-import { Messages } from '../constants';
+import { Messages, leaderColumns } from '../constants';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
@@ -23,7 +23,7 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
 
 export class LeaderboardComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns = ['position', 'team', 'golfersRemain', 'holesRemain', 'score'];
+  displayedColumns = leaderColumns;
   expandedElement: ILeaderResults | null;
   dataSource: any[];
   subscription: Subscription;
@@ -34,7 +34,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   picks: Array<IIndGolferResult> = [];
   status: string;
   entries: number;
-  noEntries: boolean;
   config = new MatSnackBarConfig();
 
   constructor(private popup: MatDialog, private router: Router, private sportsApi: SportsApiService,

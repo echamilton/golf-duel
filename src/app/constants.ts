@@ -17,6 +17,13 @@ export enum ScoreValues {
   bogey = 'BOGEY',
 }
 
+export const leaderColumns: string[] = [
+  'position',
+  'team',
+  'golfersRemain',
+  'holesRemain',
+  'score'];
+
 export enum Messages {
   userCreateSuccess = 'Your account has been created',
   userCreateFail = 'Unable to create account, check username / password',
