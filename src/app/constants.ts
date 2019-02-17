@@ -1,10 +1,9 @@
 import { ITournament } from './models';
 
-export const tournamentConfig: ITournament[] = [
-  { eventId: 'DESERT', tournyId: 'Deserts Classic', url: 'https://statdata.pgatour.com/r/002/2019/leaderboard-v2.json', active: '' },
-  { eventId: 'MASTERS', tournyId: 'Masters', url: 'https://statdata.pgatour.com/r/014/2018/leaderboard-v2.json', active: '' },
-  { eventId: 'FARMERS', tournyId: 'Farmers', url: 'https://statdata.pgatour.com/r/004/2019/leaderboard-v2.json', active: '' },
-  { eventId: 'WASTE', tournyId: 'Farmers', url: 'https://statdata.pgatour.com/r/003/2019/leaderboard-v2.json', active: 'X' }
+export const TournamentConfig: ITournament[] = [
+  { eventId: 'FARMERS', tournyId: 'Farmers', url: 'https://statdata.pgatour.com/r/004/2019/leaderboard-v2.json', active: false },
+  { eventId: 'WASTE', tournyId: 'Waste Managment', url: 'https://statdata.pgatour.com/r/003/2019/leaderboard-v2.json', active: false },
+  { eventId: 'GENESIS', tournyId: 'Genesis', url: 'https://statdata.pgatour.com/r/007/2019/leaderboard-v2.json', active: true }
 ];
 
 export const appTitle = '443 Fantasy Golf';
@@ -23,8 +22,19 @@ export enum Messages {
   userCreateFail = 'Unable to create account, check username / password',
   userLoginSuccess = 'You have logged in successfully',
   userLoginFail = 'Unable to login with provided credentials',
+  submitTeam = 'Are you sure you want to submit your team?',
+  deleteTeam = 'Are you sure you want to cancel your entry?',
+  teamError = 'Complete your entry!',
+  teamSuccess = 'Picks have been submitted!',
+  deleteSuccess = 'Picks have been removed!',
 }
 
 export enum ServiceCodes {
   userFailCode = 'auth/argument-error',
+}
+
+export enum TournamentStatus {
+  offical = 'Official',
+  inProgress = 'In Progress',
+  complete = 'Play Complete',
 }

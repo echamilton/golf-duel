@@ -27,6 +27,7 @@ export interface IGolfers {
 export interface IScrollBar {
   name: string;
   score: string;
+  scoreToday: string;
   position: string;
   hole: string;
   golferId: string;
@@ -36,7 +37,7 @@ export interface ITournament {
   eventId: string;
   tournyId: string;
   url: string;
-  active: string;
+  active: boolean;
 }
 
 export interface IGolferItem {

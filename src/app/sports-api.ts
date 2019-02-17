@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { ITournament, IUserGolfPicks, IGolferGrouping } from './models';
-import { tournamentConfig } from './constants';
+import { IUserGolfPicks, IGolferGrouping, ITournament } from './models';
+import { TournamentConfig, TournamentStatus } from './constants';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -13,11 +13,9 @@ import { map } from 'rxjs/operators';
 export class SportsApiService {
   subscription: Subscription;
   eventId: string;
-  tournaments: Array<ITournament> = [];
   cacheData: any;
 
-  constructor(private service: HttpClient, private fireDb: AngularFireDatabase ) {
-    this.tournaments = tournamentConfig;
+  constructor(private service: HttpClient, private fireDb: AngularFireDatabase) {
   }
 
   getGolfScores(): Observable<any> {
@@ -26,7 +24,7 @@ export class SportsApiService {
 
   getEventId() {
     if (this.eventId == undefined) {
-      this.eventId = 'WASTE';
+      this.eventId = 'GENESIS';
     }
     return this.eventId;
   }
@@ -44,7 +42,7 @@ export class SportsApiService {
   }
 
   getEventEndpoint() {
-    let tourny = this.tournaments.find(data => data.eventId === this.getEventId());
+    let tourny = TournamentConfig.find(data => data.eventId === this.getEventId());
     if (tourny !== undefined) {
       return tourny.url;
     } else {
@@ -58,7 +56,7 @@ export class SportsApiService {
 
 
   isTournamentActive(status) {
-    if (status === 'Official' || status === 'In Progress' || status === 'Play Complete'
+    if (status === TournamentStatus.offical || status === TournamentStatus.inProgress || status === TournamentStatus.complete
     ) {
       return true;
     } else {
@@ -89,8 +87,19 @@ export class SportsApiService {
   }
 
   deleteGolferPicks(userPicks: IUserGolfPicks) {
-    this.fireDb.list('myGolfers').remove('myGolfers/' + this.getEventId() + '-' + userPicks.team).then(_ => {
+    this.fireDb.list('myGolfers').remove(this.getEventId() + '-' + userPicks.team).then(_ => {
     });
+  }
+
+  getHistoryEvents() {
+    let tournaments: Array<ITournament> = [];
+
+    for (let key in TournamentConfig) {
+      if (TournamentConfig[key].active != true) {
+        tournaments.push(TournamentConfig[key]);
+      }
+    }
+    return tournaments;
   }
 
   private extractData(res: Response) {

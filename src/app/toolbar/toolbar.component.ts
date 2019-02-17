@@ -34,6 +34,7 @@ export class ToolbarComponent implements OnInit {
         golfer.name = this.pgaTournyRespPlayers[key].player_bio.first_name + ' ' + this.pgaTournyRespPlayers[key].player_bio.last_name;
         golfer.score = this.pgaTournyRespPlayers[key].total;
         golfer.hole = this.pgaTournyRespPlayers[key].thru;
+        golfer.scoreToday = this.pgaTournyRespPlayers[key].today;
         if (this.sportsApi.isTournamentActive(apiData.leaderboard.round_state) == true) {
           if (golfer.hole == '18') {
             golfer.hole = 'F';
@@ -47,6 +48,9 @@ export class ToolbarComponent implements OnInit {
 
           if (golfer.score == '0') {
             golfer.score = 'E';
+          }
+          if (golfer.scoreToday == '0') {
+            golfer.scoreToday = 'E';
           }
 
         } else {

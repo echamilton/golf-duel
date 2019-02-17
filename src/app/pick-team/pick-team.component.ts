@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SportsApiService } from '../sports-api';
 import { AuthService } from '../authservice';
+import { Messages } from '../constants';
 import { PopupComponent } from '../popup/popup.component';
 
 @Component({
@@ -44,12 +45,12 @@ export class PickTeamComponent implements OnInit {
         this.picks.golfer5 == '' || this.picks.golfer6 == '' ||
         this.picks.golfer7 == '' || this.picks.golfer8 == '' ||
         this.picks.team == '') {
-        this.openSnackBar('Complete your entry!');
+        this.openSnackBar(Messages.teamError);
         return;
       }
-      this.popupText = 'Are you sure you want to submit your team?';
+      this.popupText = Messages.submitTeam;
     } else {
-      this.popupText = 'Are you sure you want to cancel your entry?';
+      this.popupText = Messages.deleteTeam;
     }
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
@@ -59,30 +60,31 @@ export class PickTeamComponent implements OnInit {
     const dialogRef = this.popup.open(PopupComponent, popupConfig);
 
     dialogRef.afterClosed().subscribe(
-      answer => this.processData(answer)
+      answer => this.processData(answer, action)
     );
   }
 
-  processData(answer) {
+  processData(answer: string, action: string) {
     if (answer === 'Yes') {
-      if (this.existingPicks == true) {
-        this.sportsApi.updateGolferPicks(this.picks);
+      if (action == 'update') {
+        if (this.existingPicks == true) {
+          this.sportsApi.updateGolferPicks(this.picks);
+        } else {
+          this.picks.email = this.authService.getCurrentUser();
+          this.sportsApi.updateGolferPicks(this.picks);
+        }
+        this.openSnackBar(Messages.teamSuccess);
       } else {
-        this.picks.email = this.authService.getCurrentUser();
-        this.sportsApi.updateGolferPicks(this.picks);
+        this.sportsApi.deleteGolferPicks(this.picks);
+        this.openSnackBar(Messages.deleteSuccess);
       }
-      this.openSnackBar('Picks have been submitted!');
       this.router.navigate(['/leader']);
-    }
+    } 
   }
 
   openSnackBar(Text: string) {
     this.config.duration = 2500;
     this.snackBar.open(Text, 'Close', this.config);
-  }
-
-  deleteEntry() {
-    this.sportsApi.deleteGolferPicks(this.picks);
   }
 
   checkData(golferID, currentGolfer) {
@@ -102,8 +104,8 @@ export class PickTeamComponent implements OnInit {
   }
 
   getActive() {
-    let apiData: any;
-    apiData = this.sportsApi.getApiData();
+    return false;
+    let apiData = this.sportsApi.getApiData();
     if (apiData == undefined) {
       return false;
     }

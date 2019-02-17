@@ -26,6 +26,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { LoaderComponent } from './loader/loader.component';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { LoaderComponent } from './loader/loader.component';
     ScorecardPopComponent,
     SignUpComponent,
     LoginComponent,
-    LoaderComponent
+    LoaderComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
