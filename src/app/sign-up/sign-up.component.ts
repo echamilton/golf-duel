@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../authservice';
-import { IMsgHandle } from '../models';
+import { Messages, ServiceCodes } from '../constants';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class SignUpComponent implements OnInit {
   email: string;
   password: string;
-  team: string;
   config = new MatSnackBarConfig();
 
   constructor(private router: Router, public authService: AuthService, private snackBar: MatSnackBar) { }
@@ -22,26 +21,25 @@ export class SignUpComponent implements OnInit {
   }
 
   signup() {
-    let response = {} as IMsgHandle;
-    response = this.authService.signup(this.email, this.password);
-    this.email = this.password = '';
-    this.openSnackBar(response.success, response.message);
-    if (response.success === true) {
-      this.router.navigate(['/leader']);
-    } else {
-      console.log(response.message);
-    }
+    this.authService.signup(this.email, this.password)
+      .then(res => {
+        this.email = this.password = '';
+        this.openSnackBar(Messages.userCreateSuccess);
+        this.router.navigate(['/leader']);
+      }, err => {
+        let message: string;
+        if (err.code == ServiceCodes.userFailCode) {
+          message = Messages.userCreateFail;
+        } else {
+          message = err.message;
+        }
+
+        this.openSnackBar(message);
+      })
   }
 
-  openSnackBar(success:boolean, message: string) {
-    let text: string;
-    text = '';
-    if (success === true) {
-      text = 'Your account has been created';
-    } else {
-      text = message;
-    }
-    this.config.duration = 2500;
-    this.snackBar.open(text, 'Close', this.config);
+  openSnackBar(message: string) {
+    this.config.duration = 3000;
+    this.snackBar.open(message, 'Close', this.config);
   }
 }

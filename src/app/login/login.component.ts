@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../authservice';
+import { Messages, ServiceCodes } from '../constants';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -20,15 +21,26 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.email, this.password);
-    this.email = this.password = '';
-    this.openSnackBar();
-    this.router.navigate(['/leader']);
+    this.authService.login(this.email, this.password)
+      .then(res => {
+        this.email = this.password = '';
+        this.openSnackBar(Messages.userLoginSuccess);
+        this.router.navigate(['/leader']);
+      }, err => {
+        let message: string;
+        if (err.code == ServiceCodes.userFailCode) {
+          message = Messages.userLoginFail;
+        } else {
+          message = err.message;
+        }
+
+        this.openSnackBar(message);
+      })
   }
 
-  openSnackBar() {
-    this.config.duration = 2500;
-    this.snackBar.open('You have logged in', 'Close', this.config);
+  openSnackBar(message: string) {
+    this.config.duration = 3000;
+    this.snackBar.open(message, 'Close', this.config);
   }
 
   logout() {

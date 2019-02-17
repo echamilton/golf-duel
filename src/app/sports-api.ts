@@ -16,7 +16,7 @@ export class SportsApiService {
   tournaments: Array<ITournament> = [];
   cacheData: any;
 
-  constructor(private service: HttpClient, private fireDb: AngularFireDatabase) {
+  constructor(private service: HttpClient, private fireDb: AngularFireDatabase ) {
     this.tournaments = tournamentConfig;
   }
 

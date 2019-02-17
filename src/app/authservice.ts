@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { IMsgHandle } from './models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,20 +16,13 @@ export class AuthService {
     }
 
     signup(email: string, password: string) {
-        let response: IMsgHandle;
-        this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
-            .then(value => {
-                this.user = value;
-                response.success = true;
-                response.message = 'Created user';
-            })
-            .catch(err => {
-                response.success = false;
-                response = err.message;
-            });
-        return response;
+        return new Promise<any>((resolve, reject) => {
+            this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
+                .then(res => {
+                    resolve(res);
+                }, err => reject(err))
+        })
     }
-
 
     getCurrentUser() {
         if (this.user !== undefined) {
@@ -39,17 +31,13 @@ export class AuthService {
     }
 
     login(email: string, password: string) {
-        this.firebaseAuth
-            .auth
-            .signInWithEmailAndPassword(email, password)
-            .then(value => {
-                this.user = value;
-                return true;
-            })
-            .catch(err => {
-                console.log('Something went wrong:', err.message);
-                return false;
-            });
+        return new Promise<any>((resolve, reject) => {
+            this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
+                .then(res => {
+                    this.user = res;
+                    resolve(res);
+                }, err => reject(err))
+        })
     }
 
     logout() {

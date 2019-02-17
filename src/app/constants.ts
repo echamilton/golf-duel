@@ -17,3 +17,14 @@ export enum ScoreValues {
   triple = 'TRIPLE',
   bogey = 'BOGEY',
 }
+
+export enum Messages {
+  userCreateSuccess = 'Your account has been created',
+  userCreateFail = 'Unable to create account, check username / password',
+  userLoginSuccess = 'You have logged in successfully',
+  userLoginFail = 'Unable to login with provided credentials',
+}
+
+export enum ServiceCodes {
+  userFailCode = 'auth/argument-error',
+}
