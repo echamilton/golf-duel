@@ -6,22 +6,16 @@
   </div>
   <mat-card-content>
     <form>
-      <table cellspacing="0">
-        <tr>
-          <td>
-            <mat-form-field>
-              <input matInput placeholder="Email" [(ngModel)]="email" name="email" required>
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field>
-              <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
-            </mat-form-field>
-          </td>
-        </tr>
-      </table>
+      <div style="text-align: center;">
+        <mat-form-field>
+          <input matInput placeholder="Email" [(ngModel)]="email" name="email" required>
+        </mat-form-field>
+      </div>
+      <div style="text-align: center;">
+        <mat-form-field>
+          <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+        </mat-form-field>
+      </div>
     </form>
   </mat-card-content>
   <div style="text-align: center;">

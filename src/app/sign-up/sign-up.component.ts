@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../authservice';
+import { IMsgHandle } from '../models';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -21,15 +22,26 @@ export class SignUpComponent implements OnInit {
   }
 
   signup() {
-    this.authService.signup(this.email, this.password);
+    let response = {} as IMsgHandle;
+    response = this.authService.signup(this.email, this.password);
     this.email = this.password = '';
-    this.openSnackBar();
-    this.router.navigate(['/leader']);
+    this.openSnackBar(response.success, response.message);
+    if (response.success === true) {
+      this.router.navigate(['/leader']);
+    } else {
+      console.log(response.message);
+    }
   }
 
-  openSnackBar() {
+  openSnackBar(success:boolean, message: string) {
+    let text: string;
+    text = '';
+    if (success === true) {
+      text = 'Your account has been created';
+    } else {
+      text = message;
+    }
     this.config.duration = 2500;
-    this.snackBar.open('Your account has been created', 'Close', this.config);
+    this.snackBar.open(text, 'Close', this.config);
   }
-
 }

@@ -66,6 +66,11 @@ export interface IGolferDetail {
   pct: number;
 }
 
+export interface IMsgHandle {
+  success: boolean;
+  message: string;
+}
+
 export interface IIndGolferResult {
   golferId: string;
   golferName: string;

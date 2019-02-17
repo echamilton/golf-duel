@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'golf-fantasy-app'`, () => {
+  it(`should have as title '443 Fantasy Golf`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('golf-fantasy-app');
+    expect(app.title).toEqual('443 Fantasy Golf');
   });
 
   it('should render title in a h1 tag', () => {
