@@ -24,7 +24,7 @@ export class SportsApiService {
 
   getEventId() {
     if (this.eventId == undefined) {
-      this.eventId = 'GENESIS';
+      this.eventId = TournamentConfig.find(data => data.active === true).eventId;
     }
     return this.eventId;
   }

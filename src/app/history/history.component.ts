@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SportsApiService } from '../sports-api';
+import { ITournament } from '../models';
+import { LeaderboardComponent } from '../leaderboard/leaderboard.component';
 
 @Component({
   selector: 'app-history',
@@ -7,15 +9,21 @@ import { SportsApiService } from '../sports-api';
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
+  tournyId: string;
+  tournaments: Array<ITournament> = [];
 
-  constructor(private sportsApi: SportsApiService) { }
+  constructor(private sportsApi: SportsApiService ) { }
 
   ngOnInit() {
     this.retrieveHistory();
   }
 
   retrieveHistory() {
-    console.log(this.sportsApi.getHistoryEvents());
+    this.tournaments = this.sportsApi.getHistoryEvents();
+  }
+
+  changeTourny(){
+    this.sportsApi.setEventId(this.tournyId);
   }
 
 }

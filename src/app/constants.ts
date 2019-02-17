@@ -27,6 +27,7 @@ export enum Messages {
   teamError = 'Complete your entry!',
   teamSuccess = 'Picks have been submitted!',
   deleteSuccess = 'Picks have been removed!',
+  golferCut = 'Golfer has been cut!',
 }
 
 export enum ServiceCodes {

@@ -3,6 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatSort, MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { IGolferDetail, IGolferItem, ILeaderResults, IIndGolferResult } from '../models';
 import { SportsApiService } from '../sports-api';
+import { Messages } from '../constants';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
@@ -33,6 +34,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   picks: Array<IIndGolferResult> = [];
   status: string;
   entries: number;
+  noEntries: boolean;
   config = new MatSnackBarConfig();
 
   constructor(private popup: MatDialog, private router: Router, private sportsApi: SportsApiService,
@@ -169,7 +171,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         fantasyLeader.golfersRemain = remain;
         this.fantasyLeaders.push(fantasyLeader);
       }
-      this.getSortedData(this.fantasyLeaders);
+      if (this.fantasyLeaders.length > 0) {
+        this.getSortedData(this.fantasyLeaders);
+      }
       this.dataSource = this.fantasyLeaders;
       this.rankEntries();
     });
@@ -280,7 +284,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   private openSnackBar() {
-    let text = 'Golfer has been cut!';
+    let text = Messages.golferCut;
     this.config.duration = 2500;
     this.snackBar.open(text, 'Close', this.config);
   }
