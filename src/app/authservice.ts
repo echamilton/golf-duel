@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthService {
-    public authState$: Observable<firebase.User>;
-    public email: string;
-    public user: any;
-
+    public user: string;
     constructor(private firebaseAuth: AngularFireAuth) {
     }
 
@@ -25,16 +20,18 @@ export class AuthService {
     }
 
     getCurrentUser() {
-        if (this.user !== undefined) {
-            return this.user.user.email;
+        if (this.user == undefined) {
+            this.user = localStorage.getItem('user');
+            console.log(this.user);
         }
+        return this.user;
     }
 
     login(email: string, password: string) {
         return new Promise<any>((resolve, reject) => {
             this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
                 .then(res => {
-                    this.user = res;
+                    localStorage.setItem('user', email);
                     resolve(res);
                 }, err => reject(err))
         })
@@ -44,7 +41,6 @@ export class AuthService {
         this.firebaseAuth
             .auth
             .signOut();
-        this.email = '';
-        this.user = undefined;
+        this.user = '';
     }
 }

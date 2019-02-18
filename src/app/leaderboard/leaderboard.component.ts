@@ -52,10 +52,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   getGolferLeaderBoard(userGolfPicks) {
     this.sportsApi.getGolfScores().subscribe(apiData => {
-      this.sportsApi.setApiData(apiData);
       this.entries = 0;
       this.status = apiData.leaderboard.round_state;
-
 
       for (let userGolfKey in userGolfPicks) {
         if (userGolfPicks[userGolfKey].eventId !== this.sportsApi.getEventId()) {

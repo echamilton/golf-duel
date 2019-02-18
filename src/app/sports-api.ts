@@ -24,7 +24,7 @@ export class SportsApiService {
     return this.service.get(this.getEventEndpoint()).pipe(
       map(this.extractData),
       catchError(err => {
-        return throwError("Golf Scores API call failed" + '-' + this.getEventId());
+        return throwError('Golf Scores API call failed' + '-' + this.getEventId());
       }));
   }
 
@@ -33,6 +33,10 @@ export class SportsApiService {
       this.eventId = TournamentConfig.find(data => data.active === true).eventId;
     }
     return this.eventId;
+  }
+
+  getActiveEventId() {
+    return this.eventId = TournamentConfig.find(data => data.active === true).eventId;
   }
 
   getEventName() {
