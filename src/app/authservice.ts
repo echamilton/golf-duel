@@ -15,12 +15,12 @@ export class AuthService {
             this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
                 .then(res => {
                     resolve(res);
-                }, err => reject(err))
-        })
+                }, err => reject(err));
+        });
     }
 
     getCurrentUser() {
-        if (this.user == undefined) {
+        if (this.user === undefined) {
             this.user = localStorage.getItem('user');
         }
         return this.user;
@@ -32,8 +32,8 @@ export class AuthService {
                 .then(res => {
                     localStorage.setItem('user', email);
                     resolve(res);
-                }, err => reject(err))
-        })
+                }, err => reject(err));
+        });
     }
 
     logout() {

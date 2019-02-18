@@ -35,7 +35,7 @@ export class SignUpComponent implements OnInit {
         }
 
         this.openSnackBar(message);
-      })
+      });
   }
 
   openSnackBar(message: string) {

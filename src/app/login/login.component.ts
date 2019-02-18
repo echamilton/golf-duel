@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         }
 
         this.openSnackBar(message);
-      })
+      });
   }
 
   openSnackBar(message: string) {

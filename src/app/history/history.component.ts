@@ -20,10 +20,10 @@ export class HistoryComponent implements OnInit {
   retrieveHistory() {
     this.tournaments = this.sportsApi.getHistoryEvents();
     this.tournyId = this.tournaments[0].eventId;
-    this.sportsApi.setEventId(this.tournyId,true);
+    this.sportsApi.setEventId(this.tournyId, true);
   }
 
-  changeTourny(){
+  changeTourny() {
     // this.sportsApi.setEventId(this.tournyId);
   }
 

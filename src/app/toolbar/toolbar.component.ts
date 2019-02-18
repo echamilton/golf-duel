@@ -26,7 +26,7 @@ export class ToolbarComponent implements OnInit {
     this.sportsApi.getGolfScores().subscribe(
       apiData => this.buildLeaderboard(apiData),
       err => this.handleError(err),
-    )
+    );
   }
 
   buildLeaderboard(pgaScores) {
