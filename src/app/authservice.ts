@@ -22,7 +22,6 @@ export class AuthService {
     getCurrentUser() {
         if (this.user == undefined) {
             this.user = localStorage.getItem('user');
-            console.log(this.user);
         }
         return this.user;
     }

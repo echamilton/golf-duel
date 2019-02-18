@@ -95,7 +95,6 @@ export class PickTeamComponent implements OnInit {
 
   isLoggedIn() {
     let email = this.authService.getCurrentUser();
-      console.log(email);
     if (email != null && email != undefined) {
       return true;
     } else {
