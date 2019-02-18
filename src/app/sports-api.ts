@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { IUserGolfPicks, IGolferGrouping, ITournament } from './models';
-import { TournamentConfig, TournamentStatus } from './constants';
-import { map } from 'rxjs/operators';
+import { TournamentConfig, TournamentStatus, GolferStatus } from './constants';
+import { map, catchError } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class SportsApiService {
-  subscription: Subscription;
   eventId: string;
   cacheData: any;
 
@@ -19,7 +19,11 @@ export class SportsApiService {
   }
 
   getGolfScores(): Observable<any> {
-    return this.service.get(this.getEventEndpoint()).pipe(map(this.extractData));
+    return this.service.get(this.getEventEndpoint()).pipe(
+      map(this.extractData),
+      catchError(err => {
+        return throwError("Golf Scores API call failed");
+      }));
   }
 
   getEventId() {
@@ -27,6 +31,10 @@ export class SportsApiService {
       this.eventId = TournamentConfig.find(data => data.active === true).eventId;
     }
     return this.eventId;
+  }
+
+  getEventName() {
+    return TournamentConfig.find(data => data.active === true).tournyId;
   }
 
   setEventId(setEventId) {
@@ -65,7 +73,7 @@ export class SportsApiService {
   }
 
   isGolferActive(status) {
-    if (status == 'active') {
+    if (status == GolferStatus.active) {
       return true;
     } else {
       return false;

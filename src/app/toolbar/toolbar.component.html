@@ -40,9 +40,12 @@
                               <img class="golfer-pic"
                                     src='https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_face:center,q_auto,t_headshots_leaderboard_l,w_160/headshots_{{golfer.golferId}}.png'>
                               <div>{{golfer.position}} | {{golfer.name}}</div>
-                              <div>{{golfer.score}} | {{golfer.hole}} | {{golfer.scoreToday}}</div>
+                              <div>{{golfer.score}} | {{golfer.hole}}</div>
                         </span>
                   </div>
+            </div>
+            <div *ngIf="error" class="error-text">
+                  {{tournyText}}
             </div>
       </mat-toolbar-row>
 </mat-toolbar>

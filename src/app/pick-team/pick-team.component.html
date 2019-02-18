@@ -101,23 +101,15 @@
     </ng-container>
     <ng-container *ngIf="getActive() == true">
       <mat-card-header>
-        <mat-card-content>
-          <div style="text-align: center;">
-            <h4>
-              Tournament is currently in progress!
-            </h4>
-          </div>
+        <mat-card-content class="message">
+          Tournament is currently in progress!
         </mat-card-content>
       </mat-card-header>
     </ng-container>
     <ng-container *ngIf="getActive() == false && isLoggedIn() == false">
       <mat-card-header>
-        <mat-card-content>
-          <div style="text-align: center;">
-            <h4>
-              Login to view or make picks!
-            </h4>
-          </div>
+        <mat-card-content class="message">
+          Login to view or make picks!
         </mat-card-content>
       </mat-card-header>
     </ng-container>

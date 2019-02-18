@@ -13,55 +13,70 @@ import { IScrollBar } from '../models';
 export class ToolbarComponent implements OnInit {
   pgaTournyRespPlayers: any[];
   golfers: Array<IScrollBar> = [];
+  error: boolean;
+  tournyText: string;
 
   constructor(private sportsApi: SportsApiService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.golfers = [];
-    this.sportsApi.getGolfScores().subscribe(apiData => {
-      this.pgaTournyRespPlayers = apiData.leaderboard.players;
-      this.sportsApi.setApiData(apiData);
+    this.error = false;
+    this.tournyText = '';
 
-      for (let key in this.pgaTournyRespPlayers) {
-        let golfer = {} as IScrollBar;
+    this.sportsApi.getGolfScores().subscribe(
+      apiData => this.buildLeaderboard(apiData),
+      err => this.handleError(err),
+    )
+  }
 
-        if (this.sportsApi.isGolferActive(this.pgaTournyRespPlayers[key].status) == false) {
-          continue;
-        }
+  buildLeaderboard(pgaScores) {
+    this.pgaTournyRespPlayers = pgaScores.leaderboard.players;
+    this.sportsApi.setApiData(pgaScores);
 
-        golfer.position = this.pgaTournyRespPlayers[key].current_position;
-        golfer.golferId = this.pgaTournyRespPlayers[key].player_id;
-        golfer.name = this.pgaTournyRespPlayers[key].player_bio.first_name + ' ' + this.pgaTournyRespPlayers[key].player_bio.last_name;
-        golfer.score = this.pgaTournyRespPlayers[key].total;
-        golfer.hole = this.pgaTournyRespPlayers[key].thru;
-        golfer.scoreToday = this.pgaTournyRespPlayers[key].today;
-        if (this.sportsApi.isTournamentActive(apiData.leaderboard.round_state) == true) {
-          if (golfer.hole == '18') {
-            golfer.hole = 'F';
-          } else {
-            if (golfer.hole == null) {
-              golfer.hole = 'Thru 0';
-            } else {
-              golfer.hole = 'Thru' + ' ' + golfer.hole;
-            }
-          }
+    for (let key in this.pgaTournyRespPlayers) {
+      let golfer = {} as IScrollBar;
 
-          if (golfer.score == '0') {
-            golfer.score = 'E';
-          }
-          if (golfer.scoreToday == '0') {
-            golfer.scoreToday = 'E';
-          }
-
-        } else {
-          golfer.position = '-';
-          golfer.hole = '-';
-          golfer.score = '-';
-        }
-        this.golfers.push(golfer);
+      if (this.sportsApi.isGolferActive(this.pgaTournyRespPlayers[key].status) == false) {
+        continue;
       }
+
+      golfer.position = this.pgaTournyRespPlayers[key].current_position;
+      golfer.golferId = this.pgaTournyRespPlayers[key].player_id;
+      golfer.name = this.pgaTournyRespPlayers[key].player_bio.first_name + ' ' + this.pgaTournyRespPlayers[key].player_bio.last_name;
+      golfer.score = this.pgaTournyRespPlayers[key].total;
+      golfer.hole = this.pgaTournyRespPlayers[key].thru;
+      golfer.scoreToday = this.pgaTournyRespPlayers[key].today;
+      if (this.sportsApi.isTournamentActive(pgaScores.leaderboard.round_state) == true) {
+        if (golfer.hole == '18') {
+          golfer.hole = 'F';
+        } else {
+          if (golfer.hole == null) {
+            golfer.hole = 'Thru 0';
+          } else {
+            golfer.hole = 'Thru' + ' ' + golfer.hole;
+          }
+        }
+
+        if (golfer.score == '0') {
+          golfer.score = 'E';
+        }
+        if (golfer.scoreToday == '0') {
+          golfer.scoreToday = 'E';
+        }
+
+      } else {
+        golfer.position = '-';
+        golfer.hole = '-';
+        golfer.score = '-';
+      }
+      this.golfers.push(golfer);
     }
-    );
+
+  }
+
+  handleError(err) {
+    this.error = true;
+    this.tournyText = this.sportsApi.getEventName() + ' will commence shortly';
   }
 
   isLoggedIn() {

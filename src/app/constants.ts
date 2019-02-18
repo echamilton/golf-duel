@@ -1,9 +1,24 @@
 import { ITournament } from './models';
 
 export const TournamentConfig: ITournament[] = [
-  { eventId: 'FARMERS', tournyId: 'Farmers', url: 'https://statdata.pgatour.com/r/004/2019/leaderboard-v2.json', active: false },
-  { eventId: 'WASTE', tournyId: 'Waste Managment', url: 'https://statdata.pgatour.com/r/003/2019/leaderboard-v2.json', active: false },
-  { eventId: 'GENESIS', tournyId: 'Genesis', url: 'https://statdata.pgatour.com/r/007/2019/leaderboard-v2.json', active: true }
+  {
+    eventId: 'FARMERS',
+    tournyId: 'Farmers',
+    url: 'https://statdata.pgatour.com/r/004/2019/leaderboard-v2.json',
+    active: false
+  },
+  {
+    eventId: 'WASTE',
+    tournyId: 'Waste Managment',
+    url: 'https://statdata.pgatour.com/r/003/2019/leaderboard-v2.json',
+    active: false
+  },
+  {
+    eventId: 'WGC-2019',
+    tournyId: 'WGC Mexico',
+    url: '',
+    active: true
+  }
 ];
 
 export const appTitle = '443 Fantasy Golf';
@@ -15,6 +30,11 @@ export enum ScoreValues {
   double = 'DOUBLE',
   triple = 'TRIPLE',
   bogey = 'BOGEY',
+}
+
+export enum GolferStatus {
+  cut = 'CUT',
+  active = 'active',
 }
 
 export const leaderColumns: string[] = [

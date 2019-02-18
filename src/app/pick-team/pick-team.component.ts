@@ -104,7 +104,6 @@ export class PickTeamComponent implements OnInit {
   }
 
   getActive() {
-    return false;
     let apiData = this.sportsApi.getApiData();
     if (apiData == undefined) {
       return false;
