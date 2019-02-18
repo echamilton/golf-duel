@@ -1,10 +1,13 @@
 <form #form="ngForm">
+    <div class="selection">
     <mat-form-field>
-        <mat-select name="tournament" placeholder="Tournament" [(ngModel)]="tournyId" (selectionChange)="changeTourny()">
+        <mat-select name="tournament" placeholder="Tournament" [(ngModel)]="tournyId"
+            (selectionChange)="changeTourny()">
             <mat-option *ngFor="let tourny of tournaments" [value]="tourny.eventId">
                 {{tourny.tournyId}}
             </mat-option>
         </mat-select>
     </mat-form-field>
+    </div>
 </form>
 <app-leader></app-leader>

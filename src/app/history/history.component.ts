@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SportsApiService } from '../sports-api';
 import { ITournament } from '../models';
-import { LeaderboardComponent } from '../leaderboard/leaderboard.component';
 
 @Component({
   selector: 'app-history',
@@ -20,10 +19,12 @@ export class HistoryComponent implements OnInit {
 
   retrieveHistory() {
     this.tournaments = this.sportsApi.getHistoryEvents();
+    this.tournyId = this.tournaments[0].eventId;
+    this.sportsApi.setEventId(this.tournyId,true);
   }
 
   changeTourny(){
-    this.sportsApi.setEventId(this.tournyId);
+    // this.sportsApi.setEventId(this.tournyId);
   }
 
 }

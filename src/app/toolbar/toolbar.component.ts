@@ -88,6 +88,11 @@ export class ToolbarComponent implements OnInit {
     }
   }
 
+  navigate() {
+    this.sportsApi.setEventId(undefined, false);
+    this.router.navigate(['/leader']);
+  }
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/leader']);

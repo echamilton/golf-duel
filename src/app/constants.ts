@@ -2,12 +2,6 @@ import { ITournament } from './models';
 
 export const TournamentConfig: ITournament[] = [
   {
-    eventId: 'FARMERS',
-    tournyId: 'Farmers',
-    url: 'https://statdata.pgatour.com/r/004/2019/leaderboard-v2.json',
-    active: false
-  },
-  {
     eventId: 'WASTE',
     tournyId: 'Waste Managment',
     url: 'https://statdata.pgatour.com/r/003/2019/leaderboard-v2.json',

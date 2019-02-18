@@ -14,20 +14,22 @@ import { map, catchError } from 'rxjs/operators';
 export class SportsApiService {
   eventId: string;
   cacheData: any;
+  history: boolean;
 
   constructor(private service: HttpClient, private fireDb: AngularFireDatabase) {
+    this.history = false;
   }
 
   getGolfScores(): Observable<any> {
     return this.service.get(this.getEventEndpoint()).pipe(
       map(this.extractData),
       catchError(err => {
-        return throwError("Golf Scores API call failed");
+        return throwError("Golf Scores API call failed" + '-' + this.getEventId());
       }));
   }
 
   getEventId() {
-    if (this.eventId == undefined) {
+    if (this.eventId == undefined || this.history == false) {
       this.eventId = TournamentConfig.find(data => data.active === true).eventId;
     }
     return this.eventId;
@@ -37,8 +39,9 @@ export class SportsApiService {
     return TournamentConfig.find(data => data.active === true).tournyId;
   }
 
-  setEventId(setEventId) {
+  setEventId(setEventId, history) {
     this.eventId = setEventId;
+    this.history = history;
   }
 
   setApiData(data) {
