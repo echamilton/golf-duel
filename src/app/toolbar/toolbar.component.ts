@@ -81,7 +81,7 @@ export class ToolbarComponent implements OnInit {
 
   isLoggedIn() {
     let email = this.authService.getCurrentUser();
-    if (email != null || email !== undefined) {
+    if (email != null && email !== undefined && email != '') {
       return true;
     } else {
       return false;
