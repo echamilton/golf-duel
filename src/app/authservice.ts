@@ -11,9 +11,12 @@ export class AuthService {
     }
 
     signup(email: string, password: string) {
+        email.toLowerCase();
         return new Promise<any>((resolve, reject) => {
             this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
                 .then(res => {
+                    localStorage.setItem('user', email);
+                    this.user = email;
                     resolve(res);
                 }, err => reject(err));
         });
@@ -23,10 +26,11 @@ export class AuthService {
         if (this.user === undefined) {
             this.user = localStorage.getItem('user');
         }
-        return this.user;
+        return this.user.toLowerCase();
     }
 
     login(email: string, password: string) {
+        email.toLowerCase();
         return new Promise<any>((resolve, reject) => {
             this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
                 .then(res => {

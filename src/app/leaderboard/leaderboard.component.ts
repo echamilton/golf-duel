@@ -286,7 +286,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       }
       this.entries++;
       let fantasyLeader = {} as ILeaderResults;
-      let pgaPlayer = {} as any;
       fantasyLeader.team = userGolfPicks[userGolfKey].team;
       fantasyLeader.holesRemain = 360;
       fantasyLeader.golfersRemain = 8;
