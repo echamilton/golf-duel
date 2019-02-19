@@ -38,6 +38,10 @@ export class PickTeamComponent implements OnInit {
     this.loadUserPicks();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   openPopup(action: string) {
     if (action == 'update') {
       if (this.picks.golfer1 == '' || this.picks.golfer2 == '' ||
@@ -127,9 +131,11 @@ export class PickTeamComponent implements OnInit {
   }
 
   getGolferGroupings() {
-    this.subscription = this.sportsApi.getGolferGroupings().subscribe(golferGroupings => {
+    this.subscription = this.sportsApi.getGolferGroupings().subscribe(groups => {
+      let golferGroupings: Array<any>;
+      golferGroupings = groups[0];
       for (let groupsKey in golferGroupings) {
-        if (golferGroupings[groupsKey].eventId !== this.picks.eventId) {
+        if (golferGroupings[groupsKey].eventId != this.picks.eventId) {
           continue;
         }
         let group = {} as IGolfers;

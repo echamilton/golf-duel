@@ -3,6 +3,7 @@ import { SportsApiService } from '../sports-api';
 import { Router } from '@angular/router';
 import { AuthService } from '../authservice';
 import { IScrollBar } from '../models';
+import { AdminEmail } from '../constants';
 
 @Component({
   selector: 'app-toolbar',
@@ -14,6 +15,7 @@ export class ToolbarComponent implements OnInit {
   pgaTournyRespPlayers: any[];
   golfers: Array<IScrollBar> = [];
   error: boolean;
+  admin: boolean;
   tournyText: string;
 
   constructor(private sportsApi: SportsApiService, private router: Router, private authService: AuthService) { }
@@ -22,6 +24,7 @@ export class ToolbarComponent implements OnInit {
     this.golfers = [];
     this.error = false;
     this.tournyText = '';
+    this.isAdmin();
 
     this.sportsApi.getGolfScores().subscribe(
       apiData => this.buildLeaderboard(apiData),
@@ -85,6 +88,14 @@ export class ToolbarComponent implements OnInit {
       return true;
     } else {
       return false;
+    }
+  }
+
+  isAdmin() {
+    if (this.authService.getCurrentUser() == AdminEmail) {
+      this.admin = true;
+    } else {
+      this.admin = false;
     }
   }
 

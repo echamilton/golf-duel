@@ -5,13 +5,15 @@ export const TournamentConfig: ITournament[] = [
     eventId: 'WASTE',
     tournyId: 'Waste Managment',
     url: 'https://statdata.pgatour.com/r/003/2019/leaderboard-v2.json',
-    active: false
+    active: false,
+    groupName: 'golferGroups'
   },
   {
     eventId: 'WGC-2019',
     tournyId: 'WGC Mexico',
     url: '',
-    active: true
+    active: true,
+    groupName: 'wgc2019'
   }
 ];
 
@@ -60,3 +62,5 @@ export enum TournamentStatus {
   inProgress = 'In Progress',
   complete = 'Play Complete',
 }
+
+export const AdminEmail = 'evanchamilton@gmail.com';

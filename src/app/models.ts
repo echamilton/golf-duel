@@ -38,6 +38,7 @@ export interface ITournament {
   tournyId: string;
   url: string;
   active: boolean;
+  groupName: string;
 }
 
 export interface IGolferItem {

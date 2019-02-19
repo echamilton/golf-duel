@@ -31,6 +31,7 @@ export class AuthService {
             this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
                 .then(res => {
                     localStorage.setItem('user', email);
+                    this.user = email;
                     resolve(res);
                 }, err => reject(err));
         });

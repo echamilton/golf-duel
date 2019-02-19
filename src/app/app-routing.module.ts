@@ -6,6 +6,7 @@ import { PickTeamComponent } from './pick-team/pick-team.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { HistoryComponent } from './history/history.component';
+import { BuildGroupsComponent } from './build-groups/build-groups.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { HistoryComponent } from './history/history.component';
           { path: 'signup', component: SignUpComponent },
           { path: 'login', component: LoginComponent },
           { path: 'history', component: HistoryComponent },
+          { path: 'groups', component: BuildGroupsComponent},
           { path: '', redirectTo: 'leader', pathMatch: 'full' }
         ]
       },

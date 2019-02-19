@@ -27,6 +27,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { LoaderComponent } from './loader/loader.component';
 import { HistoryComponent } from './history/history.component';
+import { BuildGroupsComponent } from './build-groups/build-groups.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { HistoryComponent } from './history/history.component';
     SignUpComponent,
     LoginComponent,
     LoaderComponent,
-    HistoryComponent
+    HistoryComponent,
+    BuildGroupsComponent
   ],
   imports: [
     BrowserModule,

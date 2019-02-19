@@ -28,6 +28,15 @@ export class SportsApiService {
       }));
   }
 
+  getGolfersPgaTour(): Observable<any> {
+    return this.service.get('https://statdata.pgatour.com/players/player.json').pipe(
+      map(this.extractData),
+      catchError(err => {
+        return throwError('Could not retrieve golfers from PGA Tour')
+      })
+    );
+  }
+
   getEventId() {
     if (this.eventId == undefined || this.history == false) {
       this.eventId = TournamentConfig.find(data => data.active === true).eventId;
@@ -66,9 +75,15 @@ export class SportsApiService {
   }
 
   getGolferGroupings(): Observable<any> {
-    return this.fireDb.list<IGolferGrouping>('golferGroups').valueChanges();
+    let entityName = TournamentConfig.find(data => data.active === true).groupName;
+    return this.fireDb.list<IGolferGrouping>(entityName).valueChanges();
   }
 
+  updateGroups(list:any) {
+    let entityName = TournamentConfig.find(data => data.active === true).groupName;
+    this.fireDb.list(entityName).remove();
+    this.fireDb.list(entityName).push(list);
+  }
 
   isTournamentActive(status) {
     if (status === TournamentStatus.offical || status === TournamentStatus.inProgress || status === TournamentStatus.complete

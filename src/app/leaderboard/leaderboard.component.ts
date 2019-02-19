@@ -51,129 +51,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   getGolferLeaderBoard(userGolfPicks) {
-    this.sportsApi.getGolfScores().subscribe(apiData => {
-      this.entries = 0;
-      this.status = apiData.leaderboard.round_state;
-
-      for (let userGolfKey in userGolfPicks) {
-        if (userGolfPicks[userGolfKey].eventId !== this.sportsApi.getEventId()) {
-          continue;
-        }
-        this.entries++;
-        let fantasyLeader = {} as ILeaderResults;
-        let pgaPlayer = {} as any;
-        fantasyLeader.team = userGolfPicks[userGolfKey].team;
-
-        fantasyLeader.score = 0;
-        /**4 rounds, 5 golfers, 18 holes */
-        if (apiData.leaderboard.current_round === 4) {
-          fantasyLeader.holesRemain = 1 * 5 * 18;
-        } else if (apiData.leaderboard.current_round === 3) {
-          fantasyLeader.holesRemain = 2 * 5 * 18;
-        } else if (apiData.leaderboard.current_round === 2) {
-          fantasyLeader.holesRemain = 3 * 5 * 18;
-        } else {
-          fantasyLeader.holesRemain = 4 * 5 * 18;
-        }
-
-
-        this.pgaTournyRespPlayers = apiData.leaderboard.players;
-        this.picks = [];
-
-        // Golfer1
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer1);
-        this.setPlayerPicks(pgaPlayer);
-
-        // Golfer2
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer2);
-        this.setPlayerPicks(pgaPlayer);
-
-        // Golfer3
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer3);
-        this.setPlayerPicks(pgaPlayer);
-
-        // Golfer4
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer4);
-        this.setPlayerPicks(pgaPlayer);
-
-        // Golfer5
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer5);
-        this.setPlayerPicks(pgaPlayer);
-
-        // Golfer6
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer6);
-        this.setPlayerPicks(pgaPlayer);
-
-        // Golfer7
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer7);
-        this.setPlayerPicks(pgaPlayer);
-
-        // Golfer8
-        pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer8);
-        this.setPlayerPicks(pgaPlayer);
-
-        /**This is where we will check how many active golfers are left */
-        let golferScore: number;
-        let i = 0;
-        let remain = 0;
-        let j = 0;
-        this.getSortedData(this.picks);
-
-        if (this.isTournyActive() == true) {
-          this.golferItems = [];
-          for (let pick of this.picks) {
-            let golferItem = {} as IGolferItem;
-            j++;
-            fantasyLeader['id' + j] = pick.golferId;
-            golferItem.id = pick.golferId;
-            golferItem.name = pick.golferName;
-            golferItem.round = pick.round;
-            golferItem.status = pick.status;
-            if (this.sportsApi.isGolferActive(pick.status) === true) {
-              if (i < 5) {
-                i++;
-                golferScore = pick.score;
-                fantasyLeader.score = +fantasyLeader.score + +golferScore;
-                fantasyLeader.holesRemain = fantasyLeader.holesRemain - pick.thru;
-              }
-              remain++;
-              if (pick.thru == 18) { golferItem.thru = 'F'; } else {
-                if (pick.thru !== null) {
-                  golferItem.thru = 'Thru' + ' ' + pick.thru;
-                } else {
-                  golferItem.thru = 'Thru 0';
-                }
-              }
-              golferItem.score = pick.score;
-            } else {
-              golferItem.score = 99;
-              golferItem.thru = 'CUT';
-            }
-            this.golferItems.push(golferItem);
-          }
-        } else {
-          /**Default to 8 active golfers and 99 score when golf tourny not active */
-          remain = 8;
-          fantasyLeader.score = 99;
-        }
-
-        fantasyLeader.golfers = this.golferItems;
-
-        /** if less than 5 golfers then we know that they didnt' make the cut */
-        if (remain < 5) {
-          fantasyLeader.score = 99;
-          fantasyLeader.holesRemain = 0;
-        }
-
-        fantasyLeader.golfersRemain = remain;
-        this.fantasyLeaders.push(fantasyLeader);
-      }
-      if (this.fantasyLeaders.length > 0) {
-        this.getSortedData(this.fantasyLeaders);
-      }
-      this.dataSource = this.fantasyLeaders;
-      this.rankEntries();
-    });
+    this.sportsApi.getGolfScores().subscribe(
+      apiData => { this.buildResults(userGolfPicks, apiData); },
+      err => { this.default(err, userGolfPicks) });
   }
 
   setPlayerPicks(pgaPlayer) {
@@ -204,6 +84,130 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         this.ownPct.push(ownPct);
       }
     }
+  }
+
+  buildResults(userGolfPicks, apiData) {
+    this.entries = 0;
+    this.status = apiData.leaderboard.round_state;
+
+    for (let userGolfKey in userGolfPicks) {
+      if (userGolfPicks[userGolfKey].eventId !== this.sportsApi.getEventId()) {
+        continue;
+      }
+      this.entries++;
+      let fantasyLeader = {} as ILeaderResults;
+      let pgaPlayer = {} as any;
+      fantasyLeader.team = userGolfPicks[userGolfKey].team;
+
+      fantasyLeader.score = 0;
+      /**4 rounds, 5 golfers, 18 holes */
+      if (apiData.leaderboard.current_round === 4) {
+        fantasyLeader.holesRemain = 1 * 5 * 18;
+      } else if (apiData.leaderboard.current_round === 3) {
+        fantasyLeader.holesRemain = 2 * 5 * 18;
+      } else if (apiData.leaderboard.current_round === 2) {
+        fantasyLeader.holesRemain = 3 * 5 * 18;
+      } else {
+        fantasyLeader.holesRemain = 4 * 5 * 18;
+      }
+
+
+      this.pgaTournyRespPlayers = apiData.leaderboard.players;
+      this.picks = [];
+
+      // Golfer1
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer1);
+      this.setPlayerPicks(pgaPlayer);
+
+      // Golfer2
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer2);
+      this.setPlayerPicks(pgaPlayer);
+
+      // Golfer3
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer3);
+      this.setPlayerPicks(pgaPlayer);
+
+      // Golfer4
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer4);
+      this.setPlayerPicks(pgaPlayer);
+
+      // Golfer5
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer5);
+      this.setPlayerPicks(pgaPlayer);
+
+      // Golfer6
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer6);
+      this.setPlayerPicks(pgaPlayer);
+
+      // Golfer7
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer7);
+      this.setPlayerPicks(pgaPlayer);
+
+      // Golfer8
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == userGolfPicks[userGolfKey].golfer8);
+      this.setPlayerPicks(pgaPlayer);
+
+      /**This is where we will check how many active golfers are left */
+      let golferScore: number;
+      let i = 0;
+      let remain = 0;
+      let j = 0;
+      this.getSortedData(this.picks);
+
+      if (this.isTournyActive() == true) {
+        this.golferItems = [];
+        for (let pick of this.picks) {
+          let golferItem = {} as IGolferItem;
+          j++;
+          fantasyLeader['id' + j] = pick.golferId;
+          golferItem.id = pick.golferId;
+          golferItem.name = pick.golferName;
+          golferItem.round = pick.round;
+          golferItem.status = pick.status;
+          if (this.sportsApi.isGolferActive(pick.status) === true) {
+            if (i < 5) {
+              i++;
+              golferScore = pick.score;
+              fantasyLeader.score = +fantasyLeader.score + +golferScore;
+              fantasyLeader.holesRemain = fantasyLeader.holesRemain - pick.thru;
+            }
+            remain++;
+            if (pick.thru == 18) { golferItem.thru = 'F'; } else {
+              if (pick.thru !== null) {
+                golferItem.thru = 'Thru' + ' ' + pick.thru;
+              } else {
+                golferItem.thru = 'Thru 0';
+              }
+            }
+            golferItem.score = pick.score;
+          } else {
+            golferItem.score = 99;
+            golferItem.thru = 'CUT';
+          }
+          this.golferItems.push(golferItem);
+        }
+      } else {
+        /**Default to 8 active golfers and 99 score when golf tourny not active */
+        remain = 8;
+        fantasyLeader.score = 99;
+      }
+
+      fantasyLeader.golfers = this.golferItems;
+
+      /** if less than 5 golfers then we know that they didnt' make the cut */
+      if (remain < 5) {
+        fantasyLeader.score = 99;
+        fantasyLeader.holesRemain = 0;
+      }
+
+      fantasyLeader.golfersRemain = remain;
+      this.fantasyLeaders.push(fantasyLeader);
+    }
+    if (this.fantasyLeaders.length > 0) {
+      this.getSortedData(this.fantasyLeaders);
+    }
+    this.dataSource = this.fantasyLeaders;
+    this.rankEntries();
   }
 
   private rankEntries() {
@@ -263,7 +267,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       return;
     }
 
-
     const popupConfig = new MatDialogConfig();
 
     popupConfig.disableClose = false;
@@ -274,6 +277,29 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(
     );
+  }
+
+  default(err, userGolfPicks) {
+    for (let userGolfKey in userGolfPicks) {
+      if (userGolfPicks[userGolfKey].eventId !== this.sportsApi.getEventId()) {
+        continue;
+      }
+      this.entries++;
+      let fantasyLeader = {} as ILeaderResults;
+      let pgaPlayer = {} as any;
+      fantasyLeader.team = userGolfPicks[userGolfKey].team;
+      fantasyLeader.holesRemain = 360;
+      fantasyLeader.golfersRemain = 8;
+      fantasyLeader.score = 99;
+      fantasyLeader.golfers = [];
+      this.fantasyLeaders.push(fantasyLeader);
+
+      if (this.fantasyLeaders.length > 0) {
+        this.getSortedData(this.fantasyLeaders);
+      }
+      this.dataSource = this.fantasyLeaders;
+      this.rankEntries();
+    }
   }
 
   isTournyActive() {
