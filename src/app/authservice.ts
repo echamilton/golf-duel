@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { ifStmt } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
     providedIn: 'root'
@@ -23,10 +24,11 @@ export class AuthService {
     }
 
     getCurrentUser() {
-        if (this.user === undefined) {
-            this.user = localStorage.getItem('user');
+        if (this.user === undefined || this.user === null) {
+            this.user = localStorage.getItem('user').toLowerCase();
+            console.log(this.user);
         }
-        return this.user.toLowerCase();
+        return this.user;
     }
 
     login(email: string, password: string) {
