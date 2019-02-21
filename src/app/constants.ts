@@ -11,7 +11,7 @@ export const TournamentConfig: ITournament[] = [
   {
     eventId: 'WGC-2019',
     tournyId: 'WGC Mexico',
-    url: '',
+    url: 'https://statdata.pgatour.com/r/473/2019/leaderboard-v2.json',
     active: true,
     groupName: 'wgc2019'
   }
