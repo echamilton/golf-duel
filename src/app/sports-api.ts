@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { IUserGolfPicks, IGolferGrouping, ITournament } from './models';
-import { TournamentConfig, TournamentStatus, GolferStatus } from './constants';
+import { TournamentConfig, TournamentStatus, GolferStatus, PlayersUrl } from './constants';
 import { map, catchError } from 'rxjs/operators';
 
 
@@ -29,10 +29,10 @@ export class SportsApiService {
   }
 
   getGolfersPgaTour(): Observable<any> {
-    return this.service.get('https://statdata.pgatour.com/players/player.json').pipe(
+    return this.service.get(PlayersUrl).pipe(
       map(this.extractData),
       catchError(err => {
-        return throwError('Could not retrieve golfers from PGA Tour')
+        return throwError('Could not retrieve golfers from PGA Tour');
       })
     );
   }
@@ -79,7 +79,7 @@ export class SportsApiService {
     return this.fireDb.list<IGolferGrouping>(entityName).valueChanges();
   }
 
-  updateGroups(list:any) {
+  updateGroups(list: any) {
     let entityName = TournamentConfig.find(data => data.active === true).groupName;
     this.fireDb.list(entityName).remove();
     this.fireDb.list(entityName).push(list);

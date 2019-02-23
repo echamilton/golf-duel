@@ -65,26 +65,25 @@ export class ScorecardPopComponent implements OnInit {
   calculateHole(score: number, par: number) {
     let diff: number;
 
-    if (score == null) {
-      return '';
-    }
-
     diff = score - par;
-
-    if (diff == 0) {
-      return ScoreValues.par;
-    } else if (diff == -1) {
-      return ScoreValues.birdie;
-    } else if (diff == -2) {
-      return ScoreValues.eagle;
-    } else if (diff == 1) {
-      return ScoreValues.bogey;
-    } else if (diff == 2) {
-      return ScoreValues.double;
-    } else if (diff == 3) {
-      return ScoreValues.triple;
+    if (score != null) {
+      if (diff == 0) {
+        return ScoreValues.par;
+      } else if (diff == -1) {
+        return ScoreValues.birdie;
+      } else if (diff == -2) {
+        return ScoreValues.eagle;
+      } else if (diff == 1) {
+        return ScoreValues.bogey;
+      } else if (diff == 2) {
+        return ScoreValues.double;
+      } else if (diff == 3) {
+        return ScoreValues.triple;
+      } else {
+        return ScoreValues.triple;
+      }
     } else {
-      return ScoreValues.triple;
+      return ScoreValues.noScore;
     }
   }
 
@@ -137,6 +136,10 @@ export class ScorecardPopComponent implements OnInit {
       }
       case ScoreValues.double: {
         color = 'purple';
+        break;
+      }
+      case ScoreValues.noScore: {
+        color = 'black';
         break;
       }
       default: {

@@ -69,21 +69,40 @@ export class PickTeamComponent implements OnInit {
   }
 
   processData(answer: string, action: string) {
+    this.isLoading = true;
     if (answer === 'Yes') {
-      if (action == 'update') {
-        if (this.existingPicks == true) {
-          this.sportsApi.updateGolferPicks(this.picks);
-        } else {
-          this.picks.email = this.authService.getCurrentUser();
-          this.sportsApi.updateGolferPicks(this.picks);
-        }
-        this.openSnackBar(Messages.teamSuccess);
-      } else {
-        this.sportsApi.deleteGolferPicks(this.picks);
-        this.openSnackBar(Messages.deleteSuccess);
-      }
-      this.router.navigate(['/leader']);
+      this.sportsApi.getGolfScores().subscribe(
+        apiData => { this.validateSubmit(action, false, apiData) },
+        err => { this.validateSubmit(action, true, []) });
+    } else {
+      this.isLoading = false;
     }
+  }
+
+  validateSubmit(action: string, apiNotReady: boolean, apiData: any) {
+    // *Check status of API before proceeding
+    let active = false;
+
+    if (!apiNotReady) {
+      active = this.sportsApi.isTournamentActive(apiData.leaderboard.round_state);
+    }
+
+    if (active) {
+      this.openSnackBar(Messages.picksActiveTourny);
+      this.isLoading = false;
+      return;
+    }
+
+    if (action == 'update') {
+      this.picks.email = this.authService.getCurrentUser();
+      this.sportsApi.updateGolferPicks(this.picks);
+      this.openSnackBar(Messages.teamSuccess);
+    } else {
+      this.sportsApi.deleteGolferPicks(this.picks);
+      this.openSnackBar(Messages.deleteSuccess);
+    }
+    this.isLoading = false;
+    this.router.navigate(['/leader']);
   }
 
   openSnackBar(Text: string) {

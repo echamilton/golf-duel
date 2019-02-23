@@ -17,7 +17,9 @@ export const TournamentConfig: ITournament[] = [
   }
 ];
 
-export const appTitle = '443 Fantasy Golf';
+export const AppTitle = '443 Fantasy Golf';
+
+export const PlayersUrl = 'https://statdata.pgatour.com/players/player.json';
 
 export enum ScoreValues {
   birdie = 'BIRDIE',
@@ -26,6 +28,7 @@ export enum ScoreValues {
   double = 'DOUBLE',
   triple = 'TRIPLE',
   bogey = 'BOGEY',
+  noScore = 'NOSCORE',
 }
 
 export enum GolferStatus {
@@ -33,7 +36,7 @@ export enum GolferStatus {
   active = 'active',
 }
 
-export const leaderColumns: string[] = [
+export const LeaderColumns: string[] = [
   'position',
   'team',
   'golfersRemain',
@@ -46,11 +49,12 @@ export enum Messages {
   userLoginSuccess = 'You have logged in successfully',
   userLoginFail = 'Unable to login with provided credentials',
   submitTeam = 'Are you sure you want to submit your team?',
-  deleteTeam = 'Are you sure you want to cancel your entry?',
+  deleteTeam = 'Are you sure you want to delete your entry?',
   teamError = 'Complete your entry!',
   teamSuccess = 'Picks have been submitted!',
   deleteSuccess = 'Picks have been removed!',
   golferCut = 'Golfer has been cut!',
+  picksActiveTourny = 'Picks not submitted, tournament already in progress',
 }
 
 export enum ServiceCodes {

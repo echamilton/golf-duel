@@ -24,7 +24,7 @@ export class AuthService {
     getCurrentUser() {
         if (this.user === undefined || this.user === null) {
             this.user = localStorage.getItem('user');
-            if(this.user !== null){
+            if (this.user !== null) {
                 this.user = this.user.toLowerCase();
             }
         }

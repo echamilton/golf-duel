@@ -23,8 +23,6 @@ import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
 import { LoaderComponent } from './loader/loader.component';
 import { HistoryComponent } from './history/history.component';
 import { BuildGroupsComponent } from './build-groups/build-groups.component';
@@ -69,7 +67,6 @@ import { BuildGroupsComponent } from './build-groups/build-groups.component';
     AngularFireAuthModule,
     MatTableModule,
     MatSortModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
   ],
   providers: [AuthService],
   entryComponents: [PopupComponent, ScorecardPopComponent],

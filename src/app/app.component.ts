@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { appTitle } from './constants';
+import { AppTitle } from './constants';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import { appTitle } from './constants';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = appTitle;
+  title = AppTitle;
 
   constructor() {
   }

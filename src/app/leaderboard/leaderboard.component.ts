@@ -3,7 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatSort, MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { IGolferDetail, IGolferItem, ILeaderResults, IIndGolferResult } from '../models';
 import { SportsApiService } from '../sports-api';
-import { Messages, leaderColumns } from '../constants';
+import { Messages, LeaderColumns } from '../constants';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
@@ -23,7 +23,7 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
 
 export class LeaderboardComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns = leaderColumns;
+  displayedColumns = LeaderColumns;
   expandedElement: ILeaderResults | null;
   dataSource: any[];
   subscription: Subscription;
@@ -53,7 +53,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   getGolferLeaderBoard(userGolfPicks) {
     this.sportsApi.getGolfScores().subscribe(
       apiData => { this.buildResults(userGolfPicks, apiData); },
-      err => { this.default(err, userGolfPicks) });
+      err => { this.default(err, userGolfPicks); });
   }
 
   setPlayerPicks(pgaPlayer) {
@@ -261,7 +261,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   openPopup(golferId: string, status: string) {
 
-    //*Golfer is not active, do not show scorecard
+    // *Golfer is not active, do not show scorecard
     if (this.sportsApi.isGolferActive(status) != true) {
       this.openSnackBar();
       return;

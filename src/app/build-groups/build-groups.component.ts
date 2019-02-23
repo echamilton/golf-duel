@@ -20,10 +20,7 @@ export class BuildGroupsComponent implements OnInit {
       this.playersList = apiData;
       this.loading = false;
     }
-    )
-  }
-
-  ngOnDestroy() {
+    );
   }
 
   updateGroups() {

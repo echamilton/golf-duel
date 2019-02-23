@@ -11,7 +11,7 @@
       <mat-card-content *ngIf="isLoading == false">
         <div style="text-align: center;">
           <mat-form-field>
-            <input matInput name="team" required [(ngModel)]="picks.team" placeholder="Team Name">
+            <input matInput name="team" required [(ngModel)]="picks.team" placeholder="Team Name" disabled="existingPicks">
           </mat-form-field>
         </div>
         <h4>Group A</h4>
@@ -95,7 +95,7 @@
         <div style="text-align: center;">
           <button mat-raised-button (click)="openPopup('update')">Submit Team</button>
 
-          <button mat-raised-button *ngIf="existingPicks" (click)="openPopup('delete')">Cancel Entry</button>
+          <button mat-raised-button *ngIf="existingPicks" (click)="openPopup('delete')">Delete Entry</button>
         </div>
       </mat-card-content>
     </ng-container>
