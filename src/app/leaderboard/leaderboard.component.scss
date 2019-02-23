@@ -70,9 +70,18 @@ li {
 }
 .stats-container .score{
   float:right;
-  color:#d41616;
-  font-size:15px;
-  font-weight:600;
+  color:#45d3e6;
+  font-size:25px;
+  font-weight:500;
+  width: 40px;
+  margin-right: -25px;
+  height: 44px;
+  margin-top: -7px;
+  background: #030303;
+  padding-left: 1px;
+  padding-right: 1px;
+  text-align: center;
+  padding-top: 11px;
 }
 .stats-container .pic{
   float:left;

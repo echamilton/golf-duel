@@ -38,11 +38,11 @@
                         src='https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_face:center,q_auto,t_headshots_leaderboard_l,w_160/headshots_{{golfer.id}}.png'></span>
                     <span class="score" *ngIf="golfer.status != 'cut' && golfer.score != 0">{{golfer.score}}</span>
                     <span class="score" *ngIf="golfer.status != 'cut' && golfer.score == 0">E</span>
-                    <span class="score" *ngIf="golfer.status == 'cut'">CUT</span>
+                    <span class="score" *ngIf="golfer.status == 'cut'">C</span>
                     <span class="golfer-name">{{golfer.name}}</span>
-                    <p class="summary" *ngIf="golfer.status != 'cut'">Round {{golfer.round}} | {{golfer.thru}} | Owned {{golfer.ownPct
-                      | number:'1.0-0'}}%</p>
-                    <p class="summary" *ngIf="golfer.status == 'cut'">Owned {{golfer.ownPct | number:'1.0-0'}}%</p>
+                     <p class="summary" *ngIf="golfer.status != 'cut'">{{golfer.thru}} | Owned {{golfer.ownPct  
+                      | number:'1.0-0'}}%</p>  
+                  <p class="summary" *ngIf="golfer.status == 'cut'">Owned {{golfer.ownPct | number:'1.0-0'}}%</p>  
                   </div>
                 </div>
                 <mat-divider></mat-divider>
