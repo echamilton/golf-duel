@@ -60,7 +60,7 @@ export class ToolbarComponent implements OnInit {
           }
         }
 
-        if (golfer.score == '0') {
+        if (golfer.score == '0' ) {
           golfer.score = 'E';
         }
         if (golfer.scoreToday == '0') {
@@ -83,8 +83,8 @@ export class ToolbarComponent implements OnInit {
   }
 
   isLoggedIn() {
-    let email = this.authService.getCurrentUser();
-    if (email != null && email !== undefined && email != '') {
+    const email = this.authService.getCurrentUser();
+    if (email !== null && email !== undefined && email !== '') {
       return true;
     } else {
       return false;
@@ -92,7 +92,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   isAdmin() {
-    if (this.authService.getCurrentUser() == AdminEmail) {
+    if (this.authService.getCurrentUser() === AdminEmail) {
       this.admin = true;
     } else {
       this.admin = false;

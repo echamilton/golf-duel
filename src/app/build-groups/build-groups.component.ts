@@ -35,7 +35,7 @@ export class BuildGroupsComponent implements OnInit {
       groups = golferGroupings;
       players = this.playersList.plrs;
 
-      for (let key in players) {
+      for (const key in players) {
         let name: string;
         let golfer = {} as any;
         name = players[key].nameF + ' ' + players[key].nameL;
