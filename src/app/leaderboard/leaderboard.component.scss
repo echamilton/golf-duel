@@ -13,7 +13,8 @@ table {
 }
 tr.team-detail-row {
   height: 0;
-  background: rgb(182, 182, 189);
+  // background: rgb(182, 182, 189);
+  background: whitesmoke;
 }
 tr.team-element-row:not(.team-expanded-row):hover {
   background: #ffffff;
@@ -66,14 +67,15 @@ li {
 .stats-container .summary{
   font-size:11px;
   color:#8181fc;
+  font-weight: 400;
   margin-left: 43px;
 }
 .stats-container .score{
   float:right;
   color:#45d3e6;
-  font-size:25px;
+  font-size: 1.75em;
   font-weight:500;
-  width: 40px;
+  width: 1.85em;
   margin-right: -25px;
   height: 44px;
   margin-top: -7px;
@@ -83,12 +85,21 @@ li {
   text-align: center;
   padding-top: 11px;
 }
-.stats-container .pic{
-  float:left;
-  margin-left: -8px;
-  height: 40px;
-  width: 40px;
+
+.td.mat-cell:first-of-type {
+  padding-left: 1px;
 }
+
+.stats-container .pic{
+  float: left;
+  background-color: #cdcfcf;
+  margin-left: -25px;
+  margin-top: -7px;
+  padding: 3px;
+  height: 48px;
+  width: 48px;
+}
+
 .spinner {
   margin-left: 32%;
   margin-top: 20px;
