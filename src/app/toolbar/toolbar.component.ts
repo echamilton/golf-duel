@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SportsApiService } from '../sports-api';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AuthService } from '../authservice';
 import { IScrollBar } from '../models';
 import { AdminEmail } from '../constants';
+import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -18,7 +20,8 @@ export class ToolbarComponent implements OnInit {
   admin: boolean;
   tournyText: string;
 
-  constructor(private sportsApi: SportsApiService, private router: Router, private authService: AuthService) { }
+  constructor(private sportsApi: SportsApiService, private router: Router, private authService: AuthService,
+    private popup: MatDialog) { }
 
   ngOnInit() {
     this.golfers = [];
@@ -60,7 +63,7 @@ export class ToolbarComponent implements OnInit {
           }
         }
 
-        if (golfer.score == '0' ) {
+        if (golfer.score == '0') {
           golfer.score = 'E';
         }
         if (golfer.scoreToday == '0') {
@@ -93,6 +96,23 @@ export class ToolbarComponent implements OnInit {
 
   isAdmin() {
     this.admin = this.authService.getCurrentUser() === AdminEmail ? true : false;
+  }
+
+  openPopup(golferId: string, status: string) {
+    // *Golfer is not active, do not show scorecard
+    // if (this.sportsApi.isGolferActive(status) != true) {
+    //   this.openSnackBar();
+    //   return;
+    // }
+
+    const popupConfig = new MatDialogConfig();
+    popupConfig.disableClose = false;
+    popupConfig.autoFocus = true;
+    popupConfig.data = { golfer: golferId };
+
+    const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
+
+    dialogRef.afterClosed().subscribe();
   }
 
   navigate() {
