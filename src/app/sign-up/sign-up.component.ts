@@ -27,13 +27,7 @@ export class SignUpComponent implements OnInit {
         this.openSnackBar(Messages.userCreateSuccess);
         this.router.navigate(['/leader']);
       }, err => {
-        let message: string;
-        if (err.code == ServiceCodes.userFailCode) {
-          message = Messages.userCreateFail;
-        } else {
-          message = err.message;
-        }
-
+        const message = err.code == ServiceCodes.userFailCode ? Messages.userCreateFail : err.message;
         this.openSnackBar(message);
       });
   }

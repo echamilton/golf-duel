@@ -12,14 +12,14 @@ export const TournamentConfig: ITournament[] = [
     eventId: 'WGC-2019',
     tournyId: 'WGC Mexico',
     url: 'https://statdata.pgatour.com/r/473/2019/leaderboard-v2.json',
-    active: false,
+    active: true,
     groupName: 'wgc2019'
   },
   {
     eventId: 'ARNOLDPALM-2019',
     tournyId: 'Arnold Palmer Classic',
     url: '',
-    active: true,
+    active: false,
     groupName: 'palmer2019'
   }
 ];

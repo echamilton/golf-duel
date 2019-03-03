@@ -28,7 +28,7 @@ export class ToolbarComponent implements OnInit {
 
     this.sportsApi.getGolfScores().subscribe(
       apiData => this.buildLeaderboard(apiData),
-      err => this.handleError(err),
+      err => this.handleError(),
     );
   }
 
@@ -77,7 +77,7 @@ export class ToolbarComponent implements OnInit {
 
   }
 
-  handleError(err) {
+  handleError() {
     this.error = true;
     this.tournyText = this.sportsApi.getEventName() + ' will commence shortly';
   }
@@ -92,11 +92,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   isAdmin() {
-    if (this.authService.getCurrentUser() === AdminEmail) {
-      this.admin = true;
-    } else {
-      this.admin = false;
-    }
+    this.admin = this.authService.getCurrentUser() === AdminEmail ? true : false;
   }
 
   navigate() {

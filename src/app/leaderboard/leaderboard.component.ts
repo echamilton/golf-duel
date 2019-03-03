@@ -47,7 +47,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   getGolferLeaderBoard(userGolfPicks) {
@@ -226,7 +228,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       }
       prevScore = this.fantasyLeaders[key].score;
 
-
       /** This will iterate through the golfers and map the value of  */
       for (let golferKey in this.fantasyLeaders[key].golfers) {
         for (let ownKey in this.ownPct) {
@@ -236,10 +237,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         }
       }
     }
-  }
-
-  scorecard(golferId) {
-    this.router.navigate(['/scorecard', golferId]);
   }
 
   getSortedData(data) {
@@ -255,7 +252,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   openPopup(golferId: string, status: string) {
-
     // *Golfer is not active, do not show scorecard
     if (this.sportsApi.isGolferActive(status) != true) {
       this.openSnackBar();
@@ -263,7 +259,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     }
 
     const popupConfig = new MatDialogConfig();
-
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
     popupConfig.data = { golfer: golferId };
@@ -296,12 +291,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  isTournyActive() {
+  isTournyActive(): boolean {
     return this.sportsApi.isTournamentActive(this.status);
   }
 
   private openSnackBar() {
-    let text = Messages.golferCut;
+    const text = Messages.golferCut;
     this.config.duration = 2500;
     this.snackBar.open(text, 'Close', this.config);
   }

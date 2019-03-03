@@ -5,7 +5,7 @@ import { LeaderboardComponent } from '../leaderboard/leaderboard.component';
 
 @Component({
   selector: 'app-history',
-  providers: [ LeaderboardComponent ],
+  providers: [LeaderboardComponent],
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
 })
@@ -13,7 +13,7 @@ export class HistoryComponent implements OnInit {
   tournyId: string;
   tournaments: Array<ITournament> = [];
 
-  constructor(private sportsApi: SportsApiService, private leader: LeaderboardComponent ) { 
+  constructor(private sportsApi: SportsApiService, private leader: LeaderboardComponent) {
     this.tournaments = this.sportsApi.getHistoryEvents();
   }
 
@@ -22,7 +22,7 @@ export class HistoryComponent implements OnInit {
   }
 
   retrieveHistory() {
-    if(!this.tournyId){
+    if (!this.tournyId) {
       this.tournyId = this.tournaments[0].eventId;
     }
     this.sportsApi.setEventId(this.tournyId, true);
@@ -30,6 +30,6 @@ export class HistoryComponent implements OnInit {
 
   changeTourny() {
     this.retrieveHistory();
-        this.leader.ngOnInit();
+    this.leader.ngOnInit();
   }
 }

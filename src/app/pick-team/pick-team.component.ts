@@ -110,13 +110,7 @@ export class PickTeamComponent implements OnInit {
     this.snackBar.open(Text, 'Close', this.config);
   }
 
-  checkData(golferID, currentGolfer) {
-    if (golferID === currentGolfer) {
-      return true;
-    }
-  }
-
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     let email = this.authService.getCurrentUser();
     if (email != null && email != undefined && email != '') {
       return true;
@@ -138,15 +132,18 @@ export class PickTeamComponent implements OnInit {
     }
   }
 
-  checkData2(golferID, currentGolfer) {
-    if (golferID === currentGolfer) {
+  checkGolferSelected(golferDropDown, currentGolfer) {
+    if (golferDropDown === currentGolfer) {
       return false;
-    } else {
-      if (golferID === this.picks.golfer5 || golferID === this.picks.golfer6 ||
-        golferID === this.picks.golfer7 || golferID === this.picks.golfer8) {
-        return true;
+    }
+
+    let golferArray = [];
+    for (let key in this.picks) {
+      if (this.picks.hasOwnProperty(key)) {
+        golferArray.push(this.picks[key]);
       }
     }
+    return golferArray.includes(golferDropDown);
   }
 
   getGolferGroupings() {

@@ -9,9 +9,9 @@ export class LoaderComponent implements OnInit {
   color = 'primary';
   mode = 'indeterminate';
   value = 50;
+
   constructor() { }
 
   ngOnInit() {
   }
-
 }

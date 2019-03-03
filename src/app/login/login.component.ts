@@ -14,8 +14,7 @@ export class LoginComponent implements OnInit {
   password: string;
   config = new MatSnackBarConfig();
 
-  constructor(private router: Router, public authService: AuthService,
-    private snackBar: MatSnackBar) { }
+  constructor(private router: Router, public authService: AuthService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -27,13 +26,7 @@ export class LoginComponent implements OnInit {
         this.openSnackBar(Messages.userLoginSuccess);
         this.router.navigate(['/leader']);
       }, err => {
-        let message: string;
-        if (err.code == ServiceCodes.userFailCode) {
-          message = Messages.userLoginFail;
-        } else {
-          message = err.message;
-        }
-
+        const message = err.code == ServiceCodes.userFailCode ? Messages.userCreateFail : err.message;
         this.openSnackBar(message);
       });
   }
