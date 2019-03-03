@@ -243,14 +243,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   getSortedData(data) {
-    this.sort.active = 'score';
-    this.sort.direction = 'asc';
-
     return data.sort((a, b) => {
-      const isAsc = this.sort.direction === 'asc';
-      switch (this.sort.active) {
-        case 'golferId': return compare(a.name, b.name, isAsc);
-        case 'score': return compare(+a.score, +b.score, isAsc);
+      switch ('score') {
+        case 'score': return compare(+a.score, +b.score, true);
         default: return 0;
       }
       function compare(a, b, isAsc) {
