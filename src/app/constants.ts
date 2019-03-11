@@ -12,16 +12,23 @@ export const TournamentConfig: ITournament[] = [
     eventId: 'WGC-2019',
     tournyId: 'WGC Mexico',
     url: 'https://statdata.pgatour.com/r/473/2019/leaderboard-v2.json',
-    active: true,
+    active: false,
     groupName: 'wgc2019'
   },
   {
-    eventId: 'ARNOLDPALM-2019',
-    tournyId: 'Arnold Palmer Classic',
+    eventId: 'PLAYERS-2019',
+    tournyId: 'Players Championship',
     url: '',
-    active: false,
-    groupName: 'palmer2019'
+    active: true,
+    groupName: 'players2019'
   }
+  // {
+  //   eventId: 'MASTERS-2019',
+  //   tournyId: 'The Masters',
+  //   url: '',
+  //   active: true,
+  //   groupName: 'masters2019'
+  // }
 ];
 
 export const AppTitle = '443 Fantasy Golf';

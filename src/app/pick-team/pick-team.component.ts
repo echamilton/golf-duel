@@ -19,7 +19,7 @@ export class PickTeamComponent implements OnInit {
   picks: IUserGolfPicks;
   answer: string;
   popupText: string;
-  existingPicks: boolean;
+  disableName: boolean;
   golferGrpA: Array<IGolfers> = [];
   golferGrpB: Array<IGolfers> = [];
   golferGrpC: Array<IGolfers> = [];
@@ -33,6 +33,7 @@ export class PickTeamComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
+    this.disableName = false;
     this.picks.eventId = this.sportsApi.getActiveEventId();
     this.getGolferGroupings();
     this.loadUserPicks();
@@ -182,7 +183,7 @@ export class PickTeamComponent implements OnInit {
       for (let picksKey in golferPicks) {
         if (this.authService.getCurrentUser() == golferPicks[picksKey].email) {
           if (golferPicks[picksKey].eventId == this.picks.eventId) {
-            this.existingPicks = true;
+            this.disableName = true;
             this.picks = golferPicks[picksKey];
             break;
           }

@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { SportsApiService } from '../sports-api';
 import { ITournament } from '../models';
 import { LeaderboardComponent } from '../leaderboard/leaderboard.component';
 
 @Component({
   selector: 'app-history',
-  providers: [LeaderboardComponent],
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
+  @ViewChild(LeaderboardComponent) leaderBoard: LeaderboardComponent;
   tournyId: string;
   tournaments: Array<ITournament> = [];
 
-  constructor(private sportsApi: SportsApiService, private leader: LeaderboardComponent) {
+  constructor(private sportsApi: SportsApiService ) {
     this.tournaments = this.sportsApi.getHistoryEvents();
+  }
+
+  ngAfterViewInit() {
   }
 
   ngOnInit() {
@@ -30,6 +33,7 @@ export class HistoryComponent implements OnInit {
 
   changeTourny() {
     this.retrieveHistory();
-    this.leader.ngOnInit();
+    this.leaderBoard.subscription.unsubscribe();
+    this.leaderBoard.ngOnInit();
   }
 }

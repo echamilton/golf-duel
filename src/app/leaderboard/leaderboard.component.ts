@@ -37,7 +37,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   config = new MatSnackBarConfig();
 
   constructor(private popup: MatDialog, private router: Router, private sportsApi: SportsApiService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar ) {
   }
 
   ngOnInit() {
@@ -50,6 +50,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  onToggle(toggle: boolean) {
+    this.ngOnInit();
   }
 
   getGolferLeaderBoard(userGolfPicks) {
