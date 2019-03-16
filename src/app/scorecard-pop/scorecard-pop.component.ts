@@ -23,8 +23,8 @@ export class ScorecardPopComponent implements OnInit {
 
   ngOnInit() {
     let pgaPlayer = {} as any;
-    this.pgaTournyRespPlayers = this.sportsApi.getApiData().leaderboard.players;
-    pgaPlayer = this.pgaTournyRespPlayers.find(player => player.player_id == this.golferId);
+    this.pgaTournyRespPlayers = this.sportsApi.getApiData().rows;
+    pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == this.golferId);
 
     this.buildScorecard(pgaPlayer);
   }
@@ -66,7 +66,8 @@ export class ScorecardPopComponent implements OnInit {
     let diff: number;
 
     diff = score - par;
-    if (score != null) {
+    console.log(diff, score, par)
+    if (score != null && score != undefined) {
       if (diff == 0) {
         return ScoreValues.par;
       } else if (diff == -1) {

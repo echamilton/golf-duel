@@ -36,7 +36,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   buildLeaderboard(pgaScores) {
-    this.pgaTournyRespPlayers = pgaScores.leaderboard.players;
+    this.pgaTournyRespPlayers = pgaScores.rows;
     this.sportsApi.setApiData(pgaScores);
 
     for (let key in this.pgaTournyRespPlayers) {
@@ -46,14 +46,14 @@ export class ToolbarComponent implements OnInit {
         continue;
       }
 
-      golfer.position = this.pgaTournyRespPlayers[key].current_position;
-      golfer.golferId = this.pgaTournyRespPlayers[key].player_id;
-      golfer.name = this.pgaTournyRespPlayers[key].player_bio.first_name + ' ' + this.pgaTournyRespPlayers[key].player_bio.last_name;
+      golfer.position = this.pgaTournyRespPlayers[key].positionCurrent;
+      golfer.golferId = this.pgaTournyRespPlayers[key].playerId;
+      golfer.name = this.pgaTournyRespPlayers[key].playerNames.firstName + ' ' + this.pgaTournyRespPlayers[key].playerNames.lastName;
       golfer.score = this.pgaTournyRespPlayers[key].total;
       golfer.hole = this.pgaTournyRespPlayers[key].thru;
       golfer.scoreToday = this.pgaTournyRespPlayers[key].today;
-      if (this.sportsApi.isTournamentActive(pgaScores.leaderboard.round_state) == true) {
-        if (golfer.hole == '18') {
+      if (this.sportsApi.isTournamentActive(pgaScores.roundState) == true) {
+        if (golfer.hole == '18' || golfer.hole == 'F*' || golfer.hole == 'F') {
           golfer.hole = 'F';
         } else {
           if (golfer.hole == null) {
@@ -98,13 +98,7 @@ export class ToolbarComponent implements OnInit {
     this.admin = this.authService.getCurrentUser() === AdminEmail ? true : false;
   }
 
-  openPopup(golferId: string, status: string) {
-    // *Golfer is not active, do not show scorecard
-    // if (this.sportsApi.isGolferActive(status) != true) {
-    //   this.openSnackBar();
-    //   return;
-    // }
-
+  openPopup(golferId: string ) {
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;

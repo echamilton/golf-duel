@@ -18,17 +18,10 @@ export const TournamentConfig: ITournament[] = [
   {
     eventId: 'PLAYERS-2019',
     tournyId: 'Players Championship',
-    url: '',
+    url: 'https://lbdata.pgatour.com/2019/r/011/leaderboard.json',
     active: true,
     groupName: 'players2019'
   }
-  // {
-  //   eventId: 'MASTERS-2019',
-  //   tournyId: 'The Masters',
-  //   url: '',
-  //   active: true,
-  //   groupName: 'masters2019'
-  // }
 ];
 
 export const AppTitle = '443 Fantasy Golf';
@@ -77,6 +70,7 @@ export enum ServiceCodes {
 
 export enum TournamentStatus {
   offical = 'Official',
+  suspended = 'Suspended',
   inProgress = 'In Progress',
   complete = 'Play Complete',
 }

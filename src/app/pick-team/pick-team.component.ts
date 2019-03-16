@@ -85,7 +85,7 @@ export class PickTeamComponent implements OnInit {
     let active = false;
 
     if (!apiNotReady) {
-      active = this.sportsApi.isTournamentActive(apiData.leaderboard.round_state);
+      active = this.sportsApi.isTournamentActive(apiData.roundState);
     }
 
     if (active) {
@@ -126,7 +126,7 @@ export class PickTeamComponent implements OnInit {
       return false;
     }
 
-    if (this.sportsApi.isTournamentActive(apiData.leaderboard.round_state) == true) {
+    if (this.sportsApi.isTournamentActive(apiData.roundState) == true) {
       return true;
     } else {
       return false;

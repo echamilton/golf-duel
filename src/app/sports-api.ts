@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { IUserGolfPicks, IGolferGrouping, ITournament } from './models';
+import { IUserGolfPicks, IGolferGrouping, ITournament, IPgaTourData } from './models';
 import { TournamentConfig, TournamentStatus, GolferStatus, PlayersUrl } from './constants';
 import { map, catchError } from 'rxjs/operators';
 
@@ -86,7 +86,8 @@ export class SportsApiService {
   }
 
   isTournamentActive(status) {
-    if (status === TournamentStatus.offical || status === TournamentStatus.inProgress || status === TournamentStatus.complete
+    if (status === TournamentStatus.offical || status === TournamentStatus.inProgress ||
+        status === TournamentStatus.complete || status === TournamentStatus.suspended 
     ) {
       return true;
     } else {
@@ -95,11 +96,7 @@ export class SportsApiService {
   }
 
   isGolferActive(status) {
-    if (status == GolferStatus.active) {
-      return true;
-    } else {
-      return false;
-    }
+    return status == GolferStatus.active ? true : false;
   }
 
   getGolferPicks(): Observable<any> {
@@ -134,7 +131,6 @@ export class SportsApiService {
 
   private extractData(res: Response) {
     let body = res;
-    body = res;
     return body || [];
   }
 }
