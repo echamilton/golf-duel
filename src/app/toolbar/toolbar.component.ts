@@ -44,7 +44,7 @@ export class ToolbarComponent implements OnInit {
     for (let key in this.pgaTournyRespPlayers) {
       let golfer = {} as IScrollBar;
 
-      if (this.sportsApi.isGolferActive(this.pgaTournyRespPlayers[key].status) == false) {
+      if (this.sportsApi.isGolferActive(!this.pgaTournyRespPlayers[key].status)) {
         continue;
       }
 
@@ -79,7 +79,6 @@ export class ToolbarComponent implements OnInit {
       }
       this.golfers.push(golfer);
     }
-
   }
 
   handleError() {
@@ -89,22 +88,18 @@ export class ToolbarComponent implements OnInit {
 
   isLoggedIn() {
     const email = this.authService.getCurrentUser();
-    if (email !== null && email !== undefined && email !== '') {
-      return true;
-    } else {
-      return false;
-    }
+    return (email !== null && email !== undefined && email !== '') ? true : false;
   }
 
   isAdmin() {
     this.admin = this.authService.getCurrentUser() === AdminEmail ? true : false;
   }
 
-  openPopup(golferId: string, golferName: string ) {
+  openPopup(golferId: string, golferName: string) {
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
-    popupConfig.data = { golfer: golferId,roundId: this.currentRound, name: golferName };
+    popupConfig.data = { golfer: golferId, roundId: this.currentRound, name: golferName };
 
     const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
 

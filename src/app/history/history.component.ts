@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SportsApiService } from '../sports-api';
 import { ITournament } from '../models';
 import { LeaderboardComponent } from '../leaderboard/leaderboard.component';

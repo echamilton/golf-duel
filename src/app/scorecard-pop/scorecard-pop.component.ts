@@ -12,13 +12,13 @@ import { ScoreValues } from '../constants';
 export class ScorecardPopComponent implements OnInit {
   pgaTournyRespPlayers: any[];
   golferId: string;
+  loading: boolean;
   currentRound: string;
   playerName: string;
   scoreCard: IScoreCard;
 
   constructor(private sportsApi: SportsApiService,
     @Inject(MAT_DIALOG_DATA) data) {
-
     this.golferId = data.golfer;
     this.currentRound = data.roundId;
     this.playerName = data.name;
@@ -26,6 +26,7 @@ export class ScorecardPopComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.sportsApi.getPlayerScoreCard(this.golferId, this.currentRound).
       subscribe(scoreCard => {
         this.buildScorecard(scoreCard);
@@ -80,13 +81,20 @@ export class ScorecardPopComponent implements OnInit {
     this.scoreCard.In.score = holeIn.toString();
     this.scoreCard.Total.par = (parIn + parOut).toString();
     this.scoreCard.Total.score = (holeIn + holeOut).toString();
+    if (this.scoreCard.Out.score == 'NaN') {
+      this.scoreCard.Out.score = '--';
+      this.scoreCard.In.score = '--';
+      this.scoreCard.Total.score = '--';
+    }
+    this.loading = false;
   }
 
   calculateHole(score: number, par: number) {
     let diff: number;
+    let scoreStr = score.toString();
 
     diff = score - par;
-    if (score != null && score != undefined) {
+    if (score != null && score != undefined && scoreStr != '--') {
       if (diff == 0) {
         return ScoreValues.par;
       } else if (diff == -1) {

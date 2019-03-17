@@ -34,7 +34,6 @@ export class PickTeamComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.disableName = false;
-    this.picks.eventId = this.sportsApi.getActiveEventId();
     this.getGolferGroupings();
     this.loadUserPicks();
   }
@@ -125,8 +124,7 @@ export class PickTeamComponent implements OnInit {
     if (apiData == undefined) {
       return false;
     }
-
-    if (this.sportsApi.isTournamentActive(apiData.roundState) == true) {
+    if (this.sportsApi.isTournamentActive(apiData.roundState)) {
       return true;
     } else {
       return false;
@@ -152,7 +150,7 @@ export class PickTeamComponent implements OnInit {
       let golferGroupings: Array<any>;
       golferGroupings = groups[0];
       for (let groupsKey in golferGroupings) {
-        if (golferGroupings[groupsKey].eventId != this.picks.eventId) {
+        if (golferGroupings[groupsKey].eventId != this.sportsApi.getActiveEventId()) {
           continue;
         }
         let group = {} as IGolfers;
@@ -182,7 +180,7 @@ export class PickTeamComponent implements OnInit {
     this.subscription = this.sportsApi.getGolferPicks().subscribe(golferPicks => {
       for (let picksKey in golferPicks) {
         if (this.authService.getCurrentUser() == golferPicks[picksKey].email) {
-          if (golferPicks[picksKey].eventId == this.picks.eventId) {
+          if (golferPicks[picksKey].eventId == this.sportsApi.getActiveEventId()) {
             this.disableName = true;
             this.picks = golferPicks[picksKey];
             break;

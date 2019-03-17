@@ -1,6 +1,6 @@
 <div style="text-align: center;" *ngIf="loading == false">
   <button mat-raised-button (click)="updateGroups()">Update Groups</button>
 </div>
-<div class="spinner" *ngIf="loading == true">
+<div class="spinner" *ngIf="loading">
   <app-loader></app-loader>
 </div>

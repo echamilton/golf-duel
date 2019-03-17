@@ -17,7 +17,7 @@ export class BuildGroupsComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.sportsApi.getGolfersPgaTour().subscribe(apiData => {
-    this.playersList = apiData;
+      this.playersList = apiData;
       this.loading = false;
     }
     );

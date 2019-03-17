@@ -3,7 +3,10 @@
   <img class="pic"
     src='https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_face:center,q_auto,t_headshots_leaderboard_l,w_160/headshots_{{golferId}}.png'>
 </div>
-<div class="scorecards-box">
+<div class="spinner" *ngIf="loading">
+  <app-loader></app-loader>
+</div>
+<div class="scorecards-box" *ngIf="!loading">
   <ul>
     <li style="display: list-item;" class="list">
       <table class="scorecard scorecards">
@@ -251,11 +254,11 @@
       </table>
     </li>
   </ul>
- <div class="legend">
-  <div class="eagle">Eagle</div>
-  <div class="birdie">Birdie</div>
-  <div class="par">Par</div>
-  <div class="bogey">Bogey</div>
-  <div class="double">Double +</div>
-</div>
+  <div class="legend">
+    <div class="eagle">Eagle</div>
+    <div class="birdie">Birdie</div>
+    <div class="par">Par</div>
+    <div class="bogey">Bogey</div>
+    <div class="double">Double +</div>
+  </div>
 </div>
