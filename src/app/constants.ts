@@ -25,8 +25,8 @@ export const TournamentConfig: ITournament[] = [
 ];
 
 export const AppTitle = '443 Fantasy Golf';
-
 export const PlayersUrl = 'https://statdata.pgatour.com/players/player.json';
+export const PlayersScoresUrl = 'https://lbdata.pgatour.com/2019/r/011/drawer/r';
 
 export enum ScoreValues {
   birdie = 'BIRDIE',

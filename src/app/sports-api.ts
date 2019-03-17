@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { IUserGolfPicks, IGolferGrouping, ITournament, IPgaTourData } from './models';
-import { TournamentConfig, TournamentStatus, GolferStatus, PlayersUrl } from './constants';
+import { TournamentConfig, TournamentStatus, GolferStatus, PlayersUrl, PlayersScoresUrl } from './constants';
 import { map, catchError } from 'rxjs/operators';
 
 
@@ -63,6 +63,16 @@ export class SportsApiService {
 
   getApiData() {
     return this.cacheData;
+  }
+
+  getPlayerScoreCard(golferId: string, roundId: string):Observable<any>  {
+    let url: string;
+    url = PlayersScoresUrl+ roundId + '-m' + golferId + '.json';
+      return this.service.get(url).pipe(
+        map(this.extractData),
+        catchError(err => {
+          return throwError('Golf Scores API call failed' + '-' + this.getEventId());
+        }));
   }
 
   getEventEndpoint() {

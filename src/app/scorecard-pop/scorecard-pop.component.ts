@@ -12,48 +12,68 @@ import { ScoreValues } from '../constants';
 export class ScorecardPopComponent implements OnInit {
   pgaTournyRespPlayers: any[];
   golferId: string;
+  currentRound: string;
+  playerName: string;
   scoreCard: IScoreCard;
 
   constructor(private sportsApi: SportsApiService,
     @Inject(MAT_DIALOG_DATA) data) {
 
     this.golferId = data.golfer;
+    this.currentRound = data.roundId;
+    this.playerName = data.name;
     this.initScoreCard();
   }
 
   ngOnInit() {
-    let pgaPlayer = {} as any;
-    this.pgaTournyRespPlayers = this.sportsApi.getApiData().rows;
-    pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == this.golferId);
-
-    this.buildScorecard(pgaPlayer);
+    this.sportsApi.getPlayerScoreCard(this.golferId, this.currentRound).
+      subscribe(scoreCard => {
+        this.buildScorecard(scoreCard);
+      }
+      )
   }
 
   buildScorecard(playerData) {
-    let holes: any[];
+    let frontNine: any;
+    let backNine: any;
     let i = 0;
+    let currentHole = 0;
     let parIn = 0;
     let parOut = 0;
     let holeIn = 0;
     let holeOut = 0;
-    holes = playerData.holes;
 
-    for (let hole of holes) {
+    frontNine = playerData.scoreCards.pages[0];
+    backNine = playerData.scoreCards.pages[1];
+
+    let holeScores = frontNine.lines.find(type => type.lineType == 'playerData');
+    let holePars = frontNine.lines.find(type => type.lineType == 'par');
+    for (let scores of holeScores.holes) {
       i++;
-      this.scoreCard['hole' + i].score = hole.strokes;
-      this.scoreCard['hole' + i].par = hole.par;
+      currentHole++;
 
-      this.scoreCard['hole' + i].indicator = this.calculateHole(hole.strokes, hole.par);
-
-      if (i < 10) {
-        parOut = +parOut + +hole.par;
-        holeOut = holeOut + +hole.strokes;
-      } else {
-        parIn = parIn + +hole.par;
-        holeIn = holeIn + +hole.strokes;
-      }
+      this.scoreCard['hole' + currentHole].score = scores.score;
+      this.scoreCard['hole' + currentHole].par = holePars.holes[i - 1];
+      this.scoreCard['hole' + currentHole].indicator = this.calculateHole(scores.score, holePars.holes[i - 1]);
+      parOut = +parOut + +holePars.holes[i - 1];
+      holeOut = holeOut + +scores.score;
     }
-    this.scoreCard.playerName = playerData.player_bio.first_name + ' ' + playerData.player_bio.last_name;
+
+    holeScores = backNine.lines.find(type => type.lineType == 'playerData');
+    holePars = backNine.lines.find(type => type.lineType == 'par');
+    i = 0;
+    for (let scores of holeScores.holes) {
+      i++;
+      currentHole++;
+
+      this.scoreCard['hole' + currentHole].score = scores.score;
+      this.scoreCard['hole' + currentHole].par = holePars.holes[i - 1];
+      this.scoreCard['hole' + currentHole].indicator = this.calculateHole(scores.score, holePars.holes[i - 1]);
+      parIn = parIn + +holePars.holes[i - 1];
+      holeIn = holeIn + +scores.score;
+    }
+
+    this.scoreCard.playerName = this.playerName;
     this.scoreCard.In.par = parIn.toString();
     this.scoreCard.Out.par = parOut.toString();
     this.scoreCard.Out.score = holeOut.toString();
@@ -66,7 +86,6 @@ export class ScorecardPopComponent implements OnInit {
     let diff: number;
 
     diff = score - par;
-    console.log(diff, score, par)
     if (score != null && score != undefined) {
       if (diff == 0) {
         return ScoreValues.par;

@@ -31,7 +31,7 @@
         <div class="team-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <ul class="review_bottom">
             <ng-container *ngFor="let golfer of element.golfers">
-              <div class="container-fluid" (click)="openPopup(golfer.id,golfer.status)">
+              <div class="container-fluid" (click)="openPopup(golfer.id,golfer.status,golfer.name)">
                 <div class="stats">
                   <div class="stats-container">
                     <img class="pic"

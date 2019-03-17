@@ -26,6 +26,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   expandedElement: ILeaderResults | null;
   dataSource: any[];
   subscription: Subscription;
+  currentRound: string;
   fantasyLeaders: Array<ILeaderResults> = [];
   golferItems: Array<IGolferItem> = [];
   pgaTournyRespPlayers: any[];
@@ -36,7 +37,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   config = new MatSnackBarConfig();
 
   constructor(private popup: MatDialog, private sportsApi: SportsApiService,
-    private snackBar: MatSnackBar ) {
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -51,14 +52,11 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  onToggle(toggle: boolean) {
-    this.ngOnInit();
-  }
-
   getGolferLeaderBoard(userGolfPicks) {
-    this.sportsApi.getGolfScores().subscribe(
-      apiData => { this.buildResults(userGolfPicks, apiData); },
-      err => { this.default(err, userGolfPicks); });
+    this.sportsApi.getGolfScores()
+      .subscribe(
+        apiData => { this.buildResults(userGolfPicks, apiData); },
+        err => { this.default(err, userGolfPicks); });
   }
 
   setPlayerPicks(pgaPlayer) {
@@ -68,13 +66,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       pick.status = pgaPlayer.status;
       pick.golferName = pgaPlayer.playerNames.firstName + ' ' + pgaPlayer.playerNames.lastName;
       pick.thru = pgaPlayer.thru;
-      if(pgaPlayer.thru == '--'){
+      if (pgaPlayer.thru == '--') {
         pick.thru = 0;
-      }else if(pgaPlayer.thru == 'F' || pgaPlayer.thru == 'F*')
-      {
+      } else if (pgaPlayer.thru == 'F' || pgaPlayer.thru == 'F*') {
         pick.thru = 18;
       }
-    
+
       pick.round = pgaPlayer.tournamentRoundId;
       pick.status = pgaPlayer.status;
       if (this.sportsApi.isGolferActive(pick.status) == true) {
@@ -101,6 +98,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   buildResults(userGolfPicks, apiData) {
     this.entries = 0;
     this.status = apiData.roundState;
+    this.currentRound = apiData.tournamentRoundId;
 
     for (let userGolfKey in userGolfPicks) {
       if (userGolfPicks[userGolfKey].eventId !== this.sportsApi.getEventId()) {
@@ -261,7 +259,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  openPopup(golferId: string, status: string) {
+  openPopup(golferId: string, status: string, playerName: string) {
     // *Golfer is not active, do not show scorecard
     if (this.sportsApi.isGolferActive(status) != true) {
       this.openSnackBar();
@@ -271,7 +269,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
-    popupConfig.data = { golfer: golferId };
+    popupConfig.data = { golfer: golferId, roundId: this.currentRound, name: playerName };
 
     const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
 

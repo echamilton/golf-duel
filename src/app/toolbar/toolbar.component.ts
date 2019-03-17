@@ -18,6 +18,7 @@ export class ToolbarComponent implements OnInit {
   golfers: Array<IScrollBar> = [];
   error: boolean;
   admin: boolean;
+  currentRound: string;
   tournyText: string;
 
   constructor(private sportsApi: SportsApiService, private router: Router, private authService: AuthService,
@@ -37,6 +38,7 @@ export class ToolbarComponent implements OnInit {
 
   buildLeaderboard(pgaScores) {
     this.pgaTournyRespPlayers = pgaScores.rows;
+    this.currentRound = pgaScores.tournamentRoundId;
     this.sportsApi.setApiData(pgaScores);
 
     for (let key in this.pgaTournyRespPlayers) {
@@ -98,11 +100,11 @@ export class ToolbarComponent implements OnInit {
     this.admin = this.authService.getCurrentUser() === AdminEmail ? true : false;
   }
 
-  openPopup(golferId: string ) {
+  openPopup(golferId: string, golferName: string ) {
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
-    popupConfig.data = { golfer: golferId };
+    popupConfig.data = { golfer: golferId,roundId: this.currentRound, name: golferName };
 
     const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
 
