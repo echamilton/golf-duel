@@ -57,7 +57,9 @@ export class ScorecardPopComponent implements OnInit {
       this.scoreCard['hole' + currentHole].par = holePars.holes[i - 1];
       this.scoreCard['hole' + currentHole].indicator = this.calculateHole(scores.score, holePars.holes[i - 1]);
       parOut = +parOut + +holePars.holes[i - 1];
-      holeOut = holeOut + +scores.score;
+      if (scores.score.toString() != '--') {
+        holeOut = holeOut + +scores.score;
+      }
     }
 
     holeScores = backNine.lines.find(type => type.lineType == 'playerData');
@@ -71,7 +73,9 @@ export class ScorecardPopComponent implements OnInit {
       this.scoreCard['hole' + currentHole].par = holePars.holes[i - 1];
       this.scoreCard['hole' + currentHole].indicator = this.calculateHole(scores.score, holePars.holes[i - 1]);
       parIn = parIn + +holePars.holes[i - 1];
-      holeIn = holeIn + +scores.score;
+      if (scores.score.toString() != '--') {
+        holeIn = holeIn + +scores.score;
+      }
     }
 
     this.scoreCard.playerName = this.playerName;
@@ -81,11 +85,6 @@ export class ScorecardPopComponent implements OnInit {
     this.scoreCard.In.score = holeIn.toString();
     this.scoreCard.Total.par = (parIn + parOut).toString();
     this.scoreCard.Total.score = (holeIn + holeOut).toString();
-    if (this.scoreCard.Out.score == 'NaN') {
-      this.scoreCard.Out.score = '--';
-      this.scoreCard.In.score = '--';
-      this.scoreCard.Total.score = '--';
-    }
     this.loading = false;
   }
 
