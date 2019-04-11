@@ -19,14 +19,21 @@ export const TournamentConfig: ITournament[] = [
     eventId: 'PLAYERS-2019',
     tournyId: 'Players Championship',
     url: 'https://lbdata.pgatour.com/2019/r/011/leaderboard.json',
-    active: true,
+    active: false,
     groupName: 'players2019'
+  },
+  {
+    eventId: 'MASTERS-2019',
+    tournyId: 'Masters',
+    url: 'https://lbdata.pgatour.com/2019/r/014/leaderboard.json',
+    active: true,
+    groupName: 'masters2019'
   }
 ];
 
 export const AppTitle = '443 Fantasy Golf';
 export const PlayersUrl = 'https://statdata.pgatour.com/players/player.json';
-export const PlayersScoresUrl = 'https://lbdata.pgatour.com/2019/r/011/drawer/r';
+export const PlayersScoresUrl = 'https://lbdata.pgatour.com/2019/r/014/drawer/r';
 
 export enum ScoreValues {
   birdie = 'BIRDIE',

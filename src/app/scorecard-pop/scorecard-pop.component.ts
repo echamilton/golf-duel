@@ -15,7 +15,7 @@ export class ScorecardPopComponent implements OnInit {
   loading: boolean;
   currentRound: string;
   playerName: string;
-  scoreCard: IScoreCard;
+  scoreCard: IScoreCard = <IScoreCard>{};
 
   constructor(private sportsApi: SportsApiService,
     @Inject(MAT_DIALOG_DATA) data) {

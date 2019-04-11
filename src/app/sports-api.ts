@@ -65,14 +65,14 @@ export class SportsApiService {
     return this.cacheData;
   }
 
-  getPlayerScoreCard(golferId: string, roundId: string):Observable<any>  {
+  getPlayerScoreCard(golferId: string, roundId: string): Observable<any> {
     let url: string;
-    url = PlayersScoresUrl+ roundId + '-m' + golferId + '.json';
-      return this.service.get(url).pipe(
-        map(this.extractData),
-        catchError(err => {
-          return throwError('Golf Scores API call failed' + '-' + this.getEventId());
-        }));
+    url = PlayersScoresUrl + roundId + '-m' + golferId + '.json';
+    return this.service.get(url).pipe(
+      map(this.extractData),
+      catchError(err => {
+        return throwError('Golf Scores API call failed' + '-' + this.getEventId());
+      }));
   }
 
   getEventEndpoint() {
@@ -97,7 +97,7 @@ export class SportsApiService {
 
   isTournamentActive(status) {
     if (status === TournamentStatus.offical || status === TournamentStatus.inProgress ||
-        status === TournamentStatus.complete || status === TournamentStatus.suspended 
+      status === TournamentStatus.complete || status === TournamentStatus.suspended
     ) {
       return true;
     } else {

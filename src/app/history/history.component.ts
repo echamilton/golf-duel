@@ -17,9 +17,6 @@ export class HistoryComponent implements OnInit {
     this.tournaments = this.sportsApi.getHistoryEvents();
   }
 
-  ngAfterViewInit() {
-  }
-
   ngOnInit() {
     this.retrieveHistory();
   }

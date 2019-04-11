@@ -30,21 +30,14 @@ export class BuildGroupsComponent implements OnInit {
 
   updateList() {
     this.subscription = this.sportsApi.getGolferGroupings().subscribe(golferGroupings => {
-      let groups: Array<any>;
-      let players: Array<any>;
-      groups = golferGroupings;
-      players = this.playersList.plrs;
-
-      for (const key in players) {
-        let golfer = {} as any;
-        const name = players[key].nameF + ' ' + players[key].nameL;
-
-        golfer = groups.find(player => player.name == name);
+      for (const plyr of this.playersList.plrs) {
+        const name = plyr.nameF + ' ' + plyr.nameL;
+        const golfer = golferGroupings.find(player => player.name == name);
         if (golfer != null && golfer != undefined) {
-          golfer.golferId = players[key].pid;
+          golfer.golferId = plyr.pid;
         }
       }
-      this.sportsApi.updateGroups(groups);
+      this.sportsApi.updateGroups(golferGroupings);
       this.loading = false;
       this.subscription.unsubscribe();
     });

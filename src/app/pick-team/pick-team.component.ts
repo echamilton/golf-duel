@@ -94,6 +94,7 @@ export class PickTeamComponent implements OnInit {
     }
 
     if (action == 'update') {
+      this.picks.eventId = this.sportsApi.eventId;
       this.picks.email = this.authService.getCurrentUser();
       this.sportsApi.updateGolferPicks(this.picks);
       this.openSnackBar(Messages.teamSuccess);
@@ -117,6 +118,7 @@ export class PickTeamComponent implements OnInit {
     } else {
       return false;
     }
+
   }
 
   getActive() {
