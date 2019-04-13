@@ -75,7 +75,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       pick.round = pgaPlayer.tournamentRoundId;
       pick.status = pgaPlayer.status;
       if (this.sportsApi.isGolferActive(pick.status) == true) {
+        if(pgaPlayer.total == '--'){
+          pick.score = 0;
+        }else{
         pick.score = pgaPlayer.total;
+        }
+
       } else {
         pick.score = 99;
       }
@@ -178,7 +183,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
             if (i < 5) {
               i++;
               golferScore = pick.score;
-              fantasyLeader.score = +fantasyLeader.score + +golferScore;
+              if(pick.score.toString() !== '--'){
+              fantasyLeader.score = +fantasyLeader.score + +golferScore;}
               fantasyLeader.holesRemain = fantasyLeader.holesRemain - pick.thru;
             }
             remain++;
