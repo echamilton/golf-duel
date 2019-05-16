@@ -1,4 +1,5 @@
 import { ITournament } from './models';
+import { getMatIconFailedToSanitizeUrlError } from '@angular/material';
 
 export const TournamentConfig: ITournament[] = [
   {
@@ -26,14 +27,21 @@ export const TournamentConfig: ITournament[] = [
     eventId: 'MASTERS-2019',
     tournyId: 'Masters',
     url: 'https://lbdata.pgatour.com/2019/r/014/leaderboard.json',
-    active: true,
+    active: false,
     groupName: 'masters2019'
+  },
+  {
+    eventId: 'PGACHAMP-2019',
+    tournyId: 'Masters',
+    url: 'https://lbdata.pgatour.com/2019/r/033/leaderboard.json',
+    active: true,
+    groupName: 'pgaChamp2019'
   }
 ];
 
 export const AppTitle = '443 Fantasy Golf';
 export const PlayersUrl = 'https://statdata.pgatour.com/players/player.json';
-export const PlayersScoresUrl = 'https://lbdata.pgatour.com/2019/r/014/drawer/r';
+export const PlayersScoresUrl = 'https://lbdata.pgatour.com/2019/r/033/drawer/r';
 
 export enum ScoreValues {
   birdie = 'BIRDIE',
