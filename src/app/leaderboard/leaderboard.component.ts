@@ -61,17 +61,23 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   setPlayerPicks(pgaPlayer) {
     let pick = {} as IIndGolferResult;
+    let thruString: string;
     if (pgaPlayer != undefined) {
       pick.golferId = pgaPlayer.playerId;
       pick.status = pgaPlayer.status;
       pick.golferName = pgaPlayer.playerNames.firstName + ' ' + pgaPlayer.playerNames.lastName;
-      pick.thru = pgaPlayer.thru;
-      if (pgaPlayer.thru == '--') {
-        pick.thru = 0;
-      } else if (pgaPlayer.thru == 'F' || pgaPlayer.thru == 'F*') {
-        pick.thru = 18;
-      }
+   
+      thruString = pgaPlayer.thru;
+      thruString = pgaPlayer.thru.replace(/\*/g, '');
+      thruString.trim();
 
+      if (thruString == '--' || thruString == '' ) {
+        pick.thru = 0;
+      } else if (thruString == 'F' || thruString == 'F*') {
+        pick.thru = 18;
+      } else {
+        pick.thru = Number(thruString);
+      }
       pick.round = pgaPlayer.tournamentRoundId;
       pick.status = pgaPlayer.status;
       if (this.sportsApi.isGolferActive(pick.status) == true) {
