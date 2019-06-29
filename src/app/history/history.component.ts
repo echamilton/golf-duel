@@ -9,7 +9,7 @@ import { LeaderboardComponent } from '../leaderboard/leaderboard.component';
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
-  @ViewChild(LeaderboardComponent) leaderBoard: LeaderboardComponent;
+  @ViewChild(LeaderboardComponent, { static: true }) leaderBoard: LeaderboardComponent;
   tournyId: string;
   tournaments: Array<ITournament> = [];
 

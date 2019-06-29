@@ -21,7 +21,7 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
 })
 
 export class LeaderboardComponent implements OnInit, OnDestroy {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   displayedColumns = LeaderColumns;
   expandedElement: ILeaderResults | null;
   dataSource: any[];
