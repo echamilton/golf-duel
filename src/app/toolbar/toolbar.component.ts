@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SportsApiService } from '../sports-api';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthService } from '../authservice';
 import { IScrollBar } from '../models';
 import { AdminEmail } from '../constants';
