@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatSort, MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
 import { IGolferDetail, IGolferItem, ILeaderResults, IIndGolferResult } from '../models';
 import { SportsApiService } from '../sports-api';
 import { Messages, LeaderColumns } from '../constants';
@@ -13,15 +15,15 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
   templateUrl: 'leaderboard.component.html',
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
-      state('expanded', style({ height: '*' })),
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
 
 export class LeaderboardComponent implements OnInit, OnDestroy {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   displayedColumns = LeaderColumns;
   expandedElement: ILeaderResults | null;
   dataSource: any[];

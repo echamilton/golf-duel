@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IUserGolfPicks, IGolfers } from '../models';
-import { MatDialog, MatDialogConfig, MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SportsApiService } from '../sports-api';
