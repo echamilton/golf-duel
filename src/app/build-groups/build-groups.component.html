@@ -1,4 +1,4 @@
-<div style="text-align: center;" *ngIf="loading == false">
+<div style="text-align: center;" *ngIf="!loading">
   <button mat-raised-button (click)="updateGroups()">Update Groups</button>
 </div>
 <div class="spinner" *ngIf="loading">
