@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { IGolferDetail, IGolferItem, ILeaderResults, IIndGolferResult } from '../models';
-import { SportsApiService } from '../sports-api';
+import { SportsApiService } from '../services/sports-api';
 import { Messages, LeaderColumns } from '../constants';
 import { Subscription } from 'rxjs';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
@@ -15,8 +15,8 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
   templateUrl: 'leaderboard.component.html',
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
@@ -64,16 +64,15 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   setPlayerPicks(pgaPlayer) {
     let pick = {} as IIndGolferResult;
     let thruString: string;
-    if (pgaPlayer != undefined) {
+    if (pgaPlayer) {
       pick.golferId = pgaPlayer.playerId;
       pick.status = pgaPlayer.status;
       pick.golferName = pgaPlayer.playerNames.firstName + ' ' + pgaPlayer.playerNames.lastName;
-   
       thruString = pgaPlayer.thru;
       thruString = pgaPlayer.thru.replace(/\*/g, '');
       thruString.trim();
 
-      if (thruString == '--' || thruString == '' ) {
+      if (thruString == '--' || thruString == '') {
         pick.thru = 0;
       } else if (thruString == 'F' || thruString == 'F*') {
         pick.thru = 18;
@@ -83,10 +82,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       pick.round = pgaPlayer.tournamentRoundId;
       pick.status = pgaPlayer.status;
       if (this.sportsApi.isGolferActive(pick.status) == true) {
-        if(pgaPlayer.total == '--'){
+        if (pgaPlayer.total == '--') {
           pick.score = 0;
-        }else{
-        pick.score = pgaPlayer.total;
+        } else {
+          pick.score = pgaPlayer.total;
         }
 
       } else {
@@ -191,8 +190,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
             if (i < 5) {
               i++;
               golferScore = pick.score;
-              if(pick.score.toString() !== '--'){
-              fantasyLeader.score = +fantasyLeader.score + +golferScore;}
+              if (pick.score.toString() !== '--') {
+                fantasyLeader.score = +fantasyLeader.score + +golferScore;
+              }
               fantasyLeader.holesRemain = fantasyLeader.holesRemain - pick.thru;
             }
             remain++;

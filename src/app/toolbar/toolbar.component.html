@@ -11,7 +11,7 @@
             <button mat-icon-button [routerLink]="['/pick']">
                   <mat-icon>mode_edit</mat-icon>
             </button>
-            <button *ngIf="admin" mat-icon-button [routerLink]="['/groups']">
+            <button *ngIf="isAdmin()" mat-icon-button [routerLink]="['/groups']">
                   <mat-icon>assignment</mat-icon>
             </button>
             <button mat-icon-button [matMenuTriggerFor]="menu">

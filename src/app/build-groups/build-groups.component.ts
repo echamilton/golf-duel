@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SportsApiService } from '../sports-api';
+import { SportsApiService } from '../services/sports-api';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -33,7 +33,7 @@ export class BuildGroupsComponent implements OnInit {
       for (const plyr of this.playersList.plrs) {
         const name = plyr.nameF + ' ' + plyr.nameL;
         const golfer = golferGroupings.find(player => player.name == name);
-        if (golfer != null && golfer != undefined) {
+        if (golfer) {
           golfer.golferId = plyr.pid;
         }
       }

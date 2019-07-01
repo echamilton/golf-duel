@@ -28,7 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { PickTeamComponent } from './pick-team/pick-team.component';
 import { PopupComponent } from './popup/popup.component';
-import { AuthService } from './authservice';
+import { AuthService } from './services/authservice';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ScorecardPopComponent } from './scorecard-pop/scorecard-pop.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
