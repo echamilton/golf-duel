@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SportsApiService } from '../sports-api';
+import { SportsApiService } from '../services/sports-api';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AuthService } from '../authservice';
+import { AuthService } from '../services/authservice';
 import { IScrollBar } from '../models';
 import { AdminEmail } from '../constants';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
@@ -17,7 +17,6 @@ export class ToolbarComponent implements OnInit {
   pgaTournyRespPlayers: any[];
   golfers: Array<IScrollBar> = [];
   error: boolean;
-  admin: boolean;
   currentRound: string;
   tournyText: string;
 
@@ -28,8 +27,6 @@ export class ToolbarComponent implements OnInit {
     this.golfers = [];
     this.error = false;
     this.tournyText = '';
-    this.isAdmin();
-
     this.sportsApi.getGolfScores().subscribe(
       apiData => this.buildLeaderboard(apiData),
       err => this.handleError(),
@@ -40,45 +37,49 @@ export class ToolbarComponent implements OnInit {
     this.pgaTournyRespPlayers = pgaScores.rows;
     this.currentRound = pgaScores.tournamentRoundId;
     this.sportsApi.setApiData(pgaScores);
+    const activeTourny = this.sportsApi.isTournamentActive(pgaScores.roundState);
 
-    for (let key in this.pgaTournyRespPlayers) {
-      let golfer = {} as IScrollBar;
-
-      if (this.sportsApi.isGolferActive(!this.pgaTournyRespPlayers[key].status)) {
+    for (const player of this.pgaTournyRespPlayers) {
+      if (this.sportsApi.isGolferActive(!player.status)) {
         continue;
       }
-
-      golfer.position = this.pgaTournyRespPlayers[key].positionCurrent;
-      golfer.golferId = this.pgaTournyRespPlayers[key].playerId;
-      golfer.name = this.pgaTournyRespPlayers[key].playerNames.firstName + ' ' + this.pgaTournyRespPlayers[key].playerNames.lastName;
-      golfer.score = this.pgaTournyRespPlayers[key].total;
-      golfer.hole = this.pgaTournyRespPlayers[key].thru;
-      golfer.scoreToday = this.pgaTournyRespPlayers[key].today;
-      if (this.sportsApi.isTournamentActive(pgaScores.roundState) == true) {
-        if (golfer.hole == '18' || golfer.hole == 'F*' || golfer.hole == 'F') {
-          golfer.hole = 'F';
-        } else {
-          if (golfer.hole == null) {
-            golfer.hole = 'Thru 0';
-          } else {
-            golfer.hole = 'Thru' + ' ' + golfer.hole;
-          }
-        }
-
-        if (golfer.score == '0') {
-          golfer.score = 'E';
-        }
-        if (golfer.scoreToday == '0') {
-          golfer.scoreToday = 'E';
-        }
-
-      } else {
-        golfer.position = '-';
-        golfer.hole = '-';
-        golfer.score = '-';
-      }
+      const golfer = this.buildGolferItem(player, activeTourny);
       this.golfers.push(golfer);
     }
+  }
+
+  buildGolferItem(player: any, activeTourny: boolean): IScrollBar {
+    const golfer = {} as IScrollBar;
+    golfer.position = player.positionCurrent;
+    golfer.golferId = player.playerId;
+    golfer.name = player.playerNames.firstName + ' ' + player.playerNames.lastName;
+    golfer.score = player.total;
+    golfer.hole = player.thru;
+    golfer.scoreToday = player.today;
+    if (activeTourny) {
+      if (golfer.hole === '18' || golfer.hole === 'F*' || golfer.hole === 'F') {
+        golfer.hole = 'F';
+      } else {
+        if (golfer.hole == null) {
+          golfer.hole = 'Thru 0';
+        } else {
+          golfer.hole = 'Thru' + ' ' + golfer.hole;
+        }
+      }
+
+      if (golfer.score === '0') {
+        golfer.score = 'E';
+      }
+      if (golfer.scoreToday === '0') {
+        golfer.scoreToday = 'E';
+      }
+
+    } else {
+      golfer.position = '-';
+      golfer.hole = '-';
+      golfer.score = '-';
+    }
+    return golfer;
   }
 
   handleError() {
@@ -87,12 +88,11 @@ export class ToolbarComponent implements OnInit {
   }
 
   isLoggedIn() {
-    const email = this.authService.getCurrentUser();
-    return (email !== null && email !== undefined && email !== '') ? true : false;
+    return (this.authService.getCurrentUser()) ? true : false;
   }
 
   isAdmin() {
-    this.admin = this.authService.getCurrentUser() === AdminEmail ? true : false;
+    return this.authService.getCurrentUser() === AdminEmail ? true : false;
   }
 
   openPopup(golferId: string, golferName: string) {

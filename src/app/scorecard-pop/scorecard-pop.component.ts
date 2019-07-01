@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SportsApiService } from '../sports-api';
+import { SportsApiService } from '../services/sports-api';
 import { IScoreCard } from '../models';
 import { ScoreValues } from '../constants';
 
@@ -31,7 +31,7 @@ export class ScorecardPopComponent implements OnInit {
       subscribe(scoreCard => {
         this.buildScorecard(scoreCard);
       }
-      )
+      );
   }
 
   buildScorecard(playerData) {

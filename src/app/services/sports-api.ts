@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { IUserGolfPicks, IGolferGrouping, ITournament } from './models';
-import { TournamentConfig, TournamentStatus, GolferStatus, PlayersUrl, PlayersScoresUrl } from './constants';
+import { IUserGolfPicks, IGolferGrouping, ITournament } from '../models';
+import { TournamentConfig, TournamentStatus, GolferStatus, PlayersUrl, PlayersScoresUrl } from '../constants';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -75,8 +75,8 @@ export class SportsApiService {
   }
 
   getEventEndpoint() {
-    let tourny = TournamentConfig.find(data => data.eventId === this.getEventId());
-    if (tourny !== undefined) {
+    const tourny = TournamentConfig.find(data => data.eventId === this.getEventId());
+    if (tourny) {
       return tourny.url;
     } else {
       console.log('Could not retrieve PGA Tour data');
@@ -84,17 +84,17 @@ export class SportsApiService {
   }
 
   getGolferGroupings(): Observable<any> {
-    let entityName = TournamentConfig.find(data => data.active === true).groupName;
+    const entityName = TournamentConfig.find(data => data.active === true).groupName;
     return this.fireDb.list<IGolferGrouping>(entityName).valueChanges();
   }
 
   updateGroups(list: any) {
-    let entityName = TournamentConfig.find(data => data.active === true).groupName;
+    const entityName = TournamentConfig.find(data => data.active === true).groupName;
     this.fireDb.list(entityName).remove();
     this.fireDb.list(entityName).push(list);
   }
 
-  isTournamentActive(status) {
+  isTournamentActive(status): boolean {
     if (status === TournamentStatus.offical || status === TournamentStatus.inProgress ||
       status === TournamentStatus.complete || status === TournamentStatus.suspended
     ) {

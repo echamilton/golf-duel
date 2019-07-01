@@ -4,8 +4,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { SportsApiService } from '../sports-api';
-import { AuthService } from '../authservice';
+import { SportsApiService } from '../services/sports-api';
+import { AuthService } from '../services/authservice';
 import { Messages } from '../constants';
 import { PopupComponent } from '../popup/popup.component';
 
@@ -73,8 +73,8 @@ export class PickTeamComponent implements OnInit {
     this.isLoading = true;
     if (answer === 'Yes') {
       this.sportsApi.getGolfScores().subscribe(
-        apiData => { this.validateSubmit(action, false, apiData) },
-        err => { this.validateSubmit(action, true, []) });
+        apiData => { this.validateSubmit(action, false, apiData); },
+        err => { this.validateSubmit(action, true, []); });
     } else {
       this.isLoading = false;
     }

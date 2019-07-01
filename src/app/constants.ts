@@ -1,5 +1,4 @@
 import { ITournament } from './models';
-import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 
 export const TournamentConfig: ITournament[] = [
   {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../authservice';
+import { AuthService } from '../services/authservice';
 import { Messages, ServiceCodes } from '../constants';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit {
         this.openSnackBar(Messages.userCreateSuccess);
         this.router.navigate(['/leader']);
       }, err => {
-        const message = err.code == ServiceCodes.userFailCode ? Messages.userCreateFail : err.message;
+        const message = err.code === ServiceCodes.userFailCode ? Messages.userCreateFail : err.message;
         this.openSnackBar(message);
       });
   }
