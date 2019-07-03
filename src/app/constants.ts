@@ -31,7 +31,7 @@ export const TournamentConfig: ITournament[] = [
   },
   {
     eventId: 'PGACHAMP-2019',
-    tournyId: 'Masters',
+    tournyId: 'PGA Championship',
     url: 'https://lbdata.pgatour.com/2019/r/033/leaderboard.json',
     active: false,
     groupName: 'pgaChamp2019'

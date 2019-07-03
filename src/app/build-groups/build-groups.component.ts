@@ -25,10 +25,6 @@ export class BuildGroupsComponent implements OnInit {
 
   updateGroups() {
     this.loading = true;
-    this.updateList();
-  }
-
-  updateList() {
     this.subscription = this.sportsApi.getGolferGroupings().subscribe(golferGroupings => {
       for (const plyr of this.playersList.plrs) {
         const name = plyr.nameF + ' ' + plyr.nameL;

@@ -113,6 +113,6 @@ export interface IScoreCard {
   Total: IHole;
 }
 
-export interface IPgaTourData{
+export interface IPgaTourData {
   status: string;
 }
