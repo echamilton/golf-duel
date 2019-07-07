@@ -83,34 +83,34 @@ export interface IIndGolferResult {
 }
 
 export interface IHole {
-  score: string;
-  par: string;
-  indicator: string;
+  score?: string;
+  par?: string;
+  indicator?: string;
 }
 
 export interface IScoreCard {
-  playerName: string;
-  hole1: IHole;
-  hole2: IHole;
-  hole3: IHole;
-  hole4: IHole;
-  hole5: IHole;
-  hole6: IHole;
-  hole7: IHole;
-  hole8: IHole;
-  hole9: IHole;
-  hole10: IHole;
-  hole11: IHole;
-  hole12: IHole;
-  hole13: IHole;
-  hole14: IHole;
-  hole15: IHole;
-  hole16: IHole;
-  hole17: IHole;
-  hole18: IHole;
-  In: IHole;
-  Out: IHole;
-  Total: IHole;
+  playerName?: string;
+  hole1?: IHole;
+  hole2?: IHole;
+  hole3?: IHole;
+  hole4?: IHole;
+  hole5?: IHole;
+  hole6?: IHole;
+  hole7?: IHole;
+  hole8?: IHole;
+  hole9?: IHole;
+  hole10?: IHole;
+  hole11?: IHole;
+  hole12?: IHole;
+  hole13?: IHole;
+  hole14?: IHole;
+  hole15?: IHole;
+  hole16?: IHole;
+  hole17?: IHole;
+  hole18?: IHole;
+  In?: IHole;
+  Out?: IHole;
+  Total?: IHole;
 }
 
 export interface IPgaTourData{

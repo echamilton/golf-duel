@@ -112,7 +112,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     this.status = apiData.roundState;
     this.currentRound = apiData.tournamentRoundId;
 
-    for (let userGolfKey in userGolfPicks) {
+    for (const userGolfKey in userGolfPicks) {
       if (userGolfPicks[userGolfKey].eventId !== this.sportsApi.getEventId()) {
         continue;
       }
@@ -292,7 +292,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   default(err, userGolfPicks) {
-    for (let userGolfKey in userGolfPicks) {
+    for (const userGolfKey in userGolfPicks) {
       if (userGolfPicks[userGolfKey].eventId !== this.sportsApi.getEventId()) {
         continue;
       }

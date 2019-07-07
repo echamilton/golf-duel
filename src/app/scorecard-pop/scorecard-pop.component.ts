@@ -15,14 +15,16 @@ export class ScorecardPopComponent implements OnInit {
   loading: boolean;
   currentRound: string;
   playerName: string;
-  scoreCard: IScoreCard = <IScoreCard>{};
+  scoreCard: IScoreCard = {};
 
   constructor(private sportsApi: SportsApiService,
     @Inject(MAT_DIALOG_DATA) data) {
     this.golferId = data.golfer;
     this.currentRound = data.roundId;
     this.playerName = data.name;
-    this.initScoreCard();
+    this.scoreCard.In = {};
+    this.scoreCard.Out = {};
+    this.scoreCard.Total = {};
   }
 
   ngOnInit() {
@@ -47,12 +49,12 @@ export class ScorecardPopComponent implements OnInit {
     frontNine = playerData.scoreCards.pages[0];
     backNine = playerData.scoreCards.pages[1];
 
-    let holeScores = frontNine.lines.find(type => type.lineType == 'playerData');
-    let holePars = frontNine.lines.find(type => type.lineType == 'par');
-    for (let scores of holeScores.holes) {
+    let holeScores = frontNine.lines.find(type => type.lineType === 'playerData');
+    let holePars = frontNine.lines.find(type => type.lineType === 'par');
+    for (const scores of holeScores.holes) {
       i++;
       currentHole++;
-
+      this.scoreCard['hole' + currentHole] = {};
       this.scoreCard['hole' + currentHole].score = scores.score;
       this.scoreCard['hole' + currentHole].par = holePars.holes[i - 1];
       this.scoreCard['hole' + currentHole].indicator = this.calculateHole(scores.score, holePars.holes[i - 1]);
@@ -62,13 +64,13 @@ export class ScorecardPopComponent implements OnInit {
       }
     }
 
-    holeScores = backNine.lines.find(type => type.lineType == 'playerData');
-    holePars = backNine.lines.find(type => type.lineType == 'par');
+    holeScores = backNine.lines.find(type => type.lineType === 'playerData');
+    holePars = backNine.lines.find(type => type.lineType === 'par');
     i = 0;
-    for (let scores of holeScores.holes) {
+    for (const scores of holeScores.holes) {
       i++;
       currentHole++;
-
+      this.scoreCard['hole' + currentHole] = {};
       this.scoreCard['hole' + currentHole].score = scores.score;
       this.scoreCard['hole' + currentHole].par = holePars.holes[i - 1];
       this.scoreCard['hole' + currentHole].indicator = this.calculateHole(scores.score, holePars.holes[i - 1]);
@@ -90,7 +92,7 @@ export class ScorecardPopComponent implements OnInit {
 
   calculateHole(score: number, par: number) {
     let diff: number;
-    let scoreStr = score.toString();
+    const scoreStr = score.toString();
 
     diff = score - par;
     if (score != null && score != undefined && scoreStr != '--') {
@@ -113,34 +115,6 @@ export class ScorecardPopComponent implements OnInit {
       return ScoreValues.noScore;
     }
   }
-
-  initScoreCard() {
-    this.scoreCard = {
-      playerName: '',
-      hole1: { score: '', par: '', indicator: '' },
-      hole2: { score: '', par: '', indicator: '' },
-      hole3: { score: '', par: '', indicator: '' },
-      hole4: { score: '', par: '', indicator: '' },
-      hole5: { score: '', par: '', indicator: '' },
-      hole6: { score: '', par: '', indicator: '' },
-      hole7: { score: '', par: '', indicator: '' },
-      hole8: { score: '', par: '', indicator: '' },
-      hole9: { score: '', par: '', indicator: '' },
-      hole10: { score: '', par: '', indicator: '' },
-      hole11: { score: '', par: '', indicator: '' },
-      hole12: { score: '', par: '', indicator: '' },
-      hole13: { score: '', par: '', indicator: '' },
-      hole14: { score: '', par: '', indicator: '' },
-      hole15: { score: '', par: '', indicator: '' },
-      hole16: { score: '', par: '', indicator: '' },
-      hole17: { score: '', par: '', indicator: '' },
-      hole18: { score: '', par: '', indicator: '' },
-      In: { score: '', par: '', indicator: '' },
-      Out: { score: '', par: '', indicator: '' },
-      Total: { score: '', par: '', indicator: '' },
-    };
-  }
-
 
   getColor(score) {
     let color: string;
