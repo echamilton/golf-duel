@@ -18,7 +18,6 @@ export class BuildGroupsComponent implements OnInit {
     this.loading = true;
     this.sportsApi.getGolfersPgaTour().subscribe(apiData => {
       this.playersList = apiData;
-      this.loading = false;
     }
     );
   }
@@ -28,7 +27,7 @@ export class BuildGroupsComponent implements OnInit {
     this.subscription = this.sportsApi.getGolferGroupings().subscribe(golferGroupings => {
       for (const plyr of this.playersList.plrs) {
         const name = plyr.nameF + ' ' + plyr.nameL;
-        const golfer = golferGroupings.find(player => player.name == name);
+        const golfer = golferGroupings.find(player => player.name === name);
         if (golfer) {
           golfer.golferId = plyr.pid;
         }

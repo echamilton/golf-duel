@@ -25,7 +25,6 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.golfers = [];
-    this.error = false;
     this.tournyText = '';
     this.sportsApi.getGolfScores().subscribe(
       apiData => this.buildLeaderboard(apiData),
@@ -92,7 +91,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   isAdmin() {
-    return this.authService.getCurrentUser() === AdminEmail ? true : false;
+    return this.authService.getCurrentUser() === AdminEmail;
   }
 
   openPopup(golferId: string, golferName: string) {
@@ -102,7 +101,6 @@ export class ToolbarComponent implements OnInit {
     popupConfig.data = { golfer: golferId, roundId: this.currentRound, name: golferName };
 
     const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
-
     dialogRef.afterClosed().subscribe();
   }
 
