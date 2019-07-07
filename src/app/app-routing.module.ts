@@ -18,7 +18,7 @@ import { BuildGroupsComponent } from './build-groups/build-groups.component';
           { path: 'signup', component: SignUpComponent },
           { path: 'login', component: LoginComponent },
           { path: 'history', component: HistoryComponent },
-          { path: 'groups', component: BuildGroupsComponent},
+          { path: 'groups', component: BuildGroupsComponent },
           { path: '', redirectTo: 'leader', pathMatch: 'full' }
         ]
       },
