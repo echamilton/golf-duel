@@ -62,7 +62,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   setPlayerPicks(pgaPlayer) {
-    let pick = {} as IIndGolferResult;
+    const pick = {} as IIndGolferResult;
     let thruString: string;
     if (pgaPlayer) {
       pick.golferId = pgaPlayer.playerId;
@@ -72,16 +72,16 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       thruString = pgaPlayer.thru.replace(/\*/g, '');
       thruString.trim();
 
-      if (thruString == '--' || thruString == '') {
+      if (thruString === '--' || thruString === '') {
         pick.thru = 0;
-      } else if (thruString == 'F' || thruString == 'F*') {
+      } else if (thruString === 'F' || thruString === 'F*') {
         pick.thru = 18;
       } else {
         pick.thru = Number(thruString);
       }
       pick.round = pgaPlayer.tournamentRoundId;
       pick.status = pgaPlayer.status;
-      if (this.sportsApi.isGolferActive(pick.status) == true) {
+      if (this.sportsApi.isGolferActive(pick.status)) {
         if (pgaPlayer.total == '--') {
           pick.score = 0;
         } else {
@@ -95,14 +95,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
       /** Check if entry exists for golfer, if not create and add 1, otherwise
        * increment the counter...       */
-      let ownPct = this.ownPct.find(x => x.golferId === pick.golferId);
-      if (ownPct != undefined) {
+      const ownPct = this.ownPct.find(x => x.golferId === pick.golferId);
+      if (ownPct) {
         ownPct.count++;
       } else {
-        let ownPct = {} as IGolferDetail;
-        ownPct.golferId = pick.golferId;
-        ownPct.count = 1;
-        this.ownPct.push(ownPct);
+        const ownPctNew = {} as IGolferDetail;
+        ownPctNew.golferId = pick.golferId;
+        ownPctNew.count = 1;
+        this.ownPct.push(ownPctNew);
       }
     }
   }
@@ -112,14 +112,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     this.status = apiData.roundState;
     this.currentRound = apiData.tournamentRoundId;
 
-    for (let userGolfKey in userGolfPicks) {
-      if (userGolfPicks[userGolfKey].eventId !== this.sportsApi.getEventId()) {
+    for (const userGolfKey of userGolfPicks) {
+      if (userGolfKey.eventId !== this.sportsApi.getEventId()) {
         continue;
       }
       this.entries++;
-      let fantasyLeader = {} as ILeaderResults;
+      const fantasyLeader = {} as ILeaderResults;
       let pgaPlayer = {} as any;
-      fantasyLeader.team = userGolfPicks[userGolfKey].team;
+      fantasyLeader.team = userGolfKey.team;
 
       fantasyLeader.score = 0;
       /**4 rounds, 5 golfers, 18 holes */
@@ -138,35 +138,35 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       this.picks = [];
 
       // Golfer1
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfPicks[userGolfKey].golfer1);
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfKey.golfer1);
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer2
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfPicks[userGolfKey].golfer2);
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfKey.golfer2);
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer3
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfPicks[userGolfKey].golfer3);
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfKey.golfer3);
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer4
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfPicks[userGolfKey].golfer4);
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfKey.golfer4);
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer5
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfPicks[userGolfKey].golfer5);
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfKey.golfer5);
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer6
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfPicks[userGolfKey].golfer6);
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfKey.golfer6);
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer7
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfPicks[userGolfKey].golfer7);
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfKey.golfer7);
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer8
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfPicks[userGolfKey].golfer8);
+      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.playerId == userGolfKey.golfer8);
       this.setPlayerPicks(pgaPlayer);
 
       /**This is where we will check how many active golfers are left */
@@ -178,8 +178,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
       if (this.isTournyActive() == true) {
         this.golferItems = [];
-        for (let pick of this.picks) {
-          let golferItem = {} as IGolferItem;
+        for (const pick of this.picks) {
+          const golferItem = {} as IGolferItem;
           j++;
           fantasyLeader['id' + j] = pick.golferId;
           golferItem.id = pick.golferId;
@@ -196,7 +196,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
               fantasyLeader.holesRemain = fantasyLeader.holesRemain - pick.thru;
             }
             remain++;
-            if (pick.thru == 18) { golferItem.thru = 'F'; } else {
+            if (pick.thru === 18) { golferItem.thru = 'F'; } else {
               if (pick.thru !== null) {
                 golferItem.thru = 'Thru' + ' ' + pick.thru;
               } else {
@@ -238,23 +238,23 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     let position = 0;
     let dupPos = 0;
     let prevScore = 999;
-    for (let key in this.fantasyLeaders) {
-      if (this.fantasyLeaders[key].score == prevScore) {
-        this.fantasyLeaders[key].position = position;
+    for (const fantasyLeader of this.fantasyLeaders) {
+      if (fantasyLeader.score === prevScore) {
+        fantasyLeader.position = position;
         dupPos++;
       } else {
         position++;
         position = position + dupPos;
         dupPos = 0;
-        this.fantasyLeaders[key].position = position;
+        fantasyLeader.position = position;
       }
-      prevScore = this.fantasyLeaders[key].score;
+      prevScore = fantasyLeader.score;
 
       /** This will iterate through the golfers and map the value of  */
-      for (let golferKey in this.fantasyLeaders[key].golfers) {
-        for (let ownKey in this.ownPct) {
-          if (this.ownPct[ownKey].golferId == this.fantasyLeaders[key].golfers[golferKey].id) {
-            this.fantasyLeaders[key].golfers[golferKey].ownPct = this.ownPct[ownKey].count / this.entries * 100;
+      for (const golferKey of fantasyLeader.golfers) {
+        for (const ownKey in this.ownPct) {
+          if (this.ownPct[ownKey].golferId === golferKey.id) {
+            golferKey.ownPct = this.ownPct[ownKey].count / this.entries * 100;
           }
         }
       }
@@ -274,8 +274,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   openPopup(golferId: string, status: string, playerName: string) {
-    // *Golfer is not active, do not show scorecard
-    if (this.sportsApi.isGolferActive(status) != true) {
+    if (!this.sportsApi.isGolferActive(status)) {
       this.openSnackBar();
       return;
     }
@@ -284,21 +283,19 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
     popupConfig.data = { golfer: golferId, roundId: this.currentRound, name: playerName };
-
     const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
-
     dialogRef.afterClosed().subscribe(
     );
   }
 
   default(err, userGolfPicks) {
-    for (let userGolfKey in userGolfPicks) {
-      if (userGolfPicks[userGolfKey].eventId !== this.sportsApi.getEventId()) {
+    for (const userPick of userGolfPicks) {
+      if (userPick.eventId !== this.sportsApi.getEventId()) {
         continue;
       }
       this.entries++;
-      let fantasyLeader = {} as ILeaderResults;
-      fantasyLeader.team = userGolfPicks[userGolfKey].team;
+      const fantasyLeader = {} as ILeaderResults;
+      fantasyLeader.team = userPick.team;
       fantasyLeader.holesRemain = 360;
       fantasyLeader.golfersRemain = 8;
       fantasyLeader.score = 99;

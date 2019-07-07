@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IUserGolfPicks, IGolfers } from '../models';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ import { PopupComponent } from '../popup/popup.component';
   styleUrls: ['./pick-team.component.scss']
 })
 
-export class PickTeamComponent implements OnInit {
+export class PickTeamComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   picks: IUserGolfPicks;
   answer: string;
@@ -44,7 +44,7 @@ export class PickTeamComponent implements OnInit {
   }
 
   openPopup(action: string) {
-    if (action == 'update') {
+    if (action === 'update') {
       if (this.picks.golfer1 == '' || this.picks.golfer2 == '' ||
         this.picks.golfer3 == '' || this.picks.golfer4 == '' ||
         this.picks.golfer5 == '' || this.picks.golfer6 == '' ||
@@ -81,9 +81,7 @@ export class PickTeamComponent implements OnInit {
   }
 
   validateSubmit(action: string, apiNotReady: boolean, apiData: any) {
-    // *Check status of API before proceeding
     let active = false;
-
     if (!apiNotReady) {
       active = this.sportsApi.isTournamentActive(apiData.roundState);
     }
@@ -94,7 +92,7 @@ export class PickTeamComponent implements OnInit {
       return;
     }
 
-    if (action == 'update') {
+    if (action === 'update') {
       this.picks.eventId = this.sportsApi.eventId;
       this.picks.email = this.authService.getCurrentUser();
       this.sportsApi.updateGolferPicks(this.picks);
@@ -113,13 +111,11 @@ export class PickTeamComponent implements OnInit {
   }
 
   isLoggedIn(): boolean {
-    let email = this.authService.getCurrentUser();
-    if (email != null && email != undefined && email != '') {
+    if (this.authService.getCurrentUser()) {
       return true;
     } else {
       return false;
     }
-
   }
 
   getActive() {
