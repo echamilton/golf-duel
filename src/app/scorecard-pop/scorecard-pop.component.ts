@@ -59,7 +59,7 @@ export class ScorecardPopComponent implements OnInit {
       this.scoreCard['hole' + currentHole].par = holePars.holes[i - 1];
       this.scoreCard['hole' + currentHole].indicator = this.calculateHole(scores.score, holePars.holes[i - 1]);
       parOut = +parOut + +holePars.holes[i - 1];
-      if (scores.score.toString() != '--') {
+      if (scores.score.toString() !== '--') {
         holeOut = holeOut + +scores.score;
       }
     }
@@ -75,7 +75,7 @@ export class ScorecardPopComponent implements OnInit {
       this.scoreCard['hole' + currentHole].par = holePars.holes[i - 1];
       this.scoreCard['hole' + currentHole].indicator = this.calculateHole(scores.score, holePars.holes[i - 1]);
       parIn = parIn + +holePars.holes[i - 1];
-      if (scores.score.toString() != '--') {
+      if (scores.score.toString() !== '--') {
         holeIn = holeIn + +scores.score;
       }
     }
@@ -95,18 +95,18 @@ export class ScorecardPopComponent implements OnInit {
     const scoreStr = score.toString();
 
     diff = score - par;
-    if (score != null && score != undefined && scoreStr != '--') {
-      if (diff == 0) {
+    if (score && scoreStr !== '--') {
+      if (diff === 0) {
         return ScoreValues.par;
-      } else if (diff == -1) {
+      } else if (diff === -1) {
         return ScoreValues.birdie;
-      } else if (diff == -2) {
+      } else if (diff === -2) {
         return ScoreValues.eagle;
-      } else if (diff == 1) {
+      } else if (diff === 1) {
         return ScoreValues.bogey;
-      } else if (diff == 2) {
+      } else if (diff === 2) {
         return ScoreValues.double;
-      } else if (diff == 3) {
+      } else if (diff === 3) {
         return ScoreValues.triple;
       } else {
         return ScoreValues.triple;
