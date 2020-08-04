@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthService {
 
     signup(email: string, password: string) {
         return new Promise<any>((resolve, reject) => {
-            this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
+            this.firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .then(res => {
                     localStorage.setItem('user', email);
                     this.user = email.toLowerCase();
@@ -33,7 +33,7 @@ export class AuthService {
 
     login(email: string, password: string) {
         return new Promise<any>((resolve, reject) => {
-            this.firebaseAuth.auth.signInWithEmailAndPassword(email, password)
+            this.firebaseAuth.signInWithEmailAndPassword(email, password)
                 .then(res => {
                     localStorage.setItem('user', email);
                     this.user = email.toLowerCase();
@@ -44,7 +44,6 @@ export class AuthService {
 
     logout() {
         this.firebaseAuth
-            .auth
             .signOut();
         this.user = '';
         localStorage.removeItem('user');

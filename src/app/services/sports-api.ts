@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from '@angular/fire/database';
 import { IUserGolfPicks, IGolferGrouping, ITournament } from '../models';
 import { TournamentConfig, TournamentStatus, GolferStatus, PlayersUrl, PlayersScoresUrl } from '../constants';
 import { map, catchError } from 'rxjs/operators';

@@ -311,6 +311,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   isTournyActive(): boolean {
+    console.log(this.status);
     return this.sportsApi.isTournamentActive(this.status);
   }
 
