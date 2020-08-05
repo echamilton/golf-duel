@@ -26,7 +26,7 @@ export class ToolbarComponent implements OnInit {
     this.golfers = [];
     this.tournyText = '';
     this.sportsApi.getGolfScores().subscribe(
-      apiData => this.golfers = apiData,
+      apiData => this.golfers = apiData.golfers,
       err => this.handleError(),
     );
   }

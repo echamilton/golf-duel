@@ -26,10 +26,6 @@
                         <mat-icon>person_add</mat-icon>
                         <span>Sign up</span>
                   </button>
-                  <button mat-menu-item [routerLink]="['/history']">
-                        <mat-icon>history</mat-icon>
-                        <span>History</span>
-                  </button>
                   <button mat-menu-item (click)="logout()" *ngIf="isLoggedIn()">
                         <mat-icon>exit_to_app</mat-icon>
                         <span>Logout</span>
@@ -41,7 +37,7 @@
                   <div *ngFor="let golfer of golfers" class="card">
                         <span (click)="openPopup(golfer.golferId, golfer.name)">
                               <img class="golfer-pic"
-                                    src='http://a.espncdn.com/i/headshots/golf/players/full/{{golfer.golferId}}.png'>
+                                    src='{{golfer.imageLink}}'>
                               <div>{{golfer.position}} | {{golfer.name}}</div>
                               <div>{{golfer.score}} | {{golfer.thru}}</div>
                         </span>
