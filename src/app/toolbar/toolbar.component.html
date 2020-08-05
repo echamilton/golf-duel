@@ -41,9 +41,9 @@
                   <div *ngFor="let golfer of golfers" class="card">
                         <span (click)="openPopup(golfer.golferId, golfer.name)">
                               <img class="golfer-pic"
-                                    src='https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_face:center,q_auto,t_headshots_leaderboard_l,w_160/headshots_{{golfer.golferId}}.png'>
+                                    src='http://a.espncdn.com/i/headshots/golf/players/full/{{golfer.golferId}}.png'>
                               <div>{{golfer.position}} | {{golfer.name}}</div>
-                              <div>{{golfer.score}} | {{golfer.hole}}</div>
+                              <div>{{golfer.score}} | {{golfer.thru}}</div>
                         </span>
                   </div>
             </div>

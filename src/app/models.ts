@@ -24,13 +24,21 @@ export interface IGolfers {
   name: string;
 }
 
-export interface IScrollBar {
-  name: string;
-  score: string;
-  scoreToday: string;
-  position: string;
-  hole: string;
-  golferId: string;
+export interface IResults {
+  round?: string,
+  golfers?: IPlayer[],
+}
+export interface IPlayer {
+  name?: string;
+  score?: number;
+  scoreToday?: string;
+  position?: string;
+  hole?: string;
+  golferId?: string;
+  ownPct?: number;
+  round?: string;
+  status?: string;
+  thru?: string;
 }
 
 export interface ITournament {
@@ -41,16 +49,6 @@ export interface ITournament {
   groupName: string;
 }
 
-export interface IGolferItem {
-  name: string;
-  id: string;
-  thru: string;
-  score: number;
-  ownPct: number;
-  round: string;
-  status: string;
-}
-
 export interface ILeaderResults {
   position: number;
   team: string;
@@ -58,7 +56,7 @@ export interface ILeaderResults {
   holesRemain: number;
   golfersRemain: number;
   description: string;
-  golfers: Array<IGolferItem>;
+  golfers: Array<IPlayer>;
 }
 
 export interface IGolferDetail {

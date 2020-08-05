@@ -3,7 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { IGolferDetail, IGolferItem, ILeaderResults, IIndGolferResult } from '../models';
+import { IGolferDetail, IPlayer, ILeaderResults, IIndGolferResult } from '../models';
 import { SportsApiService } from '../services/sports-api';
 import { Messages, LeaderColumns } from '../constants';
 import { Subscription } from 'rxjs';
@@ -30,7 +30,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   currentRound: string;
   fantasyLeaders: Array<ILeaderResults> = [];
-  golferItems: Array<IGolferItem> = [];
+  golferItems: Array<IPlayer> = [];
   pgaTournyRespPlayers: any[];
   ownPct: Array<IGolferDetail> = [];
   picks: Array<IIndGolferResult> = [];
@@ -46,6 +46,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     this.subscription = this.sportsApi.getGolferPicks().subscribe(userGolfPicks => {
       this.getGolferLeaderBoard(userGolfPicks);
     });
+    this.sportsApi.getLeaderBoardResults();
   }
 
   ngOnDestroy(): void {
@@ -179,10 +180,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       if (this.isTournyActive() == true) {
         this.golferItems = [];
         for (const pick of this.picks) {
-          const golferItem = {} as IGolferItem;
+          const golferItem = {} as IPlayer;
           j++;
           fantasyLeader['id' + j] = pick.golferId;
-          golferItem.id = pick.golferId;
+          golferItem.golferId = pick.golferId;
           golferItem.name = pick.golferName;
           golferItem.round = pick.round;
           golferItem.status = pick.status;
@@ -253,7 +254,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       /** This will iterate through the golfers and map the value of  */
       for (const golferKey of fantasyLeader.golfers) {
         for (const ownKey in this.ownPct) {
-          if (this.ownPct[ownKey].golferId === golferKey.id) {
+          if (this.ownPct[ownKey].golferId === golferKey.golferId) {
             golferKey.ownPct = this.ownPct[ownKey].count / this.entries * 100;
           }
         }
@@ -311,7 +312,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   isTournyActive(): boolean {
-    console.log(this.status);
     return this.sportsApi.isTournamentActive(this.status);
   }
 
