@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthService } from '../services/authservice';
 import { IPlayer } from '../models';
-import { AdminEmail } from '../constants';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 
 @Component({
@@ -38,10 +37,6 @@ export class ToolbarComponent implements OnInit {
 
   isLoggedIn() {
     return (this.authService.getCurrentUser()) ? true : false;
-  }
-
-  isAdmin() {
-    return this.authService.getCurrentUser() === AdminEmail;
   }
 
   openPopup(golferId: string, golferName: string) {
