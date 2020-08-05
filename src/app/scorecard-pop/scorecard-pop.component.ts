@@ -29,11 +29,11 @@ export class ScorecardPopComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.sportsApi.getPlayerScoreCard(this.golferId, this.currentRound).
-      subscribe(scoreCard => {
-        this.buildScorecard(scoreCard);
-      }
-      );
+    // this.sportsApi.getPlayerScoreCard(this.golferId, this.currentRound).
+    //   subscribe(scoreCard => {
+    //     this.buildScorecard(scoreCard);
+    //   }
+    //   );
   }
 
   buildScorecard(playerData) {

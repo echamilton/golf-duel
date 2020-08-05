@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { IUserGolfPicks, IGolferGrouping, ITournament } from '../models';
+import { IUserGolfPicks, IGolferGrouping, ITournament, IGolfers , IPlayer} from '../models';
 import { TournamentConfig, TournamentStatus, GolferStatus, PlayersUrl, PlayersScoresUrl } from '../constants';
 import { map, catchError } from 'rxjs/operators';
 
@@ -21,10 +21,26 @@ export class SportsApiService {
 
   getGolfScores(): Observable<any> {
     return this.service.get(this.getEventEndpoint()).pipe(
-      map(this.extractData),
+      map((response:any) => {
+      const espnGolfers = this.extractData(response);
+      const myGolfers = [];
+
+      espnGolfers.forEach(espnGolfer => {
+        let golfer: IPlayer = {};
+        golfer.golferId = espnGolfer.id;
+        golfer.name = espnGolfer.athlete.displayName;
+        golfer.position = espnGolfer.status.position.displayName;
+        golfer.thru = espnGolfer.status.thru;
+        const score = Number( espnGolfer.score.displayValue === 'E' ? 0 : espnGolfer.score.displayValue.replace(/\+/gi, ""));
+        golfer.score = score;
+        myGolfers.push(golfer);
+      });
+      
+      return this.getSortedData(myGolfers);
+    },
       catchError(err => {
         return throwError('Golf Scores API call failed' + '-' + this.getEventId());
-      }));
+      })));
   }
 
   getGolfersPgaTour(): Observable<any> {
@@ -64,16 +80,28 @@ export class SportsApiService {
     return this.cacheData;
   }
 
-  getPlayerScoreCard(golferId: string, roundId: string): Observable<any> {
-    let url: string;
-    url = PlayersScoresUrl + roundId + '-m' + golferId + '.json';
-    return this.service.get(url).pipe(
-      map(this.extractData),
-      catchError(err => {
-        return throwError('Golf Scores API call failed' + '-' + this.getEventId());
-      }));
-  }
+  // getPlayerScoreCard(golferId: string, roundId: string): Observable<any> {
+  //   let url: string;
+  //   url = PlayersScoresUrl + roundId + '-m' + golferId + '.json';
+  //   return this.service.get(url).pipe(
+  //     map(this.extractData),
+  //     catchError(err => {
+  //       return throwError('Golf Scores API call failed' + '-' + this.getEventId());
+  //     }));
+  // }
 
+
+  getSortedData(data) {
+    return data.sort((a, b) => {
+      switch ('score') {
+        case 'score': return compare(+a.score, +b.score, true);
+        default: return 0;
+      }
+      function compare(a, b, isAsc) {
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+      }
+    });
+  }
   getEventEndpoint() {
     const tourny = TournamentConfig.find(data => data.eventId === this.getEventId());
     if (tourny) {
@@ -138,8 +166,22 @@ export class SportsApiService {
     return tournaments;
   }
 
-  private extractData(res: Response) {
-    let body = res;
-    return body || [];
+  getLeaderBoardResults():Observable<IGolfers[]> {
+   return this.service.get(this.getEventEndpoint()).pipe(
+        map((response: any)=> {
+          const tournament = this.extractData(response);
+          const golfers = tournament.events[0].competitions.competitors;
+          console.log(golfers);
+         return null; }
+        ),
+        catchError(err => {
+          return throwError('Golf Scores API call failed' + '-' + this.getEventId());
+        }));
+  }
+
+  private extractData(res: Response):any {
+    const data: any = res;
+    const golfers = data.events[0].competitions[0].competitors;
+    return golfers || [];
   }
 }

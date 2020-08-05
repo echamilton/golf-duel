@@ -2,46 +2,18 @@ import { ITournament } from './models';
 
 export const TournamentConfig: ITournament[] = [
   {
-    eventId: 'WASTE',
-    tournyId: 'Waste Managment',
-    url: 'https://statdata.pgatour.com/r/003/2019/leaderboard-v2.json',
-    active: false,
-    groupName: 'golferGroups'
-  },
-  {
-    eventId: 'WGC-2019',
-    tournyId: 'WGC Mexico',
-    url: 'https://statdata.pgatour.com/r/473/2019/leaderboard-v2.json',
-    active: false,
-    groupName: 'wgc2019'
-  },
-  {
-    eventId: 'PLAYERS-2019',
-    tournyId: 'Players Championship',
-    url: 'https://lbdata.pgatour.com/2019/r/011/leaderboard.json',
-    active: false,
-    groupName: 'players2019'
-  },
-  {
-    eventId: 'MASTERS-2019',
-    tournyId: 'Masters',
-    url: 'https://lbdata.pgatour.com/2019/r/014/leaderboard.json',
-    active: false,
-    groupName: 'masters2019'
-  },
-  {
-    eventId: 'PGACHAMP-2019',
-    tournyId: 'PGA Championship',
-    url: 'https://lbdata.pgatour.com/2019/r/033/leaderboard.json',
-    active: false,
-    groupName: 'pgaChamp2019'
-  },
-  {
     eventId: 'USOPEN-2019',
     tournyId: 'US Open',
     url: 'https://lbdata.pgatour.com/2019/r/026/leaderboard.json',
-    active: true,
+    active: false,
     groupName: 'usOpen2019'
+  },
+  {
+   eventId: 'WGCJUDE',
+   tournyId: ' WGCJUDE',
+   url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401155467',
+   active: true,
+   groupName: 'wgcJude2020',
   }
 ];
 

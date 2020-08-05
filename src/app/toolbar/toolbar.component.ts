@@ -3,7 +3,7 @@ import { SportsApiService } from '../services/sports-api';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AuthService } from '../services/authservice';
-import { IScrollBar } from '../models';
+import { IPlayer } from '../models';
 import { AdminEmail } from '../constants';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 
@@ -14,8 +14,7 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
 })
 
 export class ToolbarComponent implements OnInit {
-  pgaTournyRespPlayers: any[];
-  golfers: Array<IScrollBar> = [];
+  golfers: Array<IPlayer> = [];
   error: boolean;
   currentRound: string;
   tournyText: string;
@@ -27,58 +26,9 @@ export class ToolbarComponent implements OnInit {
     this.golfers = [];
     this.tournyText = '';
     this.sportsApi.getGolfScores().subscribe(
-      apiData => this.buildLeaderboard(apiData),
+      apiData => this.golfers = apiData,
       err => this.handleError(),
     );
-  }
-
-  buildLeaderboard(pgaScores) {
-    this.pgaTournyRespPlayers = pgaScores.rows;
-    this.currentRound = pgaScores.tournamentRoundId;
-    this.sportsApi.setApiData(pgaScores);
-    const activeTourny = this.sportsApi.isTournamentActive(pgaScores.roundState);
-
-    for (const player of this.pgaTournyRespPlayers) {
-      if (this.sportsApi.isGolferActive(!player.status)) {
-        continue;
-      }
-      const golfer = this.buildGolferItem(player, activeTourny);
-      this.golfers.push(golfer);
-    }
-  }
-
-  buildGolferItem(player: any, activeTourny: boolean): IScrollBar {
-    const golfer = {} as IScrollBar;
-    golfer.position = player.positionCurrent;
-    golfer.golferId = player.playerId;
-    golfer.name = player.playerNames.firstName + ' ' + player.playerNames.lastName;
-    golfer.score = player.total;
-    golfer.hole = player.thru;
-    golfer.scoreToday = player.today;
-    if (activeTourny) {
-      if (golfer.hole === '18' || golfer.hole === 'F*' || golfer.hole === 'F') {
-        golfer.hole = 'F';
-      } else {
-        if (golfer.hole == null) {
-          golfer.hole = 'Thru 0';
-        } else {
-          golfer.hole = 'Thru' + ' ' + golfer.hole;
-        }
-      }
-
-      if (golfer.score === '0') {
-        golfer.score = 'E';
-      }
-      if (golfer.scoreToday === '0') {
-        golfer.scoreToday = 'E';
-      }
-
-    } else {
-      golfer.position = '-';
-      golfer.hole = '-';
-      golfer.score = '-';
-    }
-    return golfer;
   }
 
   handleError() {
