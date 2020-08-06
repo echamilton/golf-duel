@@ -119,7 +119,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
   }
 
   getActive() {
-    let apiData = this.sportsApi.getApiData();
+    const apiData = this.sportsApi.getApiData();
     if (apiData == undefined) {
       return false;
     }
@@ -148,22 +148,22 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     this.subscription = this.sportsApi.getGolferGroupings().subscribe(groups => {
       let golferGroupings: Array<any>;
       golferGroupings = groups[0];
-      for (let groupsKey in golferGroupings) {
-        if (golferGroupings[groupsKey].eventId != this.sportsApi.getActiveEventId()) {
-          continue;
-        }
-        let group = {} as IGolfers;
-        group.id = golferGroupings[groupsKey].golferId;
-        group.name = golferGroupings[groupsKey].name;
+      golferGroupings.forEach(groupRecord => {
 
-        if (golferGroupings[groupsKey].group == 'A') {
-          this.golferGrpA.push(group);
-        } else if (golferGroupings[groupsKey].group == 'B') {
-          this.golferGrpB.push(group);
-        } else {
-          this.golferGrpC.push(group);
+        if (groupRecord.eventId == this.sportsApi.getActiveEventId()) {
+          const group = {} as IGolfers;
+          group.id = groupRecord.golferId;
+          group.name = groupRecord.name;
+
+          if (groupRecord.group == 'A') {
+            this.golferGrpA.push(group);
+          } else if (groupRecord.group == 'B') {
+            this.golferGrpB.push(group);
+          } else {
+            this.golferGrpC.push(group);
+          }
         }
-      }
+      });
     });
   }
 

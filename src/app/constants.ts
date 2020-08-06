@@ -71,5 +71,6 @@ export enum TournamentStatus {
   suspended = 'Suspended',
   inProgress = 'In Progress',
   complete = 'Play Complete',
+  pre = 'pre'
 }
 

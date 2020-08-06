@@ -40,9 +40,8 @@ export class SportsApiService {
         myGolfers.push(golfer);
       });
       tournamentResults.round = data.events[0].competitions[0].status.period;
-      tournamentResults.status = data.events[0].competitions[0].status.state;
+      tournamentResults.status = data.events[0].status.type.state;
       tournamentResults.golfers = this.getSortedData(myGolfers);
-      console.log(myGolfers);
       return tournamentResults;
     },
       catchError(err => {
@@ -95,7 +94,7 @@ export class SportsApiService {
     if (tourny) {
       return tourny.url;
     } else {
-      console.log('Could not retrieve PGA Tour data');
+      console.error('Could not retrieve PGA Tour data');
     }
   }
 
@@ -111,13 +110,7 @@ export class SportsApiService {
   }
 
   isTournamentActive(status): boolean {
-    if (status === TournamentStatus.offical || status === TournamentStatus.inProgress ||
-      status === TournamentStatus.complete || status === TournamentStatus.suspended
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    return status !== TournamentStatus.pre;
   }
 
   isGolferActive(status) {
