@@ -9,17 +9,17 @@ export const TournamentConfig: ITournament[] = [
     groupName: 'usOpen2019'
   },
   {
-   eventId: 'PGACHAMP-2020',
+   eventId: 'WGC',
    tournyId: 'WGC Jude',
    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401155467',
-   active: true,
+   active: false,
    groupName: 'pgaChamp2020',
   },
   {
    eventId: 'PGACHAMP-2020',
    tournyId: 'PGA Championship',
    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219481',
-   active: false,
+   active: true,
    groupName: 'pgaChamp2020',
   }
 ];
@@ -72,3 +72,4 @@ export enum TournamentStatus {
   inProgress = 'In Progress',
   complete = 'Play Complete',
 }
+
