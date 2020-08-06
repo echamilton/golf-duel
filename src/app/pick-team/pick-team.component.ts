@@ -83,7 +83,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
   validateSubmit(action: string, apiNotReady: boolean, apiData: any) {
     let active = false;
     if (!apiNotReady) {
-      active = this.sportsApi.isTournamentActive(apiData.roundState);
+      active = this.sportsApi.isTournamentActive(apiData.status);
     }
 
     if (active) {
@@ -123,7 +123,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     if (apiData == undefined) {
       return false;
     }
-    if (this.sportsApi.isTournamentActive(apiData.roundState)) {
+    if (this.sportsApi.isTournamentActive(apiData.status)) {
       return true;
     } else {
       return false;
