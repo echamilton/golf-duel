@@ -35,8 +35,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoaderComponent } from './loader/loader.component';
-import { HistoryComponent } from './history/history.component';
-import { BuildGroupsComponent } from './build-groups/build-groups.component';
 
 @NgModule({
   declarations: [
@@ -49,8 +47,6 @@ import { BuildGroupsComponent } from './build-groups/build-groups.component';
     SignUpComponent,
     LoginComponent,
     LoaderComponent,
-    HistoryComponent,
-    BuildGroupsComponent
   ],
   imports: [
     BrowserModule,

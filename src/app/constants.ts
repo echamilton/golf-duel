@@ -9,17 +9,22 @@ export const TournamentConfig: ITournament[] = [
     groupName: 'usOpen2019'
   },
   {
-   eventId: 'WGCJUDE',
-   tournyId: ' WGCJUDE',
+   eventId: 'WGC',
+   tournyId: 'WGC Jude',
    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401155467',
+   active: false,
+   groupName: 'pgaChamp2020',
+  },
+  {
+   eventId: 'PGACHAMP-2020',
+   tournyId: 'PGA Championship',
+   url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219481',
    active: true,
-   groupName: 'wgcJude2020',
+   groupName: 'pgaChamp2020',
   }
 ];
 
 export const AppTitle = '443 Fantasy Golf';
-export const PlayersUrl = 'https://statdata.pgatour.com/players/player.json';
-export const PlayersScoresUrl = 'https://lbdata.pgatour.com/2019/r/026/drawer/r';
 
 export enum ScoreValues {
   birdie = 'BIRDIE',
@@ -66,6 +71,6 @@ export enum TournamentStatus {
   suspended = 'Suspended',
   inProgress = 'In Progress',
   complete = 'Play Complete',
+  pre = 'pre'
 }
 
-export const AdminEmail = 'evanchamilton@gmail.com';

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { IUserGolfPicks, IGolferGrouping, ITournament, IGolfers , IPlayer} from '../models';
-import { TournamentConfig, TournamentStatus, GolferStatus, PlayersUrl, PlayersScoresUrl } from '../constants';
+import { IUserGolfPicks, IGolferGrouping, IPlayer, IResults} from '../models';
+import { TournamentConfig, TournamentStatus, GolferStatus } from '../constants';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -22,34 +22,31 @@ export class SportsApiService {
   getGolfScores(): Observable<any> {
     return this.service.get(this.getEventEndpoint()).pipe(
       map((response:any) => {
-      const espnGolfers = this.extractData(response);
+      const data: any = response;
+      const espnGolfers = data.events[0].competitions[0].competitors;
       const myGolfers = [];
-
+      const tournamentResults: IResults = {};
       espnGolfers.forEach(espnGolfer => {
-        let golfer: IPlayer = {};
-        golfer.golferId = espnGolfer.id;
-        golfer.name = espnGolfer.athlete.displayName;
-        golfer.position = espnGolfer.status.position.displayName;
-        golfer.thru = espnGolfer.status.thru;
         const score = Number( espnGolfer.score.displayValue === 'E' ? 0 : espnGolfer.score.displayValue.replace(/\+/gi, ""));
-        golfer.score = score;
+        const golfer: IPlayer = {
+        golferId: espnGolfer.id,
+        name: espnGolfer.athlete.displayName,
+        position: espnGolfer.status.position.displayName,
+        thru: espnGolfer.status.thru,
+        score: score,
+        status: 'active',
+        imageLink: espnGolfer.athlete.headshot ? espnGolfer.athlete.headshot.href : espnGolfer.athlete.flag.href,
+        };
         myGolfers.push(golfer);
       });
-      
-      return this.getSortedData(myGolfers);
+      tournamentResults.round = data.events[0].competitions[0].status.period;
+      tournamentResults.status = data.events[0].status.type.state;
+      tournamentResults.golfers = this.getSortedData(myGolfers);
+      return tournamentResults;
     },
       catchError(err => {
         return throwError('Golf Scores API call failed' + '-' + this.getEventId());
       })));
-  }
-
-  getGolfersPgaTour(): Observable<any> {
-    return this.service.get(PlayersUrl).pipe(
-      map(this.extractData),
-      catchError(err => {
-        return throwError('Could not retrieve golfers from PGA Tour');
-      })
-    );
   }
 
   getEventId() {
@@ -63,7 +60,7 @@ export class SportsApiService {
     return this.eventId = TournamentConfig.find(data => data.active === true).eventId;
   }
 
-  getEventName() {
+  getEventName(){
     return TournamentConfig.find(data => data.active === true).tournyId;
   }
 
@@ -80,17 +77,6 @@ export class SportsApiService {
     return this.cacheData;
   }
 
-  // getPlayerScoreCard(golferId: string, roundId: string): Observable<any> {
-  //   let url: string;
-  //   url = PlayersScoresUrl + roundId + '-m' + golferId + '.json';
-  //   return this.service.get(url).pipe(
-  //     map(this.extractData),
-  //     catchError(err => {
-  //       return throwError('Golf Scores API call failed' + '-' + this.getEventId());
-  //     }));
-  // }
-
-
   getSortedData(data) {
     return data.sort((a, b) => {
       switch ('score') {
@@ -102,12 +88,13 @@ export class SportsApiService {
       }
     });
   }
+ 
   getEventEndpoint() {
     const tourny = TournamentConfig.find(data => data.eventId === this.getEventId());
     if (tourny) {
       return tourny.url;
     } else {
-      console.log('Could not retrieve PGA Tour data');
+      console.error('Could not retrieve PGA Tour data');
     }
   }
 
@@ -123,13 +110,7 @@ export class SportsApiService {
   }
 
   isTournamentActive(status): boolean {
-    if (status === TournamentStatus.offical || status === TournamentStatus.inProgress ||
-      status === TournamentStatus.complete || status === TournamentStatus.suspended
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    return status !== TournamentStatus.pre;
   }
 
   isGolferActive(status) {
@@ -153,35 +134,5 @@ export class SportsApiService {
   deleteGolferPicks(userPicks: IUserGolfPicks) {
     this.fireDb.list('myGolfers').remove(this.getEventId() + '-' + userPicks.team).then(_ => {
     });
-  }
-
-  getHistoryEvents() {
-    let tournaments: Array<ITournament> = [];
-
-    for (let key in TournamentConfig) {
-      if (TournamentConfig[key].active != true) {
-        tournaments.push(TournamentConfig[key]);
-      }
-    }
-    return tournaments;
-  }
-
-  getLeaderBoardResults():Observable<IGolfers[]> {
-   return this.service.get(this.getEventEndpoint()).pipe(
-        map((response: any)=> {
-          const tournament = this.extractData(response);
-          const golfers = tournament.events[0].competitions.competitors;
-          console.log(golfers);
-         return null; }
-        ),
-        catchError(err => {
-          return throwError('Golf Scores API call failed' + '-' + this.getEventId());
-        }));
-  }
-
-  private extractData(res: Response):any {
-    const data: any = res;
-    const golfers = data.events[0].competitions[0].competitors;
-    return golfers || [];
   }
 }
