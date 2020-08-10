@@ -26,6 +26,7 @@ export interface IGolfers {
 
 export interface IResults {
   round?: string,
+  status?: string,
   golfers?: IPlayer[],
 }
 export interface IPlayer {
@@ -39,6 +40,7 @@ export interface IPlayer {
   round?: string;
   status?: string;
   thru?: string;
+  imageLink?: string;
 }
 
 export interface ITournament {
@@ -78,6 +80,7 @@ export interface IIndGolferResult {
   thru: number;
   status: string;
   round: string;
+  imageLink?: string;
 }
 
 export interface IHole {
