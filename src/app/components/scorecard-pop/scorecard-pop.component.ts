@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SportsApiService } from '../services/sports-api';
-import { IScoreCard } from '../models';
-import { ScoreValues } from '../constants';
+import { SportsApiService } from '../../services/sports-api';
+import { IScoreCard } from '../../models/models';
+import { ScoreValues } from './../../models/constants';
 
 @Component({
   selector: 'app-scorecard-pop',
@@ -29,11 +29,6 @@ export class ScorecardPopComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    // this.sportsApi.getPlayerScoreCard(this.golferId, this.currentRound).
-    //   subscribe(scoreCard => {
-    //     this.buildScorecard(scoreCard);
-    //   }
-    //   );
   }
 
   buildScorecard(playerData) {

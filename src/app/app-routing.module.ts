@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { LeaderboardComponent } from './leaderboard/leaderboard.component';
-import { PickTeamComponent } from './pick-team/pick-team.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { LoginComponent } from './login/login.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+import { PickTeamComponent } from './components/pick-team/pick-team.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   imports: [

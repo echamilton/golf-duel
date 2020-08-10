@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SportsApiService } from '../services/sports-api';
+import { SportsApiService } from '../../services/sports-api';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AuthService } from '../services/authservice';
-import { IPlayer } from '../models';
+import { AuthService } from '../../services/authservice';
+import { IPlayer } from '../../models/models';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 
 @Component({

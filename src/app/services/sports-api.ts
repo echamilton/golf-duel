@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { IUserGolfPicks, IGolferGrouping, IPlayer, IResults} from '../models';
-import { TournamentConfig, TournamentStatus, GolferStatus } from '../constants';
+import { IUserGolfPicks, IGolferGrouping, IPlayer, IResults} from './../models/models';
+import { TournamentConfig, TournamentStatus, GolferStatus } from './../models/constants';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -27,14 +27,14 @@ export class SportsApiService {
       const myGolfers = [];
       const tournamentResults: IResults = {};
       espnGolfers.forEach(espnGolfer => {
-        const score = Number( espnGolfer.score.displayValue === 'E' ? 0 : espnGolfer.score.displayValue.replace(/\+/gi, ""));
+        const score = this.determineScore(espnGolfer);
         const golfer: IPlayer = {
         golferId: espnGolfer.id,
         name: espnGolfer.athlete.displayName,
         position: espnGolfer.status.position.displayName,
         thru: espnGolfer.status.thru,
         score: score,
-        status: 'active',
+        status: espnGolfer.status.displayValue,
         imageLink: espnGolfer.athlete.headshot ? espnGolfer.athlete.headshot.href : espnGolfer.athlete.flag.href,
         };
         myGolfers.push(golfer);
@@ -47,6 +47,15 @@ export class SportsApiService {
       catchError(err => {
         return throwError('Golf Scores API call failed' + '-' + this.getEventId());
       })));
+  }
+
+  private determineScore(golfer):number {
+    let score = 0;
+    golfer.linescores.forEach(lineScore=> {
+      const tempScore = lineScore.displayValue == 'E' || lineScore.displayValue == '-'  ? 0 : Number(lineScore.displayValue.replace(/\+/gi, ""));
+      score = score + tempScore;
+    });
+    return score;
   }
 
   getEventId() {
@@ -114,7 +123,7 @@ export class SportsApiService {
   }
 
   isGolferActive(status) {
-    return status == GolferStatus.active ? true : false;
+    return status !== GolferStatus.cut;
   }
 
   getGolferPicks(): Observable<any> {

@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IUserGolfPicks, IGolfers } from '../models';
+import { IUserGolfPicks, IGolfers } from '../../models/models';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { SportsApiService } from '../services/sports-api';
-import { AuthService } from '../services/authservice';
-import { Messages } from '../constants';
-import { PopupComponent } from '../popup/popup.component';
+import { SportsApiService } from '../../services/sports-api';
+import { AuthService } from '../../services/authservice';
+import { Messages } from './../../models/constants';
+import { PopupComponent } from './../popup/popup.component';
 
 @Component({
   selector: 'app-pick-team',
@@ -118,7 +118,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     }
   }
 
-  getActive() {
+  getActive():boolean {
     const apiData = this.sportsApi.getApiData();
     if (apiData == undefined) {
       return false;
