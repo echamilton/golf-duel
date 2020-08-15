@@ -8,6 +8,7 @@ import { SportsApiService } from '../../services/sports-api';
 import { Messages, LeaderColumns } from './../../models/constants';
 import { Subscription } from 'rxjs';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
+import { sortScores } from './../../utilities/sorter';
 
 @Component({
   selector: 'app-leader',
@@ -170,7 +171,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       let i = 0;
       let remain = 0;
       let j = 0;
-      this.getSortedData(this.picks);
+      this.picks = sortScores(this.picks);
 
       if (this.isTournyActive()) {
         this.golferItems = [];
@@ -225,7 +226,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       this.fantasyLeaders.push(fantasyLeader);
     }
     if (this.fantasyLeaders.length > 0) {
-      this.getSortedData(this.fantasyLeaders);
+      this.fantasyLeaders = sortScores(this.fantasyLeaders);
     }
     this.dataSource = this.fantasyLeaders;
     this.rankEntries();
@@ -258,18 +259,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  getSortedData(data) {
-    return data.sort((a, b) => {
-      switch ('score') {
-        case 'score': return compare(+a.score, +b.score, true);
-        default: return 0;
-      }
-      function compare(a, b, isAsc) {
-        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-      }
-    });
-  }
-
   openPopup(golferId: string, status: string, playerName: string) {
     if (!this.sportsApi.isGolferActive(status)) {
       this.openSnackBar();
@@ -300,7 +289,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       this.fantasyLeaders.push(fantasyLeader);
 
       if (this.fantasyLeaders.length > 0) {
-        this.getSortedData(this.fantasyLeaders);
+        this.fantasyLeaders = sortScores(this.fantasyLeaders);
       }
       this.dataSource = this.fantasyLeaders;
       this.rankEntries();

@@ -5,6 +5,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { IUserGolfPicks, IGolferGrouping, IPlayer, IResults} from './../models/models';
 import { TournamentConfig, TournamentStatus, GolferStatus } from './../models/constants';
 import { map, catchError } from 'rxjs/operators';
+import { sortScores } from './../utilities/sorter';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,7 @@ export class SportsApiService {
       });
       tournamentResults.round = data.events[0].competitions[0].status.period;
       tournamentResults.status = data.events[0].status.type.state;
-      tournamentResults.golfers = this.getSortedData(myGolfers);
+      tournamentResults.golfers = sortScores(myGolfers);
       return tournamentResults;
     },
       catchError(err => {
@@ -84,18 +85,6 @@ export class SportsApiService {
 
   getApiData() {
     return this.cacheData;
-  }
-
-  getSortedData(data) {
-    return data.sort((a, b) => {
-      switch ('score') {
-        case 'score': return compare(+a.score, +b.score, true);
-        default: return 0;
-      }
-      function compare(a, b, isAsc) {
-        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-      }
-    });
   }
  
   getEventEndpoint() {
