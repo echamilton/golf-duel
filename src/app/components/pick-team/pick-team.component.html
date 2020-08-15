@@ -11,7 +11,7 @@
       <mat-card-content *ngIf="!isLoading">
         <div style="text-align: center;">
           <mat-form-field>
-            <input matInput name="team" required [(ngModel)]="picks.team" placeholder="Team Name"
+            <input matInput name="team" maxlength="15" required [(ngModel)]="picks.team" placeholder="Team Name"
               [disabled]="disableName">
           </mat-form-field>
         </div>

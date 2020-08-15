@@ -16,14 +16,12 @@ export class ToolbarComponent implements OnInit {
   golfers: Array<IPlayer> = [];
   error: boolean;
   currentRound: string;
-  tournyText: string;
+  tournyText = '';
 
   constructor(private sportsApi: SportsApiService, private router: Router, private authService: AuthService,
     private popup: MatDialog) { }
 
   ngOnInit() {
-    this.golfers = [];
-    this.tournyText = '';
     this.sportsApi.getGolfScores().subscribe(
       apiData => this.golfers = apiData.golfers,
       err => this.handleError(),
@@ -35,16 +33,15 @@ export class ToolbarComponent implements OnInit {
     this.tournyText = this.sportsApi.getEventName() + ' will commence shortly';
   }
 
-  isLoggedIn() {
-    return (this.authService.getCurrentUser()) ? true : false;
+  isLoggedIn(): boolean {
+    return (this.authService.getCurrentUser() !== null);
   }
 
-  openPopup(golferId: string, golferName: string) {
+  openPopup(golfer: IPlayer) {
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
-    popupConfig.data = { golfer: golferId, roundId: this.currentRound, name: golferName };
-
+    popupConfig.data = { golfer: golfer };
     const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
     dialogRef.afterClosed().subscribe();
   }
