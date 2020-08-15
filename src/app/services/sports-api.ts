@@ -2,58 +2,80 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { IUserGolfPicks, IGolferGrouping, IPlayer, IResults} from './../models/models';
-import { TournamentConfig, TournamentStatus, GolferStatus } from './../models/constants';
+import {
+  IUserGolfPicks,
+  IGolferGrouping,
+  IPlayer,
+  IResults
+} from './../models/models';
+import {
+  TournamentConfig,
+  TournamentStatus,
+  GolferStatus
+} from './../models/constants';
 import { map, catchError } from 'rxjs/operators';
 import { sortScores } from './../utilities/sorter';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class SportsApiService {
   eventId: string;
   cacheData: any;
   history: boolean;
 
-  constructor(private service: HttpClient, private fireDb: AngularFireDatabase) {
+  constructor(
+    private service: HttpClient,
+    private fireDb: AngularFireDatabase
+  ) {
     this.history = false;
   }
 
   getGolfScores(): Observable<any> {
     return this.service.get(this.getEventEndpoint()).pipe(
-      map((response:any) => {
-      const data: any = response;
-      const espnGolfers = data.events[0].competitions[0].competitors;
-      const myGolfers = [];
-      const tournamentResults: IResults = {};
-      espnGolfers.forEach(espnGolfer => {
-        const score = this.determineScore(espnGolfer);
-        const golfer: IPlayer = {
-        golferId: espnGolfer.id,
-        name: espnGolfer.athlete.displayName,
-        position: espnGolfer.status.position.displayName,
-        thru: espnGolfer.status.thru,
-        score: score,
-        status: espnGolfer.status.displayValue,
-        imageLink: espnGolfer.athlete.headshot ? espnGolfer.athlete.headshot.href : espnGolfer.athlete.flag.href,
-        };
-        myGolfers.push(golfer);
-      });
-      tournamentResults.round = data.events[0].competitions[0].status.period;
-      tournamentResults.status = data.events[0].status.type.state;
-      tournamentResults.golfers = sortScores(myGolfers);
-      return tournamentResults;
-    },
-      catchError(err => {
-        return throwError('Golf Scores API call failed' + '-' + this.getEventId());
-      })));
+      map(
+        (response: any) => {
+          const data: any = response;
+          const espnGolfers = data.events[0].competitions[0].competitors;
+          const myGolfers = [];
+          const tournamentResults: IResults = {};
+          espnGolfers.forEach((espnGolfer) => {
+            const score = this.determineScore(espnGolfer);
+            const golfer: IPlayer = {
+              golferId: espnGolfer.id,
+              name: espnGolfer.athlete.displayName,
+              position: espnGolfer.status.position.displayName,
+              thru: espnGolfer.status.thru,
+              score: score,
+              status: espnGolfer.status.displayValue,
+              imageLink: espnGolfer.athlete.headshot
+                ? espnGolfer.athlete.headshot.href
+                : espnGolfer.athlete.flag.href
+            };
+            myGolfers.push(golfer);
+          });
+          tournamentResults.round =
+            data.events[0].competitions[0].status.period;
+          tournamentResults.status = data.events[0].status.type.state;
+          tournamentResults.golfers = sortScores(myGolfers);
+          return tournamentResults;
+        },
+        catchError((err) => {
+          return throwError(
+            'Golf Scores API call failed' + '-' + this.getEventId()
+          );
+        })
+      )
+    );
   }
 
-  private determineScore(golfer):number {
+  private determineScore(golfer): number {
     let score = 0;
-    golfer.linescores.forEach(lineScore=> {
-      const tempScore = lineScore.displayValue == 'E' || lineScore.displayValue == '-'  ? 0 : Number(lineScore.displayValue.replace(/\+/gi, ""));
+    golfer.linescores.forEach((lineScore) => {
+      const tempScore =
+        lineScore.displayValue == 'E' || lineScore.displayValue == '-'
+          ? 0
+          : Number(lineScore.displayValue.replace(/\+/gi, ''));
       score = score + tempScore;
     });
     return score;
@@ -61,17 +83,19 @@ export class SportsApiService {
 
   getEventId() {
     if (this.eventId == undefined || this.history == false) {
-      this.eventId = TournamentConfig.find(data => data.active).eventId;
+      this.eventId = TournamentConfig.find((data) => data.active).eventId;
     }
     return this.eventId;
   }
 
   getActiveEventId() {
-    return this.eventId = TournamentConfig.find(data => data.active).eventId;
+    return (this.eventId = TournamentConfig.find(
+      (data) => data.active
+    ).eventId);
   }
 
-  getEventName(){
-    return TournamentConfig.find(data => data.active).tournyId;
+  getEventName() {
+    return TournamentConfig.find((data) => data.active).tournyId;
   }
 
   setEventId(setEventId, history) {
@@ -86,9 +110,11 @@ export class SportsApiService {
   getApiData() {
     return this.cacheData;
   }
- 
+
   getEventEndpoint() {
-    const tourny = TournamentConfig.find(data => data.eventId === this.getEventId());
+    const tourny = TournamentConfig.find(
+      (data) => data.eventId === this.getEventId()
+    );
     if (tourny) {
       return tourny.url;
     } else {
@@ -97,12 +123,14 @@ export class SportsApiService {
   }
 
   getGolferGroupings(): Observable<any> {
-    const entityName = TournamentConfig.find(data => data.active === true).groupName;
+    const entityName = TournamentConfig.find((data) => data.active === true)
+      .groupName;
     return this.fireDb.list<IGolferGrouping>(entityName).valueChanges();
   }
 
   updateGroups(list: any) {
-    const entityName = TournamentConfig.find(data => data.active === true).groupName;
+    const entityName = TournamentConfig.find((data) => data.active === true)
+      .groupName;
     this.fireDb.list(entityName).remove();
     this.fireDb.list(entityName).push(list);
   }
@@ -120,17 +148,23 @@ export class SportsApiService {
   }
 
   updateGolferPicks(userPicks: IUserGolfPicks) {
-    this.fireDb.object('myGolfers/' + this.getEventId() + '-' + userPicks.team).update(userPicks).then(_ => {
-    });
+    this.fireDb
+      .object('myGolfers/' + this.getEventId() + '-' + userPicks.team)
+      .update(userPicks)
+      .then((_) => {});
   }
 
   saveGolferPicks(userPicks: IUserGolfPicks) {
-    this.fireDb.list('myGolfers').push('myGolfers/' + this.getEventId() + '-' + userPicks.team).then(_ => {
-    });
+    this.fireDb
+      .list('myGolfers')
+      .push('myGolfers/' + this.getEventId() + '-' + userPicks.team)
+      .then((_) => {});
   }
 
   deleteGolferPicks(userPicks: IUserGolfPicks) {
-    this.fireDb.list('myGolfers').remove(this.getEventId() + '-' + userPicks.team).then(_ => {
-    });
+    this.fireDb
+      .list('myGolfers')
+      .remove(this.getEventId() + '-' + userPicks.team)
+      .then((_) => {});
   }
 }
