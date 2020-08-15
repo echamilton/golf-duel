@@ -1,7 +1,6 @@
-<div class="header">{{scoreCard.playerName}}</div>
+<div class="header">{{golfer.name}}</div>
 <div class="header">
-  <img class="pic"
-    src='https://pga-tour-res.cloudinary.com/image/upload/c_fill,f_auto,g_face:center,q_auto,t_headshots_leaderboard_l,w_160/headshots_{{golferId}}.png'>
+  <img class="pic" src='{{golfer.imageLink}}'>
 </div>
 <div class="spinner" *ngIf="loading">
   <app-loader></app-loader>

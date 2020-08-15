@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SportsApiService } from '../../services/sports-api';
-import { IScoreCard } from '../../models/models';
+import { IScoreCard, IPlayer } from '../../models/models';
 import { ScoreValues } from './../../models/constants';
 
 @Component({
@@ -11,17 +11,14 @@ import { ScoreValues } from './../../models/constants';
 })
 export class ScorecardPopComponent implements OnInit {
   pgaTournyRespPlayers: any[];
-  golferId: string;
+  golfer: IPlayer;
   loading: boolean;
   currentRound: string;
-  playerName: string;
   scoreCard: IScoreCard = {};
 
   constructor(private sportsApi: SportsApiService,
     @Inject(MAT_DIALOG_DATA) data) {
-    this.golferId = data.golfer;
-    this.currentRound = data.roundId;
-    this.playerName = data.name;
+    this.golfer = data.golfer;
     this.scoreCard.In = {};
     this.scoreCard.Out = {};
     this.scoreCard.Total = {};
@@ -75,7 +72,6 @@ export class ScorecardPopComponent implements OnInit {
       }
     }
 
-    this.scoreCard.playerName = this.playerName;
     this.scoreCard.In.par = parIn.toString();
     this.scoreCard.Out.par = parOut.toString();
     this.scoreCard.Out.score = holeOut.toString();

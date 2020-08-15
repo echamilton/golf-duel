@@ -32,7 +32,7 @@
       <mat-toolbar-row class="leaders">
             <div class="scrolling-wrapper">
                   <div *ngFor="let golfer of golfers" class="card">
-                        <span (click)="openPopup(golfer.golferId, golfer.name)">
+                        <span (click)="openPopup(golfer)">
                               <img class="golfer-pic"
                                     src='{{golfer.imageLink}}'>
                               <div>{{golfer.position}} | {{golfer.name}}</div>

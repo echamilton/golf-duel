@@ -2,20 +2,6 @@ import { ITournament } from './models';
 
 export const TournamentConfig: ITournament[] = [
   {
-    eventId: 'USOPEN-2019',
-    tournyId: 'US Open',
-    url: 'https://lbdata.pgatour.com/2019/r/026/leaderboard.json',
-    active: false,
-    groupName: 'usOpen2019'
-  },
-  {
-   eventId: 'WGC',
-   tournyId: 'WGC Jude',
-   url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401155467',
-   active: false,
-   groupName: 'pgaChamp2020',
-  },
-  {
    eventId: 'PGACHAMP-2020',
    tournyId: 'PGA Championship',
    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219481',

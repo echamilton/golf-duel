@@ -60,17 +60,17 @@ export class SportsApiService {
 
   getEventId() {
     if (this.eventId == undefined || this.history == false) {
-      this.eventId = TournamentConfig.find(data => data.active === true).eventId;
+      this.eventId = TournamentConfig.find(data => data.active).eventId;
     }
     return this.eventId;
   }
 
   getActiveEventId() {
-    return this.eventId = TournamentConfig.find(data => data.active === true).eventId;
+    return this.eventId = TournamentConfig.find(data => data.active).eventId;
   }
 
   getEventName(){
-    return TournamentConfig.find(data => data.active === true).tournyId;
+    return TournamentConfig.find(data => data.active).tournyId;
   }
 
   setEventId(setEventId, history) {
