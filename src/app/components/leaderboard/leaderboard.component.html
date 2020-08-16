@@ -56,21 +56,35 @@
                     <img class="pic" src="{{ golfer.imageLink }}" />
                     <span
                       class="score"
-                      *ngIf="golfer.status != 'cut' && golfer.score != 0"
+                      *ngIf="
+                        golfer.status !== golferCutStatus && golfer.score != 0
+                      "
                       >{{ golfer.score }}</span
                     >
                     <span
                       class="score"
-                      *ngIf="golfer.status != 'cut' && golfer.score == 0"
+                      *ngIf="
+                        golfer.status !== golferCutStatus && golfer.score == 0
+                      "
                       >E</span
                     >
-                    <span class="score" *ngIf="golfer.status == 'cut'">C</span>
+                    <span
+                      class="score"
+                      *ngIf="golfer.status === golferCutStatus"
+                      >C</span
+                    >
                     <span class="golfer-name">{{ golfer.name }}</span>
-                    <p class="summary" *ngIf="golfer.status != 'cut'">
+                    <p
+                      class="summary"
+                      *ngIf="golfer.status !== golferCutStatus"
+                    >
                       {{ golfer.thru }} | Owned
                       {{ golfer.ownPct | number: '1.0-0' }}%
                     </p>
-                    <p class="summary" *ngIf="golfer.status == 'cut'">
+                    <p
+                      class="summary"
+                      *ngIf="golfer.status === golferCutStatus"
+                    >
                       Owned {{ golfer.ownPct | number: '1.0-0' }}%
                     </p>
                   </div>

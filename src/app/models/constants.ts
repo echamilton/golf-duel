@@ -25,7 +25,7 @@ export enum ScoreValues {
 
 export enum GolferStatus {
   cut = 'CUT',
-  active = 'active'
+  active = 'ACTIVE'
 }
 
 export const LeaderColumns: string[] = [

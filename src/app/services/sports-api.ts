@@ -45,7 +45,10 @@ export class SportsApiService {
               position: espnGolfer.status.position.displayName,
               thru: espnGolfer.status.thru,
               score: score,
-              status: espnGolfer.status.displayValue,
+              status:
+                espnGolfer.status.displayValue === GolferStatus.cut
+                  ? GolferStatus.cut
+                  : GolferStatus.active,
               imageLink: espnGolfer.athlete.headshot
                 ? espnGolfer.athlete.headshot.href
                 : espnGolfer.athlete.flag.href

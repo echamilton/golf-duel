@@ -10,13 +10,17 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import {
-  IGolferDetail,
+  IOwnershipPerGolfer,
   IPlayer,
   ILeaderResults,
   ITournamentResults
 } from '../../models/models';
 import { SportsApiService } from '../../services/sports-api';
-import { Messages, LeaderColumns } from './../../models/constants';
+import {
+  Messages,
+  LeaderColumns,
+  GolferStatus
+} from './../../models/constants';
 import { Subscription } from 'rxjs';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 import { sortScores } from './../../utilities/sorter';
@@ -43,7 +47,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   fantasyLeaders: Array<ILeaderResults> = [];
   golferItems: Array<IPlayer> = [];
-  ownPct: Array<IGolferDetail> = [];
+  ownPct: Array<IOwnershipPerGolfer> = [];
   status: string;
   entries: number;
   config = new MatSnackBarConfig();
@@ -72,6 +76,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     return LeaderColumns;
   }
 
+  get golferCutStatus(): string {
+    return GolferStatus.cut;
+  }
+
   getGolferLeaderBoard(contestants): void {
     this.sportsApi.getGolfScores().subscribe(
       (tournamentResults: ITournamentResults) => {
@@ -90,9 +98,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     if (ownPct) {
       ownPct.count++;
     } else {
-      const ownPctNew = {} as IGolferDetail;
-      ownPctNew.golferId = playerPick.golferId;
-      ownPctNew.count = 1;
+      const ownPctNew: IOwnershipPerGolfer = {
+        golferId: playerPick.golferId,
+        count: 1
+      };
       this.ownPct.push(ownPctNew);
     }
   }
@@ -214,6 +223,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
           golferItem.round = pick.round;
           golferItem.status = pick.status;
           golferItem.imageLink = pick.imageLink;
+          golferItem.score = pick.score;
           if (this.sportsApi.isGolferActive(pick.status)) {
             if (i < 5) {
               i++;
@@ -231,9 +241,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
                 golferItem.thru = 'Thru 0';
               }
             }
-            golferItem.score = pick.score;
           } else {
-            golferItem.score = 99;
             golferItem.thru = 'CUT';
           }
           this.golferItems.push(golferItem);
