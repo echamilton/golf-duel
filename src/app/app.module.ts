@@ -46,7 +46,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     ScorecardPopComponent,
     SignUpComponent,
     LoginComponent,
-    LoaderComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -73,10 +73,10 @@ import { LoaderComponent } from './components/loader/loader.component';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     MatTableModule,
-    MatSortModule,
+    MatSortModule
   ],
   providers: [AuthService],
   entryComponents: [PopupComponent, ScorecardPopComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
