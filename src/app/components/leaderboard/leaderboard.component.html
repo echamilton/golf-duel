@@ -37,7 +37,7 @@
       <td
         mat-cell
         *matCellDef="let element"
-        [attr.colspan]="displayedColumns.length"
+        [attr.colspan]="tableColumns.length"
       >
         <div
           class="team-element-detail"
@@ -86,10 +86,10 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
     <tr
       mat-row
-      *matRowDef="let element; columns: displayedColumns"
+      *matRowDef="let element; columns: tableColumns"
       class="team-element-row"
       [class.team-expanded-row]="expandedElement === element"
       (click)="expandedElement = expandedElement === element ? null : element"
