@@ -1,9 +1,20 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { IGolferDetail, IPlayer, ILeaderResults, IIndGolferResult } from '../../models/models';
+import {
+  IGolferDetail,
+  IPlayer,
+  ILeaderResults,
+  IIndGolferResult
+} from '../../models/models';
 import { SportsApiService } from '../../services/sports-api';
 import { Messages, LeaderColumns } from './../../models/constants';
 import { Subscription } from 'rxjs';
@@ -18,11 +29,13 @@ import { sortScores } from './../../utilities/sorter';
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
       state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      )
+    ])
+  ]
 })
-
 export class LeaderboardComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   displayedColumns = LeaderColumns;
@@ -39,14 +52,18 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   entries: number;
   config = new MatSnackBarConfig();
 
-  constructor(private popup: MatDialog, private sportsApi: SportsApiService,
-    private snackBar: MatSnackBar) {
-  }
+  constructor(
+    private popup: MatDialog,
+    private sportsApi: SportsApiService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
-    this.subscription = this.sportsApi.getGolferPicks().subscribe(userGolfPicks => {
-      this.getGolferLeaderBoard(userGolfPicks);
-    });
+    this.subscription = this.sportsApi
+      .getGolferPicks()
+      .subscribe((userGolfPicks) => {
+        this.getGolferLeaderBoard(userGolfPicks);
+      });
   }
 
   ngOnDestroy(): void {
@@ -56,10 +73,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   getGolferLeaderBoard(userGolfPicks) {
-    this.sportsApi.getGolfScores()
-      .subscribe(
-        apiData => { this.buildResults(userGolfPicks, apiData); },
-        err => { this.default(err, userGolfPicks); });
+    this.sportsApi.getGolfScores().subscribe(
+      (apiData) => {
+        this.buildResults(userGolfPicks, apiData);
+      },
+      (err) => {
+        this.default(err, userGolfPicks);
+      }
+    );
   }
 
   setPlayerPicks(pgaPlayer) {
@@ -90,7 +111,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
       /** Check if entry exists for golfer, if not create and add 1, otherwise
        * increment the counter...       */
-      const ownPct = this.ownPct.find(x => x.golferId === pick.golferId);
+      const ownPct = this.ownPct.find((x) => x.golferId === pick.golferId);
       if (ownPct) {
         ownPct.count++;
       } else {
@@ -103,8 +124,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   buildResults(userGolfPicks, apiData) {
-    if(!this.sportsApi.getApiData()){
-      this.sportsApi.setApiData(apiData)
+    if (!this.sportsApi.getApiData()) {
+      this.sportsApi.setApiData(apiData);
     }
     this.entries = 0;
     this.status = apiData.status;
@@ -135,35 +156,51 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       this.picks = [];
 
       // Golfer1
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.golferId == userGolfKey.golfer1.toString());
+      pgaPlayer = this.pgaTournyRespPlayers.find(
+        (player) => player.golferId == userGolfKey.golfer1.toString()
+      );
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer2
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.golferId == userGolfKey.golfer2.toString());
+      pgaPlayer = this.pgaTournyRespPlayers.find(
+        (player) => player.golferId == userGolfKey.golfer2.toString()
+      );
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer3
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.golferId == userGolfKey.golfer3.toString());
+      pgaPlayer = this.pgaTournyRespPlayers.find(
+        (player) => player.golferId == userGolfKey.golfer3.toString()
+      );
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer4
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.golferId == userGolfKey.golfer4.toString());
+      pgaPlayer = this.pgaTournyRespPlayers.find(
+        (player) => player.golferId == userGolfKey.golfer4.toString()
+      );
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer5
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.golferId == userGolfKey.golfer5.toString());
+      pgaPlayer = this.pgaTournyRespPlayers.find(
+        (player) => player.golferId == userGolfKey.golfer5.toString()
+      );
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer6
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.golferId == userGolfKey.golfer6.toString());
+      pgaPlayer = this.pgaTournyRespPlayers.find(
+        (player) => player.golferId == userGolfKey.golfer6.toString()
+      );
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer7
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.golferId === userGolfKey.golfer7.toString());
+      pgaPlayer = this.pgaTournyRespPlayers.find(
+        (player) => player.golferId === userGolfKey.golfer7.toString()
+      );
       this.setPlayerPicks(pgaPlayer);
 
       // Golfer8
-      pgaPlayer = this.pgaTournyRespPlayers.find(player => player.golferId === userGolfKey.golfer8.toString());
+      pgaPlayer = this.pgaTournyRespPlayers.find(
+        (player) => player.golferId === userGolfKey.golfer8.toString()
+      );
       this.setPlayerPicks(pgaPlayer);
 
       /**This is where we will check how many active golfers are left */
@@ -189,12 +226,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
               i++;
               golferScore = pick.score;
               // if (pick.score.toString() !== '--') {
-                fantasyLeader.score = +fantasyLeader.score + +golferScore;
+              fantasyLeader.score = +fantasyLeader.score + +golferScore;
               // }
               fantasyLeader.holesRemain = fantasyLeader.holesRemain - pick.thru;
             }
             remain++;
-            if (pick.thru === 18) { golferItem.thru = 'F'; } else {
+            if (pick.thru === 18) {
+              golferItem.thru = 'F';
+            } else {
               if (pick.thru !== null) {
                 golferItem.thru = 'Thru' + ' ' + pick.thru;
               } else {
@@ -252,7 +291,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       for (const golferKey of fantasyLeader.golfers) {
         for (const ownKey in this.ownPct) {
           if (this.ownPct[ownKey].golferId === golferKey.golferId) {
-            golferKey.ownPct = this.ownPct[ownKey].count / this.entries * 100;
+            golferKey.ownPct = (this.ownPct[ownKey].count / this.entries) * 100;
           }
         }
       }
@@ -268,10 +307,13 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
-    popupConfig.data = { golfer: golferId, roundId: this.currentRound, name: playerName };
+    popupConfig.data = {
+      golfer: golferId,
+      roundId: this.currentRound,
+      name: playerName
+    };
     const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
-    dialogRef.afterClosed().subscribe(
-    );
+    dialogRef.afterClosed().subscribe();
   }
 
   default(err, userGolfPicks) {
@@ -305,5 +347,4 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     this.config.duration = 2500;
     this.snackBar.open(text, 'Close', this.config);
   }
-
 }

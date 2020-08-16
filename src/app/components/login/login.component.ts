@@ -14,21 +14,29 @@ export class LoginComponent implements OnInit {
   password: string;
   config = new MatSnackBarConfig();
 
-  constructor(private router: Router, public authService: AuthService, private snackBar: MatSnackBar) { }
+  constructor(
+    private router: Router,
+    public authService: AuthService,
+    private snackBar: MatSnackBar
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   login() {
-    this.authService.login(this.email, this.password)
-      .then(res => {
+    this.authService.login(this.email, this.password).then(
+      (res) => {
         this.email = this.password = '';
         this.openSnackBar(Messages.userLoginSuccess);
         this.router.navigate(['/leader']);
-      }, err => {
-        const message = err.code == ServiceCodes.userFailCode ? Messages.userCreateFail : err.message;
+      },
+      (err) => {
+        const message =
+          err.code == ServiceCodes.userFailCode
+            ? Messages.userCreateFail
+            : err.message;
         this.openSnackBar(message);
-      });
+      }
+    );
   }
 
   openSnackBar(message: string) {

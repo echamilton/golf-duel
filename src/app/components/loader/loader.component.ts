@@ -10,8 +10,7 @@ export class LoaderComponent implements OnInit {
   mode = 'indeterminate';
   value = 50;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

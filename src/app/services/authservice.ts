@@ -2,50 +2,51 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-
 export class AuthService {
-    public user: string;
-    constructor(private firebaseAuth: AngularFireAuth) {
-    }
+  public user: string;
+  constructor(private firebaseAuth: AngularFireAuth) {}
 
-    signup(email: string, password: string) {
-        return new Promise<any>((resolve, reject) => {
-            this.firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .then(res => {
-                    localStorage.setItem('user', email);
-                    this.user = email.toLowerCase();
-                    resolve(res);
-                }, err => reject(err));
-        });
-    }
+  signup(email: string, password: string) {
+    return new Promise<any>((resolve, reject) => {
+      this.firebaseAuth.createUserWithEmailAndPassword(email, password).then(
+        (res) => {
+          localStorage.setItem('user', email);
+          this.user = email.toLowerCase();
+          resolve(res);
+        },
+        (err) => reject(err)
+      );
+    });
+  }
 
-    getCurrentUser() {
-        if (this.user === undefined || this.user === null) {
-            this.user = localStorage.getItem('user');
-            if (this.user !== null) {
-                this.user = this.user.toLowerCase();
-            }
-        }
-        return this.user;
+  getCurrentUser() {
+    if (this.user === undefined || this.user === null) {
+      this.user = localStorage.getItem('user');
+      if (this.user !== null) {
+        this.user = this.user.toLowerCase();
+      }
     }
+    return this.user;
+  }
 
-    login(email: string, password: string) {
-        return new Promise<any>((resolve, reject) => {
-            this.firebaseAuth.signInWithEmailAndPassword(email, password)
-                .then(res => {
-                    localStorage.setItem('user', email);
-                    this.user = email.toLowerCase();
-                    resolve(res);
-                }, err => reject(err));
-        });
-    }
+  login(email: string, password: string) {
+    return new Promise<any>((resolve, reject) => {
+      this.firebaseAuth.signInWithEmailAndPassword(email, password).then(
+        (res) => {
+          localStorage.setItem('user', email);
+          this.user = email.toLowerCase();
+          resolve(res);
+        },
+        (err) => reject(err)
+      );
+    });
+  }
 
-    logout() {
-        this.firebaseAuth
-            .signOut();
-        this.user = '';
-        localStorage.removeItem('user');
-    }
+  logout() {
+    this.firebaseAuth.signOut();
+    this.user = '';
+    localStorage.removeItem('user');
+  }
 }

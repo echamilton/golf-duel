@@ -1,64 +1,103 @@
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort aria-label="Elements">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    multiTemplateDataRows
+    matSort
+    aria-label="Elements"
+  >
     <ng-container matColumnDef="position">
       <th mat-header-cell *matHeaderCellDef>Position</th>
-      <td mat-cell *matCellDef="let element"> <img class="position" src='./assets/{{element.position}}.png'>
+      <td mat-cell *matCellDef="let element">
+        <img class="position" src="./assets/{{ element.position }}.png" />
       </td>
     </ng-container>
     <ng-container matColumnDef="team">
       <th mat-header-cell *matHeaderCellDef>Team</th>
-      <td mat-cell *matCellDef="let element"> {{element.team}} </td>
+      <td mat-cell *matCellDef="let element">{{ element.team }}</td>
     </ng-container>
     <ng-container matColumnDef="golfersRemain">
       <th mat-header-cell *matHeaderCellDef>Golfers</th>
-      <td mat-cell *matCellDef="let element"> {{element.golfersRemain}} </td>
+      <td mat-cell *matCellDef="let element">{{ element.golfersRemain }}</td>
     </ng-container>
     <ng-container matColumnDef="holesRemain">
       <th mat-header-cell *matHeaderCellDef>Holes</th>
-      <td mat-cell *matCellDef="let element"> {{element.holesRemain}} </td>
+      <td mat-cell *matCellDef="let element">{{ element.holesRemain }}</td>
     </ng-container>
     <ng-container matColumnDef="score">
       <th mat-header-cell *matHeaderCellDef>Score</th>
       <td mat-cell *matCellDef="let element">
-        <div *ngIf="element.score !== 99">{{element.score}}</div>
-        <div *ngIf="element.score === 99 && isTournyActive() == false"> - </div>
-        <div *ngIf="element.score === 99 && isTournyActive() == true"> CUT </div>
+        <div *ngIf="element.score !== 99">{{ element.score }}</div>
+        <div *ngIf="element.score === 99 && isTournyActive() == false">-</div>
+        <div *ngIf="element.score === 99 && isTournyActive() == true">CUT</div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="expandedDetail">
-      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-        <div class="team-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [attr.colspan]="displayedColumns.length"
+      >
+        <div
+          class="team-element-detail"
+          [@detailExpand]="
+            element == expandedElement ? 'expanded' : 'collapsed'
+          "
+        >
           <ul class="review_bottom">
             <ng-container *ngFor="let golfer of element.golfers">
-              <div class="container-fluid" (click)="openPopup(golfer.id,golfer.status,golfer.name)">
+              <div
+                class="container-fluid"
+                (click)="openPopup(golfer.id, golfer.status, golfer.name)"
+              >
                 <div class="stats">
                   <div class="stats-container">
-                    <img class="pic"
-                      src='{{golfer.imageLink}}'>
-                    <span class="score" *ngIf="golfer.status != 'cut' && golfer.score != 0">{{golfer.score}}</span>
-                    <span class="score" *ngIf="golfer.status != 'cut' && golfer.score == 0">E</span>
+                    <img class="pic" src="{{ golfer.imageLink }}" />
+                    <span
+                      class="score"
+                      *ngIf="golfer.status != 'cut' && golfer.score != 0"
+                      >{{ golfer.score }}</span
+                    >
+                    <span
+                      class="score"
+                      *ngIf="golfer.status != 'cut' && golfer.score == 0"
+                      >E</span
+                    >
                     <span class="score" *ngIf="golfer.status == 'cut'">C</span>
-                    <span class="golfer-name">{{golfer.name}}</span>
-                    <p class="summary" *ngIf="golfer.status != 'cut'">{{golfer.thru}} | Owned {{golfer.ownPct  
-                      | number:'1.0-0'}}%</p>
-                    <p class="summary" *ngIf="golfer.status == 'cut'">Owned {{golfer.ownPct | number:'1.0-0'}}%</p>
+                    <span class="golfer-name">{{ golfer.name }}</span>
+                    <p class="summary" *ngIf="golfer.status != 'cut'">
+                      {{ golfer.thru }} | Owned
+                      {{ golfer.ownPct | number: '1.0-0' }}%
+                    </p>
+                    <p class="summary" *ngIf="golfer.status == 'cut'">
+                      Owned {{ golfer.ownPct | number: '1.0-0' }}%
+                    </p>
                   </div>
                 </div>
                 <mat-divider></mat-divider>
               </div>
             </ng-container>
-            <div *ngIf="element.golfers?.length == 0">Picks will show when tournament starts</div>
+            <div *ngIf="element.golfers?.length == 0">
+              Picks will show when tournament starts
+            </div>
           </ul>
         </div>
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="team-element-row"
+    <tr
+      mat-row
+      *matRowDef="let element; columns: displayedColumns"
+      class="team-element-row"
       [class.team-expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element">
-    </tr>
-    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="team-detail-row"></tr>
+      (click)="expandedElement = expandedElement === element ? null : element"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['expandedDetail']"
+      class="team-detail-row"
+    ></tr>
   </table>
 </div>

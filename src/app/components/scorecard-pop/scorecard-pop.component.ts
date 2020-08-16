@@ -16,8 +16,10 @@ export class ScorecardPopComponent implements OnInit {
   currentRound: string;
   scoreCard: IScoreCard = {};
 
-  constructor(private sportsApi: SportsApiService,
-    @Inject(MAT_DIALOG_DATA) data) {
+  constructor(
+    private sportsApi: SportsApiService,
+    @Inject(MAT_DIALOG_DATA) data
+  ) {
     this.golfer = data.golfer;
     this.scoreCard.In = {};
     this.scoreCard.Out = {};
@@ -41,23 +43,28 @@ export class ScorecardPopComponent implements OnInit {
     frontNine = playerData.scoreCards.pages[0];
     backNine = playerData.scoreCards.pages[1];
 
-    let holeScores = frontNine.lines.find(type => type.lineType === 'playerData');
-    let holePars = frontNine.lines.find(type => type.lineType === 'par');
+    let holeScores = frontNine.lines.find(
+      (type) => type.lineType === 'playerData'
+    );
+    let holePars = frontNine.lines.find((type) => type.lineType === 'par');
     for (const scores of holeScores.holes) {
       i++;
       currentHole++;
       this.scoreCard['hole' + currentHole] = {};
       this.scoreCard['hole' + currentHole].score = scores.score;
       this.scoreCard['hole' + currentHole].par = holePars.holes[i - 1];
-      this.scoreCard['hole' + currentHole].indicator = this.calculateHole(scores.score, holePars.holes[i - 1]);
+      this.scoreCard['hole' + currentHole].indicator = this.calculateHole(
+        scores.score,
+        holePars.holes[i - 1]
+      );
       parOut = +parOut + +holePars.holes[i - 1];
       if (scores.score.toString() !== '--') {
         holeOut = holeOut + +scores.score;
       }
     }
 
-    holeScores = backNine.lines.find(type => type.lineType === 'playerData');
-    holePars = backNine.lines.find(type => type.lineType === 'par');
+    holeScores = backNine.lines.find((type) => type.lineType === 'playerData');
+    holePars = backNine.lines.find((type) => type.lineType === 'par');
     i = 0;
     for (const scores of holeScores.holes) {
       i++;
@@ -65,7 +72,10 @@ export class ScorecardPopComponent implements OnInit {
       this.scoreCard['hole' + currentHole] = {};
       this.scoreCard['hole' + currentHole].score = scores.score;
       this.scoreCard['hole' + currentHole].par = holePars.holes[i - 1];
-      this.scoreCard['hole' + currentHole].indicator = this.calculateHole(scores.score, holePars.holes[i - 1]);
+      this.scoreCard['hole' + currentHole].indicator = this.calculateHole(
+        scores.score,
+        holePars.holes[i - 1]
+      );
       parIn = parIn + +holePars.holes[i - 1];
       if (scores.score.toString() !== '--') {
         holeIn = holeIn + +scores.score;
