@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IUserGolfPicks, IGolfers } from '../../models/models';
+import { IUserGolfPicks, IGolfersGroupPick } from '../../models/models';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -20,9 +20,9 @@ export class PickTeamComponent implements OnInit, OnDestroy {
   answer: string;
   popupText: string;
   disableName: boolean;
-  golferGrpA: Array<IGolfers> = [];
-  golferGrpB: Array<IGolfers> = [];
-  golferGrpC: Array<IGolfers> = [];
+  golferGrpA: Array<IGolfersGroupPick> = [];
+  golferGrpB: Array<IGolfersGroupPick> = [];
+  golferGrpC: Array<IGolfersGroupPick> = [];
   isLoading: boolean;
   config = new MatSnackBarConfig();
 
@@ -167,7 +167,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
         golferGroupings = groups[0];
         golferGroupings.forEach((groupRecord) => {
           if (groupRecord.eventId == this.sportsApi.getActiveEventId()) {
-            const group = {} as IGolfers;
+            const group = {} as IGolfersGroupPick;
             group.id = groupRecord.golferId;
             group.name = groupRecord.name;
 

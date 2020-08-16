@@ -6,7 +6,7 @@ import {
   IUserGolfPicks,
   IGolferGrouping,
   IPlayer,
-  IResults
+  ITournamentResults
 } from './../models/models';
 import {
   TournamentConfig,
@@ -31,16 +31,18 @@ export class SportsApiService {
     this.history = false;
   }
 
-  getGolfScores(): Observable<any> {
+  getGolfScores(): Observable<ITournamentResults> {
     return this.service.get(this.getEventEndpoint()).pipe(
       map(
         (response: any) => {
           const data: any = response;
           const espnGolfers = data.events[0].competitions[0].competitors;
           const myGolfers = [];
-          const tournamentResults: IResults = {};
+          const tournamentResults: ITournamentResults = {};
           espnGolfers.forEach((espnGolfer) => {
-            const score = this.determineScore(espnGolfer);
+            const score = this.isGolferActive(espnGolfer.status.displayValue)
+              ? this.determineScore(espnGolfer)
+              : 99;
             const golfer: IPlayer = {
               golferId: espnGolfer.id,
               name: espnGolfer.athlete.displayName,
@@ -69,7 +71,7 @@ export class SportsApiService {
     );
   }
 
-  private determineScore(golfer): number {
+  private determineScore(golfer: any): number {
     let score = 0;
     golfer.linescores.forEach((lineScore) => {
       const tempScore =
@@ -81,7 +83,7 @@ export class SportsApiService {
     return score;
   }
 
-  getEventId() {
+  getEventId(): string {
     if (this.eventId == undefined || this.history == false) {
       this.eventId = TournamentConfig.find((data) => data.active).eventId;
     }
@@ -94,16 +96,16 @@ export class SportsApiService {
     ).eventId);
   }
 
-  getEventName() {
+  getEventName(): string {
     return TournamentConfig.find((data) => data.active).tournyId;
   }
 
-  setEventId(setEventId, history) {
+  setEventId(setEventId, history): void {
     this.eventId = setEventId;
     this.history = history;
   }
 
-  setApiData(data) {
+  setApiData(data): void {
     this.cacheData = data;
   }
 
@@ -111,7 +113,7 @@ export class SportsApiService {
     return this.cacheData;
   }
 
-  getEventEndpoint() {
+  getEventEndpoint(): string {
     const tourny = TournamentConfig.find(
       (data) => data.eventId === this.getEventId()
     );
@@ -139,7 +141,7 @@ export class SportsApiService {
     return status !== TournamentStatus.pre;
   }
 
-  isGolferActive(status) {
+  isGolferActive(status): boolean {
     return status !== GolferStatus.cut;
   }
 
@@ -147,21 +149,21 @@ export class SportsApiService {
     return this.fireDb.list<IUserGolfPicks>('myGolfers').valueChanges();
   }
 
-  updateGolferPicks(userPicks: IUserGolfPicks) {
+  updateGolferPicks(userPicks: IUserGolfPicks): void {
     this.fireDb
       .object('myGolfers/' + this.getEventId() + '-' + userPicks.team)
       .update(userPicks)
       .then((_) => {});
   }
 
-  saveGolferPicks(userPicks: IUserGolfPicks) {
+  saveGolferPicks(userPicks: IUserGolfPicks): void {
     this.fireDb
       .list('myGolfers')
       .push('myGolfers/' + this.getEventId() + '-' + userPicks.team)
       .then((_) => {});
   }
 
-  deleteGolferPicks(userPicks: IUserGolfPicks) {
+  deleteGolferPicks(userPicks: IUserGolfPicks): void {
     this.fireDb
       .list('myGolfers')
       .remove(this.getEventId() + '-' + userPicks.team)
