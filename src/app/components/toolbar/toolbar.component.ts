@@ -12,9 +12,8 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-  golfers: Array<IPlayer> = [];
+  golfers: IPlayer[] = [];
   error: boolean;
-  currentRound: string;
   tournyText = '';
 
   constructor(
@@ -24,14 +23,14 @@ export class ToolbarComponent implements OnInit {
     private popup: MatDialog
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.sportsApi.getGolfScores().subscribe(
       (apiData) => (this.golfers = apiData.golfers),
       (err) => this.handleError()
     );
   }
 
-  handleError() {
+  handleError(): void {
     this.error = true;
     this.tournyText = this.sportsApi.getEventName() + ' will commence shortly';
   }
@@ -40,7 +39,7 @@ export class ToolbarComponent implements OnInit {
     return this.authService.getCurrentUser() !== null;
   }
 
-  openPopup(golfer: IPlayer) {
+  openPopup(golfer: IPlayer): void {
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
@@ -49,12 +48,11 @@ export class ToolbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe();
   }
 
-  navigate() {
-    this.sportsApi.setEventId(undefined, false);
+  navigate(): void {
     this.router.navigate(['/leader']);
   }
 
-  logout() {
+  logout(): void {
     this.authService.logout();
     this.router.navigate(['/leader']);
   }

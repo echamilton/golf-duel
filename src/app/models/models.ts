@@ -62,11 +62,9 @@ export interface ILeaderResults {
   golfers: Array<IPlayer>;
 }
 
-export interface IGolferDetail {
+export interface IOwnershipPerGolfer {
   golferId: string;
   count: number;
-  detail: string;
-  pct: number;
 }
 
 export interface IMsgHandle {

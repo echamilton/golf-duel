@@ -10,13 +10,17 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import {
-  IGolferDetail,
+  IOwnershipPerGolfer,
   IPlayer,
   ILeaderResults,
   ITournamentResults
 } from '../../models/models';
 import { SportsApiService } from '../../services/sports-api';
-import { Messages, LeaderColumns } from './../../models/constants';
+import {
+  Messages,
+  LeaderColumns,
+  GolferStatus
+} from './../../models/constants';
 import { Subscription } from 'rxjs';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 import { sortScores } from './../../utilities/sorter';
@@ -43,7 +47,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   fantasyLeaders: Array<ILeaderResults> = [];
   golferItems: Array<IPlayer> = [];
-  ownPct: Array<IGolferDetail> = [];
+  ownPct: Array<IOwnershipPerGolfer> = [];
   status: string;
   entries: number;
   config = new MatSnackBarConfig();
@@ -72,6 +76,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     return LeaderColumns;
   }
 
+  get golferCutStatus(): string {
+    return GolferStatus.cut;
+  }
+
   getGolferLeaderBoard(contestants): void {
     this.sportsApi.getGolfScores().subscribe(
       (tournamentResults: ITournamentResults) => {
@@ -90,9 +98,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     if (ownPct) {
       ownPct.count++;
     } else {
-      const ownPctNew = {} as IGolferDetail;
-      ownPctNew.golferId = playerPick.golferId;
-      ownPctNew.count = 1;
+      const ownPctNew: IOwnershipPerGolfer = {
+        golferId: playerPick.golferId,
+        count: 1
+      };
       this.ownPct.push(ownPctNew);
     }
   }
@@ -103,23 +112,16 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     this.status = tournamentResults.status;
 
     for (const contestant of contestants) {
-      if (contestant.eventId !== this.sportsApi.getEventId()) {
+      if (contestant.eventId !== this.sportsApi.getActiveEventId()) {
         continue;
       }
       this.entries++;
       const fantasyLeader = {} as ILeaderResults;
       fantasyLeader.team = contestant.team;
       fantasyLeader.score = 0;
-      /**4 rounds, 5 golfers, 18 holes */
-      if (Number(tournamentResults.round) === 4) {
-        fantasyLeader.holesRemain = 1 * 5 * 18;
-      } else if (Number(tournamentResults.round) === 3) {
-        fantasyLeader.holesRemain = 2 * 5 * 18;
-      } else if (Number(tournamentResults.round) === 2) {
-        fantasyLeader.holesRemain = 3 * 5 * 18;
-      } else {
-        fantasyLeader.holesRemain = 4 * 5 * 18;
-      }
+      fantasyLeader.holesRemain = this.determineHolesRemaining(
+        Number(tournamentResults.round)
+      );
 
       const contestantPicks = [];
       let pgaPlayer = {} as any;
@@ -214,6 +216,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
           golferItem.round = pick.round;
           golferItem.status = pick.status;
           golferItem.imageLink = pick.imageLink;
+          golferItem.score = pick.score;
           if (this.sportsApi.isGolferActive(pick.status)) {
             if (i < 5) {
               i++;
@@ -231,9 +234,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
                 golferItem.thru = 'Thru 0';
               }
             }
-            golferItem.score = pick.score;
           } else {
-            golferItem.score = 99;
             golferItem.thru = 'CUT';
           }
           this.golferItems.push(golferItem);
@@ -289,6 +290,21 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     }
   }
 
+  private determineHolesRemaining(currentRound: number): number {
+    /**4 rounds, 5 golfers, 18 holes */
+    let holesRemain = 0;
+    if (currentRound === 4) {
+      holesRemain = 1 * 5 * 18;
+    } else if (currentRound === 3) {
+      holesRemain = 2 * 5 * 18;
+    } else if (currentRound === 2) {
+      holesRemain = 3 * 5 * 18;
+    } else {
+      holesRemain = 4 * 5 * 18;
+    }
+    return holesRemain;
+  }
+
   openPopup(golferId: string, status: string, playerName: string): void {
     if (!this.sportsApi.isGolferActive(status)) {
       this.openSnackBar();
@@ -308,7 +324,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   default(err, userGolfPicks): void {
     for (const userPick of userGolfPicks) {
-      if (userPick.eventId !== this.sportsApi.getEventId()) {
+      if (userPick.eventId !== this.sportsApi.getActiveEventId()) {
         continue;
       }
       this.entries++;
