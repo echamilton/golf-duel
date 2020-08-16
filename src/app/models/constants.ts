@@ -2,11 +2,12 @@ import { ITournament } from './models';
 
 export const TournamentConfig: ITournament[] = [
   {
-   eventId: 'PGACHAMP-2020',
-   tournyId: 'PGA Championship',
-   url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219481',
-   active: true,
-   groupName: 'pgaChamp2020',
+    eventId: 'PGACHAMP-2020',
+    tournyId: 'PGA Championship',
+    url:
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219481',
+    active: true,
+    groupName: 'pgaChamp2020'
   }
 ];
 
@@ -19,12 +20,12 @@ export enum ScoreValues {
   double = 'DOUBLE',
   triple = 'TRIPLE',
   bogey = 'BOGEY',
-  noScore = 'NOSCORE',
+  noScore = 'NOSCORE'
 }
 
 export enum GolferStatus {
   cut = 'CUT',
-  active = 'active',
+  active = 'active'
 }
 
 export const LeaderColumns: string[] = [
@@ -32,7 +33,8 @@ export const LeaderColumns: string[] = [
   'team',
   'golfersRemain',
   'holesRemain',
-  'score'];
+  'score'
+];
 
 export enum Messages {
   userCreateSuccess = 'Your account has been created',
@@ -45,18 +47,13 @@ export enum Messages {
   teamSuccess = 'Picks have been submitted!',
   deleteSuccess = 'Picks have been removed!',
   golferCut = 'Golfer has been cut!',
-  picksActiveTourny = 'Picks not submitted, tournament already in progress',
+  picksActiveTourny = 'Picks not submitted, tournament already in progress'
 }
 
 export enum ServiceCodes {
-  userFailCode = 'auth/argument-error',
+  userFailCode = 'auth/argument-error'
 }
 
 export enum TournamentStatus {
-  offical = 'Official',
-  suspended = 'Suspended',
-  inProgress = 'In Progress',
-  complete = 'Play Complete',
   pre = 'pre'
 }
-
