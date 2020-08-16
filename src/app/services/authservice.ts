@@ -21,7 +21,7 @@ export class AuthService {
     });
   }
 
-  getCurrentUser() {
+  getCurrentUser(): string {
     if (this.user === undefined || this.user === null) {
       this.user = localStorage.getItem('user');
       if (this.user !== null) {
@@ -31,7 +31,7 @@ export class AuthService {
     return this.user;
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string): any {
     return new Promise<any>((resolve, reject) => {
       this.firebaseAuth.signInWithEmailAndPassword(email, password).then(
         (res) => {
@@ -44,7 +44,7 @@ export class AuthService {
     });
   }
 
-  logout() {
+  logout(): void {
     this.firebaseAuth.signOut();
     this.user = '';
     localStorage.removeItem('user');
