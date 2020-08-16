@@ -19,16 +19,17 @@ export interface IGolferGrouping {
   name: string;
 }
 
-export interface IGolfers {
+export interface IGolfersGroupPick {
   id: string;
   name: string;
 }
 
-export interface IResults {
-  round?: string,
-  status?: string,
-  golfers?: IPlayer[],
+export interface ITournamentResults {
+  round?: string;
+  status?: string;
+  golfers?: IPlayer[];
 }
+
 export interface IPlayer {
   name?: string;
   score?: number;
@@ -73,16 +74,6 @@ export interface IMsgHandle {
   message: string;
 }
 
-export interface IIndGolferResult {
-  golferId: string;
-  golferName: string;
-  score: number;
-  thru: number;
-  status: string;
-  round: string;
-  imageLink?: string;
-}
-
 export interface IHole {
   score?: string;
   par?: string;
@@ -112,8 +103,4 @@ export interface IScoreCard {
   In?: IHole;
   Out?: IHole;
   Total?: IHole;
-}
-
-export interface IPgaTourData {
-  status: string;
 }
