@@ -6,18 +6,32 @@
     <form>
       <div style="text-align: center;">
         <mat-form-field>
-          <input matInput placeholder="Email" [(ngModel)]="email" name="email" required>
+          <input
+            matInput
+            placeholder="Email"
+            [(ngModel)]="email"
+            name="email"
+            required
+          />
         </mat-form-field>
       </div>
       <div style="text-align: center;">
         <mat-form-field>
-          <input matInput placeholder="Password" [(ngModel)]="password" name="password" required>
+          <input
+            matInput
+            placeholder="Password"
+            [(ngModel)]="password"
+            name="password"
+            required
+          />
         </mat-form-field>
       </div>
     </form>
     <div style="text-align: center;">
       <mat-card-actions>
-        <button mat-raised-button (click)="login()" color="primary">Submit</button>
+        <button mat-raised-button (click)="login()" color="primary">
+          Submit
+        </button>
       </mat-card-actions>
     </div>
   </mat-card-content>

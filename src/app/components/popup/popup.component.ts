@@ -10,12 +10,12 @@ export class PopupComponent implements OnInit {
   popupText: string;
   constructor(
     private dialogRef: MatDialogRef<PopupComponent>,
-    @Inject(MAT_DIALOG_DATA) data) {
+    @Inject(MAT_DIALOG_DATA) data
+  ) {
     this.popupText = data.text;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onYes() {
     this.dialogRef.close('Yes');
@@ -24,5 +24,4 @@ export class PopupComponent implements OnInit {
   onClose() {
     this.dialogRef.close('No');
   }
-
 }

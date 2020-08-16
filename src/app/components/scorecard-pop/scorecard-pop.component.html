@@ -1,6 +1,6 @@
-<div class="header">{{golfer.name}}</div>
+<div class="header">{{ golfer.name }}</div>
 <div class="header">
-  <img class="pic" src='{{golfer.imageLink}}'>
+  <img class="pic" src="{{ golfer.imageLink }}" />
 </div>
 <div class="spinner" *ngIf="loading">
   <app-loader></app-loader>
@@ -55,78 +55,132 @@
               <div>PAR</div>
             </td>
             <td data-hole-number="1">
-              <div>{{scoreCard.hole1.par}}</div>
+              <div>{{ scoreCard.hole1.par }}</div>
             </td>
             <td data-hole-number="2">
-              <div>{{scoreCard.hole2.par}}</div>
+              <div>{{ scoreCard.hole2.par }}</div>
             </td>
             <td data-hole-number="3">
-              <div>{{scoreCard.hole3.par}}</div>
+              <div>{{ scoreCard.hole3.par }}</div>
             </td>
             <td data-hole-number="4">
-              <div>{{scoreCard.hole4.par}}</div>
+              <div>{{ scoreCard.hole4.par }}</div>
             </td>
             <td data-hole-number="5">
-              <div>{{scoreCard.hole5.par}}</div>
+              <div>{{ scoreCard.hole5.par }}</div>
             </td>
             <td data-hole-number="6">
-              <div>{{scoreCard.hole6.par}}</div>
+              <div>{{ scoreCard.hole6.par }}</div>
             </td>
             <td data-hole-number="7">
-              <div>{{scoreCard.hole7.par}}</div>
+              <div>{{ scoreCard.hole7.par }}</div>
             </td>
             <td data-hole-number="8">
-              <div>{{scoreCard.hole8.par}}</div>
+              <div>{{ scoreCard.hole8.par }}</div>
             </td>
             <td data-hole-number="9">
-              <div>{{scoreCard.hole9.par}}</div>
+              <div>{{ scoreCard.hole9.par }}</div>
             </td>
             <td>
-              <div>{{scoreCard.Out.par}}</div>
+              <div>{{ scoreCard.Out.par }}</div>
             </td>
             <td class="last-col">
-              <div>{{scoreCard.Total.par}}</div>
+              <div>{{ scoreCard.Total.par }}</div>
             </td>
           </tr>
           <tr>
             <td class="first-col">
               <div>ROUND</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole1.indicator)}" data-hole-number="1">
-              <div>{{scoreCard.hole1.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole1.indicator)
+              }"
+              data-hole-number="1"
+            >
+              <div>{{ scoreCard.hole1.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole2.indicator)}" data-hole-number="2">
-              <div>{{scoreCard.hole2.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole2.indicator)
+              }"
+              data-hole-number="2"
+            >
+              <div>{{ scoreCard.hole2.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole3.indicator)}" data-hole-number="3">
-              <div>{{scoreCard.hole3.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole3.indicator)
+              }"
+              data-hole-number="3"
+            >
+              <div>{{ scoreCard.hole3.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole4.indicator)}" data-hole-number="4">
-              <div>{{scoreCard.hole4.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole4.indicator)
+              }"
+              data-hole-number="4"
+            >
+              <div>{{ scoreCard.hole4.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole5.indicator)}" data-hole-number="5">
-              <div>{{scoreCard.hole5.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole5.indicator)
+              }"
+              data-hole-number="5"
+            >
+              <div>{{ scoreCard.hole5.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole6.indicator)}" data-hole-number="6">
-              <div>{{scoreCard.hole6.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole6.indicator)
+              }"
+              data-hole-number="6"
+            >
+              <div>{{ scoreCard.hole6.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole7.indicator)}" data-hole-number="7">
-              <div>{{scoreCard.hole7.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole7.indicator)
+              }"
+              data-hole-number="7"
+            >
+              <div>{{ scoreCard.hole7.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole8.indicator)}" data-hole-number="8">
-              <div>{{scoreCard.hole8.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole8.indicator)
+              }"
+              data-hole-number="8"
+            >
+              <div>{{ scoreCard.hole8.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole9.indicator)}" data-hole-number="9">
-              <div>{{scoreCard.hole9.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole9.indicator)
+              }"
+              data-hole-number="9"
+            >
+              <div>{{ scoreCard.hole9.score }}</div>
             </td>
             <td>
-              <div>{{scoreCard.Out.score}}</div>
+              <div>{{ scoreCard.Out.score }}</div>
             </td>
             <td class="last-col">
-              <div>{{scoreCard.Total.score}}</div>
+              <div>{{ scoreCard.Total.score }}</div>
             </td>
           </tr>
-          <tr>
+          <tr></tr>
         </tbody>
       </table>
     </li>
@@ -175,78 +229,123 @@
               <div>PAR</div>
             </td>
             <td data-hole-number="10">
-              <div> {{scoreCard.hole10.par}}</div>
+              <div>{{ scoreCard.hole10.par }}</div>
             </td>
             <td data-hole-number="11">
-              <div> {{scoreCard.hole11.par}} </div>
+              <div>{{ scoreCard.hole11.par }}</div>
             </td>
             <td data-hole-number="12">
-              <div> {{scoreCard.hole12.par}}</div>
+              <div>{{ scoreCard.hole12.par }}</div>
             </td>
             <td data-hole-number="13">
-              <div>{{scoreCard.hole13.par}}</div>
+              <div>{{ scoreCard.hole13.par }}</div>
             </td>
             <td data-hole-number="14">
-              <div>{{scoreCard.hole14.par}}</div>
+              <div>{{ scoreCard.hole14.par }}</div>
             </td>
             <td data-hole-number="15">
-              <div>{{scoreCard.hole15.par}}</div>
+              <div>{{ scoreCard.hole15.par }}</div>
             </td>
             <td data-hole-number="16">
-              <div>{{scoreCard.hole16.par}}</div>
+              <div>{{ scoreCard.hole16.par }}</div>
             </td>
             <td data-hole-number="17">
-              <div>{{scoreCard.hole17.par}}</div>
+              <div>{{ scoreCard.hole17.par }}</div>
             </td>
             <td data-hole-number="18">
-              <div>{{scoreCard.hole18.par}}</div>
+              <div>{{ scoreCard.hole18.par }}</div>
             </td>
             <td>
-              <div>{{scoreCard.In.par}}</div>
+              <div>{{ scoreCard.In.par }}</div>
             </td>
           </tr>
           <tr>
             <td class="first-col">
-              <div> ROUND</div>
+              <div>ROUND</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole10.indicator)}"
-              data-hole-number="10">
-              <div>{{scoreCard.hole10.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole10.indicator)
+              }"
+              data-hole-number="10"
+            >
+              <div>{{ scoreCard.hole10.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole11.indicator)}"
-              data-hole-number="11">
-              <div>{{scoreCard.hole11.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole11.indicator)
+              }"
+              data-hole-number="11"
+            >
+              <div>{{ scoreCard.hole11.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole12.indicator)}"
-              data-hole-number="12">
-              <div>{{scoreCard.hole12.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole12.indicator)
+              }"
+              data-hole-number="12"
+            >
+              <div>{{ scoreCard.hole12.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole13.indicator)}"
-              data-hole-number="13">
-              <div>{{scoreCard.hole13.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole13.indicator)
+              }"
+              data-hole-number="13"
+            >
+              <div>{{ scoreCard.hole13.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole14.indicator)}"
-              data-hole-number="14">
-              <div>{{scoreCard.hole14.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole14.indicator)
+              }"
+              data-hole-number="14"
+            >
+              <div>{{ scoreCard.hole14.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole15.indicator)}"
-              data-hole-number="15">
-              <div>{{scoreCard.hole15.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole15.indicator)
+              }"
+              data-hole-number="15"
+            >
+              <div>{{ scoreCard.hole15.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole16.indicator)}"
-              data-hole-number="16">
-              <div>{{scoreCard.hole16.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole16.indicator)
+              }"
+              data-hole-number="16"
+            >
+              <div>{{ scoreCard.hole16.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole17.indicator)}"
-              data-hole-number="17">
-              <div>{{scoreCard.hole17.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole17.indicator)
+              }"
+              data-hole-number="17"
+            >
+              <div>{{ scoreCard.hole17.score }}</div>
             </td>
-            <td class="score" [ngStyle]="{'background-color':getColor(scoreCard.hole18.indicator)}"
-              data-hole-number="18">
-              <div>{{scoreCard.hole18.score}}</div>
+            <td
+              class="score"
+              [ngStyle]="{
+                'background-color': getColor(scoreCard.hole18.indicator)
+              }"
+              data-hole-number="18"
+            >
+              <div>{{ scoreCard.hole18.score }}</div>
             </td>
             <td>
-              <div>{{scoreCard.In.score}}</div>
+              <div>{{ scoreCard.In.score }}</div>
             </td>
           </tr>
         </tbody>

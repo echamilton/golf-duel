@@ -11,20 +11,23 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-
 export class ToolbarComponent implements OnInit {
   golfers: Array<IPlayer> = [];
   error: boolean;
   currentRound: string;
   tournyText = '';
 
-  constructor(private sportsApi: SportsApiService, private router: Router, private authService: AuthService,
-    private popup: MatDialog) { }
+  constructor(
+    private sportsApi: SportsApiService,
+    private router: Router,
+    private authService: AuthService,
+    private popup: MatDialog
+  ) {}
 
   ngOnInit() {
     this.sportsApi.getGolfScores().subscribe(
-      apiData => this.golfers = apiData.golfers,
-      err => this.handleError(),
+      (apiData) => (this.golfers = apiData.golfers),
+      (err) => this.handleError()
     );
   }
 
@@ -34,7 +37,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   isLoggedIn(): boolean {
-    return (this.authService.getCurrentUser() !== null);
+    return this.authService.getCurrentUser() !== null;
   }
 
   openPopup(golfer: IPlayer) {

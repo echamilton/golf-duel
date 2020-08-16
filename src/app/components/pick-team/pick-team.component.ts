@@ -14,7 +14,6 @@ import { PopupComponent } from './../popup/popup.component';
   templateUrl: './pick-team.component.html',
   styleUrls: ['./pick-team.component.scss']
 })
-
 export class PickTeamComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   picks: IUserGolfPicks;
@@ -27,8 +26,13 @@ export class PickTeamComponent implements OnInit, OnDestroy {
   isLoading: boolean;
   config = new MatSnackBarConfig();
 
-  constructor(private sportsApi: SportsApiService, private router: Router, private snackBar: MatSnackBar,
-    private popup: MatDialog, private authService: AuthService) {
+  constructor(
+    private sportsApi: SportsApiService,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private popup: MatDialog,
+    private authService: AuthService
+  ) {
     this.initialize();
   }
 
@@ -45,11 +49,17 @@ export class PickTeamComponent implements OnInit, OnDestroy {
 
   openPopup(action: string) {
     if (action === 'update') {
-      if (this.picks.golfer1 == '' || this.picks.golfer2 == '' ||
-        this.picks.golfer3 == '' || this.picks.golfer4 == '' ||
-        this.picks.golfer5 == '' || this.picks.golfer6 == '' ||
-        this.picks.golfer7 == '' || this.picks.golfer8 == '' ||
-        this.picks.team == '') {
+      if (
+        this.picks.golfer1 == '' ||
+        this.picks.golfer2 == '' ||
+        this.picks.golfer3 == '' ||
+        this.picks.golfer4 == '' ||
+        this.picks.golfer5 == '' ||
+        this.picks.golfer6 == '' ||
+        this.picks.golfer7 == '' ||
+        this.picks.golfer8 == '' ||
+        this.picks.team == ''
+      ) {
         this.openSnackBar(Messages.teamError);
         return;
       }
@@ -64,17 +74,22 @@ export class PickTeamComponent implements OnInit, OnDestroy {
 
     const dialogRef = this.popup.open(PopupComponent, popupConfig);
 
-    dialogRef.afterClosed().subscribe(
-      answer => this.processData(answer, action)
-    );
+    dialogRef
+      .afterClosed()
+      .subscribe((answer) => this.processData(answer, action));
   }
 
   processData(answer: string, action: string) {
     this.isLoading = true;
     if (answer === 'Yes') {
       this.sportsApi.getGolfScores().subscribe(
-        apiData => { this.validateSubmit(action, false, apiData); },
-        err => { this.validateSubmit(action, true, []); });
+        (apiData) => {
+          this.validateSubmit(action, false, apiData);
+        },
+        (err) => {
+          this.validateSubmit(action, true, []);
+        }
+      );
     } else {
       this.isLoading = false;
     }
@@ -118,7 +133,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     }
   }
 
-  getActive():boolean {
+  getActive(): boolean {
     const apiData = this.sportsApi.getApiData();
     if (apiData == undefined) {
       return false;
@@ -145,48 +160,63 @@ export class PickTeamComponent implements OnInit, OnDestroy {
   }
 
   getGolferGroupings() {
-    this.subscription = this.sportsApi.getGolferGroupings().subscribe(groups => {
-      let golferGroupings: Array<any>;
-      golferGroupings = groups[0];
-      golferGroupings.forEach(groupRecord => {
+    this.subscription = this.sportsApi
+      .getGolferGroupings()
+      .subscribe((groups) => {
+        let golferGroupings: Array<any>;
+        golferGroupings = groups[0];
+        golferGroupings.forEach((groupRecord) => {
+          if (groupRecord.eventId == this.sportsApi.getActiveEventId()) {
+            const group = {} as IGolfers;
+            group.id = groupRecord.golferId;
+            group.name = groupRecord.name;
 
-        if (groupRecord.eventId == this.sportsApi.getActiveEventId()) {
-          const group = {} as IGolfers;
-          group.id = groupRecord.golferId;
-          group.name = groupRecord.name;
-
-          if (groupRecord.group == 'A') {
-            this.golferGrpA.push(group);
-          } else if (groupRecord.group == 'B') {
-            this.golferGrpB.push(group);
-          } else {
-            this.golferGrpC.push(group);
+            if (groupRecord.group == 'A') {
+              this.golferGrpA.push(group);
+            } else if (groupRecord.group == 'B') {
+              this.golferGrpB.push(group);
+            } else {
+              this.golferGrpC.push(group);
+            }
           }
-        }
+        });
       });
-    });
   }
 
   private initialize() {
     this.picks = {
-      golfer1: '', golfer2: '', golfer3: '', golfer4: '',
-      golfer5: '', golfer6: '', golfer7: '', golfer8: '',
-      eventId: '', team: '', email: '',
+      golfer1: '',
+      golfer2: '',
+      golfer3: '',
+      golfer4: '',
+      golfer5: '',
+      golfer6: '',
+      golfer7: '',
+      golfer8: '',
+      eventId: '',
+      team: '',
+      email: ''
     };
   }
 
   private loadUserPicks() {
-    this.subscription = this.sportsApi.getGolferPicks().subscribe(golferPicks => {
-      for (let picksKey in golferPicks) {
-        if (this.authService.getCurrentUser() == golferPicks[picksKey].email) {
-          if (golferPicks[picksKey].eventId == this.sportsApi.getActiveEventId()) {
-            this.disableName = true;
-            this.picks = golferPicks[picksKey];
-            break;
+    this.subscription = this.sportsApi
+      .getGolferPicks()
+      .subscribe((golferPicks) => {
+        for (let picksKey in golferPicks) {
+          if (
+            this.authService.getCurrentUser() == golferPicks[picksKey].email
+          ) {
+            if (
+              golferPicks[picksKey].eventId == this.sportsApi.getActiveEventId()
+            ) {
+              this.disableName = true;
+              this.picks = golferPicks[picksKey];
+              break;
+            }
           }
         }
-      }
-      this.isLoading = false;
-    });
+        this.isLoading = false;
+      });
   }
 }
