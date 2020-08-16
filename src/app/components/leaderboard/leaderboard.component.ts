@@ -119,16 +119,9 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       const fantasyLeader = {} as ILeaderResults;
       fantasyLeader.team = contestant.team;
       fantasyLeader.score = 0;
-      /**4 rounds, 5 golfers, 18 holes */
-      if (Number(tournamentResults.round) === 4) {
-        fantasyLeader.holesRemain = 1 * 5 * 18;
-      } else if (Number(tournamentResults.round) === 3) {
-        fantasyLeader.holesRemain = 2 * 5 * 18;
-      } else if (Number(tournamentResults.round) === 2) {
-        fantasyLeader.holesRemain = 3 * 5 * 18;
-      } else {
-        fantasyLeader.holesRemain = 4 * 5 * 18;
-      }
+      fantasyLeader.holesRemain = this.determineHolesRemaining(
+        Number(tournamentResults.round)
+      );
 
       const contestantPicks = [];
       let pgaPlayer = {} as any;
@@ -295,6 +288,21 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  private determineHolesRemaining(currentRound: number): number {
+    /**4 rounds, 5 golfers, 18 holes */
+    let holesRemain = 0;
+    if (currentRound === 4) {
+      holesRemain = 1 * 5 * 18;
+    } else if (currentRound === 3) {
+      holesRemain = 2 * 5 * 18;
+    } else if (currentRound === 2) {
+      holesRemain = 3 * 5 * 18;
+    } else {
+      holesRemain = 4 * 5 * 18;
+    }
+    return holesRemain;
   }
 
   openPopup(golferId: string, status: string, playerName: string): void {
