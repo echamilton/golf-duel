@@ -20,16 +20,12 @@ import { sortScores } from './../utilities/sorter';
   providedIn: 'root'
 })
 export class SportsApiService {
-  eventId: string;
   cacheData: any;
-  history: boolean;
 
   constructor(
     private service: HttpClient,
     private fireDb: AngularFireDatabase
-  ) {
-    this.history = false;
-  }
+  ) {}
 
   getGolfScores(): Observable<ITournamentResults> {
     return this.service.get(this.getEventEndpoint()).pipe(
@@ -64,7 +60,7 @@ export class SportsApiService {
         },
         catchError((err) => {
           return throwError(
-            'Golf Scores API call failed' + '-' + this.getEventId()
+            'Golf Scores API call failed' + '-' + this.getActiveEventId()
           );
         })
       )
@@ -83,26 +79,12 @@ export class SportsApiService {
     return score;
   }
 
-  getEventId(): string {
-    if (this.eventId == undefined || this.history == false) {
-      this.eventId = TournamentConfig.find((data) => data.active).eventId;
-    }
-    return this.eventId;
-  }
-
-  getActiveEventId() {
-    return (this.eventId = TournamentConfig.find(
-      (data) => data.active
-    ).eventId);
+  getActiveEventId(): any {
+    return TournamentConfig.find((data) => data.active).eventId;
   }
 
   getEventName(): string {
     return TournamentConfig.find((data) => data.active).tournyId;
-  }
-
-  setEventId(setEventId, history): void {
-    this.eventId = setEventId;
-    this.history = history;
   }
 
   setApiData(data): void {
@@ -115,7 +97,7 @@ export class SportsApiService {
 
   getEventEndpoint(): string {
     const tourny = TournamentConfig.find(
-      (data) => data.eventId === this.getEventId()
+      (data) => data.eventId === this.getActiveEventId()
     );
     if (tourny) {
       return tourny.url;
@@ -151,7 +133,7 @@ export class SportsApiService {
 
   updateGolferPicks(userPicks: IUserGolfPicks): void {
     this.fireDb
-      .object('myGolfers/' + this.getEventId() + '-' + userPicks.team)
+      .object('myGolfers/' + this.getActiveEventId() + '-' + userPicks.team)
       .update(userPicks)
       .then((_) => {});
   }
@@ -159,14 +141,14 @@ export class SportsApiService {
   saveGolferPicks(userPicks: IUserGolfPicks): void {
     this.fireDb
       .list('myGolfers')
-      .push('myGolfers/' + this.getEventId() + '-' + userPicks.team)
+      .push('myGolfers/' + this.getActiveEventId() + '-' + userPicks.team)
       .then((_) => {});
   }
 
   deleteGolferPicks(userPicks: IUserGolfPicks): void {
     this.fireDb
       .list('myGolfers')
-      .remove(this.getEventId() + '-' + userPicks.team)
+      .remove(this.getActiveEventId() + '-' + userPicks.team)
       .then((_) => {});
   }
 }

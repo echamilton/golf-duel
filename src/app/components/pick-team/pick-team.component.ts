@@ -108,7 +108,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     }
 
     if (action === 'update') {
-      this.picks.eventId = this.sportsApi.eventId;
+      this.picks.eventId = this.sportsApi.getActiveEventId();
       this.picks.email = this.authService.getCurrentUser();
       this.sportsApi.updateGolferPicks(this.picks);
       this.openSnackBar(Messages.teamSuccess);

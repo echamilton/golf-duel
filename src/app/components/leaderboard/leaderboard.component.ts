@@ -103,7 +103,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     this.status = tournamentResults.status;
 
     for (const contestant of contestants) {
-      if (contestant.eventId !== this.sportsApi.getEventId()) {
+      if (contestant.eventId !== this.sportsApi.getActiveEventId()) {
         continue;
       }
       this.entries++;
@@ -308,7 +308,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   default(err, userGolfPicks): void {
     for (const userPick of userGolfPicks) {
-      if (userPick.eventId !== this.sportsApi.getEventId()) {
+      if (userPick.eventId !== this.sportsApi.getActiveEventId()) {
         continue;
       }
       this.entries++;
