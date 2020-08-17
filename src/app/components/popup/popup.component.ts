@@ -15,13 +15,13 @@ export class PopupComponent implements OnInit {
     this.popupText = data.text;
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  onYes() {
+  onYes(): void {
     this.dialogRef.close('Yes');
   }
 
-  onClose() {
+  onClose(): void {
     this.dialogRef.close('No');
   }
 }

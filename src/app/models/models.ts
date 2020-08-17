@@ -58,7 +58,6 @@ export interface ILeaderResults {
   score: number;
   holesRemain: number;
   golfersRemain: number;
-  description: string;
   golfers: Array<IPlayer>;
 }
 

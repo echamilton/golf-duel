@@ -36,18 +36,18 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     this.initialize();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoading = true;
     this.disableName = false;
     this.getGolferGroupings();
     this.loadUserPicks();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  openPopup(action: string) {
+  openPopup(action: string): void {
     if (action === 'update') {
       if (
         this.picks.golfer1 == '' ||
@@ -79,7 +79,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
       .subscribe((answer) => this.processData(answer, action));
   }
 
-  processData(answer: string, action: string) {
+  processData(answer: string, action: string): void {
     this.isLoading = true;
     if (answer === 'Yes') {
       this.sportsApi.getGolfScores().subscribe(
@@ -95,7 +95,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     }
   }
 
-  validateSubmit(action: string, apiNotReady: boolean, apiData: any) {
+  validateSubmit(action: string, apiNotReady: boolean, apiData: any): void {
     let active = false;
     if (!apiNotReady) {
       active = this.sportsApi.isTournamentActive(apiData.status);
@@ -120,7 +120,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     this.router.navigate(['/leader']);
   }
 
-  openSnackBar(Text: string) {
+  openSnackBar(Text: string): void {
     this.config.duration = 2500;
     this.snackBar.open(Text, 'Close', this.config);
   }
@@ -135,22 +135,15 @@ export class PickTeamComponent implements OnInit, OnDestroy {
 
   getActive(): boolean {
     const apiData = this.sportsApi.getApiData();
-    if (apiData == undefined) {
-      return false;
-    }
-    if (this.sportsApi.isTournamentActive(apiData.status)) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.sportsApi.isTournamentActive(apiData.status);
   }
 
-  checkGolferSelected(golferDropDown, currentGolfer) {
+  checkGolferSelected(golferDropDown, currentGolfer): boolean {
     if (golferDropDown === currentGolfer) {
       return false;
     }
 
-    let golferArray = [];
+    const golferArray = [];
     for (let key in this.picks) {
       if (this.picks.hasOwnProperty(key)) {
         golferArray.push(this.picks[key]);
@@ -183,7 +176,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
       });
   }
 
-  private initialize() {
+  private initialize(): void {
     this.picks = {
       golfer1: '',
       golfer2: '',
@@ -199,7 +192,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     };
   }
 
-  private loadUserPicks() {
+  private loadUserPicks(): void {
     this.subscription = this.sportsApi
       .getGolferPicks()
       .subscribe((golferPicks) => {

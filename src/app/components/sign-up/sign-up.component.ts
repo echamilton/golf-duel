@@ -20,9 +20,9 @@ export class SignUpComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
 
-  signup() {
+  signup(): void {
     this.authService.signup(this.email, this.password).then(
       (res) => {
         this.email = this.password = '';
@@ -39,7 +39,7 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  openSnackBar(message: string) {
+  openSnackBar(message: string): void {
     this.config.duration = 3000;
     this.snackBar.open(message, 'Close', this.config);
   }

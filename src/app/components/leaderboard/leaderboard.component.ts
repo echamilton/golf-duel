@@ -13,7 +13,8 @@ import {
   IOwnershipPerGolfer,
   IPlayer,
   ILeaderResults,
-  ITournamentResults
+  ITournamentResults,
+  IUserGolfPicks
 } from '../../models/models';
 import { SportsApiService } from '../../services/sports-api';
 import {
@@ -21,7 +22,6 @@ import {
   LeaderColumns,
   GolferStatus
 } from './../../models/constants';
-import { Subscription } from 'rxjs';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 import { sortScores } from './../../utilities/sorter';
 
@@ -44,12 +44,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   expandedElement: ILeaderResults | null;
   dataSource: any[];
-  subscription: Subscription;
   fantasyLeaders: Array<ILeaderResults> = [];
-  golferItems: Array<IPlayer> = [];
   ownPct: Array<IOwnershipPerGolfer> = [];
   status: string;
-  entries: number;
+  entries: number = 0;
   config = new MatSnackBarConfig();
 
   constructor(
@@ -59,18 +57,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.sportsApi
-      .getGolferPicks()
-      .subscribe((userGolfPicks) => {
-        this.getGolferLeaderBoard(userGolfPicks);
-      });
+    this.sportsApi.getGolferPicks().subscribe((userGolfPicks) => {
+      this.getGolferLeaderBoard(userGolfPicks);
+    });
   }
 
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
+  ngOnDestroy(): void {}
 
   get tableColumns(): String[] {
     return LeaderColumns;
@@ -108,144 +100,55 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   buildResults(contestants, tournamentResults: ITournamentResults): void {
     this.sportsApi.setApiData(tournamentResults);
-    this.entries = 0;
     this.status = tournamentResults.status;
+    this.entries = contestants.length;
 
     for (const contestant of contestants) {
       if (contestant.eventId !== this.sportsApi.getActiveEventId()) {
         continue;
       }
-      this.entries++;
-      const fantasyLeader = {} as ILeaderResults;
-      fantasyLeader.team = contestant.team;
-      fantasyLeader.score = 0;
-      fantasyLeader.holesRemain = this.determineHolesRemaining(
-        Number(tournamentResults.round)
-      );
+      const fantasyLeader: ILeaderResults = {
+        position: 0,
+        team: contestant.team,
+        score: 0,
+        holesRemain: this.determineHolesRemaining(
+          Number(tournamentResults.round)
+        ),
+        golfersRemain: 0,
+        golfers: []
+      };
 
-      const contestantPicks = [];
-      let pgaPlayer = {} as any;
-
-      // Golfer1
-      pgaPlayer = tournamentResults.golfers.find(
-        (player: IPlayer) => player.golferId == contestant.golfer1.toString()
+      const contestantPicks = this.buildContestantGolferScores(
+        contestant,
+        tournamentResults
       );
-      if (pgaPlayer) {
-        contestantPicks.push(pgaPlayer);
-        this.updatePercentageOwned(pgaPlayer);
-      }
-
-      // Golfer2
-      pgaPlayer = tournamentResults.golfers.find(
-        (player) => player.golferId == contestant.golfer2.toString()
-      );
-      if (pgaPlayer) {
-        contestantPicks.push(pgaPlayer);
-        this.updatePercentageOwned(pgaPlayer);
-      }
-
-      // Golfer3
-      pgaPlayer = tournamentResults.golfers.find(
-        (player) => player.golferId == contestant.golfer3.toString()
-      );
-      if (pgaPlayer) {
-        contestantPicks.push(pgaPlayer);
-        this.updatePercentageOwned(pgaPlayer);
-      }
-
-      // Golfer4
-      pgaPlayer = tournamentResults.golfers.find(
-        (player) => player.golferId == contestant.golfer4.toString()
-      );
-      if (pgaPlayer) {
-        contestantPicks.push(pgaPlayer);
-        this.updatePercentageOwned(pgaPlayer);
-      }
-
-      // Golfer5
-      pgaPlayer = tournamentResults.golfers.find(
-        (player) => player.golferId == contestant.golfer5.toString()
-      );
-      if (pgaPlayer) {
-        contestantPicks.push(pgaPlayer);
-        this.updatePercentageOwned(pgaPlayer);
-      }
-
-      // Golfer6
-      pgaPlayer = tournamentResults.golfers.find(
-        (player) => player.golferId == contestant.golfer6.toString()
-      );
-      if (pgaPlayer) {
-        contestantPicks.push(pgaPlayer);
-        this.updatePercentageOwned(pgaPlayer);
-      }
-
-      // Golfer7
-      pgaPlayer = tournamentResults.golfers.find(
-        (player) => player.golferId === contestant.golfer7.toString()
-      );
-      if (pgaPlayer) {
-        contestantPicks.push(pgaPlayer);
-        this.updatePercentageOwned(pgaPlayer);
-      }
-
-      // Golfer8
-      pgaPlayer = tournamentResults.golfers.find(
-        (player) => player.golferId === contestant.golfer8.toString()
-      );
-      if (pgaPlayer) {
-        contestantPicks.push(pgaPlayer);
-        this.updatePercentageOwned(pgaPlayer);
-      }
 
       /**This is where we will check how many active golfers are left */
-      let golferScore: number;
       let i = 0;
       let remain = 0;
-      let j = 0;
       sortScores(contestantPicks);
 
       if (this.isTournyActive()) {
-        this.golferItems = [];
+        fantasyLeader.golfers = [];
         for (const pick of contestantPicks) {
-          const golferItem = {} as IPlayer;
-          j++;
-          fantasyLeader['id' + j] = pick.golferId;
-          golferItem.golferId = pick.golferId;
-          golferItem.name = pick.name;
-          golferItem.round = pick.round;
-          golferItem.status = pick.status;
-          golferItem.imageLink = pick.imageLink;
-          golferItem.score = pick.score;
           if (this.sportsApi.isGolferActive(pick.status)) {
             if (i < 5) {
               i++;
-              golferScore = pick.score;
-              fantasyLeader.score = +fantasyLeader.score + +golferScore;
-              fantasyLeader.holesRemain = fantasyLeader.holesRemain - pick.thru;
+              fantasyLeader.score = +fantasyLeader.score + +pick.score;
+              fantasyLeader.holesRemain =
+                fantasyLeader.holesRemain - Number(pick.thru);
             }
             remain++;
-            if (pick.thru === 18) {
-              golferItem.thru = 'F';
-            } else {
-              if (pick.thru !== null) {
-                golferItem.thru = 'Thru' + ' ' + pick.thru;
-              } else {
-                golferItem.thru = 'Thru 0';
-              }
-            }
           } else {
-            golferItem.thru = 'CUT';
+            pick.thru = 'CUT';
           }
-          this.golferItems.push(golferItem);
+          fantasyLeader.golfers.push(pick);
         }
       } else {
         /**Default to 8 active golfers and 99 score when golf tourny not active */
         remain = 8;
         fantasyLeader.score = 99;
       }
-
-      fantasyLeader.golfers = this.golferItems;
 
       /** if less than 5 golfers then we know that they didnt' make the cut */
       if (remain < 5) {
@@ -261,6 +164,87 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     }
     this.dataSource = this.fantasyLeaders;
     this.rankEntries();
+  }
+
+  private buildContestantGolferScores(
+    contestant: IUserGolfPicks,
+    tournyResults: ITournamentResults
+  ): IPlayer[] {
+    let pgaPlayer = {} as any;
+    const contestantPicks = [];
+
+    // Golfer1
+    pgaPlayer = tournyResults.golfers.find(
+      (player: IPlayer) => player.golferId == contestant.golfer1.toString()
+    );
+    if (pgaPlayer) {
+      contestantPicks.push(pgaPlayer);
+      this.updatePercentageOwned(pgaPlayer);
+    }
+
+    // Golfer2
+    pgaPlayer = tournyResults.golfers.find(
+      (player) => player.golferId == contestant.golfer2.toString()
+    );
+    if (pgaPlayer) {
+      contestantPicks.push(pgaPlayer);
+      this.updatePercentageOwned(pgaPlayer);
+    }
+
+    // Golfer3
+    pgaPlayer = tournyResults.golfers.find(
+      (player) => player.golferId == contestant.golfer3.toString()
+    );
+    if (pgaPlayer) {
+      contestantPicks.push(pgaPlayer);
+      this.updatePercentageOwned(pgaPlayer);
+    }
+
+    // Golfer4
+    pgaPlayer = tournyResults.golfers.find(
+      (player) => player.golferId == contestant.golfer4.toString()
+    );
+    if (pgaPlayer) {
+      contestantPicks.push(pgaPlayer);
+      this.updatePercentageOwned(pgaPlayer);
+    }
+
+    // Golfer5
+    pgaPlayer = tournyResults.golfers.find(
+      (player) => player.golferId == contestant.golfer5.toString()
+    );
+    if (pgaPlayer) {
+      contestantPicks.push(pgaPlayer);
+      this.updatePercentageOwned(pgaPlayer);
+    }
+
+    // Golfer6
+    pgaPlayer = tournyResults.golfers.find(
+      (player) => player.golferId == contestant.golfer6.toString()
+    );
+    if (pgaPlayer) {
+      contestantPicks.push(pgaPlayer);
+      this.updatePercentageOwned(pgaPlayer);
+    }
+
+    // Golfer7
+    pgaPlayer = tournyResults.golfers.find(
+      (player) => player.golferId === contestant.golfer7.toString()
+    );
+    if (pgaPlayer) {
+      contestantPicks.push(pgaPlayer);
+      this.updatePercentageOwned(pgaPlayer);
+    }
+
+    // Golfer8
+    pgaPlayer = tournyResults.golfers.find(
+      (player) => player.golferId === contestant.golfer8.toString()
+    );
+    if (pgaPlayer) {
+      contestantPicks.push(pgaPlayer);
+      this.updatePercentageOwned(pgaPlayer);
+    }
+    return contestantPicks;
   }
 
   private rankEntries(): void {
@@ -281,10 +265,11 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
       /** This will iterate through the golfers and map the value of  */
       for (const golferKey of fantasyLeader.golfers) {
-        for (const ownKey in this.ownPct) {
-          if (this.ownPct[ownKey].golferId === golferKey.golferId) {
-            golferKey.ownPct = (this.ownPct[ownKey].count / this.entries) * 100;
-          }
+        const golferSelectedCount = this.ownPct.find(
+          (record) => record.golferId === golferKey.golferId
+        );
+        if (golferSelectedCount) {
+          golferKey.ownPct = (golferSelectedCount.count / this.entries) * 100;
         }
       }
     }
@@ -322,12 +307,11 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe();
   }
 
-  default(err, userGolfPicks): void {
-    for (const userPick of userGolfPicks) {
+  default(err, contestants): void {
+    for (const userPick of contestants) {
       if (userPick.eventId !== this.sportsApi.getActiveEventId()) {
         continue;
       }
-      this.entries++;
       const fantasyLeader = {} as ILeaderResults;
       fantasyLeader.team = userPick.team;
       fantasyLeader.holesRemain = 360;
