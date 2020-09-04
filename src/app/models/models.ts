@@ -50,6 +50,7 @@ export interface ITournament {
   url: string;
   active: boolean;
   groupName: string;
+  scorecard?: string;
 }
 
 export interface ILeaderResults {
@@ -58,7 +59,6 @@ export interface ILeaderResults {
   score: number;
   holesRemain: number;
   golfersRemain: number;
-  description: string;
   golfers: Array<IPlayer>;
 }
 

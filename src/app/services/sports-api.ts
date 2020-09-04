@@ -6,7 +6,8 @@ import {
   IUserGolfPicks,
   IGolferGrouping,
   IPlayer,
-  ITournamentResults
+  ITournamentResults,
+  IScoreCard
 } from './../models/models';
 import {
   TournamentConfig,
@@ -44,6 +45,7 @@ export class SportsApiService {
               name: espnGolfer.athlete.displayName,
               position: espnGolfer.status.position.displayName,
               thru: espnGolfer.status.thru,
+              round: espnGolfer.status.period,
               score: score,
               status:
                 espnGolfer.status.displayValue === GolferStatus.cut
@@ -82,6 +84,21 @@ export class SportsApiService {
     return score;
   }
 
+  getGolferScoreCard(golferId: string, round: number): Observable<IScoreCard> {
+    const golferScoreCardURL = `${this.getScoreCardEndpoint()}${golferId}`;
+    return this.service.get(golferScoreCardURL).pipe(
+      map((response: any) => {
+        const currentRoundData = response.rounds[round - 1];
+        return this.buildPlayerScorecard(currentRoundData);
+      })
+    );
+  }
+
+  private buildPlayerScorecard(currentRateData: any): IScoreCard {
+    console.log(currentRateData);
+    return null;
+  }
+
   getActiveEventId(): any {
     return TournamentConfig.find((data) => data.active).eventId;
   }
@@ -104,6 +121,17 @@ export class SportsApiService {
     );
     if (tourny) {
       return tourny.url;
+    } else {
+      console.error('Could not retrieve PGA Tour data');
+    }
+  }
+
+  getScoreCardEndpoint(): string {
+    const tourny = TournamentConfig.find(
+      (data) => data.eventId === this.getActiveEventId()
+    );
+    if (tourny) {
+      return tourny.scorecard;
     } else {
       console.error('Could not retrieve PGA Tour data');
     }
