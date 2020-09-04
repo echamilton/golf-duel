@@ -7,7 +7,9 @@ export const TournamentConfig: ITournament[] = [
     url:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219481',
     active: true,
-    groupName: 'pgaChamp2020'
+    groupName: 'pgaChamp2020',
+    scorecard:
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401219481/playersummary?region=us&lang=en&season=2020&player='
   }
 ];
 

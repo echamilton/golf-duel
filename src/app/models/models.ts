@@ -50,6 +50,7 @@ export interface ITournament {
   url: string;
   active: boolean;
   groupName: string;
+  scorecard?: string;
 }
 
 export interface ILeaderResults {
