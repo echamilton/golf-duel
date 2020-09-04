@@ -1,23 +1,14 @@
-.title{
+.title {
   text-align: center;
   margin-left: 10px;
 }
-.leaders{
+.leaders {
   height: 85px;
   background: black;
-  color: #E4E4E4;
-  font: 500 12px/14px Roboto,"Helvetica Neue",sans-serif;
+  color: #e4e4e4;
+  font: 500 12px/14px Roboto, 'Helvetica Neue', sans-serif;
 }
-.golf-title{
-  height: 25px;
-  background: black;
-  color: #E4E4E4;
-  font: 500 12px/14px Roboto,"Helvetica Neue",sans-serif;
-}
-.button-evan{
-  border-bottom-color: white;
-}
-.mat-toolbar-row{
+.mat-toolbar-row {
   padding-left: 3px;
   padding-right: 0px;
 }
@@ -29,10 +20,6 @@
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
-.card {
-  display: inline-block;
-  margin: 1.1rem;
-}
 .scrolling-wrapper::-webkit-scrollbar {
   display: none;
 }
@@ -43,14 +30,4 @@
 }
 .spacer {
   flex: 1 1 auto;
-}
-.golfer-pic {
-  width: 65px;
-  height: 45px;
-  margin: auto;
-}
-.error-text{
-  text-align: center;
-  margin-left: 5.000em;
-  font-size: 14px;
 }

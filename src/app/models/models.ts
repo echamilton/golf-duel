@@ -80,6 +80,7 @@ export interface IHole {
 
 export interface IScoreCard {
   playerName?: string;
+  imageLink?: string;
   hole1?: IHole;
   hole2?: IHole;
   hole3?: IHole;
