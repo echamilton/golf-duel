@@ -4,10 +4,11 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { SportsApiService } from '../../services/sports-api';
-import { AuthService } from '../../services/authservice';
+import { SportsApiService } from '../../services/sports-api.service';
+import { AuthService } from '../../services/auth.service';
 import { Messages } from './../../models/constants';
 import { PopupComponent } from './../popup/popup.component';
+import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
 
 @Component({
   selector: 'app-pick-team',
@@ -31,7 +32,8 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackBar: MatSnackBar,
     private popup: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private GolfDataService: GolfDataStoreService
   ) {
     this.initialize();
   }
@@ -110,10 +112,10 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     if (action === 'update') {
       this.picks.eventId = this.sportsApi.getActiveEventId();
       this.picks.email = this.authService.getCurrentUser();
-      this.sportsApi.updateGolferPicks(this.picks);
+      this.GolfDataService.updateGolferPicks(this.picks);
       this.openSnackBar(Messages.teamSuccess);
     } else {
-      this.sportsApi.deleteGolferPicks(this.picks);
+      this.GolfDataService.deleteGolferPicks(this.picks);
       this.openSnackBar(Messages.deleteSuccess);
     }
     this.isLoading = false;
@@ -153,9 +155,8 @@ export class PickTeamComponent implements OnInit, OnDestroy {
   }
 
   getGolferGroupings() {
-    this.subscription = this.sportsApi
-      .getGolferGroupings()
-      .subscribe((groups) => {
+    this.subscription = this.GolfDataService.getGolferGroupings().subscribe(
+      (groups) => {
         let golferGroupings: Array<any>;
         golferGroupings = groups[0];
         golferGroupings.forEach((groupRecord) => {
@@ -173,7 +174,8 @@ export class PickTeamComponent implements OnInit, OnDestroy {
             }
           }
         });
-      });
+      }
+    );
   }
 
   private initialize(): void {
@@ -193,9 +195,8 @@ export class PickTeamComponent implements OnInit, OnDestroy {
   }
 
   private loadUserPicks(): void {
-    this.subscription = this.sportsApi
-      .getGolferPicks()
-      .subscribe((golferPicks) => {
+    this.subscription = this.GolfDataService.getGolferPicks().subscribe(
+      (golferPicks) => {
         for (let picksKey in golferPicks) {
           if (
             this.authService.getCurrentUser() == golferPicks[picksKey].email
@@ -210,6 +211,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
           }
         }
         this.isLoading = false;
-      });
+      }
+    );
   }
 }

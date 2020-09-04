@@ -16,12 +16,12 @@ export const TournamentConfig: ITournament[] = [
 export const AppTitle = '443 Fantasy Golf';
 
 export enum ScoreValues {
-  birdie = 'BIRDIE',
-  par = 'PAR',
-  eagle = 'EAGLE',
-  double = 'DOUBLE',
-  triple = 'TRIPLE',
-  bogey = 'BOGEY',
+  birdie = 'Birdie',
+  par = 'Par',
+  eagle = 'Eagle',
+  double = 'Double Bogey',
+  triple = 'Triple Bogey',
+  bogey = 'Bogey',
   noScore = 'NOSCORE'
 }
 

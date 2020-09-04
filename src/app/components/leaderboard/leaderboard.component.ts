@@ -16,7 +16,7 @@ import {
   ITournamentResults,
   IUserGolfPicks
 } from '../../models/models';
-import { SportsApiService } from '../../services/sports-api';
+import { SportsApiService } from '../../services/sports-api.service';
 import {
   Messages,
   LeaderColumns,
@@ -24,6 +24,7 @@ import {
 } from './../../models/constants';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 import { sortScores } from './../../utilities/sorter';
+import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
 
 @Component({
   selector: 'app-leader',
@@ -53,11 +54,12 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   constructor(
     private popup: MatDialog,
     private sportsApi: SportsApiService,
+    private golfDataStoreService: GolfDataStoreService,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    this.sportsApi.getGolferPicks().subscribe((userGolfPicks) => {
+    this.golfDataStoreService.getGolferPicks().subscribe((userGolfPicks) => {
       this.getGolferLeaderBoard(userGolfPicks);
     });
   }
@@ -290,7 +292,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     return holesRemain;
   }
 
-  openPopup(golferId: string, status: string, playerName: string): void {
+  openPopup(golfer: IPlayer): void {
     if (!this.sportsApi.isGolferActive(status)) {
       this.openSnackBar();
       return;
@@ -300,8 +302,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
     popupConfig.data = {
-      golfer: golferId,
-      name: playerName
+      golferId: golfer.golferId,
+      round: golfer.round
     };
     const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
     dialogRef.afterClosed().subscribe();

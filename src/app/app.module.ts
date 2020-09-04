@@ -28,13 +28,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { PickTeamComponent } from './components/pick-team/pick-team.component';
 import { PopupComponent } from './components/popup/popup.component';
-import { AuthService } from './services/authservice';
+import { AuthService } from './services/auth.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ScorecardPopComponent } from './components/scorecard-pop/scorecard-pop.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { GolfDataStoreService } from './services/golf-data-store.service';
 import { LoaderComponent } from './components/loader/loader.component';
+import { TournamentLeadersComponent } from './components/tournament-leaders/tournament-leaders.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     ScorecardPopComponent,
     SignUpComponent,
     LoginComponent,
-    LoaderComponent
+    LoaderComponent,
+    TournamentLeadersComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,7 @@ import { LoaderComponent } from './components/loader/loader.component';
     MatTableModule,
     MatSortModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, GolfDataStoreService],
   entryComponents: [PopupComponent, ScorecardPopComponent],
   bootstrap: [AppComponent]
 })
