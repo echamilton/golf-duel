@@ -13,7 +13,7 @@ export class ToolbarComponent implements OnInit {
   ngOnInit(): void {}
 
   isLoggedIn(): boolean {
-    return this.authService.getCurrentUser() !== null;
+    return this.authService.isLoggedIn();
   }
 
   logout(): void {
