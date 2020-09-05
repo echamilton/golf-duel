@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.scss']
 })
-export class PopupComponent implements OnInit {
+export class PopupComponent {
   popupText: string;
   constructor(
     private dialogRef: MatDialogRef<PopupComponent>,
@@ -14,8 +14,6 @@ export class PopupComponent implements OnInit {
   ) {
     this.popupText = data.text;
   }
-
-  ngOnInit(): void {}
 
   onYes(): void {
     this.dialogRef.close('Yes');
