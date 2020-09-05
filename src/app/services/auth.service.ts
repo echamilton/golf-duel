@@ -31,6 +31,10 @@ export class AuthService {
     return this.user;
   }
 
+  isLoggedIn(): boolean {
+    return this.getCurrentUser() !== null;
+  }
+
   login(email: string, password: string): any {
     return new Promise<any>((resolve, reject) => {
       this.firebaseAuth.signInWithEmailAndPassword(email, password).then(
