@@ -48,7 +48,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   fantasyLeaders: Array<ILeaderResults> = [];
   ownPct: Array<IOwnershipPerGolfer> = [];
   status: string;
-  entries: number = 0;
   config = new MatSnackBarConfig();
 
   constructor(
@@ -103,7 +102,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   buildResults(contestants, tournamentResults: ITournamentResults): void {
     this.sportsApi.setApiData(tournamentResults);
     this.status = tournamentResults.status;
-    this.entries = contestants.length;
 
     for (const contestant of contestants) {
       if (contestant.eventId !== this.sportsApi.getActiveEventId()) {
@@ -253,6 +251,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     let position = 0;
     let dupPos = 0;
     let prevScore = 999;
+    const totalEntries = this.fantasyLeaders.length;
     for (const fantasyLeader of this.fantasyLeaders) {
       if (fantasyLeader.score === prevScore) {
         fantasyLeader.position = position;
@@ -271,7 +270,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
           (record) => record.golferId === golferKey.golferId
         );
         if (golferSelectedCount) {
-          golferKey.ownPct = (golferSelectedCount.count / this.entries) * 100;
+          golferKey.ownPct = (golferSelectedCount.count / totalEntries) * 100;
         }
       }
     }
@@ -280,14 +279,15 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   private determineHolesRemaining(currentRound: number): number {
     /**4 rounds, 5 golfers, 18 holes */
     let holesRemain = 0;
+    const holeMutiplier = 5 * 18;
     if (currentRound === 4) {
-      holesRemain = 1 * 5 * 18;
+      holesRemain = 1 * holeMutiplier;
     } else if (currentRound === 3) {
-      holesRemain = 2 * 5 * 18;
+      holesRemain = 2 * holeMutiplier;
     } else if (currentRound === 2) {
-      holesRemain = 3 * 5 * 18;
+      holesRemain = 3 * holeMutiplier;
     } else {
-      holesRemain = 4 * 5 * 18;
+      holesRemain = 4 * holeMutiplier;
     }
     return holesRemain;
   }
