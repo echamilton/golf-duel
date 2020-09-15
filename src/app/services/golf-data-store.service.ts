@@ -22,12 +22,6 @@ export class GolfDataStoreService {
     return this.fireDb.list<IGolferGrouping>(entityName).valueChanges();
   }
 
-  updateGroups(list: any) {
-    const entityName = TournamentConfig.find((data) => data.active).groupName;
-    this.fireDb.list(entityName).remove();
-    this.fireDb.list(entityName).push(list);
-  }
-
   getGolferPicks(): Observable<any> {
     return this.fireDb.list<IUserGolfPicks>('myGolfers').valueChanges();
   }

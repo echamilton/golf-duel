@@ -46,36 +46,41 @@ export class SportsApiService {
       })
     );
   }
+
   private buildGolferScores(golferScores: any): ITournamentResults {
     const espnGolfers = golferScores.events[0].competitions[0].competitors;
-    const myGolfers = [];
+    const golferResults = [];
     const tournamentResults: ITournamentResults = {};
     espnGolfers.forEach((espnGolfer) => {
-      const score = this.isGolferActive(espnGolfer.status.displayValue)
-        ? this.determineScore(espnGolfer)
-        : 99;
-      const golfer: IPlayer = {
-        golferId: espnGolfer.id,
-        name: espnGolfer.athlete.displayName,
-        position: espnGolfer.status.position.displayName,
-        thru: espnGolfer.status.thru,
-        round: espnGolfer.status.period,
-        score: score,
-        status:
-          espnGolfer.status.displayValue === GolferStatus.cut
-            ? GolferStatus.cut
-            : GolferStatus.active,
-        imageLink: espnGolfer.athlete.headshot
-          ? espnGolfer.athlete.headshot.href
-          : espnGolfer.athlete.flag.href
-      };
-      myGolfers.push(golfer);
+      golferResults.push(this.mapGolferScoreInfo(espnGolfer));
     });
     tournamentResults.round =
       golferScores.events[0].competitions[0].status.period;
     tournamentResults.status = golferScores.events[0].status.type.state;
-    tournamentResults.golfers = sortScores(myGolfers);
+    tournamentResults.golfers = sortScores(golferResults);
     return tournamentResults;
+  }
+
+  private mapGolferScoreInfo(espnGolfer: any): IPlayer {
+    const score = this.isGolferActive(espnGolfer.status.displayValue)
+      ? this.determineScore(espnGolfer)
+      : 99;
+    const golfer: IPlayer = {
+      golferId: espnGolfer.id,
+      name: espnGolfer.athlete.displayName,
+      position: espnGolfer.status.position.displayName,
+      thru: espnGolfer.status.thru,
+      round: espnGolfer.status.period,
+      score: score,
+      status:
+        espnGolfer.status.displayValue === GolferStatus.cut
+          ? GolferStatus.cut
+          : GolferStatus.active,
+      imageLink: espnGolfer.athlete.headshot
+        ? espnGolfer.athlete.headshot.href
+        : espnGolfer.athlete.flag.href
+    };
+    return golfer;
   }
 
   private determineScore(golfer: any): number {
