@@ -12,24 +12,39 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
 export class TournamentLeadersComponent implements OnInit {
   golfers: IPlayer[] = [];
   error: boolean;
+  status: string;
   tournyText = '';
 
   constructor(private sportsApi: SportsApiService, private popup: MatDialog) {}
 
   ngOnInit(): void {
     this.sportsApi.getGolfScores().subscribe(
-      (apiData) => (this.golfers = apiData.golfers),
+      (apiData) => (
+        (this.golfers = apiData.golfers),
+        this.sportsApi.setApiData(apiData),
+        (this.status = apiData.status)
+      ),
       (err) => this.handleError()
     );
   }
 
+  get isTournamentActive(): boolean {
+    return this.sportsApi.isTournamentActive(this.status);
+  }
+
   openPopup(golfer: IPlayer): void {
-    const popupConfig = new MatDialogConfig();
-    popupConfig.disableClose = false;
-    popupConfig.autoFocus = true;
-    popupConfig.data = { golferId: golfer.golferId, round: golfer.round };
-    const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
-    dialogRef.afterClosed().subscribe();
+    if (this.isTournamentActive) {
+      const popupConfig = new MatDialogConfig();
+      popupConfig.disableClose = false;
+      popupConfig.autoFocus = true;
+      popupConfig.data = {
+        golferId: golfer.golferId,
+        round: golfer.round,
+        img: golfer.imageLink
+      };
+      const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
+      dialogRef.afterClosed().subscribe();
+    }
   }
 
   handleError(): void {
