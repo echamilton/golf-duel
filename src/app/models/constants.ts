@@ -6,10 +6,20 @@ export const TournamentConfig: ITournament[] = [
     tournyId: 'PGA Championship',
     url:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219481',
-    active: true,
+    active: false,
     groupName: 'pgaChamp2020',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401219481/playersummary?region=us&lang=en&season=2020&player='
+  },
+  {
+    eventId: 'USOPEN-2020',
+    tournyId: 'US Open',
+    url:
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219333',
+    active: true,
+    groupName: 'pgaChamp2020',
+    scorecard:
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401219333/playersummary?region=us&lang=en&season=2020&player='
   }
 ];
 

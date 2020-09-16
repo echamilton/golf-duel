@@ -34,6 +34,6 @@ export class TournamentLeadersComponent implements OnInit {
 
   handleError(): void {
     this.error = true;
-    this.tournyText = this.sportsApi.getEventName() + ' will commence shortly';
+    this.tournyText = `${this.sportsApi.getEventName()} will commence shortly`;
   }
 }

@@ -5,7 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  public user: string;
+  private user: string;
   constructor(private firebaseAuth: AngularFireAuth) {}
 
   signup(email: string, password: string) {
@@ -29,6 +29,10 @@ export class AuthService {
       }
     }
     return this.user;
+  }
+
+  isLoggedIn(): boolean {
+    return this.getCurrentUser() !== null;
   }
 
   login(email: string, password: string): any {

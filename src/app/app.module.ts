@@ -21,6 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
@@ -68,6 +69,7 @@ import { TournamentLeadersComponent } from './components/tournament-leaders/tour
     MatIconModule,
     LayoutModule,
     MatMenuModule,
+    ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
     MatDialogModule,
