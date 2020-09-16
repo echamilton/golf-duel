@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 export class ScorecardPopComponent implements OnInit {
   loading: boolean;
   scorecard$: Observable<IScoreCard>;
+  imageLink: string;
 
   constructor(
     private sportsApi: SportsApiService,
@@ -22,6 +23,7 @@ export class ScorecardPopComponent implements OnInit {
       data.golferId,
       Number(data.round)
     );
+    this.imageLink = data.img;
   }
 
   ngOnInit() {

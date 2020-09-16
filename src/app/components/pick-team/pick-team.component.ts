@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IUserGolfPicks, IGolfersGroupPick } from '../../models/models';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -9,22 +9,22 @@ import { AuthService } from '../../services/auth.service';
 import { Messages } from './../../models/constants';
 import { PopupComponent } from './../popup/popup.component';
 import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-pick-team',
   templateUrl: './pick-team.component.html',
   styleUrls: ['./pick-team.component.scss']
 })
-export class PickTeamComponent implements OnInit {
+export class PickTeamComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   picks: IUserGolfPicks;
   answer: string;
+  popupText: string;
+  disableName: boolean;
   golferGrpA: Array<IGolfersGroupPick> = [];
   golferGrpB: Array<IGolfersGroupPick> = [];
   golferGrpC: Array<IGolfersGroupPick> = [];
   isLoading: boolean;
-  golfPicksFg: FormGroup;
   config = new MatSnackBarConfig();
 
   constructor(
@@ -33,75 +33,47 @@ export class PickTeamComponent implements OnInit {
     private snackBar: MatSnackBar,
     private popup: MatDialog,
     private authService: AuthService,
-    private golfDataService: GolfDataStoreService,
-    private formBuilder: FormBuilder
+    private GolfDataService: GolfDataStoreService
   ) {
-    this.initateFormGroup();
+    this.initialize();
   }
 
   ngOnInit(): void {
     this.isLoading = true;
+    this.disableName = false;
     this.getGolferGroupings();
     this.loadUserPicks();
   }
 
-  get picksFormHasError(): boolean {
-    return this.golfPicksFg.invalid;
-  }
-
-  get isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
-  }
-
-  get isActive(): boolean {
-    const apiData = this.sportsApi.getApiData();
-    return this.sportsApi.isTournamentActive(apiData.status);
-  }
-
-  private initateFormGroup(): void {
-    this.golfPicksFg = this.formBuilder.group({
-      golfer1: ['', Validators.required],
-      golfer2: ['', Validators.required],
-      golfer3: ['', Validators.required],
-      golfer4: ['', Validators.required],
-      golfer5: ['', Validators.required],
-      golfer6: ['', Validators.required],
-      golfer7: ['', Validators.required],
-      golfer8: ['', Validators.required],
-      team: ['', Validators.required]
-    });
-  }
-
-  private mapExistingPicks(): void {
-    this.golfPicksFg.setValue({
-      golfer1: this.picks.golfer1,
-      golfer2: this.picks.golfer2,
-      golfer3: this.picks.golfer3,
-      golfer4: this.picks.golfer4,
-      golfer5: this.picks.golfer5,
-      golfer6: this.picks.golfer6,
-      golfer7: this.picks.golfer7,
-      golfer8: this.picks.golfer8,
-      team: this.picks.team
-    });
-    this.golfPicksFg.controls['team'].disable();
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   openPopup(action: string): void {
-    let popupText;
     if (action === 'update') {
-      if (this.picksFormHasError) {
+      if (
+        this.picks.golfer1 == '' ||
+        this.picks.golfer2 == '' ||
+        this.picks.golfer3 == '' ||
+        this.picks.golfer4 == '' ||
+        this.picks.golfer5 == '' ||
+        this.picks.golfer6 == '' ||
+        this.picks.golfer7 == '' ||
+        this.picks.golfer8 == '' ||
+        this.picks.team == ''
+      ) {
         this.openSnackBar(Messages.teamError);
         return;
       }
-      popupText = Messages.submitTeam;
+      this.popupText = Messages.submitTeam;
     } else {
-      popupText = Messages.deleteTeam;
+      this.popupText = Messages.deleteTeam;
     }
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
-    popupConfig.data = { answer: this.answer, text: popupText };
+    popupConfig.data = { answer: this.answer, text: this.popupText };
+
     const dialogRef = this.popup.open(PopupComponent, popupConfig);
 
     dialogRef
@@ -125,11 +97,7 @@ export class PickTeamComponent implements OnInit {
     }
   }
 
-  private validateSubmit(
-    action: string,
-    apiNotReady: boolean,
-    apiData: any
-  ): void {
+  validateSubmit(action: string, apiNotReady: boolean, apiData: any): void {
     let active = false;
     if (!apiNotReady) {
       active = this.sportsApi.isTournamentActive(apiData.status);
@@ -144,10 +112,10 @@ export class PickTeamComponent implements OnInit {
     if (action === 'update') {
       this.picks.eventId = this.sportsApi.getActiveEventId();
       this.picks.email = this.authService.getCurrentUser();
-      this.golfDataService.updateGolferPicks(this.picks);
+      this.GolfDataService.updateGolferPicks(this.picks);
       this.openSnackBar(Messages.teamSuccess);
     } else {
-      this.golfDataService.deleteGolferPicks(this.picks);
+      this.GolfDataService.deleteGolferPicks(this.picks);
       this.openSnackBar(Messages.deleteSuccess);
     }
     this.isLoading = false;
@@ -157,6 +125,15 @@ export class PickTeamComponent implements OnInit {
   openSnackBar(Text: string): void {
     this.config.duration = 2500;
     this.snackBar.open(Text, 'Close', this.config);
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  getActive(): boolean {
+    const apiData = this.sportsApi.getApiData();
+    return this.sportsApi.isTournamentActive(apiData.status);
   }
 
   checkGolferSelected(golferDropDown, currentGolfer): boolean {
@@ -174,17 +151,15 @@ export class PickTeamComponent implements OnInit {
   }
 
   getGolferGroupings() {
-    this.subscription = this.golfDataService
-      .getGolferGroupings()
-      .subscribe((groups) => {
+    this.subscription = this.GolfDataService.getGolferGroupings().subscribe(
+      (groups) => {
         let golferGroupings: Array<any>;
         golferGroupings = groups[0];
         golferGroupings.forEach((groupRecord) => {
           if (groupRecord.eventId == this.sportsApi.getActiveEventId()) {
-            const group: IGolfersGroupPick = {
-              id: groupRecord.golferId,
-              name: groupRecord.name
-            };
+            const group = {} as IGolfersGroupPick;
+            group.id = groupRecord.golferId;
+            group.name = groupRecord.name;
 
             if (groupRecord.group == 'A') {
               this.golferGrpA.push(group);
@@ -195,16 +170,44 @@ export class PickTeamComponent implements OnInit {
             }
           }
         });
-      });
+      }
+    );
+  }
+
+  private initialize(): void {
+    this.picks = {
+      golfer1: '',
+      golfer2: '',
+      golfer3: '',
+      golfer4: '',
+      golfer5: '',
+      golfer6: '',
+      golfer7: '',
+      golfer8: '',
+      eventId: '',
+      team: '',
+      email: ''
+    };
   }
 
   private loadUserPicks(): void {
-    this.golfDataService.loadUserPicks().subscribe((userPicks) => {
-      this.picks = userPicks;
-      if (userPicks) {
-        this.mapExistingPicks();
+    this.subscription = this.GolfDataService.getGolferPicks().subscribe(
+      (golferPicks) => {
+        for (let picksKey in golferPicks) {
+          if (
+            this.authService.getCurrentUser() == golferPicks[picksKey].email
+          ) {
+            if (
+              golferPicks[picksKey].eventId == this.sportsApi.getActiveEventId()
+            ) {
+              this.disableName = true;
+              this.picks = golferPicks[picksKey];
+              break;
+            }
+          }
+        }
+        this.isLoading = false;
       }
-      this.isLoading = false;
-    });
+    );
   }
 }

@@ -303,7 +303,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     popupConfig.autoFocus = true;
     popupConfig.data = {
       golferId: golfer.golferId,
-      round: golfer.round
+      round: golfer.round,
+      img: golfer.imageLink
     };
     const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
     dialogRef.afterClosed().subscribe();
