@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
@@ -38,6 +38,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { GolfDataStoreService } from './services/golf-data-store.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { TournamentLeadersComponent } from './components/tournament-leaders/tournament-leaders.component';
+import { SportsApiService } from './services/sports-api.service';
+
+export function loadInitialData(sportsApi: SportsApiService) {
+  return () =>
+    sportsApi.getGolfScores().subscribe((scores) => {
+      console.log('loading app data');
+    });
+}
 
 @NgModule({
   declarations: [
@@ -80,7 +88,16 @@ import { TournamentLeadersComponent } from './components/tournament-leaders/tour
     MatTableModule,
     MatSortModule
   ],
-  providers: [AuthService, GolfDataStoreService],
+  providers: [
+    AuthService,
+    GolfDataStoreService,
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: loadInitialData,
+      deps: [SportsApiService]
+    }
+  ],
   entryComponents: [PopupComponent, ScorecardPopComponent],
   bootstrap: [AppComponent]
 })

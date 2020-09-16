@@ -12,24 +12,19 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
 export class TournamentLeadersComponent implements OnInit {
   golfers: IPlayer[] = [];
   error: boolean;
-  status: string;
   tournyText = '';
 
   constructor(private sportsApi: SportsApiService, private popup: MatDialog) {}
 
   ngOnInit(): void {
     this.sportsApi.getGolfScores().subscribe(
-      (apiData) => (
-        (this.golfers = apiData.golfers),
-        this.sportsApi.setApiData(apiData),
-        (this.status = apiData.status)
-      ),
+      (apiData) => (this.golfers = apiData.golfers),
       (err) => this.handleError()
     );
   }
 
   get isTournamentActive(): boolean {
-    return this.sportsApi.isTournamentActive(this.status);
+    return this.sportsApi.isTournamentActive();
   }
 
   openPopup(golfer: IPlayer): void {

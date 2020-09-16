@@ -3,7 +3,6 @@ import { IUserGolfPicks, IGolfersGroupPick } from '../../models/models';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { SportsApiService } from '../../services/sports-api.service';
 import { AuthService } from '../../services/auth.service';
 import { Messages } from './../../models/constants';
@@ -38,8 +37,6 @@ export class PickTeamComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.disableName = false;
     this.getGolferGroupings();
     this.loadUserPicks();
   }
@@ -79,26 +76,16 @@ export class PickTeamComponent implements OnInit {
   processData(answer: string, action: string): void {
     this.isLoading = true;
     if (answer === 'Yes') {
-      this.sportsApi.getGolfScores().subscribe(
-        (apiData) => {
-          this.validateSubmit(action, false, apiData);
-        },
-        (err) => {
-          this.validateSubmit(action, true, []);
-        }
-      );
+      this.sportsApi.getGolfScores().subscribe((apiData) => {
+        this.validateSubmit(action, apiData.status);
+      });
     } else {
       this.isLoading = false;
     }
   }
 
-  validateSubmit(action: string, apiNotReady: boolean, apiData: any): void {
-    let active = false;
-    if (!apiNotReady) {
-      active = this.sportsApi.isTournamentActive(apiData.status);
-    }
-
-    if (active) {
+  validateSubmit(action: string, status: string): void {
+    if (this.sportsApi.isTournamentActive(status)) {
       this.openSnackBar(Messages.picksActiveTourny);
       this.isLoading = false;
       return;
@@ -127,8 +114,7 @@ export class PickTeamComponent implements OnInit {
   }
 
   getActive(): boolean {
-    const apiData = this.sportsApi.getApiData();
-    return this.sportsApi.isTournamentActive(apiData.status);
+    return this.sportsApi.isTournamentActive();
   }
 
   checkGolferSelected(golferDropDown, currentGolfer): boolean {
@@ -146,6 +132,8 @@ export class PickTeamComponent implements OnInit {
   }
 
   getGolferGroupings() {
+    this.isLoading = true;
+    this.disableName = false;
     this.golfDataService.getGolferGroupings().subscribe((groups) => {
       groups[0].forEach((groupRecord) => {
         const group: IGolfersGroupPick = {

@@ -100,7 +100,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   buildResults(contestants, tournamentResults: ITournamentResults): void {
-    this.sportsApi.setApiData(tournamentResults);
     this.status = tournamentResults.status;
 
     for (const contestant of contestants) {
@@ -332,7 +331,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   isTournyActive(): boolean {
-    return this.sportsApi.isTournamentActive(this.status);
+    return this.sportsApi.isTournamentActive();
   }
 
   private openSnackBar(): void {

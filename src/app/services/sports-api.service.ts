@@ -20,7 +20,7 @@ import { sortScores } from '../utilities/sorter';
 })
 export class SportsApiService {
   cacheData: any;
-
+  tournamentStatus: string;
   constructor(private service: HttpClient) {}
 
   getGolfScores(): Observable<ITournamentResults> {
@@ -58,6 +58,7 @@ export class SportsApiService {
       golferScores.events[0].competitions[0].status.period;
     tournamentResults.status = golferScores.events[0].status.type.state;
     tournamentResults.golfers = sortScores(golferResults);
+    this.tournamentStatus = tournamentResults.status;
     return tournamentResults;
   }
 
@@ -129,14 +130,6 @@ export class SportsApiService {
     return TournamentConfig.find((data) => data.active).tournyId;
   }
 
-  setApiData(data): void {
-    this.cacheData = data;
-  }
-
-  getApiData() {
-    return this.cacheData;
-  }
-
   getEventEndpoint(): string {
     const tourny = TournamentConfig.find(
       (data) => data.eventId === this.getActiveEventId()
@@ -159,7 +152,8 @@ export class SportsApiService {
     }
   }
 
-  isTournamentActive(status): boolean {
+  isTournamentActive(updatedStatus?: string): boolean {
+    const status = updatedStatus ? updatedStatus : this.tournamentStatus;
     return status !== TournamentStatus.pre;
   }
 
