@@ -43,7 +43,7 @@ import { SportsApiService } from './services/sports-api.service';
 export function loadInitialData(sportsApi: SportsApiService) {
   return () =>
     sportsApi.getGolfScores().subscribe((scores) => {
-      console.log('loading app data');
+      console.log('loading initial golf data');
     });
 }
 

@@ -102,6 +102,10 @@ export class SportsApiService {
   ): IScoreCard {
     const holeScores = playerScorecard.rounds[round - 1].linescores;
     const newScoreCard: IScoreCard = {};
+    const inScore: IHole = { par: 0, score: 0 };
+    const outScore: IHole = { par: 0, score: 0 };
+    const totalScore: IHole = { par: 0, score: 0 };
+
     newScoreCard.playerName = playerScorecard.profile.displayName;
     newScoreCard.imageLink = playerScorecard.profile.headshot;
     //Map holes
@@ -113,11 +117,22 @@ export class SportsApiService {
         indicator: hole.scoreType.displayName
       };
       newScoreCard[`hole${holeIndex}`] = holeScores;
-      newScoreCard.In = holeScores;
-      newScoreCard.Out = holeScores;
-      newScoreCard.Total = holeScores;
+
+      if (holeIndex < 10) {
+        inScore.par = inScore.par + hole.par;
+        inScore.score = playerScorecard.rounds[round - 1].inScore;
+      } else {
+        outScore.par = outScore.par + hole.par;
+        outScore.score = playerScorecard.rounds[round - 1].outScore;
+      }
+
       holeIndex++;
     });
+    totalScore.par = inScore.par + outScore.par;
+    totalScore.score = inScore.score + outScore.score;
+    newScoreCard.In = inScore;
+    newScoreCard.Out = outScore;
+    newScoreCard.Total = totalScore;
 
     return newScoreCard;
   }

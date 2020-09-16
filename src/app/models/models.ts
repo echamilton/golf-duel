@@ -73,8 +73,8 @@ export interface IMsgHandle {
 }
 
 export interface IHole {
-  score?: string;
-  par?: string;
+  score?: number;
+  par?: number;
   indicator?: string;
 }
 
