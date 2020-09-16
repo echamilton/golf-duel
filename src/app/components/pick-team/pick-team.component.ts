@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IUserGolfPicks, IGolfersGroupPick } from '../../models/models';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -15,8 +15,7 @@ import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
   templateUrl: './pick-team.component.html',
   styleUrls: ['./pick-team.component.scss']
 })
-export class PickTeamComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
+export class PickTeamComponent implements OnInit {
   picks: IUserGolfPicks;
   answer: string;
   popupText: string;
@@ -33,7 +32,7 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private popup: MatDialog,
     private authService: AuthService,
-    private GolfDataService: GolfDataStoreService
+    private golfDataService: GolfDataStoreService
   ) {
     this.initialize();
   }
@@ -43,10 +42,6 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     this.disableName = false;
     this.getGolferGroupings();
     this.loadUserPicks();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   openPopup(action: string): void {
@@ -112,10 +107,10 @@ export class PickTeamComponent implements OnInit, OnDestroy {
     if (action === 'update') {
       this.picks.eventId = this.sportsApi.getActiveEventId();
       this.picks.email = this.authService.getCurrentUser();
-      this.GolfDataService.updateGolferPicks(this.picks);
+      this.golfDataService.updateGolferPicks(this.picks);
       this.openSnackBar(Messages.teamSuccess);
     } else {
-      this.GolfDataService.deleteGolferPicks(this.picks);
+      this.golfDataService.deleteGolferPicks(this.picks);
       this.openSnackBar(Messages.deleteSuccess);
     }
     this.isLoading = false;
@@ -151,27 +146,22 @@ export class PickTeamComponent implements OnInit, OnDestroy {
   }
 
   getGolferGroupings() {
-    this.subscription = this.GolfDataService.getGolferGroupings().subscribe(
-      (groups) => {
-        let golferGroupings: Array<any>;
-        golferGroupings = groups[0];
-        golferGroupings.forEach((groupRecord) => {
-          if (groupRecord.eventId == this.sportsApi.getActiveEventId()) {
-            const group = {} as IGolfersGroupPick;
-            group.id = groupRecord.golferId;
-            group.name = groupRecord.name;
+    this.golfDataService.getGolferGroupings().subscribe((groups) => {
+      groups[0].forEach((groupRecord) => {
+        const group: IGolfersGroupPick = {
+          id: groupRecord.golferId,
+          name: groupRecord.name
+        };
 
-            if (groupRecord.group == 'A') {
-              this.golferGrpA.push(group);
-            } else if (groupRecord.group == 'B') {
-              this.golferGrpB.push(group);
-            } else {
-              this.golferGrpC.push(group);
-            }
-          }
-        });
-      }
-    );
+        if (groupRecord.group == 'A') {
+          this.golferGrpA.push(group);
+        } else if (groupRecord.group == 'B') {
+          this.golferGrpB.push(group);
+        } else {
+          this.golferGrpC.push(group);
+        }
+      });
+    });
   }
 
   private initialize(): void {
@@ -191,23 +181,12 @@ export class PickTeamComponent implements OnInit, OnDestroy {
   }
 
   private loadUserPicks(): void {
-    this.subscription = this.GolfDataService.getGolferPicks().subscribe(
-      (golferPicks) => {
-        for (let picksKey in golferPicks) {
-          if (
-            this.authService.getCurrentUser() == golferPicks[picksKey].email
-          ) {
-            if (
-              golferPicks[picksKey].eventId == this.sportsApi.getActiveEventId()
-            ) {
-              this.disableName = true;
-              this.picks = golferPicks[picksKey];
-              break;
-            }
-          }
-        }
-        this.isLoading = false;
+    this.golfDataService.loadUserPicks().subscribe((picks) => {
+      if (picks) {
+        this.disableName = true;
+        this.picks = picks;
       }
-    );
+      this.isLoading = false;
+    });
   }
 }
