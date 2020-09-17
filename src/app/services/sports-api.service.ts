@@ -10,7 +10,8 @@ import {
 import {
   TournamentConfig,
   TournamentStatus,
-  GolferStatus
+  GolferStatus,
+  ScoreValues
 } from '../models/constants';
 import { map, catchError } from 'rxjs/operators';
 import { sortScores } from '../utilities/sorter';
@@ -19,8 +20,8 @@ import { sortScores } from '../utilities/sorter';
   providedIn: 'root'
 })
 export class SportsApiService {
-  cacheData: any;
-  tournamentStatus: string;
+  private tournamentStatus: string;
+  private holeParScores: any[];
   constructor(private service: HttpClient) {}
 
   getGolfScores(): Observable<ITournamentResults> {
@@ -58,7 +59,10 @@ export class SportsApiService {
       golferScores.events[0].competitions[0].status.period;
     tournamentResults.status = golferScores.events[0].status.type.state;
     tournamentResults.golfers = sortScores(golferResults);
+
     this.tournamentStatus = tournamentResults.status;
+    this.holeParScores = golferScores.events[0].courses[0].holes;
+
     return tournamentResults;
   }
 
@@ -108,26 +112,33 @@ export class SportsApiService {
 
     newScoreCard.playerName = playerScorecard.profile.displayName;
     newScoreCard.imageLink = playerScorecard.profile.headshot;
-    //Map holes
-    let holeIndex = 1;
-    holeScores.forEach((hole) => {
-      const holeScores: IHole = {
-        score: hole.value,
-        par: hole.par,
-        indicator: hole.scoreType.displayName
-      };
-      newScoreCard[`hole${holeIndex}`] = holeScores;
 
-      if (holeIndex < 10) {
-        inScore.par = inScore.par + hole.par;
+    //Iterate through each Hole
+    this.holeParScores.forEach((parScore) => {
+      const holeScore = holeScores.find(
+        (hole) => hole.period === parScore.number
+      );
+      const currentHole: IHole = {
+        par: parScore.shotsToPar,
+        score: 0,
+        indicator: ScoreValues.par
+      };
+
+      if (holeScore) {
+        currentHole.indicator = holeScore.scoreType.displayName;
+        currentHole.score = holeScore.value;
+      }
+      newScoreCard[`hole${parScore.number}`] = currentHole;
+
+      if (parScore.number > 9) {
+        inScore.par = inScore.par + parScore.shotsToPar;
         inScore.score = playerScorecard.rounds[round - 1].inScore;
       } else {
-        outScore.par = outScore.par + hole.par;
+        outScore.par = outScore.par + parScore.shotsToPar;
         outScore.score = playerScorecard.rounds[round - 1].outScore;
       }
-
-      holeIndex++;
     });
+
     totalScore.par = inScore.par + outScore.par;
     totalScore.score = inScore.score + outScore.score;
     newScoreCard.In = inScore;
