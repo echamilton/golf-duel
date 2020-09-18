@@ -8,7 +8,7 @@ export class AuthService {
   private user: string;
   constructor(private firebaseAuth: AngularFireAuth) {}
 
-  signup(email: string, password: string) {
+  signup(email: string, password: string): any {
     return new Promise<any>((resolve, reject) => {
       this.firebaseAuth.createUserWithEmailAndPassword(email, password).then(
         (res) => {
@@ -33,6 +33,17 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return this.getCurrentUser() !== null;
+  }
+
+  resetPassword(emailAddress: string ): any{
+    return new Promise<any>((resolve, reject) => {
+      this.firebaseAuth.sendPasswordResetEmail(emailAddress).then(
+        (res) => {
+          resolve(res);
+        },
+        (err) => reject(err)
+      );
+    });
   }
 
   login(email: string, password: string): any {

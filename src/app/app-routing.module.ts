@@ -5,6 +5,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
 import { PickTeamComponent } from './components/pick-team/pick-team.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
+import { PwdResetComponent } from './components/pwd-reset/pwd-reset.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { LoginComponent } from './components/login/login.component';
           { path: 'leader', component: LeaderboardComponent },
           { path: 'signup', component: SignUpComponent },
           { path: 'login', component: LoginComponent },
+          { path: 'reset', component: PwdResetComponent },
           { path: '', redirectTo: 'leader', pathMatch: 'full' }
         ]
       },

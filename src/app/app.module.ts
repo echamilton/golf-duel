@@ -39,6 +39,7 @@ import { GolfDataStoreService } from './services/golf-data-store.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { TournamentLeadersComponent } from './components/tournament-leaders/tournament-leaders.component';
 import { SportsApiService } from './services/sports-api.service';
+import { PwdResetComponent } from './components/pwd-reset/pwd-reset.component';
 
 export function loadInitialData(sportsApi: SportsApiService) {
   return () =>
@@ -58,7 +59,8 @@ export function loadInitialData(sportsApi: SportsApiService) {
     SignUpComponent,
     LoginComponent,
     LoaderComponent,
-    TournamentLeadersComponent
+    TournamentLeadersComponent,
+    PwdResetComponent
   ],
   imports: [
     BrowserModule,
