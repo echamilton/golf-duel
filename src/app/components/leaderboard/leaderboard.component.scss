@@ -28,6 +28,12 @@ tr.team-element-row:not(.team-expanded-row):active {
   overflow: hidden;
   display: flex;
   text-align: left;
+
+  .review_bottom {
+    padding-left: 0px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 .team-element-description-attribution {
   opacity: 0.5;
