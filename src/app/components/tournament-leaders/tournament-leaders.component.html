@@ -6,7 +6,7 @@
       <div>{{ golfer.score }} | {{ golfer.thru }}</div>
     </span>
   </div>
-  <div *ngIf="error" class="error-text">
+  <div *ngIf="!isTournamentActive" class="error-text">
     {{ tournyText }}
   </div>
 </div>

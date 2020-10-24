@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SportsApiService } from '../../services/sports-api.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { IPlayer } from '../../models/models';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
+import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
 
 @Component({
   selector: 'app-tournament-leaders',
@@ -11,20 +11,27 @@ import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component'
 })
 export class TournamentLeadersComponent implements OnInit {
   golfers: IPlayer[] = [];
-  error: boolean;
+  isTournyActive = false;
   tournyText = '';
 
-  constructor(private sportsApi: SportsApiService, private popup: MatDialog) {}
+  constructor(private popup: MatDialog, private golfFacade: GolfStoreFacade) {}
 
   ngOnInit(): void {
-    this.sportsApi.getGolfScores().subscribe(
-      (apiData) => (this.golfers = apiData.golfers),
-      (err) => this.handleError()
-    );
+    this.golfFacade.getTournamentData().subscribe((apiData) => {
+      if (apiData) {
+        if (apiData.isTournamentActive) {
+          this.golfers = apiData.golfers;
+          this.isTournyActive = apiData.isTournamentActive;
+          this.tournyText = '';
+        } else {
+          this.tournyText = `The upcoming tournament will commence shortly`;
+        }
+      }
+    });
   }
 
   get isTournamentActive(): boolean {
-    return this.sportsApi.isTournamentActive();
+    return this.isTournyActive;
   }
 
   openPopup(golfer: IPlayer): void {
@@ -40,10 +47,5 @@ export class TournamentLeadersComponent implements OnInit {
       const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
       dialogRef.afterClosed().subscribe();
     }
-  }
-
-  handleError(): void {
-    this.error = true;
-    this.tournyText = `${this.sportsApi.getEventName()} will commence shortly`;
   }
 }
