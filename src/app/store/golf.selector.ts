@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { IGolfAppState } from './golf.reducer';
-import * as cloneDeep from 'lodash-es/cloneDeep';
+import * as cloneDeep from 'lodash/cloneDeep';
 
 const featureSlice = createFeatureSelector<IGolfAppState>('golfData');
 

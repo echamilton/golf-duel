@@ -52,13 +52,21 @@ export class SportsApiService {
     const espnGolfers = golferScores.events[0].competitions[0].competitors;
     const golferResults = [];
     const tournamentResults: ITournamentResults = {};
+
+    //Golfer Scores
     espnGolfers.forEach((espnGolfer) => {
       golferResults.push(this.mapGolferScoreInfo(espnGolfer));
     });
+
+    //Tournament Details
     tournamentResults.round =
       golferScores.events[0].competitions[0].status.period;
     tournamentResults.status = golferScores.events[0].status.type.state;
     tournamentResults.golfers = sortScores(golferResults);
+    tournamentResults.eventId = this.getActiveEventId();
+    tournamentResults.isTournamentActive = this.isTournamentActive(
+      tournamentResults.status
+    );
 
     this.tournamentStatus = tournamentResults.status;
     this.holeParScores = golferScores.events[0].courses[0].holes;
@@ -77,6 +85,7 @@ export class SportsApiService {
       thru: espnGolfer.status.thru,
       round: espnGolfer.status.period,
       score: score,
+      isActive: false,
       status:
         espnGolfer.status.displayValue === GolferStatus.cut
           ? GolferStatus.cut
@@ -85,6 +94,7 @@ export class SportsApiService {
         ? espnGolfer.athlete.headshot.href
         : espnGolfer.athlete.flag.href
     };
+    golfer.isActive = this.isGolferActive(golfer.status);
     return golfer;
   }
 
