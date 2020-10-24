@@ -25,8 +25,10 @@ export interface IGolfersGroupPick {
 }
 
 export interface ITournamentResults {
+  eventId?: string;
   round?: string;
   status?: string;
+  isTournamentActive?: boolean;
   golfers?: IPlayer[];
 }
 
@@ -40,6 +42,7 @@ export interface IPlayer {
   ownPct?: number;
   round?: string;
   status?: string;
+  isActive?: boolean;
   thru?: string;
   imageLink?: string;
 }

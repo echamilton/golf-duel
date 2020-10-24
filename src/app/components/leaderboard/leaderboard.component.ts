@@ -16,7 +16,6 @@ import {
   ITournamentResults,
   IUserGolfPicks
 } from '../../models/models';
-import { SportsApiService } from '../../services/sports-api.service';
 import {
   Messages,
   LeaderColumns,
@@ -25,6 +24,7 @@ import {
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 import { sortScores } from './../../utilities/sorter';
 import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
+import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
 
 @Component({
   selector: 'app-leader',
@@ -47,14 +47,14 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   dataSource: any[];
   fantasyLeaders: Array<ILeaderResults> = [];
   ownPct: Array<IOwnershipPerGolfer> = [];
-  status: string;
   config = new MatSnackBarConfig();
+  isTournyActive = false;
 
   constructor(
     private popup: MatDialog,
-    private sportsApi: SportsApiService,
     private golfDataStoreService: GolfDataStoreService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private golfFacade: GolfStoreFacade
   ) {}
 
   ngOnInit(): void {
@@ -73,15 +73,18 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     return GolferStatus.cut;
   }
 
+  get isTournamentActive(): boolean {
+    return this.isTournyActive;
+  }
+
   getGolferLeaderBoard(contestants): void {
-    this.sportsApi.getGolfScores().subscribe(
-      (tournamentResults: ITournamentResults) => {
-        this.buildResults(contestants, tournamentResults);
-      },
-      (err) => {
-        this.default(err, contestants);
-      }
-    );
+    this.golfFacade
+      .getTournamentData()
+      .subscribe((tournamentResults: ITournamentResults) => {
+        if (tournamentResults) {
+          this.buildResults(contestants, tournamentResults);
+        }
+      });
   }
 
   updatePercentageOwned(playerPick: IPlayer): void {
@@ -100,10 +103,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   buildResults(contestants, tournamentResults: ITournamentResults): void {
-    this.status = tournamentResults.status;
+    this.isTournyActive = tournamentResults.isTournamentActive;
 
     for (const contestant of contestants) {
-      if (contestant.eventId !== this.sportsApi.getActiveEventId()) {
+      if (contestant.eventId !== tournamentResults.eventId) {
         continue;
       }
       const fantasyLeader: ILeaderResults = {
@@ -127,10 +130,10 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       let remain = 0;
       sortScores(contestantPicks);
 
-      if (this.isTournyActive()) {
+      if (this.isTournyActive) {
         fantasyLeader.golfers = [];
         for (const pick of contestantPicks) {
-          if (this.sportsApi.isGolferActive(pick.status)) {
+          if (pick.isActive) {
             if (i < 5) {
               i++;
               fantasyLeader.score = +fantasyLeader.score + +pick.score;
@@ -292,7 +295,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   }
 
   openPopup(golfer: IPlayer): void {
-    if (!this.sportsApi.isGolferActive(status)) {
+    if (!golfer.isActive) {
       this.openSnackBar();
       return;
     }
@@ -307,31 +310,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     };
     const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
     dialogRef.afterClosed().subscribe();
-  }
-
-  default(err, contestants): void {
-    for (const userPick of contestants) {
-      if (userPick.eventId !== this.sportsApi.getActiveEventId()) {
-        continue;
-      }
-      const fantasyLeader = {} as ILeaderResults;
-      fantasyLeader.team = userPick.team;
-      fantasyLeader.holesRemain = 360;
-      fantasyLeader.golfersRemain = 8;
-      fantasyLeader.score = 99;
-      fantasyLeader.golfers = [];
-      this.fantasyLeaders.push(fantasyLeader);
-
-      if (this.fantasyLeaders.length > 0) {
-        this.fantasyLeaders = sortScores(this.fantasyLeaders);
-      }
-      this.dataSource = this.fantasyLeaders;
-      this.rankEntries();
-    }
-  }
-
-  isTournyActive(): boolean {
-    return this.sportsApi.isTournamentActive();
   }
 
   private openSnackBar(): void {

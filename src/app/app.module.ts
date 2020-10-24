@@ -35,17 +35,18 @@ import { ScorecardPopComponent } from './components/scorecard-pop/scorecard-pop.
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { GolfDataStoreService } from './services/golf-data-store.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { TournamentLeadersComponent } from './components/tournament-leaders/tournament-leaders.component';
-import { SportsApiService } from './services/sports-api.service';
 import { PwdResetComponent } from './components/pwd-reset/pwd-reset.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducer } from './store/golf.reducer';
+import { UserEffects } from './store/golf.effects';
+import { GolfStoreFacade } from './store/golf.store.facade';
+import { EffectsModule } from '@ngrx/effects';
 
-export function loadInitialData(sportsApi: SportsApiService) {
-  return () =>
-    sportsApi.getGolfScores().subscribe((scores) => {
-      console.log('loading initial golf data');
-    });
+export function loadInitialData(golfStoreFacade: GolfStoreFacade) {
+  return () => golfStoreFacade.loadTournamentData();
 }
 
 @NgModule({
@@ -88,16 +89,20 @@ export function loadInitialData(sportsApi: SportsApiService) {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    StoreModule.forRoot({ golfData: reducer }),
+    EffectsModule.forRoot([UserEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 50
+    })
   ],
   providers: [
     AuthService,
-    GolfDataStoreService,
     {
       provide: APP_INITIALIZER,
       multi: true,
       useFactory: loadInitialData,
-      deps: [SportsApiService]
+      deps: [GolfStoreFacade]
     }
   ],
   entryComponents: [PopupComponent, ScorecardPopComponent],
