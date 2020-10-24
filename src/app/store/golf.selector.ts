@@ -1,10 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { IGolfAppState } from './golf.reducer';
+import * as cloneDeep from 'lodash-es/cloneDeep';
 
 const featureSlice = createFeatureSelector<IGolfAppState>('golfData');
 
 export const getGolfTournamentData = createSelector(featureSlice, (state) => {
-  return state.tournamentData;
+  return cloneDeep(state.tournamentData);
 });
 
 export const getIsTournamentLoading = createSelector(featureSlice, (state) => {
