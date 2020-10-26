@@ -109,8 +109,6 @@ export class LeaderboardComponent implements OnInit {
       /**This is where we will check how many active golfers are left */
       let i = 0;
       let remain = 0;
-      sortScores(contestantPicks);
-
       if (this.isTournyActive) {
         fantasyLeader.golfers = [];
         for (const pick of contestantPicks) {
@@ -168,6 +166,7 @@ export class LeaderboardComponent implements OnInit {
       }
       i++;
     }
+    sortScores(contestantPicks);
     return contestantPicks;
   }
 
