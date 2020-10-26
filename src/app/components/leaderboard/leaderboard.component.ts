@@ -90,9 +90,6 @@ export class LeaderboardComponent implements OnInit {
     this.isTournyActive = tournamentResults.isTournamentActive;
 
     for (const contestant of contestants) {
-      if (contestant.eventId !== tournamentResults.eventId) {
-        continue;
-      }
       const fantasyLeader: ILeaderResults = {
         position: 0,
         team: contestant.team,

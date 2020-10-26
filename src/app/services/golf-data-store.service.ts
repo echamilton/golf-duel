@@ -23,7 +23,17 @@ export class GolfDataStoreService {
   }
 
   getGolferPicks(): Observable<any> {
-    return this.fireDb.list<IUserGolfPicks>('myGolfers').valueChanges();
+    return this.fireDb
+      .list<IUserGolfPicks>('myGolfers')
+      .valueChanges()
+      .pipe(
+        map((contestants: IUserGolfPicks[]) => {
+          const filteredContestants = contestants.filter(
+            (record) => record.eventId === this.sportsApi.getActiveEventId()
+          );
+          return filteredContestants;
+        })
+      );
   }
 
   loadUserPicks(): Observable<IUserGolfPicks> {
