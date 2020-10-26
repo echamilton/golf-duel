@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   animate,
   state,
@@ -6,8 +6,6 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import {
   IOwnershipPerGolfer,
@@ -16,12 +14,7 @@ import {
   ITournamentResults,
   IUserGolfPicks
 } from '../../models/models';
-import {
-  Messages,
-  LeaderColumns,
-  GolferStatus
-} from './../../models/constants';
-import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
+import { LeaderColumns } from './../../models/constants';
 import { sortScores } from './../../utilities/sorter';
 import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
 import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
@@ -41,19 +34,16 @@ import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
     ])
   ]
 })
-export class LeaderboardComponent implements OnInit, OnDestroy {
+export class LeaderboardComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   expandedElement: ILeaderResults | null;
   dataSource: any[];
   fantasyLeaders: Array<ILeaderResults> = [];
   ownPct: Array<IOwnershipPerGolfer> = [];
-  config = new MatSnackBarConfig();
   isTournyActive = false;
 
   constructor(
-    private popup: MatDialog,
     private golfDataStoreService: GolfDataStoreService,
-    private snackBar: MatSnackBar,
     private golfFacade: GolfStoreFacade
   ) {}
 
@@ -63,14 +53,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {}
-
   get tableColumns(): String[] {
     return LeaderColumns;
-  }
-
-  get golferCutStatus(): string {
-    return GolferStatus.cut;
   }
 
   get isTournamentActive(): boolean {
@@ -172,79 +156,20 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     contestant: IUserGolfPicks,
     tournyResults: ITournamentResults
   ): IPlayer[] {
-    let pgaPlayer = {} as any;
     const contestantPicks = [];
 
-    // Golfer1
-    pgaPlayer = tournyResults.golfers.find(
-      (player: IPlayer) => player.golferId == contestant.golfer1.toString()
-    );
-    if (pgaPlayer) {
-      contestantPicks.push(pgaPlayer);
-      this.updatePercentageOwned(pgaPlayer);
-    }
-
-    // Golfer2
-    pgaPlayer = tournyResults.golfers.find(
-      (player) => player.golferId == contestant.golfer2.toString()
-    );
-    if (pgaPlayer) {
-      contestantPicks.push(pgaPlayer);
-      this.updatePercentageOwned(pgaPlayer);
-    }
-
-    // Golfer3
-    pgaPlayer = tournyResults.golfers.find(
-      (player) => player.golferId == contestant.golfer3.toString()
-    );
-    if (pgaPlayer) {
-      contestantPicks.push(pgaPlayer);
-      this.updatePercentageOwned(pgaPlayer);
-    }
-
-    // Golfer4
-    pgaPlayer = tournyResults.golfers.find(
-      (player) => player.golferId == contestant.golfer4.toString()
-    );
-    if (pgaPlayer) {
-      contestantPicks.push(pgaPlayer);
-      this.updatePercentageOwned(pgaPlayer);
-    }
-
-    // Golfer5
-    pgaPlayer = tournyResults.golfers.find(
-      (player) => player.golferId == contestant.golfer5.toString()
-    );
-    if (pgaPlayer) {
-      contestantPicks.push(pgaPlayer);
-      this.updatePercentageOwned(pgaPlayer);
-    }
-
-    // Golfer6
-    pgaPlayer = tournyResults.golfers.find(
-      (player) => player.golferId == contestant.golfer6.toString()
-    );
-    if (pgaPlayer) {
-      contestantPicks.push(pgaPlayer);
-      this.updatePercentageOwned(pgaPlayer);
-    }
-
-    // Golfer7
-    pgaPlayer = tournyResults.golfers.find(
-      (player) => player.golferId === contestant.golfer7.toString()
-    );
-    if (pgaPlayer) {
-      contestantPicks.push(pgaPlayer);
-      this.updatePercentageOwned(pgaPlayer);
-    }
-
-    // Golfer8
-    pgaPlayer = tournyResults.golfers.find(
-      (player) => player.golferId === contestant.golfer8.toString()
-    );
-    if (pgaPlayer) {
-      contestantPicks.push(pgaPlayer);
-      this.updatePercentageOwned(pgaPlayer);
+    let i = 1;
+    while (i <= 8) {
+      const golferIndetifier = `golfer${i}`;
+      const pgaPlayer = tournyResults.golfers.find(
+        (player: IPlayer) =>
+          player.golferId == contestant[golferIndetifier].toString()
+      );
+      if (pgaPlayer) {
+        contestantPicks.push(pgaPlayer);
+        this.updatePercentageOwned(pgaPlayer);
+      }
+      i++;
     }
     return contestantPicks;
   }
@@ -292,29 +217,5 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
       holesRemain = 4 * holeMutiplier;
     }
     return holesRemain;
-  }
-
-  openPopup(golfer: IPlayer): void {
-    if (!golfer.isActive) {
-      this.openSnackBar();
-      return;
-    }
-
-    const popupConfig = new MatDialogConfig();
-    popupConfig.disableClose = false;
-    popupConfig.autoFocus = true;
-    popupConfig.data = {
-      golferId: golfer.golferId,
-      round: golfer.round,
-      img: golfer.imageLink
-    };
-    const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
-    dialogRef.afterClosed().subscribe();
-  }
-
-  private openSnackBar(): void {
-    const text = Messages.golferCut;
-    this.config.duration = 2500;
-    this.snackBar.open(text, 'Close', this.config);
   }
 }

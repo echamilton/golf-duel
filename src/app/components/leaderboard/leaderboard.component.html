@@ -46,39 +46,7 @@
           "
         >
           <ul class="review_bottom">
-            <ng-container *ngFor="let golfer of element.golfers">
-              <div class="container-fluid" (click)="openPopup(golfer)">
-                <div class="stats-container">
-                  <img class="pic" src="{{ golfer.imageLink }}" />
-                  <span
-                    class="score"
-                    *ngIf="
-                      golfer.status !== golferCutStatus && golfer.score != 0
-                    "
-                    >{{ golfer.score }}</span
-                  >
-                  <span
-                    class="score"
-                    *ngIf="
-                      golfer.status !== golferCutStatus && golfer.score == 0
-                    "
-                    >E</span
-                  >
-                  <span class="score" *ngIf="golfer.status === golferCutStatus"
-                    >C</span
-                  >
-                  <span class="golfer-name">{{ golfer.name }}</span>
-                  <p class="summary" *ngIf="golfer.status !== golferCutStatus">
-                    {{ golfer.thru }} | Owned
-                    {{ golfer.ownPct | number: '1.0-0' }}%
-                  </p>
-                  <p class="summary" *ngIf="golfer.status === golferCutStatus">
-                    Owned {{ golfer.ownPct | number: '1.0-0' }}%
-                  </p>
-                </div>
-              </div>
-              <mat-divider></mat-divider>
-            </ng-container>
+            <app-leader-picks [golfers]="element.golfers"></app-leader-picks>
             <div *ngIf="element.golfers?.length == 0">
               Picks will show when tournament starts
             </div>

@@ -1,0 +1,48 @@
+.stats-container {
+  background: black;
+  position: center;
+  left: 0;
+  width: 235px;
+  height: 30px;
+  padding-top: 7px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 18px;
+}
+.stats-container .golfer-name {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 11px;
+  color: white;
+}
+.stats-container .summary {
+  font-size: 11px;
+  color: #45d3e6;
+  font-weight: 400;
+  margin-left: 48px;
+}
+.stats-container .score {
+  float: right;
+  color: #45d3e6;
+  font-size: 1.75em;
+  font-weight: 500;
+  width: 1.85em;
+  margin-right: -25px;
+  height: 44px;
+  margin-top: -7px;
+  background: #030303;
+  padding-left: 1px;
+  padding-right: 1px;
+  text-align: center;
+  padding-top: 11px;
+}
+
+.stats-container .pic {
+  float: left;
+  background-color: black;
+  margin-left: -25px;
+  margin-top: -7px;
+  padding: 3px;
+  height: 48px;
+  width: 55px;
+}

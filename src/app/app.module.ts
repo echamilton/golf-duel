@@ -34,6 +34,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ScorecardPopComponent } from './components/scorecard-pop/scorecard-pop.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
+import { LeaderboardPicksComponent } from './components/leaderboard-picks/leaderboard-picks.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoaderComponent } from './components/loader/loader.component';
 import { TournamentLeadersComponent } from './components/tournament-leaders/tournament-leaders.component';
@@ -61,6 +62,7 @@ export function loadInitialData(golfStoreFacade: GolfStoreFacade) {
     LoginComponent,
     LoaderComponent,
     TournamentLeadersComponent,
+    LeaderboardPicksComponent,
     PwdResetComponent
   ],
   imports: [
