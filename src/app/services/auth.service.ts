@@ -35,7 +35,7 @@ export class AuthService {
     return this.getCurrentUser() !== null;
   }
 
-  resetPassword(emailAddress: string ): any{
+  resetPassword(emailAddress: string): any {
     return new Promise<any>((resolve, reject) => {
       this.firebaseAuth.sendPasswordResetEmail(emailAddress).then(
         (res) => {
