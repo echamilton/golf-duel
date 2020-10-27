@@ -15,7 +15,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -91,7 +90,6 @@ export function loadInitialData(golfStoreFacade: GolfStoreFacade) {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     MatTableModule,
-    MatSortModule,
     StoreModule.forRoot({ golfData: reducer }),
     EffectsModule.forRoot([UserEffects]),
     StoreDevtoolsModule.instrument({

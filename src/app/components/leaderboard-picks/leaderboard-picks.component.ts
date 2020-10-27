@@ -28,7 +28,6 @@ export class LeaderboardPicksComponent implements OnInit {
     }
 
     const popupConfig = new MatDialogConfig();
-    popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
     popupConfig.data = {
       golferId: golfer.golferId,
@@ -40,8 +39,7 @@ export class LeaderboardPicksComponent implements OnInit {
   }
 
   private openSnackBar(): void {
-    const text = Messages.golferCut;
     this.config.duration = 2500;
-    this.snackBar.open(text, 'Close', this.config);
+    this.snackBar.open(Messages.golferCut, 'Close', this.config);
   }
 }
