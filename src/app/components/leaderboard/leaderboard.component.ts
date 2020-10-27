@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   animate,
   state,
@@ -6,7 +6,6 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import { MatSort } from '@angular/material/sort';
 import {
   IOwnershipPerGolfer,
   IPlayer,
@@ -20,7 +19,7 @@ import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
 import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
 
 @Component({
-  selector: 'app-leader',
+  selector: 'app-leaderboard',
   styleUrls: ['leaderboard.component.scss'],
   templateUrl: 'leaderboard.component.html',
   animations: [
@@ -35,7 +34,6 @@ import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
   ]
 })
 export class LeaderboardComponent implements OnInit {
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
   expandedElement: ILeaderResults | null;
   dataSource: any[];
   fantasyLeaders: Array<ILeaderResults> = [];
