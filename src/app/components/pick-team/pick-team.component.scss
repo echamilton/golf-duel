@@ -33,11 +33,10 @@
 mat-card {
   mat-card-header {
     justify-content: center;
-    .mat-card-header-text {
-      margin: 0px !important;
+    .message {
+      margin-top: 3.125em !important;
+      margin-bottom: 3.125em !important;
     }
-    margin-top: 3.125em !important;
-    margin-bottom: 3.125em !important;
   }
 }
 

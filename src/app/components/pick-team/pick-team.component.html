@@ -179,15 +179,17 @@
       </mat-card-content>
     </ng-container>
     <ng-container *ngIf="getActive()">
-      <mat-card-header class="test">
-        <mat-card-content>
+      <mat-card-header>
+        <mat-card-content class="message">
           Tournament is currently in progress!
         </mat-card-content>
       </mat-card-header>
     </ng-container>
     <ng-container *ngIf="!getActive() && !isLoggedIn()">
-      <mat-card-header class="test">
-        <mat-card-content> Login to view or make picks! </mat-card-content>
+      <mat-card-header>
+        <mat-card-content class="message">
+          Login to view or make picks!
+        </mat-card-content>
       </mat-card-header>
     </ng-container>
   </mat-card>
