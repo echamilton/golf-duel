@@ -7,7 +7,7 @@ import { SportsApiService } from '../../services/sports-api.service';
 import { AuthService } from '../../services/auth.service';
 import { Messages } from './../../models/constants';
 import { PopupComponent } from './../popup/popup.component';
-import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
+import { GolfDataStoreService } from './../../services/golf-data-store.service';
 
 @Component({
   selector: 'app-pick-team',

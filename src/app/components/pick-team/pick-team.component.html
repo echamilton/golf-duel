@@ -8,7 +8,7 @@
         </div>
       </mat-card-content>
       <mat-card-content *ngIf="!isLoading">
-        <div style="text-align: center;">
+        <div style="text-align: center">
           <mat-form-field>
             <input
               matInput
@@ -22,7 +22,7 @@
           </mat-form-field>
         </div>
         <h4>Group A</h4>
-        <div style="text-align: center;">
+        <div style="text-align: center">
           <mat-form-field>
             <mat-select
               required
@@ -59,7 +59,7 @@
 
         <!-- Group B Golfers -->
         <h4>Group B</h4>
-        <div style="text-align: center;">
+        <div style="text-align: center">
           <mat-form-field>
             <mat-select
               required
@@ -96,7 +96,7 @@
 
         <!-- Group C Golfers -->
         <h4>Group C</h4>
-        <div style="text-align: center;">
+        <div style="text-align: center">
           <mat-form-field>
             <mat-select
               required
@@ -163,7 +163,7 @@
           </mat-form-field>
         </div>
 
-        <div style="text-align: center;">
+        <div style="text-align: center">
           <button mat-raised-button (click)="openPopup('update')">
             Submit Team
           </button>
@@ -179,17 +179,15 @@
       </mat-card-content>
     </ng-container>
     <ng-container *ngIf="getActive()">
-      <mat-card-header>
-        <mat-card-content class="message">
+      <mat-card-header class="test">
+        <mat-card-content>
           Tournament is currently in progress!
         </mat-card-content>
       </mat-card-header>
     </ng-container>
     <ng-container *ngIf="!getActive() && !isLoggedIn()">
-      <mat-card-header>
-        <mat-card-content class="message">
-          Login to view or make picks!
-        </mat-card-content>
+      <mat-card-header class="test">
+        <mat-card-content> Login to view or make picks! </mat-card-content>
       </mat-card-header>
     </ng-container>
   </mat-card>
