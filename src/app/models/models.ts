@@ -106,3 +106,8 @@ export interface IScoreCard {
   Out?: IHole;
   Total?: IHole;
 }
+
+export interface IScoreColor {
+  score: string;
+  color: string;
+}

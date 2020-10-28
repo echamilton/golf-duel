@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SportsApiService } from '../../services/sports-api.service';
 import { IScoreCard } from '../../models/models';
-import { ScoreValues } from './../../models/constants';
+import { ScoreValueColors } from './../../models/constants';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./scorecard-pop.component.scss']
 })
 export class ScorecardPopComponent implements OnInit {
-  loading: boolean;
   scorecard$: Observable<IScoreCard>;
   imageLink: string;
 
@@ -26,42 +25,12 @@ export class ScorecardPopComponent implements OnInit {
     this.imageLink = data.img;
   }
 
-  ngOnInit() {
-    this.loading = true;
-  }
+  ngOnInit() {}
 
   getColor(score) {
-    let color: string;
-    switch (score) {
-      case ScoreValues.par: {
-        color = 'black';
-        break;
-      }
-      case ScoreValues.birdie: {
-        color = 'blue';
-        break;
-      }
-      case ScoreValues.bogey: {
-        color = 'red';
-        break;
-      }
-      case ScoreValues.eagle: {
-        color = 'green';
-        break;
-      }
-      case ScoreValues.double: {
-        color = 'purple';
-        break;
-      }
-      case ScoreValues.noScore: {
-        color = 'black';
-        break;
-      }
-      default: {
-        color = 'purple';
-        break;
-      }
-    }
-    return color;
+    const scoreColor = ScoreValueColors.find(
+      (scoreRecord) => scoreRecord.score === score
+    );
+    return scoreColor ? scoreColor.color : 'purple';
   }
 }

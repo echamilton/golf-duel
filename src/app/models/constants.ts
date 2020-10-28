@@ -1,4 +1,4 @@
-import { ITournament } from './models';
+import { ITournament, IScoreColor } from './models';
 
 export const TournamentConfig: ITournament[] = [
   {
@@ -33,8 +33,6 @@ export const TournamentConfig: ITournament[] = [
   }
 ];
 
-// 401219478
-
 export const AppTitle = '443 Fantasy Golf';
 
 export enum ScoreValues {
@@ -46,6 +44,15 @@ export enum ScoreValues {
   bogey = 'Bogey',
   noScore = 'NOSCORE'
 }
+
+export const ScoreValueColors: IScoreColor[] = [
+  { score: ScoreValues.par, color: 'black' },
+  { score: ScoreValues.birdie, color: 'blue' },
+  { score: ScoreValues.bogey, color: 'red' },
+  { score: ScoreValues.eagle, color: 'green' },
+  { score: ScoreValues.double, color: 'purple' },
+  { score: ScoreValues.noScore, color: 'black' }
+];
 
 export enum GolferStatus {
   cut = 'CUT',
