@@ -25,6 +25,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
 import { HttpClientModule } from '@angular/common/http';
+import { GolferPicksComponent } from './components/golfer-picks/golfer-picks.component';
 import { environment } from '../environments/environment';
 import { PickTeamComponent } from './components/pick-team/pick-team.component';
 import { PopupComponent } from './components/popup/popup.component';
@@ -62,6 +63,7 @@ export function loadInitialData(golfStoreFacade: GolfStoreFacade) {
     LoaderComponent,
     TournamentLeadersComponent,
     LeaderboardPicksComponent,
+    GolferPicksComponent,
     PwdResetComponent
   ],
   imports: [
