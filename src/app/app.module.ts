@@ -50,6 +50,10 @@ export function loadInitialData(golfStoreFacade: GolfStoreFacade) {
   return () => golfStoreFacade.loadTournamentData();
 }
 
+export function loadGolfGroups(golfStoreFacade: GolfStoreFacade) {
+  return () => golfStoreFacade.loadGolferGroupings();
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,6 +108,12 @@ export function loadInitialData(golfStoreFacade: GolfStoreFacade) {
       provide: APP_INITIALIZER,
       multi: true,
       useFactory: loadInitialData,
+      deps: [GolfStoreFacade]
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: loadGolfGroups,
       deps: [GolfStoreFacade]
     }
   ],

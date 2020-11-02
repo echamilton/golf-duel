@@ -32,6 +32,12 @@ export interface ITournamentResults {
   golfers?: IPlayer[];
 }
 
+export interface IGolferGroupingsUI {
+  groupA?: IGolfersGroupPick[];
+  groupB?: IGolfersGroupPick[];
+  groupC?: IGolfersGroupPick[];
+}
+
 export interface IPlayer {
   name?: string;
   score?: number;

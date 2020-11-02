@@ -8,6 +8,10 @@ export const getGolfTournamentData = createSelector(featureSlice, (state) => {
   return cloneDeep(state.tournamentData);
 });
 
+export const getGolferGroups = createSelector(featureSlice, (state) => {
+  return cloneDeep(state.golferGroupings);
+});
+
 export const getIsTournamentLoading = createSelector(featureSlice, (state) => {
   return state.isLoading;
 });

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ITournamentResults } from '../models/models';
-import { GetTournamentLoad } from './golf.actions';
-import { getGolfTournamentData } from './golf.selector';
+import { IGolferGroupingsUI, ITournamentResults } from '../models/models';
+import { GetGolferGroupings, GetTournamentLoad } from './golf.actions';
+import { getGolferGroups, getGolfTournamentData } from './golf.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +17,13 @@ export class GolfStoreFacade {
 
   getTournamentData(): Observable<ITournamentResults> {
     return this.store.pipe(select(getGolfTournamentData));
+  }
+
+  getGolferGroups(): Observable<IGolferGroupingsUI> {
+    return this.store.pipe(select(getGolferGroups));
+  }
+
+  loadGolferGroupings(): void {
+    this.store.dispatch(new GetGolferGroupings());
   }
 }

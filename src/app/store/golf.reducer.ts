@@ -1,14 +1,18 @@
-import { ITournamentResults } from './../models/models';
+import { IGolferGroupingsUI, ITournamentResults } from './../models/models';
 import { GolfActions, GolfActionTypes } from './golf.actions';
 
 export interface IGolfAppState {
   tournamentData: ITournamentResults;
   isLoading: boolean;
+  golferGroupings: IGolferGroupingsUI;
+  isLoadingGroups: boolean;
 }
 
 export const INITIAL_STORE_STATE: IGolfAppState = {
   tournamentData: null,
-  isLoading: false
+  isLoading: false,
+  golferGroupings: null,
+  isLoadingGroups: false
 };
 
 export function reducer(
@@ -28,6 +32,19 @@ export function reducer(
         ...state,
         tournamentData: action.payload,
         isLoading: false
+      };
+    }
+    case GolfActionTypes.GetGolferGroupings: {
+      return {
+        ...state,
+        isLoadingGroups: true
+      };
+    }
+    case GolfActionTypes.GetGolferGroupingsComp: {
+      return {
+        ...state,
+        isLoadingGroups: false,
+        golferGroupings: action.payload
       };
     }
     default:
