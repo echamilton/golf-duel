@@ -19,7 +19,14 @@ export class GolfDataStoreService {
 
   getGolferGroupings(): Observable<any> {
     const entityName = TournamentConfig.find((data) => data.active).groupName;
-    return this.fireDb.list<IGolferGrouping>(entityName).valueChanges();
+    return this.fireDb
+      .list<IGolferGrouping>(entityName)
+      .valueChanges()
+      .pipe(
+        map((groupings) => {
+          return groupings[0];
+        })
+      );
   }
 
   getGolferPicks(): Observable<any> {
