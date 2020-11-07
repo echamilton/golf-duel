@@ -194,6 +194,6 @@ export class SportsApiService {
   }
 
   isGolferActive(status): boolean {
-    return status !== GolferStatus.cut;
+    return status !== GolferStatus.cut && status !== GolferStatus.withdrawn;
   }
 }

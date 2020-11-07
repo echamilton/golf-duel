@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IGolferGroupingsUI, ITournamentResults } from '../models/models';
 import { GetGolferGroupings, GetTournamentLoad } from './golf.actions';
 import { getGolferGroups, getGolfTournamentData } from './golf.selector';
+import * as cloneDeep from 'lodash/cloneDeep';
 
 @Injectable({
   providedIn: 'root'

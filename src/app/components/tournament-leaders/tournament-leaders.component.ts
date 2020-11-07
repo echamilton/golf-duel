@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { IPlayer } from '../../models/models';
+import { IPlayer, ITournamentResults } from '../../models/models';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
 
@@ -17,17 +17,19 @@ export class TournamentLeadersComponent implements OnInit {
   constructor(private popup: MatDialog, private golfFacade: GolfStoreFacade) {}
 
   ngOnInit(): void {
-    this.golfFacade.getTournamentData().subscribe((apiData) => {
-      if (apiData) {
-        if (apiData.isTournamentActive) {
-          this.golfers = apiData.golfers;
-          this.isTournyActive = apiData.isTournamentActive;
-          this.tournyText = '';
-        } else {
-          this.tournyText = `The upcoming tournament will commence shortly`;
+    this.golfFacade
+      .getTournamentData()
+      .subscribe((tournamentResults: ITournamentResults) => {
+        if (tournamentResults) {
+          if (tournamentResults.isTournamentActive) {
+            this.golfers = tournamentResults.golfers;
+            this.isTournyActive = tournamentResults.isTournamentActive;
+            this.tournyText = '';
+          } else {
+            this.tournyText = `The upcoming tournament will commence shortly`;
+          }
         }
-      }
-    });
+      });
   }
 
   get isTournamentActive(): boolean {
@@ -35,7 +37,7 @@ export class TournamentLeadersComponent implements OnInit {
   }
 
   openPopup(golfer: IPlayer): void {
-    if (this.isTournamentActive) {
+    if (this.isTournamentActive && golfer.isActive) {
       const popupConfig = new MatDialogConfig();
       popupConfig.disableClose = false;
       popupConfig.autoFocus = true;

@@ -56,7 +56,8 @@ export const ScoreValueColors: IScoreColor[] = [
 
 export enum GolferStatus {
   cut = 'CUT',
-  active = 'ACTIVE'
+  active = 'ACTIVE',
+  withdrawn = 'WD'
 }
 
 export const LeaderColumns: string[] = [
