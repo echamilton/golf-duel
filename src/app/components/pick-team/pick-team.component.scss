@@ -20,8 +20,8 @@
   margin-left: 10px;
 }
 .spinner {
-  position: relative;
-  margin-left: 32%;
+  justify-content: center;
+  display: flex;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   select,
