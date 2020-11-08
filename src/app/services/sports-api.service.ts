@@ -87,7 +87,8 @@ export class SportsApiService {
       score: score,
       isActive: false,
       status:
-        espnGolfer.status.displayValue === GolferStatus.cut
+        espnGolfer.status.displayValue === GolferStatus.cut ||
+        espnGolfer.status.displayValue === GolferStatus.withdrawn
           ? GolferStatus.cut
           : GolferStatus.active,
       imageLink: espnGolfer.athlete.headshot
