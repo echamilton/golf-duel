@@ -52,7 +52,7 @@ export class GolferPicksComponent implements OnInit, OnChanges {
   }
 
   private initialize(): void {
-    if (this.picks) {
+    if (this.picks.team != '') {
       this.disableName = true;
     }
   }
