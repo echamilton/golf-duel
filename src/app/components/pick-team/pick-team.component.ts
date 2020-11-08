@@ -23,6 +23,7 @@ export class PickTeamComponent implements OnInit {
   isLoading: boolean;
   config = new MatSnackBarConfig();
   golferGroupings$: Observable<IGolferGroupingsUI>;
+  disableName = false;
 
   constructor(
     private sportsApi: SportsApiService,
@@ -42,6 +43,7 @@ export class PickTeamComponent implements OnInit {
   }
 
   openPopup(action: string): void {
+    let popupText: string;
     if (action === 'update') {
       if (
         this.picks.golfer1 == '' ||
@@ -57,20 +59,12 @@ export class PickTeamComponent implements OnInit {
         this.openSnackBar(Messages.teamError);
         return;
       }
-      this.popupText = Messages.submitTeam;
+      popupText = Messages.submitTeam;
     } else {
-      this.popupText = Messages.deleteTeam;
+      popupText = Messages.deleteTeam;
     }
-    const popupConfig = new MatDialogConfig();
-    popupConfig.disableClose = false;
-    popupConfig.autoFocus = true;
-    popupConfig.data = { answer: this.answer, text: this.popupText };
 
-    const dialogRef = this.popup.open(PopupComponent, popupConfig);
-
-    dialogRef
-      .afterClosed()
-      .subscribe((answer) => this.processData(answer, action));
+    this.launchConfirmModal(popupText, action);
   }
 
   processData(answer: string, action: string): void {
@@ -82,6 +76,19 @@ export class PickTeamComponent implements OnInit {
     } else {
       this.isLoading = false;
     }
+  }
+
+  private launchConfirmModal(text: string, action: string): void {
+    const popupConfig = new MatDialogConfig();
+    popupConfig.disableClose = false;
+    popupConfig.autoFocus = true;
+    popupConfig.data = { answer: this.answer, text: text };
+
+    const dialogRef = this.popup.open(PopupComponent, popupConfig);
+
+    dialogRef
+      .afterClosed()
+      .subscribe((answer) => this.processData(answer, action));
   }
 
   validateSubmit(action: string, status: string): void {
@@ -142,6 +149,7 @@ export class PickTeamComponent implements OnInit {
     this.golfDataService.loadUserPicks().subscribe((picks) => {
       if (picks) {
         this.picks = picks;
+        this.disableName = true;
       }
       this.isLoading = false;
     });
