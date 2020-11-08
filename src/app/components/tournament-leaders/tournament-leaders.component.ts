@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { IPlayer, ITournamentResults } from '../../models/models';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
+import * as cloneDeep from 'lodash/cloneDeep';
 
 @Component({
   selector: 'app-tournament-leaders',
@@ -19,7 +20,8 @@ export class TournamentLeadersComponent implements OnInit {
   ngOnInit(): void {
     this.golfFacade
       .getTournamentData()
-      .subscribe((tournamentResults: ITournamentResults) => {
+      .subscribe((results: ITournamentResults) => {
+        const tournamentResults: ITournamentResults = cloneDeep(results);
         if (tournamentResults) {
           if (tournamentResults.isTournamentActive) {
             this.golfers = tournamentResults.golfers;

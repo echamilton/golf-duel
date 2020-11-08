@@ -17,6 +17,7 @@ import { LeaderColumns } from './../../models/constants';
 import { sortScores } from './../../utilities/sorter';
 import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
 import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
+import * as cloneDeep from 'lodash/cloneDeep';
 
 @Component({
   selector: 'app-leaderboard',
@@ -62,7 +63,8 @@ export class LeaderboardComponent implements OnInit {
   getGolferLeaderBoard(contestants): void {
     this.golfFacade
       .getTournamentData()
-      .subscribe((tournamentResults: ITournamentResults) => {
+      .subscribe((results: ITournamentResults) => {
+        const tournamentResults: ITournamentResults = cloneDeep(results);
         if (tournamentResults) {
           this.buildResults(contestants, tournamentResults);
         }
