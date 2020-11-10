@@ -1,9 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import {
-  IUserGolfPicks,
-  IGolfersGroupPick,
-  IGolferGroupingsUI
-} from '../../models/models';
+import { FormGroup } from '@angular/forms';
+import { IGolfersGroupPick, IGolferGroupingsUI } from '../../models/models';
 
 @Component({
   selector: 'app-golfer-picks',
@@ -11,9 +8,8 @@ import {
   styleUrls: ['./golfer-picks.component.scss']
 })
 export class GolferPicksComponent implements OnInit, OnChanges {
-  @Input() picks: IUserGolfPicks;
   @Input() golferGroupings: IGolferGroupingsUI;
-  disableName: boolean;
+  @Input() picksFg: FormGroup;
   golferGrpA: Array<IGolfersGroupPick> = [];
   golferGrpB: Array<IGolfersGroupPick> = [];
   golferGrpC: Array<IGolfersGroupPick> = [];
@@ -22,7 +18,6 @@ export class GolferPicksComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.buildGroupings();
-    this.initialize();
   }
 
   ngOnChanges(): void {
@@ -33,11 +28,10 @@ export class GolferPicksComponent implements OnInit, OnChanges {
     if (golferDropDown === currentGolfer) {
       return false;
     }
-
     const golferArray = [];
-    for (let key in this.picks) {
-      if (this.picks.hasOwnProperty(key)) {
-        golferArray.push(this.picks[key]);
+    for (let key in this.picksFg.value) {
+      if (this.picksFg.value.hasOwnProperty(key)) {
+        golferArray.push(this.picksFg.value[key]);
       }
     }
     return golferArray.includes(golferDropDown);
@@ -48,12 +42,6 @@ export class GolferPicksComponent implements OnInit, OnChanges {
       this.golferGrpA = this.golferGroupings.groupA;
       this.golferGrpB = this.golferGroupings.groupB;
       this.golferGrpC = this.golferGroupings.groupC;
-    }
-  }
-
-  private initialize(): void {
-    if (this.picks.team != '') {
-      this.disableName = true;
     }
   }
 }

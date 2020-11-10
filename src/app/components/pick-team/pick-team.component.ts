@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { IGolferGroupingsUI, IUserGolfPicks } from '../../models/models';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { IGolferGroupingsUI, IUserGolfPicks } from '../../models/models';
 import { SportsApiService } from '../../services/sports-api.service';
 import { AuthService } from '../../services/auth.service';
 import { Messages } from './../../models/constants';
 import { PopupComponent } from './../popup/popup.component';
 import { GolfDataStoreService } from './../../services/golf-data-store.service';
-import { Observable } from 'rxjs';
 import { GolfStoreFacade } from './../../store/golf.store.facade';
 
 @Component({
@@ -17,13 +18,13 @@ import { GolfStoreFacade } from './../../store/golf.store.facade';
   styleUrls: ['./pick-team.component.scss']
 })
 export class PickTeamComponent implements OnInit {
-  picks: IUserGolfPicks;
   answer: string;
   popupText: string;
   isLoading: boolean;
   config = new MatSnackBarConfig();
   golferGroupings$: Observable<IGolferGroupingsUI>;
-  disableName = false;
+  existingEntry = false;
+  picksFg: FormGroup;
 
   constructor(
     private sportsApi: SportsApiService,
@@ -34,7 +35,7 @@ export class PickTeamComponent implements OnInit {
     private golfDataService: GolfDataStoreService,
     private golfFacade: GolfStoreFacade
   ) {
-    this.initialize();
+    this.initializeForm();
   }
 
   ngOnInit(): void {
@@ -42,20 +43,26 @@ export class PickTeamComponent implements OnInit {
     this.getGolferGroupings();
   }
 
+  private loadUserPicks(): void {
+    this.golfDataService.loadUserPicks().subscribe((picks) => {
+      if (picks) {
+        this.existingEntry = true;
+        this.picksFg.get('team').disable();
+        this.mapPicksToForm(picks);
+      }
+      this.isLoading = false;
+    });
+  }
+
+  private getGolferGroupings(): void {
+    this.isLoading = true;
+    this.golferGroupings$ = this.golfFacade.getGolferGroups();
+  }
+
   openPopup(action: string): void {
     let popupText: string;
     if (action === 'update') {
-      if (
-        this.picks.golfer1 == '' ||
-        this.picks.golfer2 == '' ||
-        this.picks.golfer3 == '' ||
-        this.picks.golfer4 == '' ||
-        this.picks.golfer5 == '' ||
-        this.picks.golfer6 == '' ||
-        this.picks.golfer7 == '' ||
-        this.picks.golfer8 == '' ||
-        this.picks.team == ''
-      ) {
+      if (this.picksFg.status === 'INVALID') {
         this.openSnackBar(Messages.teamError);
         return;
       }
@@ -91,20 +98,17 @@ export class PickTeamComponent implements OnInit {
       .subscribe((answer) => this.processData(answer, action));
   }
 
-  validateSubmit(action: string, status: string): void {
+  private validateSubmit(action: string, status: string): void {
     if (this.sportsApi.isTournamentActive(status)) {
       this.openSnackBar(Messages.picksActiveTourny);
       this.isLoading = false;
       return;
     }
-
     if (action === 'update') {
-      this.picks.eventId = this.sportsApi.getActiveEventId();
-      this.picks.email = this.authService.getCurrentUser();
-      this.golfDataService.updateGolferPicks(this.picks);
+      this.golfDataService.updateGolferPicks(this.mapFormToPicks());
       this.openSnackBar(Messages.teamSuccess);
     } else {
-      this.golfDataService.deleteGolferPicks(this.picks);
+      this.golfDataService.deleteGolferPicks(this.mapFormToPicks());
       this.openSnackBar(Messages.deleteSuccess);
     }
     this.isLoading = false;
@@ -121,37 +125,52 @@ export class PickTeamComponent implements OnInit {
   }
 
   getActive(): boolean {
+    return false;
     return this.sportsApi.isTournamentActive();
   }
 
-  getGolferGroupings(): void {
-    this.isLoading = true;
-    this.golferGroupings$ = this.golfFacade.getGolferGroups();
-  }
-
-  private initialize(): void {
-    this.picks = {
-      golfer1: '',
-      golfer2: '',
-      golfer3: '',
-      golfer4: '',
-      golfer5: '',
-      golfer6: '',
-      golfer7: '',
-      golfer8: '',
-      eventId: '',
-      team: '',
-      email: ''
-    };
-  }
-
-  private loadUserPicks(): void {
-    this.golfDataService.loadUserPicks().subscribe((picks) => {
-      if (picks) {
-        this.picks = picks;
-        this.disableName = true;
-      }
-      this.isLoading = false;
+  private initializeForm(): void {
+    this.picksFg = new FormGroup({
+      golfer1: new FormControl('', Validators.required),
+      golfer2: new FormControl('', Validators.required),
+      golfer3: new FormControl('', Validators.required),
+      golfer4: new FormControl('', Validators.required),
+      golfer5: new FormControl('', Validators.required),
+      golfer6: new FormControl('', Validators.required),
+      golfer7: new FormControl('', Validators.required),
+      golfer8: new FormControl('', Validators.required),
+      team: new FormControl({ value: '', disabled: false }, Validators.required)
     });
+  }
+
+  private mapPicksToForm(picks: IUserGolfPicks): void {
+    this.picksFg.setValue({
+      golfer1: picks.golfer1,
+      golfer2: picks.golfer2,
+      golfer3: picks.golfer3,
+      golfer4: picks.golfer4,
+      golfer5: picks.golfer5,
+      golfer6: picks.golfer6,
+      golfer7: picks.golfer7,
+      golfer8: picks.golfer8,
+      team: picks.team
+    });
+  }
+
+  private mapFormToPicks(): IUserGolfPicks {
+    const userPicks: IUserGolfPicks = {
+      golfer1: this.picksFg.value.golfer1,
+      golfer2: this.picksFg.value.golfer2,
+      golfer3: this.picksFg.value.golfer3,
+      golfer4: this.picksFg.value.golfer4,
+      golfer5: this.picksFg.value.golfer5,
+      golfer6: this.picksFg.value.golfer6,
+      golfer7: this.picksFg.value.golfer7,
+      golfer8: this.picksFg.value.golfer8,
+      team: this.picksFg.get('team').value,
+      email: this.authService.getCurrentUser(),
+      eventId: this.sportsApi.getActiveEventId()
+    };
+    return userPicks;
   }
 }
