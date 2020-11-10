@@ -124,7 +124,7 @@ export class PickTeamComponent implements OnInit {
     return this.sportsApi.isTournamentActive();
   }
 
-  getGolferGroupings() {
+  getGolferGroupings(): void {
     this.isLoading = true;
     this.golferGroupings$ = this.golfFacade.getGolferGroups();
   }
