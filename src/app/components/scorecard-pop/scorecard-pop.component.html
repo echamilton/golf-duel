@@ -1,10 +1,10 @@
-<div *ngIf="scorecard$ | async as scorecard">
+<div *ngIf="scorecard$ | async as scorecard; else loading">
   <div class="header">{{ scorecard.playerName }}</div>
   <div class="header">
     <img class="pic" src="{{ imageLink }}" />
   </div>
   <ul>
-    <li style="display: list-item;" class="list">
+    <li style="display: list-item" class="list">
       <table class="scorecard scorecards">
         <thead>
           <tr>
@@ -181,7 +181,7 @@
         </tbody>
       </table>
     </li>
-    <li style="display: list-item;" class="list">
+    <li style="display: list-item" class="list">
       <table class="scorecard scorecards">
         <thead>
           <tr>
@@ -357,3 +357,6 @@
     <div class="double">Double +</div>
   </div>
 </div>
+<ng-template #loading>
+  <app-loader></app-loader>
+</ng-template>
