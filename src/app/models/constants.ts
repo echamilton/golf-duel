@@ -16,7 +16,7 @@ export const TournamentConfig: ITournament[] = [
     tournyId: 'US Open',
     url:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219333',
-    active: true,
+    active: false,
     groupName: 'usOpen2020',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401219333/playersummary?region=us&lang=en&season=2020&player='
@@ -26,7 +26,7 @@ export const TournamentConfig: ITournament[] = [
     tournyId: 'Masters',
     url:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219478',
-    active: false,
+    active: true,
     groupName: 'masters2020',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401219478/playersummary?region=us&lang=en&season=2020&player='
