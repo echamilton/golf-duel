@@ -60,7 +60,7 @@ export class LeaderboardComponent implements OnInit {
     return this.isTournyActive;
   }
 
-  getGolferLeaderBoard(contestants): void {
+  private getGolferLeaderBoard(contestants): void {
     this.golfFacade
       .getTournamentData()
       .subscribe((results: ITournamentResults) => {
@@ -71,7 +71,7 @@ export class LeaderboardComponent implements OnInit {
       });
   }
 
-  updatePercentageOwned(playerPick: IPlayer): void {
+  private updatePercentageOwned(playerPick: IPlayer): void {
     const ownPct = this.ownPct.find(
       (golfer) => golfer.golferId === playerPick.golferId
     );
@@ -86,7 +86,10 @@ export class LeaderboardComponent implements OnInit {
     }
   }
 
-  buildResults(contestants, tournamentResults: ITournamentResults): void {
+  private buildResults(
+    contestants,
+    tournamentResults: ITournamentResults
+  ): void {
     this.isTournyActive = tournamentResults.isTournamentActive;
 
     for (const contestant of contestants) {
@@ -201,17 +204,6 @@ export class LeaderboardComponent implements OnInit {
 
   private determineHolesRemaining(currentRound: number): number {
     /**4 rounds, 5 golfers, 18 holes */
-    let holesRemain = 0;
-    const holeMutiplier = 5 * 18;
-    if (currentRound === 4) {
-      holesRemain = 1 * holeMutiplier;
-    } else if (currentRound === 3) {
-      holesRemain = 2 * holeMutiplier;
-    } else if (currentRound === 2) {
-      holesRemain = 3 * holeMutiplier;
-    } else {
-      holesRemain = 4 * holeMutiplier;
-    }
-    return holesRemain;
+    return (5 - currentRound) * (5 * 18);
   }
 }
