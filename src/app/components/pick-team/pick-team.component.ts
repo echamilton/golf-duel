@@ -115,9 +115,9 @@ export class PickTeamComponent implements OnInit {
     this.router.navigate(['/leader']);
   }
 
-  openSnackBar(Text: string): void {
+  openSnackBar(text: string): void {
     this.config.duration = 2500;
-    this.snackBar.open(Text, 'Close', this.config);
+    this.snackBar.open(text, 'Close', this.config);
   }
 
   isLoggedIn(): boolean {

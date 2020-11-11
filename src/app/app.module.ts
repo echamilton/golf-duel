@@ -25,7 +25,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
 import { HttpClientModule } from '@angular/common/http';
-import { GolferPicksComponent } from './components/golfer-picks/golfer-picks.component';
+import { GolferPicksFormComponent } from './components/golfer-picks-form/golfer-picks-form.component';
 import { environment } from '../environments/environment';
 import { PickTeamComponent } from './components/pick-team/pick-team.component';
 import { PopupComponent } from './components/popup/popup.component';
@@ -67,7 +67,7 @@ export function loadGolfGroups(golfStoreFacade: GolfStoreFacade) {
     LoaderComponent,
     TournamentLeadersComponent,
     LeaderboardPicksComponent,
-    GolferPicksComponent,
+    GolferPicksFormComponent,
     PwdResetComponent
   ],
   imports: [
