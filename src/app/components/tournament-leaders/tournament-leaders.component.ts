@@ -13,7 +13,6 @@ import * as cloneDeep from 'lodash/cloneDeep';
 export class TournamentLeadersComponent implements OnInit {
   golfers: IPlayer[] = [];
   isTournyActive = false;
-  tournyText = '';
 
   constructor(private popup: MatDialog, private golfFacade: GolfStoreFacade) {}
 
@@ -23,23 +22,14 @@ export class TournamentLeadersComponent implements OnInit {
       .subscribe((results: ITournamentResults) => {
         const tournamentResults: ITournamentResults = cloneDeep(results);
         if (tournamentResults) {
-          if (tournamentResults.isTournamentActive) {
-            this.golfers = tournamentResults.golfers;
-            this.isTournyActive = tournamentResults.isTournamentActive;
-            this.tournyText = '';
-          } else {
-            this.tournyText = `The upcoming tournament will commence shortly`;
-          }
+          this.golfers = tournamentResults.golfers;
+          this.isTournyActive = tournamentResults.isTournamentActive;
         }
       });
   }
 
-  get isTournamentActive(): boolean {
-    return this.isTournyActive;
-  }
-
   openPopup(golfer: IPlayer): void {
-    if (this.isTournamentActive && golfer.isActive) {
+    if (this.isTournyActive && golfer.isActive) {
       const popupConfig = new MatDialogConfig();
       popupConfig.disableClose = false;
       popupConfig.autoFocus = true;

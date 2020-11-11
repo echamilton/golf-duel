@@ -43,6 +43,14 @@ export class PickTeamComponent implements OnInit {
     this.getGolferGroupings();
   }
 
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  get isTournamentActive(): boolean {
+    return this.sportsApi.isTournamentActive();
+  }
+
   private loadUserPicks(): void {
     this.golfDataService.loadUserPicks().subscribe((picks) => {
       if (picks) {
@@ -59,7 +67,7 @@ export class PickTeamComponent implements OnInit {
     this.golferGroupings$ = this.golfFacade.getGolferGroups();
   }
 
-  openPopup(action: string): void {
+  openConfirmationPopup(action: string): void {
     let popupText: string;
     if (action === 'update') {
       if (this.picksFg.status === 'INVALID') {
@@ -118,14 +126,6 @@ export class PickTeamComponent implements OnInit {
   openSnackBar(text: string): void {
     this.config.duration = 2500;
     this.snackBar.open(text, 'Close', this.config);
-  }
-
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
-  }
-
-  getActive(): boolean {
-    return this.sportsApi.isTournamentActive();
   }
 
   private initializeForm(): void {

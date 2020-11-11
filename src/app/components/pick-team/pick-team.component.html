@@ -1,5 +1,5 @@
 <mat-card class="memory-card">
-  <ng-container *ngIf="!getActive() && isLoggedIn()">
+  <ng-container *ngIf="!isTournamentActive && isLoggedIn">
     <mat-card-header> </mat-card-header>
     <mat-card-content *ngIf="isLoading">
       <div class="spinner">
@@ -15,28 +15,28 @@
       ></app-golfer-picks-form>
 
       <div style="text-align: center">
-        <button mat-raised-button (click)="openPopup('update')">
+        <button mat-raised-button (click)="openConfirmationPopup('update')">
           Submit Team
         </button>
 
         <button
           mat-raised-button
           *ngIf="existingEntry"
-          (click)="openPopup('delete')"
+          (click)="openConfirmationPopup('delete')"
         >
           Delete Entry
         </button>
       </div>
     </mat-card-content>
   </ng-container>
-  <ng-container *ngIf="getActive()">
+  <ng-container *ngIf="isTournamentActive">
     <mat-card-header>
       <mat-card-content class="message">
         Tournament is currently in progress!
       </mat-card-content>
     </mat-card-header>
   </ng-container>
-  <ng-container *ngIf="!getActive() && !isLoggedIn()">
+  <ng-container *ngIf="!isTournamentActive && !isLoggedIn">
     <mat-card-header>
       <mat-card-content class="message">
         Login to view or make picks!
