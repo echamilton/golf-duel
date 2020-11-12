@@ -23,7 +23,7 @@
         <mat-icon>person_add</mat-icon>
         <span>Sign up</span>
       </button>
-      <button mat-menu-item [routerLink]="['/reset']" *ngIf="isLoggedIn">
+      <button mat-menu-item [routerLink]="['/reset']" *ngIf="!isLoggedIn">
         <mat-icon>lock_open</mat-icon>
         <span>Reset Password</span>
       </button>
