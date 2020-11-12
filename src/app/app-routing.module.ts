@@ -20,7 +20,7 @@ import { PwdResetComponent } from './components/pwd-reset/pwd-reset.component';
           { path: '', redirectTo: 'leader', pathMatch: 'full' }
         ]
       },
-    ], { useHash: true }),
+    ], { useHash: true, relativeLinkResolution: 'legacy' }),
 
   ],
   exports: [RouterModule]
