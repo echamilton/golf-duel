@@ -149,6 +149,8 @@ export class SportsApiService {
         outScore.score = playerScorecard.rounds[round - 1].outScore;
       }
     });
+    outScore.score = outScore.score ? outScore.score : 0;
+    inScore.score = inScore.score ? inScore.score : 0;
 
     totalScore.par = inScore.par + outScore.par;
     totalScore.score = inScore.score + outScore.score;
