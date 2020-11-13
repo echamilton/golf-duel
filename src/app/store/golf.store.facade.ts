@@ -3,8 +3,11 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IGolferGroupingsUI, ITournamentResults } from '../models/models';
 import { GetGolferGroupings, GetTournamentLoad } from './golf.actions';
-import { getGolferGroups, getGolfTournamentData } from './golf.selector';
-import * as cloneDeep from 'lodash/cloneDeep';
+import {
+  getGolferGroups,
+  getGolfTournamentData,
+  getIsTournamentLoading
+} from './golf.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +21,10 @@ export class GolfStoreFacade {
 
   getTournamentData(): Observable<ITournamentResults> {
     return this.store.pipe(select(getGolfTournamentData));
+  }
+
+  getLoadingIndicator(): Observable<boolean> {
+    return this.store.pipe(select(getIsTournamentLoading));
   }
 
   getGolferGroups(): Observable<IGolferGroupingsUI> {

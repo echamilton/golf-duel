@@ -40,15 +40,19 @@ export class LeaderboardComponent implements OnInit {
   fantasyLeaders: Array<ILeaderResults> = [];
   ownPct: Array<IOwnershipPerGolfer> = [];
   isTournyActive = false;
+  isLoading: boolean;
 
   constructor(
     private golfDataStoreService: GolfDataStoreService,
     private golfFacade: GolfStoreFacade
-  ) {}
+  ) {
+    this.isLoading = true;
+  }
 
   ngOnInit(): void {
     this.golfDataStoreService.getGolferPicks().subscribe((userGolfPicks) => {
       this.getGolferLeaderBoard(userGolfPicks);
+      this.isLoading = false;
     });
   }
 
@@ -66,9 +70,15 @@ export class LeaderboardComponent implements OnInit {
       .subscribe((results: ITournamentResults) => {
         const tournamentResults: ITournamentResults = cloneDeep(results);
         if (tournamentResults) {
+          this.initializeLeaderboard();
           this.buildResults(contestants, tournamentResults);
+          this.isLoading = false;
         }
       });
+  }
+
+  private initializeLeaderboard(): void {
+    this.fantasyLeaders = [];
   }
 
   private updatePercentageOwned(playerPick: IPlayer): void {
