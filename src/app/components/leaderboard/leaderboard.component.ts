@@ -46,10 +46,13 @@ export class LeaderboardComponent implements OnInit {
     private golfDataStoreService: GolfDataStoreService,
     private golfFacade: GolfStoreFacade
   ) {
-    this.isLoading = true;
+    this.golfFacade
+      .isDataRefreshed()
+      .subscribe(() => this.initializeLeaderboard());
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.golfDataStoreService.getGolferPicks().subscribe((userGolfPicks) => {
       this.getGolferLeaderBoard(userGolfPicks);
       this.isLoading = false;
@@ -80,6 +83,7 @@ export class LeaderboardComponent implements OnInit {
   private initializeLeaderboard(): void {
     this.fantasyLeaders = [];
     this.ownPct = [];
+    this.isLoading = true;
   }
 
   private updatePercentageOwned(playerPick: IPlayer): void {

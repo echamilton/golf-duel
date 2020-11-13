@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IGolferGroupingsUI, ITournamentResults } from '../models/models';
@@ -13,6 +13,7 @@ import {
   providedIn: 'root'
 })
 export class GolfStoreFacade {
+  refreshData: EventEmitter<boolean> = new EventEmitter();
   constructor(private store: Store) {}
 
   loadTournamentData(): void {
@@ -33,5 +34,13 @@ export class GolfStoreFacade {
 
   loadGolferGroupings(): void {
     this.store.dispatch(new GetGolferGroupings());
+  }
+
+  triggerRefreshData(): void {
+    this.refreshData.emit(true);
+  }
+
+  isDataRefreshed(): EventEmitter<boolean> {
+    return this.refreshData;
   }
 }
