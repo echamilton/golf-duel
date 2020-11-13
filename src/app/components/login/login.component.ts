@@ -44,6 +44,10 @@ export class LoginComponent implements OnInit {
     this.snackBar.open(message, 'Close', this.config);
   }
 
+  forgotPassword(): void {
+    this.router.navigate(['/reset']);
+  }
+
   logout(): void {
     this.authService.logout();
   }
