@@ -79,6 +79,7 @@ export class LeaderboardComponent implements OnInit {
 
   private initializeLeaderboard(): void {
     this.fantasyLeaders = [];
+    this.ownPct = [];
   }
 
   private updatePercentageOwned(playerPick: IPlayer): void {
