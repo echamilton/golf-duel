@@ -102,11 +102,13 @@ export class SportsApiService {
   private determineScore(golfer: any): number {
     let score = 0;
     golfer.linescores.forEach((lineScore) => {
-      const tempScore =
-        lineScore.displayValue == 'E' || lineScore.displayValue == '-'
-          ? 0
-          : Number(lineScore.displayValue.replace(/\+/gi, ''));
-      score = score + tempScore;
+      if (lineScore.displayValue) {
+        const tempScore =
+          lineScore.displayValue == 'E' || lineScore.displayValue == '-'
+            ? 0
+            : Number(lineScore.displayValue.replace(/\+/gi, ''));
+        score = score + tempScore;
+      }
     });
     return score;
   }
