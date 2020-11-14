@@ -67,7 +67,7 @@ export class LeaderboardComponent implements OnInit {
     return this.isTournyActive;
   }
 
-  private getGolferLeaderBoard(contestants): void {
+  private getGolferLeaderBoard(contestants: IUserGolfPicks[]): void {
     this.golfFacade
       .getTournamentData()
       .subscribe((results: ITournamentResults) => {
@@ -102,7 +102,7 @@ export class LeaderboardComponent implements OnInit {
   }
 
   private buildResults(
-    contestants,
+    contestants: IUserGolfPicks[],
     tournamentResults: ITournamentResults
   ): void {
     this.isTournyActive = tournamentResults.isTournamentActive;
