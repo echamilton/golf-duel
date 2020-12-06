@@ -24,7 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GolferPicksFormComponent } from './components/golfer-picks-form/golfer-picks-form.component';
 import { environment } from '../environments/environment';
 import { PickTeamComponent } from './components/pick-team/pick-team.component';
@@ -44,6 +44,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducer } from './store/golf.reducer';
 import { UserEffects } from './store/golf.effects';
 import { GolfStoreFacade } from './store/golf.store.facade';
+import { NoCacheHeadersInterceptor } from './services/http-cache';
 import { EffectsModule } from '@ngrx/effects';
 
 export function loadInitialData(golfStoreFacade: GolfStoreFacade) {
@@ -116,6 +117,11 @@ export function loadGolfGroups(golfStoreFacade: GolfStoreFacade) {
       useFactory: loadGolfGroups,
       deps: [GolfStoreFacade]
     }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: NoCacheHeadersInterceptor,
+    //   multi: true
+    // }
   ],
   entryComponents: [PopupComponent, ScorecardPopComponent],
   bootstrap: [AppComponent]
