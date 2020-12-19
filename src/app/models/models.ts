@@ -57,7 +57,6 @@ export interface ITournament {
   eventId: string;
   tournyId: string;
   url: string;
-  active: boolean;
   groupName: string;
   scorecard?: string;
 }

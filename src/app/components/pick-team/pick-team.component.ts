@@ -168,7 +168,7 @@ export class PickTeamComponent implements OnInit {
       golfer8: this.picksFg.value.golfer8,
       team: this.picksFg.get('team').value,
       email: this.authService.getCurrentUser(),
-      eventId: this.sportsApi.getActiveEventId()
+      eventId: this.sportsApi.getEventId()
     };
     return userPicks;
   }

@@ -1,17 +1,15 @@
 import { ITournament, IScoreColor } from './models';
 
-export const TournamentConfig: ITournament[] = [
+export const TournamentConfig: ITournament = 
   {
     eventId: 'MASTERS-2020',
     tournyId: 'Masters',
     url:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219478',
-    active: true,
+      'https://golf-duel.appspot.com/golf-service/golfTournamentScores',
     groupName: 'masters2020',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401219478/playersummary?region=us&lang=en&season=2020&player='
-  }
-];
+  };
 
 export const AppTitle = '443 Fantasy Golf';
 

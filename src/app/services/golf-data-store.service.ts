@@ -18,9 +18,8 @@ export class GolfDataStoreService {
   ) {}
 
   getGolferGroupings(): Observable<any> {
-    const entityName = TournamentConfig.find((data) => data.active).groupName;
     return this.fireDb
-      .list<IGolferGrouping>(entityName)
+      .list<IGolferGrouping>(TournamentConfig.groupName)
       .valueChanges()
       .pipe(
         map((groupings) => {
@@ -36,7 +35,7 @@ export class GolfDataStoreService {
       .pipe(
         map((contestants: IUserGolfPicks[]) => {
           const filteredContestants = contestants.filter(
-            (record) => record.eventId === this.sportsApi.getActiveEventId()
+            (record) => record.eventId === this.sportsApi.getEventId()
           );
           return filteredContestants;
         })
@@ -48,7 +47,7 @@ export class GolfDataStoreService {
       map((allUserPicks: IUserGolfPicks[]) => {
         const userPicks = allUserPicks.find(
           (picks) =>
-            picks.eventId === this.sportsApi.getActiveEventId() &&
+            picks.eventId === this.sportsApi.getEventId() &&
             picks.email === this.authService.getCurrentUser()
         );
         return userPicks;
@@ -59,7 +58,7 @@ export class GolfDataStoreService {
   updateGolferPicks(userPicks: IUserGolfPicks): void {
     this.fireDb
       .object(
-        'myGolfers/' + this.sportsApi.getActiveEventId() + '-' + userPicks.team
+        'myGolfers/' + this.sportsApi.getEventId() + '-' + userPicks.team
       )
       .update(userPicks)
       .then((_) => {});
@@ -69,7 +68,7 @@ export class GolfDataStoreService {
     this.fireDb
       .list('myGolfers')
       .push(
-        'myGolfers/' + this.sportsApi.getActiveEventId() + '-' + userPicks.team
+        'myGolfers/' + this.sportsApi.getEventId() + '-' + userPicks.team
       )
       .then((_) => {});
   }
@@ -77,7 +76,7 @@ export class GolfDataStoreService {
   deleteGolferPicks(userPicks: IUserGolfPicks): void {
     this.fireDb
       .list('myGolfers')
-      .remove(this.sportsApi.getActiveEventId() + '-' + userPicks.team)
+      .remove(this.sportsApi.getEventId() + '-' + userPicks.team)
       .then((_) => {});
   }
 }
