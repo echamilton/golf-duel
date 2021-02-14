@@ -24,6 +24,7 @@ export class ToolbarComponent implements OnInit {
   reloadLeaderboard(): void {
     this.golfFacade.loadTournamentData();
     this.golfFacade.triggerRefreshData();
+    this.router.navigate(['/leader']);
   }
 
   logout(): void {
