@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { GolferPicksComponent } from './golfer-picks-form.component';
+import { GolferPicksFormComponent } from './golfer-picks-form.component';
 
 describe('GolferPicksComponent', () => {
-  let component: GolferPicksComponent;
-  let fixture: ComponentFixture<GolferPicksComponent>;
+  let component: GolferPicksFormComponent;
+  let fixture: ComponentFixture<GolferPicksFormComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [GolferPicksComponent]
+      declarations: [GolferPicksFormComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GolferPicksComponent);
+    fixture = TestBed.createComponent(GolferPicksFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
