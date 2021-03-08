@@ -26,7 +26,11 @@ export class LeaderboardPicksComponent implements OnInit {
       this.openSnackBar();
       return;
     }
+    const dialogRef = this.popup.open(ScorecardPopComponent, this.setPopupConfig(golfer));
+    dialogRef.afterClosed().subscribe();
+  }
 
+  private setPopupConfig(golfer: IPlayer): MatDialogConfig{
     const popupConfig = new MatDialogConfig();
     popupConfig.autoFocus = true;
     popupConfig.data = {
@@ -34,8 +38,7 @@ export class LeaderboardPicksComponent implements OnInit {
       round: golfer.round,
       img: golfer.imageLink
     };
-    const dialogRef = this.popup.open(ScorecardPopComponent, popupConfig);
-    dialogRef.afterClosed().subscribe();
+    return popupConfig;
   }
 
   private openSnackBar(): void {
