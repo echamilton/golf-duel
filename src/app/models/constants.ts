@@ -6,10 +6,20 @@ export const TournamentConfig: ITournament[] = [
     tournyId: 'Masters',
     url:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219478',
-    active: true,
+    active: false,
     groupName: 'masters2020',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401219478/playersummary?region=us&lang=en&season=2020&player='
+  },
+  {
+    eventId: 'PLAYERS-2021',
+    tournyId: 'Players',
+    url:
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401243005',
+    active: true,
+    groupName: 'players2021',
+    scorecard:
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401243005/playersummary?region=us&lang=en&season=2020&player='
   }
 ];
 
