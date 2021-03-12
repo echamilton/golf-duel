@@ -219,6 +219,6 @@ export class LeaderboardComponent implements OnInit {
 
   private determineHolesRemaining(currentRound: number): number {
     /**4 rounds, 5 golfers, 18 holes */
-    return (5 - currentRound) * (5 * 18);
+    return (5 - (currentRound > 0 ? currentRound : 1)) * (5 * 18);
   }
 }
