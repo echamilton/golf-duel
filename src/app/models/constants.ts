@@ -2,21 +2,21 @@ import { ITournament, IScoreColor } from './models';
 
 export const TournamentConfig: ITournament[] = [
   {
-    eventId: 'MASTERS-2020',
+    eventId: 'MASTERS-2021',
     tournyId: 'Masters',
     url:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401219478',
-    active: false,
-    groupName: 'masters2020',
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401243010',
+    active: true,
+    groupName: 'masters2021',
     scorecard:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401219478/playersummary?region=us&lang=en&season=2020&player='
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401243010/playersummary?region=us&lang=en&season=2020&player='
   },
   {
     eventId: 'PLAYERS-2021',
     tournyId: 'Players',
     url:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401243005',
-    active: true,
+    active: false,
     groupName: 'players2021',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401243005/playersummary?region=us&lang=en&season=2020&player='
