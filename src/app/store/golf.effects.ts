@@ -52,20 +52,23 @@ export class UserEffects {
       groupB: [],
       groupC: []
     };
-    groupingsFromDB.forEach((golfer) => {
-      const golferPick: IGolfersGroupPick = {
-        id: golfer.golferId,
-        name: golfer.name
-      };
+    if (groupingsFromDB) {
+      groupingsFromDB.forEach((golfer) => {
+        const golferPick: IGolfersGroupPick = {
+          id: golfer.golferId,
+          name: golfer.name
+        };
 
-      if (golfer.group == 'A') {
-        golferGroupings.groupA.push(golferPick);
-      } else if (golfer.group == 'B') {
-        golferGroupings.groupB.push(golferPick);
-      } else {
-        golferGroupings.groupC.push(golferPick);
-      }
-    });
-    return golferGroupings;
+        if (golfer.group == 'A') {
+          golferGroupings.groupA.push(golferPick);
+        } else if (golfer.group == 'B') {
+          golferGroupings.groupB.push(golferPick);
+        } else {
+          golferGroupings.groupC.push(golferPick);
+        }
+      });
+      return golferGroupings;
+    }
+    return null;
   }
 }
