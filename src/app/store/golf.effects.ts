@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { Action } from '@ngrx/store';
 import * as golfActions from './golf.actions';
@@ -20,8 +20,7 @@ export class UserEffects {
     private golfData: GolfDataStoreService
   ) {}
 
-  @Effect()
-  getTournamentData$: Observable<Action> = this.actions$.pipe(
+  getTournamentData$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(golfActions.GolfActionTypes.GetTournamentDataLoad),
     mergeMap(() =>
       this.sportsApi.getGolfScores().pipe(
@@ -29,11 +28,11 @@ export class UserEffects {
           return new golfActions.GetTournamentSuccess(tournamentResults);
         })
       )
-    )
+    ))
   );
 
-  @Effect()
-  getGolferGroupings: Observable<Action> = this.actions$.pipe(
+
+  getGolferGroupings$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(golfActions.GolfActionTypes.GetGolferGroupings),
     mergeMap(() =>
       this.golfData.getGolferGroupings().pipe(
@@ -43,7 +42,7 @@ export class UserEffects {
           );
         })
       )
-    )
+    ))
   );
 
   private filterGolfGroupings(groupingsFromDB: any[]): IGolferGroupingsUI {
