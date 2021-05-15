@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
-
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-loader',
@@ -8,9 +7,7 @@ import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
   styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent implements OnInit {
-  color = 'primary';
-  mode: ProgressSpinnerMode = 'determinate';
-  value = 50;
+  mode: ProgressSpinnerMode = 'indeterminate';
 
   constructor() {}
 

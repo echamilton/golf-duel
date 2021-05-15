@@ -25,6 +25,17 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "rxjs-compat",
+              "firebase",
+              "@firebase/app",
+              "@firebase/database",
+              "@firebase/firestore",
+              "@firebase/auth",
+              "@firebase/functions",
+              "@firebase/component",
+              "lodash"
+            ],
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
