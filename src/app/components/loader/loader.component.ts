@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+
 
 @Component({
   selector: 'app-loader',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoaderComponent implements OnInit {
   color = 'primary';
-  mode = 'indeterminate';
+  mode: ProgressSpinnerMode = 'determinate';
   value = 50;
 
   constructor() {}

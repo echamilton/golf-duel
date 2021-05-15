@@ -1,6 +1,6 @@
 {
   "name": "golf-duel",
-  "version": "0.0.0",
+  "version": "5.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,13 +11,21 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.0.0",
+    "@angular/cdk": "^12.0.0",
     "@angular/common": "~12.0.0",
     "@angular/compiler": "~12.0.0",
     "@angular/core": "~12.0.0",
+    "@angular/fire": "^6.1.4",
     "@angular/forms": "~12.0.0",
+    "@angular/material": "^12.0.0",
     "@angular/platform-browser": "~12.0.0",
     "@angular/platform-browser-dynamic": "~12.0.0",
     "@angular/router": "~12.0.0",
+    "@ngrx/effects": "^12.0.0",
+    "@ngrx/store": "^12.0.0",
+    "@ngrx/store-devtools": "^12.0.0",
+    "firebase": "^8.6.1",
+    "lodash-es": "^4.17.21",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
