@@ -1,0 +1,96 @@
+.scorecards-box {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-align: center;
+  line-height: 20px;
+  table-layout: fixed;
+}
+.score {
+  width: 19px;
+}
+.head {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.mat-dialog-container {
+  padding: 1px;
+}
+.header {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-align: center;
+  line-height: 20px;
+  font: 500 20px/32px Roboto, 'Helvetica Neue', sans-serif;
+  table-layout: fixed;
+}
+.list {
+  background-color: black;
+  table-layout: flex;
+  color: #e4e4e4;
+  text-align: center;
+  width: 100%;
+}
+.hole-picker {
+  padding: 2px;
+  font-size: 11px;
+}
+.pic {
+  height: 70px;
+  width: 100px;
+}
+li {
+  font-size: 11px;
+  list-style-type: none;
+}
+.scorecard-scorecards {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-align: center;
+  font-size: 13px;
+  line-height: 30px;
+  table-layout: fixed;
+}
+ul,
+menu,
+dir {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 0em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 1px;
+}
+.legend {
+  font-size: 12px;
+  display: flex;
+  text-align: center;
+}
+.eagle {
+  background-color: green;
+  color: #ffffff;
+  padding: 6px;
+}
+.birdie {
+  background-color: blue;
+  color: #ffffff;
+  padding: 6px;
+}
+.par {
+  background-color: black;
+  color: #ffffff;
+  padding: 6px;
+}
+.bogey {
+  background-color: red;
+  color: #ffffff;
+  padding: 6px;
+}
+.double {
+  background-color: purple;
+  color: #ffffff;
+  padding: 6px;
+}

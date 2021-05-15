@@ -1,0 +1,155 @@
+<form [formGroup]="picksFg">
+  <div style="text-align: center">
+    <mat-form-field>
+      <input
+        matInput
+        name="team"
+        maxlength="15"
+        required
+        formControlName="team"
+        placeholder="Team Name"
+      />
+    </mat-form-field>
+  </div>
+  <h4>Group A</h4>
+  <div style="text-align: center">
+    <mat-form-field>
+      <mat-select
+        required
+        name="golfer1"
+        placeholder="Golfer 1"
+        formControlName="golfer1"
+      >
+        <mat-option
+          *ngFor="let golfer of golferGrpA"
+          [value]="golfer.id"
+          [disabled]="checkGolferSelected(golfer.id, picksFg.value.golfer1)"
+        >
+          {{ golfer.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select
+        required
+        name="golfer2"
+        placeholder="Golfer 2"
+        formControlName="golfer2"
+      >
+        <mat-option
+          *ngFor="let golfer of golferGrpA"
+          [value]="golfer.id"
+          [disabled]="checkGolferSelected(golfer.id, picksFg.value.golfer2)"
+        >
+          {{ golfer.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Group B Golfers -->
+  <h4>Group B</h4>
+  <div style="text-align: center">
+    <mat-form-field>
+      <mat-select
+        required
+        name="golfer3"
+        placeholder="Golfer 1"
+        formControlName="golfer3"
+      >
+        <mat-option
+          *ngFor="let golfer of golferGrpB"
+          [value]="golfer.id"
+          [disabled]="checkGolferSelected(golfer.id, picksFg.value.golfer3)"
+        >
+          {{ golfer.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select
+        required
+        name="golfer4"
+        placeholder="Golfer 2"
+        formControlName="golfer4"
+      >
+        <mat-option
+          *ngFor="let golfer of golferGrpB"
+          [value]="golfer.id"
+          [disabled]="checkGolferSelected(golfer.id, picksFg.value.golfer4)"
+        >
+          {{ golfer.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Group C Golfers -->
+  <h4>Group C</h4>
+  <div style="text-align: center">
+    <mat-form-field>
+      <mat-select
+        required
+        name="golfer5"
+        placeholder="Golfer 1"
+        formControlName="golfer5"
+      >
+        <mat-option
+          *ngFor="let golfer of golferGrpC"
+          [value]="golfer.id"
+          [disabled]="checkGolferSelected(golfer.id, picksFg.value.golfer5)"
+        >
+          {{ golfer.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select
+        required
+        name="golfer6"
+        placeholder="Golfer 2"
+        formControlName="golfer6"
+      >
+        <mat-option
+          *ngFor="let golfer of golferGrpC"
+          [value]="golfer.id"
+          [disabled]="checkGolferSelected(golfer.id, picksFg.value.golfer6)"
+        >
+          {{ golfer.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select
+        required
+        name="golfer7"
+        placeholder="Golfer 3"
+        formControlName="golfer7"
+      >
+        <mat-option
+          *ngFor="let golfer of golferGrpC"
+          [value]="golfer.id"
+          [disabled]="checkGolferSelected(golfer.id, picksFg.value.golfer7)"
+        >
+          {{ golfer.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select
+        required
+        name="golfer8"
+        placeholder="Golfer 4"
+        formControlName="golfer8"
+      >
+        <mat-option
+          *ngFor="let golfer of golferGrpC"
+          [value]="golfer.id"
+          [disabled]="checkGolferSelected(golfer.id, picksFg.value.golfer8)"
+        >
+          {{ golfer.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>

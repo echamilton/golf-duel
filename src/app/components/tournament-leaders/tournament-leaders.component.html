@@ -1,0 +1,9 @@
+<div class="scrolling-wrapper">
+  <div *ngFor="let golfer of golfers" class="card">
+    <span (click)="openPopup(golfer)">
+      <img class="golfer-pic" src="{{ golfer.imageLink }}" />
+      <div>{{ golfer.position }} | {{ golfer.name }}</div>
+      <div>{{ golfer.score }} | {{ golfer.thru }}</div>
+    </span>
+  </div>
+</div>

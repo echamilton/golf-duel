@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="title">443 Fantasy Golf</span>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="reloadLeaderboard()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    <button mat-icon-button [routerLink]="['/leader']">
+      <mat-icon>golf_course</mat-icon>
+    </button>
+    <button mat-icon-button [routerLink]="['/pick']">
+      <mat-icon>mode_edit</mat-icon>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/login']" *ngIf="!isLoggedIn">
+        <mat-icon>person</mat-icon>
+        <span>Login</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/signup']" *ngIf="!isLoggedIn">
+        <mat-icon>person_add</mat-icon>
+        <span>Sign up</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/reset']" *ngIf="!isLoggedIn">
+        <mat-icon>lock_open</mat-icon>
+        <span>Reset Password</span>
+      </button>
+      <button mat-menu-item (click)="logout()" *ngIf="isLoggedIn">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="leaders scrolling-wrapper">
+    <app-tournament-leaders></app-tournament-leaders
+  ></mat-toolbar-row>
+</mat-toolbar>
