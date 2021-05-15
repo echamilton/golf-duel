@@ -4,11 +4,18 @@ import { IGolfAppState } from './golf.reducer';
 const featureSlice = createFeatureSelector<IGolfAppState>('golfData');
 
 export const getGolfTournamentData = createSelector(featureSlice, (state) => {
-  return state.tournamentData;
+  return state.tournamentData!;
 });
 
+export const selectLoggedInUser = createSelector(
+  featureSlice,
+  (state: IGolfAppState) => {
+    return state.isLoading;
+  }
+);
+
 export const getGolferGroups = createSelector(featureSlice, (state) => {
-  return state.golferGroupings;
+  return state.golferGroupings!;
 });
 
 export const getIsTournamentLoading = createSelector(featureSlice, (state) => {

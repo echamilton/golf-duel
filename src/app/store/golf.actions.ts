@@ -1,37 +1,13 @@
-import { Action } from '@ngrx/store';
+import { props, createAction } from '@ngrx/store';
 import { ITournamentResults, IGolferGroupingsUI } from './../models/models';
 
-export enum GolfActionTypes {
-  GetTournamentDataLoad = '[Golf] Get Tournament Load',
-  GetTournamentDataSuccess = '[Golf] Get Tournament Success',
-  GetGolferGroupings = '[Golf] Get golfer groupings',
-  GetGolferGroupingsComp = '[Golf] Golfer groupings loaded'
-}
-
-export class GetTournamentLoad implements Action {
-  public readonly type = GolfActionTypes.GetTournamentDataLoad;
-}
-
-export class GetTournamentSuccess implements Action {
-  public readonly type = GolfActionTypes.GetTournamentDataSuccess;
-
-  constructor(public payload: ITournamentResults) {}
-}
-
-export class GetGolferGroupings implements Action {
-  public readonly type = GolfActionTypes.GetGolferGroupings;
-
-  constructor() {}
-}
-
-export class GetGolferGroupingsComplete implements Action {
-  public readonly type = GolfActionTypes.GetGolferGroupingsComp;
-
-  constructor(public payload: IGolferGroupingsUI) {}
-}
-
-export type GolfActions =
-  | GetTournamentLoad
-  | GetTournamentSuccess
-  | GetGolferGroupingsComplete
-  | GetGolferGroupings;
+export const getTournamentLoad = createAction('[Golf] Get tournament Load');
+export const getTournamentLoadSuccess = createAction(
+  '[Golf] Get tournament Success',
+  props<ITournamentResults>()
+);
+export const getGolferGroupings = createAction('[Golf] Get golfer groupings');
+export const getGolferGroupingsComplete = createAction(
+  '[Golf] Get groupings Success',
+  props<IGolferGroupingsUI>()
+);

@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IGolferGroupingsUI, ITournamentResults } from '../models/models';
-import { GetGolferGroupings, GetTournamentLoad } from './golf.actions';
+import { getGolferGroupings, getTournamentLoad } from './golf.actions';
 import {
   getGolferGroups,
   getGolfTournamentData,
@@ -17,7 +17,7 @@ export class GolfStoreFacade {
   constructor(private store: Store) {}
 
   loadTournamentData(): void {
-    this.store.dispatch(new GetTournamentLoad());
+    this.store.dispatch(getTournamentLoad());
   }
 
   getTournamentData(): Observable<ITournamentResults> {
@@ -33,7 +33,7 @@ export class GolfStoreFacade {
   }
 
   loadGolferGroupings(): void {
-    this.store.dispatch(new GetGolferGroupings());
+    this.store.dispatch(getGolferGroupings());
   }
 
   triggerRefreshData(): void {

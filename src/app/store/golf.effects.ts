@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { Action } from '@ngrx/store';
-import * as golfActions from './golf.actions';
+import {
+  getGolferGroupings,
+  getGolferGroupingsComplete,
+  getTournamentLoad,
+  getTournamentLoadSuccess
+} from './golf.actions';
 import { map, mergeMap } from 'rxjs/operators';
 import {
   IGolferGroupingsUI,
@@ -20,29 +25,32 @@ export class UserEffects {
     private golfData: GolfDataStoreService
   ) {}
 
-  getTournamentData$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(golfActions.GolfActionTypes.GetTournamentDataLoad),
-    mergeMap(() =>
-      this.sportsApi.getGolfScores().pipe(
-        map((tournamentResults: ITournamentResults) => {
-          return new golfActions.GetTournamentSuccess(tournamentResults);
-        })
+  getTournamentData$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getTournamentLoad),
+      mergeMap(() =>
+        this.sportsApi.getGolfScores().pipe(
+          map((tournamentResults: ITournamentResults) => {
+            return getTournamentLoadSuccess(tournamentResults);
+          })
+        )
       )
-    ))
+    )
   );
 
-
-  getGolferGroupings$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(golfActions.GolfActionTypes.GetGolferGroupings),
-    mergeMap(() =>
-      this.golfData.getGolferGroupings().pipe(
-        map((golfGroupings) => {
-          return new golfActions.GetGolferGroupingsComplete(
-            this.filterGolfGroupings(golfGroupings)
-          );
-        })
+  getGolferGroupings$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getGolferGroupings),
+      mergeMap(() =>
+        this.golfData.getGolferGroupings().pipe(
+          map((golfGroupings) => {
+            return getGolferGroupingsComplete(
+              this.filterGolfGroupings(golfGroupings)
+            );
+          })
+        )
       )
-    ))
+    )
   );
 
   private filterGolfGroupings(groupingsFromDB: any[]): IGolferGroupingsUI {
@@ -51,6 +59,7 @@ export class UserEffects {
       groupB: [],
       groupC: []
     };
+
     if (groupingsFromDB) {
       groupingsFromDB.forEach((golfer) => {
         const golferPick: IGolfersGroupPick = {
@@ -59,15 +68,14 @@ export class UserEffects {
         };
 
         if (golfer.group == 'A') {
-          golferGroupings.groupA.push(golferPick);
+          golferGroupings.groupA!.push(golferPick);
         } else if (golfer.group == 'B') {
-          golferGroupings.groupB.push(golferPick);
+          golferGroupings.groupB!.push(golferPick);
         } else {
-          golferGroupings.groupC.push(golferPick);
+          golferGroupings.groupC!.push(golferPick);
         }
       });
-      return golferGroupings;
     }
-    return null;
+    return golferGroupings;
   }
 }
