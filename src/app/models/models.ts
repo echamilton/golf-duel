@@ -25,11 +25,11 @@ export interface IGolfersGroupPick {
 }
 
 export interface ITournamentResults {
-  eventId?: string;
-  round?: string;
-  status?: string;
-  isTournamentActive?: boolean;
-  golfers?: IPlayer[];
+  eventId: string;
+  round: string;
+  status: string;
+  isTournamentActive: boolean;
+  golfers: IPlayer[];
 }
 
 export interface IGolferGroupingsUI {
@@ -39,18 +39,18 @@ export interface IGolferGroupingsUI {
 }
 
 export interface IPlayer {
-  name?: string;
-  score?: number;
-  scoreToday?: string;
-  position?: string;
-  hole?: string;
-  golferId?: string;
-  ownPct?: number;
-  round?: string;
-  status?: string;
-  isActive?: boolean;
-  thru?: string;
-  imageLink?: string;
+  name: string;
+  score: number;
+  scoreToday: string;
+  position: string;
+  hole: string;
+  golferId: string;
+  ownPct: number;
+  round: string;
+  status: string;
+  isActive: boolean;
+  thru: string;
+  imageLink: string;
 }
 
 export interface ITournament {
