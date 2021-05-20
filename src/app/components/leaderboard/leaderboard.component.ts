@@ -17,7 +17,7 @@ import { LeaderColumns } from './../../models/constants';
 import { sortScores } from './../../utilities/sorter';
 import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
 import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
-import * as cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-leaderboard',
@@ -35,12 +35,12 @@ import * as cloneDeep from 'lodash/cloneDeep';
   ]
 })
 export class LeaderboardComponent implements OnInit {
-  expandedElement: ILeaderResults | null;
-  dataSource: any[];
+  expandedElement: ILeaderResults | null = null;
+  dataSource: any[] = [];
   fantasyLeaders: Array<ILeaderResults> = [];
   ownPct: Array<IOwnershipPerGolfer> = [];
   isTournyActive = false;
-  isLoading: boolean;
+  isLoading = false;
 
   constructor(
     private golfDataStoreService: GolfDataStoreService,
@@ -119,7 +119,7 @@ export class LeaderboardComponent implements OnInit {
         golfers: []
       };
 
-      const contestantPicks = this.buildContestantGolferScores(
+      const contestantPicks: IPlayer[] = this.buildContestantGolferScores(
         contestant,
         tournamentResults
       );
@@ -176,6 +176,7 @@ export class LeaderboardComponent implements OnInit {
       const golferIndetifier = `golfer${i}`;
       const pgaPlayer = tournyResults.golfers.find(
         (player: IPlayer) =>
+          // @ts-ignore
           player.golferId == contestant[golferIndetifier].toString()
       );
       if (pgaPlayer) {

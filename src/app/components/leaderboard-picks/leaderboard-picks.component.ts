@@ -11,7 +11,7 @@ import { IPlayer } from './../../models/models';
   templateUrl: 'leaderboard-picks.component.html'
 })
 export class LeaderboardPicksComponent implements OnInit {
-  @Input() golfers: IPlayer[];
+  @Input() golfers: IPlayer[] = [];
   config = new MatSnackBarConfig();
   constructor(private popup: MatDialog, private snackBar: MatSnackBar) {}
 
@@ -26,11 +26,14 @@ export class LeaderboardPicksComponent implements OnInit {
       this.openSnackBar();
       return;
     }
-    const dialogRef = this.popup.open(ScorecardPopComponent, this.setPopupConfig(golfer));
+    const dialogRef = this.popup.open(
+      ScorecardPopComponent,
+      this.setPopupConfig(golfer)
+    );
     dialogRef.afterClosed().subscribe();
   }
 
-  private setPopupConfig(golfer: IPlayer): MatDialogConfig{
+  private setPopupConfig(golfer: IPlayer): MatDialogConfig {
     const popupConfig = new MatDialogConfig();
     popupConfig.autoFocus = true;
     popupConfig.data = {
