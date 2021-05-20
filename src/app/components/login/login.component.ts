@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Messages, ServiceCodes } from './../../models/constants';
+import { Messages } from './../../models/constants';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
@@ -24,16 +24,13 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.authService.login(this.email, this.password).then(
-      (res) => {
+      () => {
         this.email = this.password = '';
         this.openSnackBar(Messages.userLoginSuccess);
         this.router.navigate(['/leader']);
       },
-      (err) => {
-        const message =
-          err.code == ServiceCodes.userFailCode
-            ? Messages.userCreateFail
-            : err.message;
+      (err: any) => {
+        const message = err.message;
         this.openSnackBar(message);
       }
     );
