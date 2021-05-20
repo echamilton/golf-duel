@@ -26,13 +26,14 @@ export const golfReducer = createReducer(
     getTournamentLoadSuccess,
     (state: IGolfAppState, tournamentData: ITournamentResults) => ({
       ...state,
-      tournamentData: tournamentData
+      tournamentData: tournamentData,
+      isLoading: false
     })
   ),
-  on(getGolferGroupings, (state) => ({ ...state, isLoadGroups: true })),
+  on(getGolferGroupings, (state) => ({ ...state, isLoadingGroups: true })),
   on(getGolferGroupingsComplete, (state, groupings: IGolferGroupingsUI) => ({
     ...state,
-    isLoadGroups: false,
+    isLoadingGroups: false,
     golferGroupings: groupings
   }))
 );
