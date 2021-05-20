@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Messages } from './../../models/constants';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-user-comp',
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
         this.openSnackBar(Messages.userLoginSuccess);
         this.router.navigate(['/leader']);
       },
-      (err: any) => {
+      (err: firebase.FirebaseError) => {
         const message = err.message;
         this.openSnackBar(message);
       }

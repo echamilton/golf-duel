@@ -8,11 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./pwd-reset.component.scss']
 })
 export class PwdResetComponent implements OnInit {
-  emailAddress:string;
-  constructor(private authService: AuthService,     private router: Router, ) { }
+  emailAddress: string = '';
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   submitPwdReset(): void {
     this.authService.resetPassword(this.emailAddress);
