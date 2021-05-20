@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { IPlayer, ITournamentResults } from '../../models/models';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
-import * as cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-tournament-leaders',
