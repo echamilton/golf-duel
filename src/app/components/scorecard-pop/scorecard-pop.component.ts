@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SportsApiService } from '../../services/sports-api.service';
-import { IScoreCard } from '../../models/models';
+import { IScoreCardModal, IScoreCard } from '../../models/models';
 import { ScoreValueColors } from './../../models/constants';
 import { Observable } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class ScorecardPopComponent implements OnInit {
 
   constructor(
     private sportsApi: SportsApiService,
-    @Inject(MAT_DIALOG_DATA) data
+    @Inject(MAT_DIALOG_DATA) data: IScoreCardModal
   ) {
     this.scorecard$ = this.sportsApi.getGolferScoreCard(
       data.golferId,
@@ -27,7 +27,7 @@ export class ScorecardPopComponent implements OnInit {
 
   ngOnInit() {}
 
-  getColor(score) {
+  getColor(score: string) {
     const scoreColor = ScoreValueColors.find(
       (scoreRecord) => scoreRecord.score === score
     );

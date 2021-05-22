@@ -87,6 +87,12 @@ export interface IHole {
   indicator: string;
 }
 
+export interface IScoreCardModal {
+  golferId: string;
+  round: string;
+  img: string;
+}
+
 export interface IScoreCard {
   playerName?: string;
   imageLink?: string;

@@ -157,7 +157,8 @@ export class SportsApiService {
       }
 
       const holeKey: string = `hole${parScore.number}`;
-      // @ts-expect-error
+
+      // @ts-ignore
       newScoreCard[holeKey] = currentHole;
 
       if (parScore.number > 9) {
