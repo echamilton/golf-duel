@@ -10,6 +10,7 @@ import {
 } from './golf.actions';
 import { map, mergeMap } from 'rxjs/operators';
 import {
+  IGolferGrouping,
   IGolferGroupingsUI,
   IGolfersGroupPick,
   ITournamentResults
@@ -53,7 +54,9 @@ export class UserEffects {
     )
   );
 
-  private filterGolfGroupings(groupingsFromDB: any[]): IGolferGroupingsUI {
+  private filterGolfGroupings(
+    groupingsFromDB: IGolferGrouping[]
+  ): IGolferGroupingsUI {
     const golferGroupings: IGolferGroupingsUI = {
       groupA: [],
       groupB: [],

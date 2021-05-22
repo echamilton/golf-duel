@@ -124,7 +124,7 @@ export class LeaderboardComponent implements OnInit {
         tournamentResults
       );
 
-      /**This is where we will check how many active golfers are left */
+      /**This is where we will check number of active golfers are left */
       let i = 0;
       let remain = 0;
       if (this.isTournyActive) {

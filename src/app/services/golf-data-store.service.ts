@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { IUserGolfPicks, IGolferGrouping } from '../models/models';
-import { TournamentConfig } from '../models/constants';
+import { INITIALIZED_VALUE, TournamentConfig } from '../models/constants';
 import { SportsApiService } from './sports-api.service';
 import { AuthService } from './auth.service';
 
@@ -18,7 +18,7 @@ export class GolfDataStoreService {
   ) {}
 
   getGolferGroupings(): Observable<any> {
-    const entityName = TournamentConfig.find((data) => data.active).groupName;
+    const entityName = TournamentConfig.find((data) => data.active)!.groupName;
     return this.fireDb
       .list<IGolferGrouping>(entityName)
       .valueChanges()
@@ -29,7 +29,7 @@ export class GolfDataStoreService {
       );
   }
 
-  getGolferPicks(): Observable<any> {
+  getGolferPicks(): Observable<IUserGolfPicks[]> {
     return this.fireDb
       .list<IUserGolfPicks>('myGolfers')
       .valueChanges()
@@ -46,14 +46,37 @@ export class GolfDataStoreService {
   loadUserPicks(): Observable<IUserGolfPicks> {
     return this.getGolferPicks().pipe(
       map((allUserPicks: IUserGolfPicks[]) => {
-        const userPicks = allUserPicks.find(
-          (picks) =>
-            picks.eventId === this.sportsApi.getActiveEventId() &&
-            picks.email === this.authService.getCurrentUser()
-        );
-        return userPicks;
+        return this.filterUserPicks(allUserPicks);
       })
     );
+  }
+
+  filterUserPicks(allUserSelections: IUserGolfPicks[]): IUserGolfPicks {
+    let userPicks: IUserGolfPicks = {
+      golfer1: INITIALIZED_VALUE,
+      golfer2: INITIALIZED_VALUE,
+      golfer3: INITIALIZED_VALUE,
+      golfer4: INITIALIZED_VALUE,
+      golfer5: INITIALIZED_VALUE,
+      golfer6: INITIALIZED_VALUE,
+      golfer7: INITIALIZED_VALUE,
+      golfer8: INITIALIZED_VALUE,
+      team: INITIALIZED_VALUE,
+      eventId: INITIALIZED_VALUE,
+      email: INITIALIZED_VALUE
+    };
+
+    const userRecord = allUserSelections.find(
+      (picks) =>
+        picks.eventId === this.sportsApi.getActiveEventId() &&
+        picks.email === this.authService.getCurrentUser()
+    );
+
+    if (userRecord) {
+      userPicks = { ...userRecord };
+    }
+
+    return userPicks;
   }
 
   updateGolferPicks(userPicks: IUserGolfPicks): void {
