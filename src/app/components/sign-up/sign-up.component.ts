@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import firebase from 'firebase';
-import { Messages, ServiceCodes } from '../../models/constants';
+import {
+  INITIALIZED_VALUE,
+  Messages,
+  ServiceCodes
+} from '../../models/constants';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
@@ -11,8 +15,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  email: string = '';
-  password: string = '';
+  email: string = INITIALIZED_VALUE;
+  password: string = INITIALIZED_VALUE;
   config = new MatSnackBarConfig();
 
   constructor(
@@ -26,7 +30,7 @@ export class SignUpComponent implements OnInit {
   signup(): void {
     this.authService.signup(this.email, this.password).then(
       () => {
-        this.email = this.password = '';
+        this.email = this.password = INITIALIZED_VALUE;
         this.openSnackBar(Messages.userCreateSuccess);
         this.router.navigate(['/leader']);
       },

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
-import { INITIALIZED_USER } from './../models/constants';
+import { INITIALIZED_VALUE } from './../models/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private user: string = INITIALIZED_USER;
+  private user: string = INITIALIZED_VALUE;
   constructor(private firebaseAuth: AngularFireAuth) {}
 
   signup(email: string, password: string): any {
@@ -24,16 +24,16 @@ export class AuthService {
   }
 
   getCurrentUser(): string {
-    if (this.user === undefined || this.user === INITIALIZED_USER) {
+    if (this.user === undefined || this.user === INITIALIZED_VALUE) {
       const storedUser = localStorage.getItem('user');
       this.user =
-        storedUser !== null ? storedUser.toLowerCase() : INITIALIZED_USER;
+        storedUser !== null ? storedUser.toLowerCase() : INITIALIZED_VALUE;
     }
     return this.user;
   }
 
   isLoggedIn(): boolean {
-    return this.getCurrentUser() !== INITIALIZED_USER;
+    return this.getCurrentUser() !== INITIALIZED_VALUE;
   }
 
   resetPassword(emailAddress: string): any {
@@ -62,7 +62,7 @@ export class AuthService {
 
   logout(): void {
     this.firebaseAuth.signOut();
-    this.user = INITIALIZED_USER;
+    this.user = INITIALIZED_VALUE;
     localStorage.removeItem('user');
   }
 }
