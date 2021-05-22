@@ -82,9 +82,9 @@ export interface IMsgHandle {
 }
 
 export interface IHole {
-  score?: number;
-  par?: number;
-  indicator?: string;
+  score: number;
+  par: number;
+  indicator: string;
 }
 
 export interface IScoreCard {

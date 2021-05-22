@@ -11,7 +11,8 @@ import {
   TournamentConfig,
   TournamentStatus,
   GolferStatus,
-  ScoreValues
+  ScoreValues,
+  INITIALIZED_VALUE
 } from '../models/constants';
 import { map, catchError } from 'rxjs/operators';
 import { sortScores } from '../utilities/sorter';
@@ -20,8 +21,8 @@ import { sortScores } from '../utilities/sorter';
   providedIn: 'root'
 })
 export class SportsApiService {
-  private tournamentStatus: string;
-  private holeParScores: any[];
+  private tournamentStatus: string = INITIALIZED_VALUE;
+  private holeParScores: any[] = [];
   constructor(private service: HttpClient) {}
 
   getGolfScores(): Observable<ITournamentResults> {
@@ -50,11 +51,17 @@ export class SportsApiService {
 
   private buildGolferScores(golferScores: any): ITournamentResults {
     const espnGolfers = golferScores.events[0].competitions[0].competitors;
-    const golferResults = [];
-    const tournamentResults: ITournamentResults = {};
+    const golferResults: IPlayer[] = [];
+    const tournamentResults: ITournamentResults = {
+      eventId: INITIALIZED_VALUE,
+      round: INITIALIZED_VALUE,
+      status: INITIALIZED_VALUE,
+      isTournamentActive: false,
+      golfers: []
+    };
 
     //Golfer Scores
-    espnGolfers.forEach((espnGolfer) => {
+    espnGolfers.forEach((espnGolfer: any) => {
       golferResults.push(this.mapGolferScoreInfo(espnGolfer));
     });
 
@@ -86,6 +93,9 @@ export class SportsApiService {
       round: espnGolfer.status.period,
       score: score,
       isActive: false,
+      scoreToday: INITIALIZED_VALUE,
+      ownPct: 0,
+      hole: INITIALIZED_VALUE,
       status:
         espnGolfer.status.displayValue === GolferStatus.cut ||
         espnGolfer.status.displayValue === GolferStatus.withdrawn
@@ -101,7 +111,7 @@ export class SportsApiService {
 
   private determineScore(golfer: any): number {
     let score = 0;
-    golfer.linescores.forEach((lineScore) => {
+    golfer.linescores.forEach((lineScore: any) => {
       if (lineScore.displayValue) {
         const tempScore =
           lineScore.displayValue == 'E' || lineScore.displayValue == '-'
@@ -119,9 +129,13 @@ export class SportsApiService {
   ): IScoreCard {
     const holeScores = playerScorecard.rounds[round - 1].linescores;
     const newScoreCard: IScoreCard = {};
-    const inScore: IHole = { par: 0, score: 0 };
-    const outScore: IHole = { par: 0, score: 0 };
-    const totalScore: IHole = { par: 0, score: 0 };
+    const inScore: IHole = { par: 0, score: 0, indicator: INITIALIZED_VALUE };
+    const outScore: IHole = { par: 0, score: 0, indicator: INITIALIZED_VALUE };
+    const totalScore: IHole = {
+      par: 0,
+      score: 0,
+      indicator: INITIALIZED_VALUE
+    };
 
     newScoreCard.playerName = playerScorecard.profile.displayName;
     newScoreCard.imageLink = playerScorecard.profile.headshot;
@@ -129,7 +143,7 @@ export class SportsApiService {
     //Iterate through each Hole
     this.holeParScores.forEach((parScore) => {
       const holeScore = holeScores.find(
-        (hole) => hole.period === parScore.number
+        (hole: any) => hole.period === parScore.number
       );
       const currentHole: IHole = {
         par: parScore.shotsToPar,
@@ -141,7 +155,10 @@ export class SportsApiService {
         currentHole.indicator = holeScore.scoreType.displayName;
         currentHole.score = holeScore.value;
       }
-      newScoreCard[`hole${parScore.number}`] = currentHole;
+
+      const holeKey: string = `hole${parScore.number}`;
+      // @ts-expect-error
+      newScoreCard[holeKey] = currentHole;
 
       if (parScore.number > 9) {
         inScore.par = inScore.par + parScore.shotsToPar;
@@ -164,11 +181,11 @@ export class SportsApiService {
   }
 
   getActiveEventId(): any {
-    return TournamentConfig.find((data) => data.active).eventId;
+    return TournamentConfig.find((data) => data.active)!.eventId;
   }
 
   getEventName(): string {
-    return TournamentConfig.find((data) => data.active).tournyId;
+    return TournamentConfig.find((data) => data.active)!.tournyId;
   }
 
   getEventEndpoint(): string {
@@ -179,6 +196,7 @@ export class SportsApiService {
       return tourny.url;
     } else {
       console.error('Could not retrieve PGA Tour data');
+      return '';
     }
   }
 
@@ -187,9 +205,10 @@ export class SportsApiService {
       (data) => data.eventId === this.getActiveEventId()
     );
     if (tourny) {
-      return tourny.scorecard;
+      return tourny.scorecard!;
     } else {
       console.error('Could not retrieve PGA Tour data');
+      return '';
     }
   }
 
@@ -198,7 +217,7 @@ export class SportsApiService {
     return status !== TournamentStatus.pre;
   }
 
-  isGolferActive(status): boolean {
+  isGolferActive(status: string): boolean {
     return status !== GolferStatus.cut && status !== GolferStatus.withdrawn;
   }
 }
