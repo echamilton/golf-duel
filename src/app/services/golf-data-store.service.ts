@@ -17,14 +17,15 @@ export class GolfDataStoreService {
     private authService: AuthService
   ) {}
 
-  getGolferGroupings(): Observable<any> {
+  getGolferGroupings(): Observable<IGolferGrouping[]> {
     const entityName = TournamentConfig.find((data) => data.active)!.groupName;
     return this.fireDb
       .list<IGolferGrouping>(entityName)
       .valueChanges()
       .pipe(
-        map((groupings) => {
-          return groupings[0];
+        map((groupings: any) => {
+          const tournamentGroups: IGolferGrouping[] = groupings[0];
+          return tournamentGroups;
         })
       );
   }

@@ -36,7 +36,7 @@ import { cloneDeep } from 'lodash';
 })
 export class LeaderboardComponent implements OnInit {
   expandedElement: ILeaderResults | null = null;
-  dataSource: any[] = [];
+  dataSource: ILeaderResults[] = [];
   fantasyLeaders: Array<ILeaderResults> = [];
   ownPct: Array<IOwnershipPerGolfer> = [];
   isTournyActive = false;
