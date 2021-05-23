@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { IPopupModalData } from './../../models/models';
 
 @Component({
   selector: 'app-popup',
@@ -10,7 +11,7 @@ export class PopupComponent {
   popupText: string;
   constructor(
     private dialogRef: MatDialogRef<PopupComponent>,
-    @Inject(MAT_DIALOG_DATA) data
+    @Inject(MAT_DIALOG_DATA) data: IPopupModalData
   ) {
     this.popupText = data.text;
   }

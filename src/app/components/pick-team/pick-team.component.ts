@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { IGolferGroupingsUI, IUserGolfPicks } from '../../models/models';
 import { SportsApiService } from '../../services/sports-api.service';
 import { AuthService } from '../../services/auth.service';
-import { Messages } from './../../models/constants';
+import { INITIALIZED_VALUE, Messages } from './../../models/constants';
 import { PopupComponent } from './../popup/popup.component';
 import { GolfDataStoreService } from './../../services/golf-data-store.service';
 import { GolfStoreFacade } from './../../store/golf.store.facade';
@@ -18,9 +18,9 @@ import { GolfStoreFacade } from './../../store/golf.store.facade';
   styleUrls: ['./pick-team.component.scss']
 })
 export class PickTeamComponent implements OnInit {
-  answer: string;
-  popupText: string;
-  isLoading: boolean;
+  answer: string = INITIALIZED_VALUE;
+  popupText: string = INITIALIZED_VALUE;
+  isLoading: boolean = false;
   config = new MatSnackBarConfig();
   golferGroupings$: Observable<IGolferGroupingsUI>;
   existingEntry = false;
@@ -35,7 +35,8 @@ export class PickTeamComponent implements OnInit {
     private golfDataService: GolfDataStoreService,
     private golfFacade: GolfStoreFacade
   ) {
-    this.initializeForm();
+    this.golferGroupings$ = this.getGolferGroupings();
+    this.picksFg = this.initializeForm();
   }
 
   ngOnInit(): void {
@@ -48,6 +49,7 @@ export class PickTeamComponent implements OnInit {
   }
 
   get isTournamentActive(): boolean {
+    return false;
     return this.sportsApi.isTournamentActive();
   }
 
@@ -55,16 +57,16 @@ export class PickTeamComponent implements OnInit {
     this.golfDataService.loadUserPicks().subscribe((picks) => {
       if (picks) {
         this.existingEntry = true;
-        this.picksFg.get('team').disable();
+        this.picksFg.get('team')!.disable();
         this.mapPicksToForm(picks);
       }
       this.isLoading = false;
     });
   }
 
-  private getGolferGroupings(): void {
+  private getGolferGroupings(): Observable<IGolferGroupingsUI> {
     this.isLoading = true;
-    this.golferGroupings$ = this.golfFacade.getGolferGroups();
+    return this.golfFacade.getGolferGroups();
   }
 
   openConfirmationPopup(action: string): void {
@@ -128,8 +130,8 @@ export class PickTeamComponent implements OnInit {
     this.snackBar.open(text, 'Close', this.config);
   }
 
-  private initializeForm(): void {
-    this.picksFg = new FormGroup({
+  private initializeForm(): FormGroup {
+    return new FormGroup({
       golfer1: new FormControl('', Validators.required),
       golfer2: new FormControl('', Validators.required),
       golfer3: new FormControl('', Validators.required),
@@ -166,7 +168,7 @@ export class PickTeamComponent implements OnInit {
       golfer6: this.picksFg.value.golfer6,
       golfer7: this.picksFg.value.golfer7,
       golfer8: this.picksFg.value.golfer8,
-      team: this.picksFg.get('team').value,
+      team: this.picksFg.get('team')!.value,
       email: this.authService.getCurrentUser(),
       eventId: this.sportsApi.getActiveEventId()
     };

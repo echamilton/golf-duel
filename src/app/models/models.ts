@@ -93,6 +93,11 @@ export interface IScoreCardModal {
   img: string;
 }
 
+export interface IPopupModalData {
+  answer: string;
+  text: string;
+}
+
 export interface IScoreCard {
   playerName?: string;
   imageLink?: string;
