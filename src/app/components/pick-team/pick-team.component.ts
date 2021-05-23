@@ -49,7 +49,6 @@ export class PickTeamComponent implements OnInit {
   }
 
   get isTournamentActive(): boolean {
-    return false;
     return this.sportsApi.isTournamentActive();
   }
 
