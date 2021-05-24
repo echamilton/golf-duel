@@ -11,9 +11,11 @@ import {
   IPlayer,
   ILeaderResults,
   ITournamentResults,
-  IUserGolfPicks
+  IUserGolfPicks,
+  IGolferGroupingsUI,
+  IGolfersGroupPick
 } from '../../models/models';
-import { LeaderColumns } from './../../models/constants';
+import { INITIALIZED_VALUE, LeaderColumns } from './../../models/constants';
 import { sortScores } from './../../utilities/sorter';
 import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
 import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
@@ -39,6 +41,7 @@ export class LeaderboardComponent implements OnInit {
   dataSource: ILeaderResults[] = [];
   fantasyLeaders: Array<ILeaderResults> = [];
   ownPct: Array<IOwnershipPerGolfer> = [];
+  golferGroups: IGolferGroupingsUI = {};
   isTournyActive = false;
   isLoading = false;
 
@@ -49,6 +52,12 @@ export class LeaderboardComponent implements OnInit {
     this.golfFacade
       .isDataRefreshed()
       .subscribe(() => this.initializeLeaderboard());
+
+    this.golfFacade
+      .getGolferGroups()
+      .subscribe((groupsState: IGolferGroupingsUI) => {
+        this.golferGroups = groupsState;
+      });
   }
 
   ngOnInit(): void {
@@ -180,6 +189,7 @@ export class LeaderboardComponent implements OnInit {
           player.golferId == contestant[golferIndetifier].toString()
       );
       if (pgaPlayer) {
+        pgaPlayer.group = this.findGroupForPlayer(pgaPlayer.golferId);
         contestantPicks.push(pgaPlayer);
         this.updatePercentageOwned(pgaPlayer);
       }
@@ -216,6 +226,33 @@ export class LeaderboardComponent implements OnInit {
         }
       }
     }
+  }
+
+  private findGroupForPlayer(golferId: string): string {
+    let playerRecord: IGolfersGroupPick;
+
+    playerRecord = this.golferGroups.groupA?.find(
+      (player) => player.id == golferId
+    )!;
+    if (playerRecord) {
+      return 'A';
+    }
+
+    playerRecord = this.golferGroups.groupB?.find(
+      (player) => player.id == golferId
+    )!;
+    if (playerRecord) {
+      return 'B';
+    }
+
+    playerRecord = this.golferGroups.groupC?.find(
+      (player) => player.id == golferId
+    )!;
+    if (playerRecord) {
+      return 'C';
+    }
+
+    return INITIALIZED_VALUE;
   }
 
   private determineHolesRemaining(currentRound: number): number {

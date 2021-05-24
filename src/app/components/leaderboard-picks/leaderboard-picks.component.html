@@ -2,23 +2,31 @@
   <div class="container-fluid" (click)="openPopup(golfer)">
     <div class="stats-container">
       <img class="pic" src="{{ golfer.imageLink }}" />
-      <span
-        class="score"
-        *ngIf="golfer.status !== golferCutStatus && golfer.score != 0"
-        >{{ golfer.score }}</span
-      >
-      <span
-        class="score"
-        *ngIf="golfer.status !== golferCutStatus && golfer.score == 0"
-        >E</span
-      >
-      <span class="score" *ngIf="golfer.status === golferCutStatus">C</span>
+      <div class="score">
+        <!-- Golfer score -->
+        <ng-container
+          *ngIf="golfer.status === golferCutStatus; then cut; else notCut"
+        ></ng-container>
+        <ng-template #cut>C</ng-template>
+        <ng-template #notCut>
+          <ng-container
+            *ngIf="golfer.score != 0; then score; else evenScore"
+          ></ng-container>
+          <ng-template #score> {{ golfer.score }}</ng-template>
+          <ng-template #evenScore>E</ng-template>
+        </ng-template>
+      </div>
+
+      <!-- Golfer Name -->
       <span class="golfer-name">{{ golfer.name }}</span>
+
+      <!-- Golfer Ownership Percentage -->
       <p class="summary" *ngIf="golfer.status !== golferCutStatus">
-        {{ golfer.thru }} | Owned {{ golfer.ownPct | number: '1.0-0' }}%
+        {{ golfer.thru }} | Owned {{ golfer.ownPct | number: '1.0-0' }}% |
+        {{ golfer.group }}
       </p>
       <p class="summary" *ngIf="golfer.status === golferCutStatus">
-        Owned {{ golfer.ownPct | number: '1.0-0' }}%
+        Owned {{ golfer.ownPct | number: '1.0-0' }}% | {{ golfer.group }}
       </p>
     </div>
   </div>

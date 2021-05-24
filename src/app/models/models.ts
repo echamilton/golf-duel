@@ -51,6 +51,7 @@ export interface IPlayer {
   isActive: boolean;
   thru: string;
   imageLink: string;
+  group?: string;
 }
 
 export interface ITournament {
