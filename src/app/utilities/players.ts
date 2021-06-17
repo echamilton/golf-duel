@@ -7,909 +7,867 @@ export interface IGolferFile {
 
 export const golfersFile: IGolferFile[] = [
   {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'A',
-    name: 'Rory McIlroy'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'A',
-    name: 'Justin Thomas'
-  },
-  {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'A',
     name: 'Jon Rahm'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'A',
-    name: 'Jordan Spieth'
+    name: 'Justin Thomas'
   },
   {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'A',
-    name: 'Bryson DeChambeau'
-  },
-  {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'A',
     name: 'Dustin Johnson'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'A',
-    name: 'Xander Schauffele'
+    name: 'Rory McIlroy'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'A',
-    name: 'Viktor Hovland'
+    name: 'Jordan Spieth'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'A',
+    name: 'Bryson DeChambeau'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'A',
+    name: 'Brooks Koepka'
+  },
+  {
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'A',
     name: 'Collin Morikawa'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'A',
-    name: 'Daniel Berger'
+    name: 'Xander Schauffele'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'A',
+    name: 'Patrick Cantlay'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'A',
+    name: 'Viktor Hovland'
+  },
+  {
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'B',
     name: 'Hideki Matsuyama'
   },
   {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'B',
-    name: 'Patrick Reed'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'B',
-    name: 'Brooks Koepka'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'B',
-    name: 'Cameron Smith'
-  },
-  {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'B',
     name: 'Webb Simpson'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'B',
-    name: 'Patrick Cantlay'
+    name: 'Patrick Reed'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'B',
+    name: 'Daniel Berger'
+  },
+  {
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'B',
     name: 'Tony Finau'
   },
   {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'B',
-    name: 'Sam Burns'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'B',
-    name: 'Scottie Scheffler'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'B',
-    name: 'Abraham Ancer'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'B',
-    name: 'Tyrrell Hatton'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'B',
-    name: 'Paul Casey'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'B',
-    name: 'Tommy Fleetwood'
-  },
-  {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'B',
     name: 'Will Zalatoris'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
-    group: 'C',
-    name: 'Corey Conners'
+    group: 'B',
+    name: 'Tyrrell Hatton'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
-    group: 'C',
-    name: 'Shane Lowry'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Sungjae Im'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Joaquin Niemann'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Keegan Bradley'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
+    group: 'B',
     name: 'Louis Oosthuizen'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
-    group: 'C',
-    name: 'Marc Leishman'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Matt Fitzpatrick'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Si Woo Kim'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Brian Harman'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
+    group: 'B',
     name: 'Justin Rose'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
-    group: 'C',
-    name: 'Adam Scott'
+    group: 'B',
+    name: 'Scottie Scheffler'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'B',
+    name: 'Tommy Fleetwood'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'B',
+    name: 'Paul Casey'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'B',
+    name: 'Matthew Fitzpatrick'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'B',
+    name: 'Shane Lowry'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'B',
+    name: 'Sung-Jae Im'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Brandt Snedeker'
+  },
+  {
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
     name: 'Bubba Watson'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Charl Schwartzel'
+    name: 'Matthew Wolff'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Garrick Higgo'
+    name: 'Christiaan Bezuidenhout'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Jason Day'
+    name: 'Si-Woo Kim'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Matt Wallace'
+    name: 'Robert Macintyre'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Sergio Garcia'
+    name: 'Brian Harman'
   },
   {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Lee Westwood'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'K.H. Lee'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Gary Woodland'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Robert MacIntyre'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Harris English'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Emiliano Grillo'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Jason Kokrak'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Matt Kuchar'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Max Homa'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Rickie Fowler'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Billy Horschel'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Alex Noren'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Cameron Tringale'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Ryan Palmer'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Aaron Wise'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Cameron Champ'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Chris Kirk'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Branden Grace'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Cameron Davis'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Carlos Ortiz'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Charley Hoffman'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Christ. Bezuiden.'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Ian Poulter'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Kevin Na'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Kevin Streelman'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Matt Jones'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Russell Henley'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Stewart Cink'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Danny Willett'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Dylan Frittelli'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Francesco Molinari'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Harold Varner III'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Kevin Kisner'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Martin Kaymer'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Phil Mickelson'
-  },
-  {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
     name: 'Sebastian Munoz'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Thomas Pieters'
+    name: 'Billy Horschel'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Cameron Champ'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Carlos Ortiz'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Garrick Higgo'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Kevin Streelman'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Russell Henley'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Matt Wallace'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Stewart Cink'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Kevin Na'
+  },
+  {
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
     name: 'Victor Perez'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Ryan Palmer'
+  },
+  {
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
     name: 'Zach Johnson'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Alex Noren'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Kevin Kisner'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Cameron Smith'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Phil Mickelson'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Rickie Fowler'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Abraham Ancer'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Corey Conners'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Joaquin Niemann'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Marc Leishman'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Sam Burns'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Adam Scott'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Lee Westwood'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Jason Day'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Sergio Garcia'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Gary Woodland'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Jason Kokrak'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Harris English'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Branden Grace'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Max Homa'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Thomas Pieters'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Brendon Todd'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Matt Kuchar'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Francesco Molinari'
+  },
+  {
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
     name: 'Bernd Wiesberger'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Erik van Rooyen'
+    name: 'Ian Poulter'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Matt Jones'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Mackenzie Hughes'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Ryo Ishikawa'
+  },
+  {
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
     name: 'Henrik Stenson'
   },
   {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Joel Dahmen'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'John Catlin'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Lanto Griffin'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Sam Horsfield'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Talor Gooch'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Adam Hadwin'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Andy Sullivan'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Antoine Rozner'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Jazz Janewattananond'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Martin Laird'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Maverick McNealy'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Steve Stricker'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Thomas Detry'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Tom Hoge'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Aaron Rai'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Brandon Stone'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Byeong-Hun An'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'George Coetzee'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'J.T. Poston'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Kalle Samooja'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Kurt Kitayama'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Rasmus Hojgaard'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Sami Valimaki'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Tom Lewis'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Adam Long'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Chan Kim'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Daniel van Tonder'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Harry Higgs'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Jason Scrivener'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Lucas Herbert'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Peter Malnati'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Richy Werenski'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Rikuya Hoshino'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Takumi Kanaya'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Brian Gay'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Denny McCarthy'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Hudson Swafford'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Padraig Harrington'
-  },
-  {
-    eventId: 'PGA-2021',
-    golferId: '    ',
-    group: 'C',
-    name: 'Robert Streb'
-  },
-  {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
     name: 'Chez Reavie'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Jason Dufner'
+    name: 'Lanto Griffin'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Kyoung-Hoon Lee'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Erik Van Rooyen'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Martin Kaymer'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Wade Ormsby'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Johannes Veerman'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Wilco Nienaber'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Paul Barjon'
+  },
+  {
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
     name: 'Jimmy Walker'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Alex Beach'
+    name: 'Graeme McDowell'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Ben Cook'
+    name: 'Brad Kennedy'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Ben Polland'
+    name: 'Yosuke Asaji'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Brad Marek'
+    name: 'Eric Cole'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Brett Walker'
+    name: 'Joe Long'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Danny Balin'
+    name: 'Ty Strafaci'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Derek Holmes'
+    name: 'Thomas Aiken'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Frank Bensel Jr.'
+    name: 'Stephen Allan'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Greg Koch'
+    name: 'Chris Baker'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Jim Herman'
+    name: 'Akshay Bhatia'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Joe Summerhays'
+    name: 'Hayden Buckley'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'John Daly'
+    name: 'Rafa Cabrera-Bello'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Larkin Gross'
+    name: 'Mario Carmona'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Mark Geddes'
+    name: 'Wyndham Clark'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Omar Uresti'
+    name: 'Roy Cootes'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Patrick Rada'
+    name: 'Chris Crawford'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Peter Ballo'
+    name: 'Luis Fernando-Barco'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Rich Beem'
+    name: 'Dylan Frittelli'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Rob Labritz'
+    name: 'Wilson Furr'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Shaun Micheel'
+    name: 'Luis Gagne'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Sonny Skinner'
+    name: 'Fabián Gómez'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Stuart Smith'
+    name: 'Adam Hadwin'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Tim Pearce'
+    name: 'Jimmy Hervol'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Tyler Collet'
+    name: 'Joe Highsmith'
   },
   {
-    eventId: 'PGA-2021',
+    eventId: 'USOPEN-2021',
     golferId: '    ',
     group: 'C',
-    name: 'Y.E. Yang'
+    name: 'Bo Hoag'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Tom Hoge'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Rikuya Hoshino'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'John Huh'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Michael Johnson'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Sung Kang'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Chan Kim'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Martin Laird'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Rick Lamb'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Peter Malnati'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Troy Merritt'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Dylan Meyer'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Taylor Montgomery'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Álvaro Ortiz'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Taylor Pendrith'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Andy Pope'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'JT Poston'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Patrick Rodgers'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Sam Ryder'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Carson Schaake'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Charl Schwartzel'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Robby Shelton'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Davis Shore'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Greyson Sigg'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'JJ Spaun'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Brian Stuard'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Brendan Steele'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Justin Suh'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Hayden Springer'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Sahith Theegala'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Jhonattan Vegas'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Kyle Westmoreland'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Dylan Wu'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Cameron Young'
+  },
+  {
+    eventId: 'USOPEN-2021',
+    golferId: '    ',
+    group: 'C',
+    name: 'Zach Zaback'
   }
 ];

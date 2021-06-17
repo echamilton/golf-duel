@@ -54,7 +54,7 @@ export class PickTeamComponent implements OnInit {
 
   private loadUserPicks(): void {
     this.golfDataService.loadUserPicks().subscribe((picks) => {
-      if (picks) {
+      if (picks && picks.email) {
         this.existingEntry = true;
         this.picksFg.get('team')!.disable();
         this.mapPicksToForm(picks);

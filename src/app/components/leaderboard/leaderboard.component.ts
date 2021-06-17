@@ -20,6 +20,7 @@ import { sortScores } from './../../utilities/sorter';
 import { GolfDataStoreService } from 'src/app/services/golf-data-store.service';
 import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
 import { cloneDeep } from 'lodash';
+import { buildPlayerList } from './../../utilities/player-generator';
 
 @Component({
   selector: 'app-leaderboard',
