@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppTitle } from './models/constants';
+import packageInfo from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { AppTitle } from './models/constants';
 })
 export class AppComponent {
   title = AppTitle;
+  version = packageInfo.version;
 
-  constructor() {
-  }
+  constructor() {}
 }
