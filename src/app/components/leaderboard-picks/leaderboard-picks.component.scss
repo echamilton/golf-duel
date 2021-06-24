@@ -15,6 +15,13 @@
   margin-left: 11px;
   color: white;
 }
+.overflow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  width: 150px;
+}
 .stats-container .summary {
   font-size: 11px;
   color: #45d3e6;

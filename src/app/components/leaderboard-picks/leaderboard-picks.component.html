@@ -18,7 +18,9 @@
       </div>
 
       <!-- Golfer Name -->
-      <span class="golfer-name">{{ golfer.name }}</span>
+      <div class="overflow">
+        <span class="golfer-name">{{ golfer.name }}</span>
+      </div>
 
       <!-- Golfer Ownership Percentage -->
       <p class="summary" *ngIf="golfer.status !== golferCutStatus">
