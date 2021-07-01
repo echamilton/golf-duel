@@ -20,18 +20,20 @@
         <td mat-cell *matCellDef="let element">{{ element.team }}</td>
       </ng-container>
       <ng-container matColumnDef="golfersRemain">
-        <th mat-header-cell *matHeaderCellDef>Golfers</th>
-        <td mat-cell *matCellDef="let element">
+        <th class="leader-center" mat-header-cell *matHeaderCellDef>Golfers</th>
+        <td class="leader-center" mat-cell *matCellDef="let element">
           {{ element.golfersRemain }}
         </td>
       </ng-container>
       <ng-container matColumnDef="holesRemain">
-        <th mat-header-cell *matHeaderCellDef>Holes</th>
-        <td mat-cell *matCellDef="let element">{{ element.holesRemain }}</td>
+        <th class="leader-center" mat-header-cell *matHeaderCellDef>Holes</th>
+        <td class="leader-center" mat-cell *matCellDef="let element">
+          {{ element.holesRemain }}
+        </td>
       </ng-container>
       <ng-container matColumnDef="score">
-        <th mat-header-cell *matHeaderCellDef>Score</th>
-        <td mat-cell *matCellDef="let element">
+        <th class="leader-center" mat-header-cell *matHeaderCellDef>Score</th>
+        <td class="leader-center" mat-cell *matCellDef="let element">
           <div *ngIf="element.score !== 99">{{ element.score }}</div>
           <div *ngIf="element.score === 99 && !isTournamentActive">-</div>
           <div *ngIf="element.score === 99 && isTournamentActive">CUT</div>
