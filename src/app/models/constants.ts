@@ -5,10 +5,19 @@ export const TournamentConfig: ITournament[] = [
     eventId: 'USOPEN-2021',
     tournyId: 'USOPEN-2021',
     url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401243414',
-    active: true,
+    active: false,
     groupName: 'usopen2021',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401243414/playersummary?region=us&lang=en&season=2020&player='
+  },
+  {
+    eventId: 'THEOPEN-2021',
+    tournyId: 'THEOPEN-2021',
+    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401243410',
+    active: true,
+    groupName: 'theOpen2021',
+    scorecard:
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401243410/playersummary?region=us&lang=en&season=2020&player='
   }
 ];
 
