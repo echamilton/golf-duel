@@ -185,10 +185,6 @@ export class SportsApiService {
     return TournamentConfig.find((data) => data.active)!.eventId;
   }
 
-  getEventName(): string {
-    return TournamentConfig.find((data) => data.active)!.tournyId;
-  }
-
   getEventEndpoint(): string {
     const tourny = TournamentConfig.find(
       (data) => data.eventId === this.getActiveEventId()
