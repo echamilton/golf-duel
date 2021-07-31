@@ -1,6 +1,6 @@
 {
   "name": "golf-duel",
-  "version": "5.6.0",
+  "version": "5.7.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -25,7 +25,7 @@
     "@ngrx/effects": "^12.3.0",
     "@ngrx/store": "^12.3.0",
     "@ngrx/store-devtools": "^12.3.0",
-    "firebase": "^8.8.0",
+    "firebase": "^8.8.1",
     "lodash-es": "^4.17.21",
     "rxjs": "~6.6.7",
     "tslib": "^2.3.0",
