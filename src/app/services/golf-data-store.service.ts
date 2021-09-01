@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { IUserGolfPicks, IGolferGrouping } from '../models/models';
 import { INITIALIZED_VALUE, TournamentConfig } from '../models/constants';
 import { SportsApiService } from './sports-api.service';
 import { AuthService } from './auth.service';
+import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,15 @@ import { AuthService } from './auth.service';
 export class GolfDataStoreService {
   constructor(
     private fireDb: AngularFireDatabase,
+    private firestore: Firestore,
     private sportsApi: SportsApiService,
     private authService: AuthService
-  ) {}
+  ) {
+    const collection33 = collection(this.firestore, 'myGolfers');
+    const data = collectionData(collection33);
+    data.subscribe((x) => console.log(x));
+    // this.item$ = collectionData(collection);
+  }
 
   getGolferGroupings(): Observable<IGolferGrouping[]> {
     const entityName = TournamentConfig.find((data) => data.active)!.groupName;

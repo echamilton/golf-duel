@@ -29,6 +29,7 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": false,
     "strictNullChecks": false,
+    "skipLibCheck": true,
     "noImplicitAny": false,
   }
 }

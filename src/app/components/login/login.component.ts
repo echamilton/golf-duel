@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Messages } from './../../models/constants';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import firebase from 'firebase';
+import firebase from 'firebase/compat';
 
 @Component({
   selector: 'app-user-comp',

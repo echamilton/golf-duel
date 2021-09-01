@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import firebase from 'firebase';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat';
 import { INITIALIZED_VALUE } from './../models/constants';
 
 @Injectable({

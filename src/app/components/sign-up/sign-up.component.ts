@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import firebase from 'firebase';
+import firebase from 'firebase/compat';
 import {
   INITIALIZED_VALUE,
   Messages,
