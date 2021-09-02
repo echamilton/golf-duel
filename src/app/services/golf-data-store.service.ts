@@ -6,7 +6,7 @@ import { IUserGolfPicks, IGolferGrouping } from '../models/models';
 import { INITIALIZED_VALUE, TournamentConfig } from '../models/constants';
 import { SportsApiService } from './sports-api.service';
 import { AuthService } from './auth.service';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+// import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +14,13 @@ import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 export class GolfDataStoreService {
   constructor(
     private fireDb: AngularFireDatabase,
-    private firestore: Firestore,
+    // private firestore: Firestore,
     private sportsApi: SportsApiService,
     private authService: AuthService
   ) {
-    const collection33 = collection(this.firestore, 'myGolfers');
-    const data = collectionData(collection33);
-    data.subscribe((x) => console.log(x));
+    // const collection33 = collection(this.firestore, 'myGolfers');
+    // const data = collectionData(collection33);
+    // data.subscribe((x) => console.log(x));
     // this.item$ = collectionData(collection);
   }
 
