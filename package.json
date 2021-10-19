@@ -1,6 +1,6 @@
 {
   "name": "golf-duel",
-  "version": "5.16.0",
+  "version": "5.17.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -16,7 +16,7 @@
     "@angular/common": "^12.2.10",
     "@angular/compiler": "^12.2.10",
     "@angular/core": "^12.2.10",
-    "@angular/fire": "^7.1.0",
+    "@angular/fire": "^7.0.4",
     "@angular/forms": "^12.2.10",
     "@angular/material": "^12.2.9",
     "@angular/platform-browser": "^12.2.10",
@@ -33,9 +33,9 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "^0.1202.8",
-    "@angular-devkit/build-angular": "^12.2.8",
-    "@angular/cli": "^12.2.8",
+    "@angular-devkit/architect": "^0.1202.10",
+    "@angular-devkit/build-angular": "^12.2.10",
+    "@angular/cli": "^12.2.10",
     "@angular/compiler-cli": "^12.2.10",
     "@types/jasmine": "~3.6.0",
     "@types/lodash": "^4.14.175",
