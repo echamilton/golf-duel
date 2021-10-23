@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat';
+import {
+  Auth,
+  sendPasswordResetEmail,
+  signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from '@angular/fire/auth';
+import { FirebaseError } from '@firebase/util';
 import { INITIALIZED_VALUE } from './../models/constants';
 
 @Injectable({
@@ -8,17 +14,17 @@ import { INITIALIZED_VALUE } from './../models/constants';
 })
 export class AuthService {
   private user: string = INITIALIZED_VALUE;
-  constructor(private firebaseAuth: AngularFireAuth) {}
+  constructor(private auth: Auth) {}
 
   signup(email: string, password: string): any {
     return new Promise<any>((resolve, reject) => {
-      this.firebaseAuth.createUserWithEmailAndPassword(email, password).then(
+      createUserWithEmailAndPassword(this.auth, email, password).then(
         (res) => {
           localStorage.setItem('user', email);
           this.user = email.toLowerCase();
           resolve(res);
         },
-        (err: firebase.FirebaseError) => reject(err)
+        (err: FirebaseError) => reject(err)
       );
     });
   }
@@ -38,30 +44,30 @@ export class AuthService {
 
   resetPassword(emailAddress: string): any {
     return new Promise<any>((resolve, reject) => {
-      this.firebaseAuth.sendPasswordResetEmail(emailAddress).then(
+      sendPasswordResetEmail(this.auth, emailAddress).then(
         (res) => {
           resolve(res);
         },
-        (err: firebase.FirebaseError) => reject(err)
+        (err: FirebaseError) => reject(err)
       );
     });
   }
 
   login(email: string, password: string): any {
     return new Promise<any>((resolve, reject) => {
-      this.firebaseAuth.signInWithEmailAndPassword(email, password).then(
+      signInWithEmailAndPassword(this.auth, email, password).then(
         (res) => {
           localStorage.setItem('user', email);
           this.user = email.toLowerCase();
           resolve(res);
         },
-        (err: firebase.FirebaseError) => reject(err)
+        (err: FirebaseError) => reject(err)
       );
     });
   }
 
   logout(): void {
-    this.firebaseAuth.signOut();
+    signOut(this.auth);
     this.user = INITIALIZED_VALUE;
     localStorage.removeItem('user');
   }

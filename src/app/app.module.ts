@@ -45,6 +45,9 @@ import { golfReducer } from './store/golf.reducer';
 import { UserEffects } from './store/golf.effects';
 import { GolfStoreFacade } from './store/golf.store.facade';
 import { NoCacheHeadersInterceptor } from './services/http-cache';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { EffectsModule } from '@ngrx/effects';
 
 export function loadInitialData(golfStoreFacade: GolfStoreFacade) {
@@ -54,7 +57,6 @@ export function loadInitialData(golfStoreFacade: GolfStoreFacade) {
 export function loadGolfGroups(golfStoreFacade: GolfStoreFacade) {
   return () => golfStoreFacade.loadGolferGroupings();
 }
-
 
 @NgModule({
   declarations: [
@@ -95,6 +97,10 @@ export function loadGolfGroups(golfStoreFacade: GolfStoreFacade) {
     MatDialogModule,
     MatButtonModule,
     AngularFireModule.initializeApp(environment.firebase, 'legbreaker-app'),
+
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     MatTableModule,
@@ -127,4 +133,4 @@ export function loadGolfGroups(golfStoreFacade: GolfStoreFacade) {
   entryComponents: [PopupComponent, ScorecardPopComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
