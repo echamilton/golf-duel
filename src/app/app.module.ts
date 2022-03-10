@@ -129,7 +129,6 @@ export function loadGolfGroups(golfStoreFacade: GolfStoreFacade) {
     //   multi: true
     // }
   ],
-  entryComponents: [PopupComponent, ScorecardPopComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
