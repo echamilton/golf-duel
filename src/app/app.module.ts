@@ -97,7 +97,6 @@ export function loadGolfGroups(golfStoreFacade: GolfStoreFacade) {
     MatDialogModule,
     MatButtonModule,
     AngularFireModule.initializeApp(environment.firebase, 'legbreaker-app'),
-
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

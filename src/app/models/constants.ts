@@ -2,19 +2,19 @@ import { ITournament, IScoreColor } from './models';
 
 export const TournamentConfig: ITournament[] = [
   {
-    eventId: 'USOPEN-2021',
-    tournyId: 'USOPEN-2021',
-    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401243414',
-    active: false,
-    groupName: 'usopen2021',
+    eventId: 'PLAYERS-2022',
+    tournyId: 'PLAYERS-2022',
+    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401353254',
+    active: true,
+    groupName: 'players2022',
     scorecard:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401243414/playersummary?region=us&lang=en&season=2020&player='
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401353254/playersummary?region=us&lang=en&season=2020&player='
   },
   {
     eventId: 'THEOPEN-2021',
     tournyId: 'THEOPEN-2021',
     url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401243410',
-    active: true,
+    active: false,
     groupName: 'theOpen2021',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401243410/playersummary?region=us&lang=en&season=2020&player='
