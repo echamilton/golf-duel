@@ -1,4 +1,11 @@
-[
+export interface IGolferFile {
+  eventId: string;
+  golferId: number | string;
+  group: string;
+  name: string;
+}
+
+export const golfersFile: IGolferFile[] = [
   {
     eventId: 'MASTERS-2022',
     golferId: '  ',
