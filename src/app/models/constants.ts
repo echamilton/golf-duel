@@ -6,7 +6,7 @@ export const TournamentConfig: ITournament[] = [
     tournyId: 'MASTERS-2022',
     url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401353232',
     active: true,
-    groupName: 'masters20222',
+    groupName: 'masters2022',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401353232/playersummary?region=us&lang=en&season=2020&player='
   },

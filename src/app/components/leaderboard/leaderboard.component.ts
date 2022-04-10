@@ -83,7 +83,7 @@ export class LeaderboardComponent implements OnInit {
       .subscribe((results: ITournamentResults) => {
         const tournamentResults: ITournamentResults = cloneDeep(results);
         if (tournamentResults) {
-          buildPlayerList(tournamentResults.golfers); // TAKE OUT
+          // buildPlayerList(tournamentResults.golfers); // TAKE OUT
           this.initializeLeaderboard();
           this.buildResults(contestants, tournamentResults);
           this.isLoading = false;
