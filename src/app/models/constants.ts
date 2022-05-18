@@ -5,19 +5,19 @@ export const TournamentConfig: ITournament[] = [
     eventId: 'MASTERS-2022',
     tournyId: 'MASTERS-2022',
     url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401353232',
-    active: true,
+    active: false,
     groupName: 'masters2022',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401353232/playersummary?region=us&lang=en&season=2020&player='
   },
   {
-    eventId: 'THEOPEN-2021',
-    tournyId: 'THEOPEN-2021',
-    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401243410',
-    active: false,
-    groupName: 'theOpen2021',
+    eventId: 'PGACHAMP-2022',
+    tournyId: 'PGACHAMP-2022',
+    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401353226',
+    active: true,
+    groupName: 'pgaChamp2021',
     scorecard:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401243410/playersummary?region=us&lang=en&season=2020&player='
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401353226/playersummary?region=us&lang=en&season=2020&player='
   }
 ];
 
