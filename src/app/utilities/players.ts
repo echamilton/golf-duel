@@ -7,549 +7,939 @@ export interface IGolferFile {
 
 export const golfersFile: IGolferFile[] = [
   {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'A',
-    name: 'Jon Rahm'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'A',
-    name: 'Justin Thomas'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'A',
-    name: 'Dustin Johnson'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'A',
-    name: 'Cameron Smith'
-  },
-  {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'A',
     name: 'Scottie Scheffler'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'A',
+    name: 'Jon Rahm'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'A',
     name: 'Rory McIlroy'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'A',
-    name: 'Brooks Koepka'
+    name: 'Justin Thomas'
   },
   {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'A',
-    name: 'Patrick Cantlay'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'A',
-    name: 'Jordan Spieth'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'A',
-    name: 'Viktor Hovland'
-  },
-  {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'A',
     name: 'Collin Morikawa'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
-    group: 'B',
+    group: 'A',
+    name: 'Dustin Johnson'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'A',
+    name: 'Jordan Spieth'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'A',
+    name: 'Cameron Smith'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'A',
+    name: 'Patrick Cantlay'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'A',
+    name: 'Viktor Hovland'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'A',
     name: 'Xander Schauffele'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
-    group: 'B',
-    name: 'Will Zalatoris'
+    group: 'A',
+    name: 'Hideki Matsuyama'
   },
   {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'B',
-    name: 'Bryson DeChambeau'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'B',
-    name: 'Sam Burns'
-  },
-  {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'B',
     name: 'Shane Lowry'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'B',
-    name: 'Matthew Fitzpatrick'
+    name: 'Will Zalatoris'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'B',
-    name: 'Hideki Matsuyama'
+    name: 'Brooks Koepka'
   },
   {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'B',
-    name: 'Corey Conners'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'B',
-    name: 'Tyrrell Hatton'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'B',
-    name: 'Daniel Berger'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'B',
-    name: 'Louis Oosthuizen'
-  },
-  {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'B',
     name: 'Joaquin Niemann'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'B',
-    name: 'Paul Casey'
+    name: 'Sam Burns'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'B',
-    name: 'Tiger Woods'
+    name: 'Matthew Fitzpatrick'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'B',
-    name: 'Adam Scott'
+    name: 'Daniel Berger'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'B',
-    name: 'Russell Henley'
+    name: 'Corey Conners'
   },
   {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'B',
-    name: 'Sungjae Im'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'B',
-    name: 'Marc Leishman'
-  },
-  {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'B',
     name: 'Tony Finau'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
-    group: 'C',
+    group: 'B',
+    name: 'Tiger Woods'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'B',
+    name: 'Max Homa'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'B',
+    name: 'Louis Oosthuizen'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'B',
+    name: 'Cameron Young'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'B',
+    name: 'Tyrrell Hatton'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'B',
+    name: 'Bryson DeChambeau'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'B',
     name: 'Tommy Fleetwood'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
-    group: 'C',
-    name: 'Billy Horschel'
+    group: 'B',
+    name: 'Jason Day'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
-    group: 'C',
-    name: 'Si-Woo Kim'
+    group: 'B',
+    name: 'Keegan Bradley'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
-    group: 'C',
-    name: 'Justin Rose'
+    group: 'B',
+    name: 'Adam Scott'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
-    group: 'C',
-    name: 'Bubba Watson'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Patrick Reed'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
+    group: 'B',
     name: 'Abraham Ancer'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
-    group: 'C',
-    name: 'Sergio Garcia'
+    group: 'B',
+    name: 'Billy Horschel'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
     name: 'Gary Woodland'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Seamus Power'
+    name: 'Patrick Reed'
   },
   {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Max Homa'
-  },
-  {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
     name: 'Jason Kokrak'
   },
   {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Webb Simpson'
-  },
-  {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
     name: 'Talor Gooch'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Brian Harman'
+    name: 'Si-Woo Kim'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Robert Macintyre'
+    name: 'Justin Rose'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Kevin Kisner'
+    name: 'Harold Varner'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Marc Leishman'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Seamus Power'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Russell Henley'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Sergio Garcia'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Webb Simpson'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
     name: 'Thomas Pieters'
   },
   {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Cameron Young'
-  },
-  {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
     name: 'Matthew Wolff'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Tom Hoge'
+    name: 'Aaron Wise'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Cameron Champ'
+    name: 'Sebastian Munoz'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Alex Noren'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
     name: 'Christiaan Bezuidenhout'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Kevin Na'
+    name: 'Maverick McNealy'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Francesco Molinari'
+    name: 'Cameron Champ'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Luke List'
+    name: 'Rickie Fowler'
   },
   {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Lee Westwood'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Erik van Rooyen'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Harold Varne'
-  },
-  {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
     name: 'Sepp Straka'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Lucas Herbert'
+    name: 'Jhonattan Vegas'
   },
   {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Cam Davis'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Mackenzie Hughes'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Ryan Palmer'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Kyoung-Hoon Lee'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Danny Willett'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Stewart Cink'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'J.J. Spaun'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Padraig Harrington'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Takumi Kanaya'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Garrick Higgo'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Min Woo Lee'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Zach Johnson'
-  },
-  {
-    eventId: 'MASTERS-2022',
-    golferId: '  ',
-    group: 'C',
-    name: 'Keita Nakajima'
-  },
-  {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
     name: 'Charl Schwartzel'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Harry Higgs'
+    name: 'Bubba Watson'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Davis Riley'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Erik Van Rooyen'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Kyoung-Hoon Lee'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Tom Hoge'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Brian Harman'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Adam Hadwin'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Luke List'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Keith Mitchell'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Matt Kuchar'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Kevin Na'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Mito Pereira'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Kevin Kisner'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Cameron Davis'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Sam Horsfield'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Chris Kirk'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Russell Knox'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Bernd Wiesberger'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Joel Dahmen'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Robert Macintyre'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Ryan Palmer'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Branden Grace'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Lanto Griffin'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Matt Jones'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Cameron Tringale'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Ian Poulter'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Francesco Molinari'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Anirban Lahiri'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Mackenzie Hughes'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Stewart Cink'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Lee Westwood'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Lucas Herbert'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Adri Arnaus'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Ryan Fox'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'J.J. Spaun'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Kevin Streelman'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Min Woo Lee'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Nicolai Hojgaard'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Martin Kaymer'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Carlos Ortiz'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Oliver Bekker'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Dean Burmester'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Justin Harding'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Patton Kizzire'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Garrick Higgo'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Henrik Stenson'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Joohyung Kim'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Troy Merritt'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
     name: 'Lucas Glover'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Guido Migliozzi'
+    name: 'Pablo Larrazabal'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Richard Bland'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Brendan Steele'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Padraig Harrington'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Harry Higgs'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Adam Schenk'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Shaun Norris'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Scott Stallings'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Beau Hossler'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Rikuya Hoshino'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Zach Johnson'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Laurie Canter'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Takumi Kanaya'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
     name: 'Hudson Swafford'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Bernhard Langer'
+    name: 'Bio Kim'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Aaron Jarvis'
+    name: 'Daniel Van Tonder'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'James Piot'
+    name: 'Ryosuke Kinoshita'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Stewart Hagestad'
+    name: 'Chan Kim'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Fred Couples'
+    name: 'Sadom Kaewkanjana'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Vijay Singh'
+    name: 'Yuki Inamori'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Austin Greaser'
+    name: 'Chad Ramey'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Mike Weir'
+    name: 'Jason Dufner'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Jose Maria Olazabal'
+    name: 'Kramer Hickok'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Laird Shepherd'
+    name: 'Jinichiro Kozuma'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Larry Mize'
+    name: 'Ryan Brehm'
   },
   {
-    eventId: 'MASTERS-2022',
+    eventId: 'PGACHAMP-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Sandy Lyle'
+    name: 'Y.E. Yang'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Alex Cejka'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'John Daly'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Wyatt Worthington'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Shawn Warren'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Rich Beem'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Shaun Micheel'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Ryan Vermeer'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Colin Inglis'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Tim Feenstr'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Zac Oakley'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Matthew Borchert'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Brandon Bingaman'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Kyle Mendoza'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Alex Beach'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Casey Pyne'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Austin Hurt'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Jared Jones'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Tyler Collet'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Michael Block'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Sean McCarty'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Dylan Newman'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Nic Ishee'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Paul Dickinson'
+  },
+  {
+    eventId: 'PGACHAMP-2022',
+    golferId: '  ',
+    group: 'C',
+    name: 'Jesse Mueller'
   }
 ];

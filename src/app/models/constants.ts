@@ -15,7 +15,7 @@ export const TournamentConfig: ITournament[] = [
     tournyId: 'PGACHAMP-2022',
     url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401353226',
     active: true,
-    groupName: 'pgaChamp2021',
+    groupName: 'pgaChamp2022',
     scorecard:
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401353226/playersummary?region=us&lang=en&season=2020&player='
   }
