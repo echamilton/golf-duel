@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators
+} from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -24,7 +28,7 @@ export class PickTeamComponent implements OnInit {
   config = new MatSnackBarConfig();
   golferGroupings$: Observable<IGolferGroupingsUI>;
   existingEntry = false;
-  picksFg: FormGroup;
+  picksFg: UntypedFormGroup;
 
   constructor(
     private sportsApi: SportsApiService,
@@ -129,17 +133,20 @@ export class PickTeamComponent implements OnInit {
     this.snackBar.open(text, 'Close', this.config);
   }
 
-  private initializeForm(): FormGroup {
-    return new FormGroup({
-      golfer1: new FormControl('', Validators.required),
-      golfer2: new FormControl('', Validators.required),
-      golfer3: new FormControl('', Validators.required),
-      golfer4: new FormControl('', Validators.required),
-      golfer5: new FormControl('', Validators.required),
-      golfer6: new FormControl('', Validators.required),
-      golfer7: new FormControl('', Validators.required),
-      golfer8: new FormControl('', Validators.required),
-      team: new FormControl({ value: '', disabled: false }, Validators.required)
+  private initializeForm(): UntypedFormGroup {
+    return new UntypedFormGroup({
+      golfer1: new UntypedFormControl('', Validators.required),
+      golfer2: new UntypedFormControl('', Validators.required),
+      golfer3: new UntypedFormControl('', Validators.required),
+      golfer4: new UntypedFormControl('', Validators.required),
+      golfer5: new UntypedFormControl('', Validators.required),
+      golfer6: new UntypedFormControl('', Validators.required),
+      golfer7: new UntypedFormControl('', Validators.required),
+      golfer8: new UntypedFormControl('', Validators.required),
+      team: new UntypedFormControl(
+        { value: '', disabled: false },
+        Validators.required
+      )
     });
   }
 
