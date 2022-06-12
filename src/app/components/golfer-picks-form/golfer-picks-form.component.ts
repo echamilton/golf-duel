@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { IGolfersGroupPick } from '../../models/models';
 
 @Component({
@@ -8,7 +8,7 @@ import { IGolfersGroupPick } from '../../models/models';
   styleUrls: ['./golfer-picks-form.component.scss']
 })
 export class GolferPicksFormComponent implements OnInit {
-  @Input() picksFg!: FormGroup;
+  @Input() picksFg!: UntypedFormGroup;
   @Input() golferGrpA: Array<IGolfersGroupPick> = [];
   @Input() golferGrpB: Array<IGolfersGroupPick> = [];
   @Input() golferGrpC: Array<IGolfersGroupPick> = [];
