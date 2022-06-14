@@ -11,13 +11,13 @@ export const TournamentConfig: ITournament[] = [
       'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401353232/playersummary?region=us&lang=en&season=2020&player='
   },
   {
-    eventId: 'PGACHAMP-2022',
-    tournyId: 'PGACHAMP-2022',
-    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401353226',
+    eventId: 'USOPEN-2022',
+    tournyId: 'USOPEN-2022',
+    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401353222',
     active: true,
-    groupName: 'pgaChamp2022',
+    groupName: 'usOpen2022',
     scorecard:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401353226/playersummary?region=us&lang=en&season=2020&player='
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401353222/playersummary?region=us&lang=en&season=2020&player='
   }
 ];
 
