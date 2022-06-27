@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/schematics": "^14.0.1",
+    "@angular-devkit/schematics": "^14.0.3",
     "@angular/animations": "^14.0.3",
     "@angular/cdk": "^14.0.3",
     "@angular/common": "^14.0.3",
@@ -35,9 +35,9 @@
     "zone.js": "^0.11.5"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "^0.1400.1",
-    "@angular-devkit/build-angular": "^14.0.1",
-    "@angular/cli": "^14.0.1",
+    "@angular-devkit/architect": "^0.1400.3",
+    "@angular-devkit/build-angular": "^14.0.3",
+    "@angular/cli": "^14.0.3",
     "@angular/compiler-cli": "^14.0.3",
     "@types/jasmine": "~3.6.0",
     "@types/lodash": "^4.14.182",
