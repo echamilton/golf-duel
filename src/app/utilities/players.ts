@@ -22,24 +22,6 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'A',
-    name: 'Rory McIlroy'
-  },
-  {
-    eventId: 'USOPEN-2022',
-    golferId: '  ',
-    group: 'A',
-    name: 'Justin Thomas'
-  },
-  {
-    eventId: 'USOPEN-2022',
-    golferId: '  ',
-    group: 'A',
-    name: 'Collin Morikawa'
-  },
-  {
-    eventId: 'USOPEN-2022',
-    golferId: '  ',
-    group: 'A',
     name: 'Cameron Smith'
   },
   {
@@ -52,7 +34,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'A',
-    name: 'Brooks Koepka'
+    name: 'Patrick Cantlay'
   },
   {
     eventId: 'USOPEN-2022',
@@ -196,7 +178,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Matthew Wolff'
+    name: 'Jason Kokrak'
   },
   {
     eventId: 'USOPEN-2022',
@@ -232,7 +214,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Christiaan Bezuidenhout'
+    name: 'Talor Gooch'
   },
   {
     eventId: 'USOPEN-2022',
@@ -256,7 +238,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Brian Harman'
+    name: 'Harold Varner'
   },
   {
     eventId: 'USOPEN-2022',
@@ -304,7 +286,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Matt Wallace'
+    name: 'Aaron Wise'
   },
   {
     eventId: 'USOPEN-2022',
@@ -328,7 +310,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Ryan Palmer'
+    name: 'Maverick McNealy'
   },
   {
     eventId: 'USOPEN-2022',
@@ -346,7 +328,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Kevin Kisner'
+    name: 'Sepp Straka'
   },
   {
     eventId: 'USOPEN-2022',
@@ -550,7 +532,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Lanto Griffin'
+    name: 'Francesco Molinari'
   },
   {
     eventId: 'USOPEN-2022',
@@ -892,7 +874,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Patrick Rodgers'
+    name: 'Wyatt Worthington'
   },
   {
     eventId: 'USOPEN-2022',
@@ -934,7 +916,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Davis Shore'
+    name: 'Colin Inglis'
   },
   {
     eventId: 'USOPEN-2022',
@@ -982,7 +964,7 @@ export const golfersFile: IGolferFile[] = [
     eventId: 'USOPEN-2022',
     golferId: '  ',
     group: 'C',
-    name: 'Brian Stuard'
+    name: 'Matthew Borchert'
   },
   {
     eventId: 'USOPEN-2022',
