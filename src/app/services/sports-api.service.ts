@@ -16,6 +16,8 @@ import {
 } from '../models/constants';
 import { map, catchError } from 'rxjs/operators';
 import { sortScores } from '../utilities/sorter';
+import { buildPlayerList } from '../utilities/player-generator';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +80,8 @@ export class SportsApiService {
     this.tournamentStatus = tournamentResults.status;
     this.holeParScores = golferScores.events[0].courses[0].holes;
 
+    //Enables map of player IDs
+    if (environment.enablePlayerMap) buildPlayerList(tournamentResults.golfers);
     return tournamentResults;
   }
 

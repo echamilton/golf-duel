@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-
+  enablePlayerMap: false,
   firebase: {
     apiKey: 'AIzaSyABOO_Xt0f-Y52mib9D79Kog95osDxuY50',
     authDomain: 'legbreaker-app.firebaseapp.com',
@@ -9,5 +9,4 @@ export const environment = {
     storageBucket: 'legbreaker-app.appspot.com',
     messagingSenderId: '727660903518'
   }
-
 };
