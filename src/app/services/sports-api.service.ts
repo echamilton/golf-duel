@@ -100,17 +100,23 @@ export class SportsApiService {
       scoreToday: INITIALIZED_VALUE,
       ownPct: 0,
       hole: INITIALIZED_VALUE,
-      status:
-        espnGolfer.status.displayValue === GolferStatus.cut ||
-        espnGolfer.status.displayValue === GolferStatus.withdrawn
-          ? GolferStatus.cut
-          : GolferStatus.active,
+      status: this.mapGolferStatus(espnGolfer.status.displayValue),
       imageLink: espnGolfer.athlete.headshot
         ? espnGolfer.athlete.headshot.href
         : espnGolfer.athlete.flag.href
     };
     golfer.isActive = this.isGolferActive(golfer.status);
     return golfer;
+  }
+
+  private mapGolferStatus(espnGolferStatus: string): string {
+    switch (espnGolferStatus) {
+      case GolferStatus.cut:
+      case GolferStatus.withdrawn:
+        return espnGolferStatus;
+      default:
+        return GolferStatus.active;
+    }
   }
 
   private determineScore(golfer: any): number {
