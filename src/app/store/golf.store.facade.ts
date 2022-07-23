@@ -55,7 +55,7 @@ export class GolfStoreFacade {
   }
 
   updateUserPicks(userSelections: IUserGolfPicks): void {
-    this.store.dispatch(updateUserSelectedPicks());
+    this.store.dispatch(updateUserSelectedPicks(userSelections));
   }
 
   triggerRefreshData(): void {

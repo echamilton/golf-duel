@@ -8,7 +8,9 @@ import {
   getTournamentLoad,
   getTournamentLoadSuccess,
   getUserSelectedPicks,
-  getUserSelectedPicksComplete
+  getUserSelectedPicksComplete,
+  updateUserSelectedPicks,
+  updateUserSelectedPicksComplete
 } from './golf.actions';
 import { map, mergeMap } from 'rxjs/operators';
 import {
@@ -63,6 +65,19 @@ export class UserEffects {
         this.golfData.loadUserPicks().pipe(
           map((userPicks) => {
             return getUserSelectedPicksComplete(userPicks);
+          })
+        )
+      )
+    )
+  );
+
+  updateUserSelectedPicks$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateUserSelectedPicks),
+      mergeMap((action) =>
+        this.golfData.updateGolferPicks(action).pipe(
+          map(() => {
+            return updateUserSelectedPicksComplete();
           })
         )
       )

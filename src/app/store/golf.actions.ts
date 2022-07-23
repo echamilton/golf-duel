@@ -19,9 +19,13 @@ export const getUserSelectedPicksComplete = createAction(
   props<IUserGolfPicks>()
 );
 export const updateUserSelectedPicks = createAction(
-  '[Golf] Update user selected picks'
+  '[Golf] Update user selected picks',
+  props<IUserGolfPicks>()
+);
+export const updateUserSelectedPicksComplete = createAction(
+  '[Golf] Update user selected picks complete'
 );
 export const getGolferGroupingsComplete = createAction(
-  '[Golf] Get groupings Success',
+  '[Golf] Get groupings complete',
   props<IGolferGroupingsUI>()
 );
