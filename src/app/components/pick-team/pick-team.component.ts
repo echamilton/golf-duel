@@ -11,9 +11,12 @@ import { Observable } from 'rxjs';
 import { IGolferGroupingsUI, IUserGolfPicks } from '../../models/models';
 import { SportsApiService } from '../../services/sports-api.service';
 import { AuthService } from '../../services/auth.service';
-import { INITIALIZED_VALUE, Messages } from './../../models/constants';
+import {
+  INITIALIZED_VALUE,
+  Messages,
+  Operation
+} from './../../models/constants';
 import { PopupComponent } from './../popup/popup.component';
-import { GolfDataStoreService } from './../../services/golf-data-store.service';
 import { GolfStoreFacade } from './../../store/golf.store.facade';
 
 @Component({
@@ -23,6 +26,7 @@ import { GolfStoreFacade } from './../../store/golf.store.facade';
 })
 export class PickTeamComponent implements OnInit {
   answer: string = INITIALIZED_VALUE;
+  userPicks$: Observable<IUserGolfPicks>;
   popupText: string = INITIALIZED_VALUE;
   isLoading: boolean = false;
   config = new MatSnackBarConfig();
@@ -36,11 +40,11 @@ export class PickTeamComponent implements OnInit {
     private snackBar: MatSnackBar,
     private popup: MatDialog,
     private authService: AuthService,
-    private golfDataService: GolfDataStoreService,
     private golfFacade: GolfStoreFacade
   ) {
     this.golferGroupings$ = this.getGolferGroupings();
     this.picksFg = this.initializeForm();
+    this.userPicks$ = this.golfFacade.getUserSelectedPicks();
   }
 
   ngOnInit(): void {
@@ -52,12 +56,20 @@ export class PickTeamComponent implements OnInit {
     return this.authService.isLoggedIn();
   }
 
+  get updateOperation(): Operation {
+    return Operation.update;
+  }
+
+  get deleteOperation(): Operation {
+    return Operation.delete;
+  }
+
   get isTournamentActive(): boolean {
     return this.sportsApi.isTournamentActive();
   }
 
   private loadUserPicks(): void {
-    this.golfDataService.loadUserPicks().subscribe((picks) => {
+    this.userPicks$.subscribe((picks) => {
       if (picks && picks.email) {
         this.existingEntry = true;
         this.picksFg.get('team')!.disable();
@@ -68,13 +80,13 @@ export class PickTeamComponent implements OnInit {
   }
 
   private getGolferGroupings(): Observable<IGolferGroupingsUI> {
-    this.isLoading = true;
+    this.isLoading = true; // Resolve issue
     return this.golfFacade.getGolferGroups();
   }
 
-  openConfirmationPopup(action: string): void {
+  openConfirmationPopup(action: Operation): void {
     let popupText: string;
-    if (action === 'update') {
+    if (action === Operation.update) {
       if (this.picksFg.status === 'INVALID') {
         this.openSnackBar(Messages.teamError);
         return;
@@ -87,7 +99,7 @@ export class PickTeamComponent implements OnInit {
     this.launchConfirmModal(popupText, action);
   }
 
-  processData(answer: string, action: string): void {
+  processData(answer: string, action: Operation): void {
     this.isLoading = true;
     if (answer === 'Yes') {
       this.sportsApi.getGolfScores().subscribe((apiData) => {
@@ -98,7 +110,7 @@ export class PickTeamComponent implements OnInit {
     }
   }
 
-  private launchConfirmModal(text: string, action: string): void {
+  private launchConfirmModal(text: string, action: Operation): void {
     const popupConfig = new MatDialogConfig();
     popupConfig.disableClose = false;
     popupConfig.autoFocus = true;
@@ -111,19 +123,14 @@ export class PickTeamComponent implements OnInit {
       .subscribe((answer) => this.processData(answer, action));
   }
 
-  private validateSubmit(action: string, status: string): void {
+  private validateSubmit(action: Operation, status: string): void {
     if (this.sportsApi.isTournamentActive(status)) {
       this.openSnackBar(Messages.picksActiveTourny);
       this.isLoading = false;
       return;
     }
-    if (action === 'update') {
-      this.golfDataService.updateGolferPicks(this.mapFormToPicks());
-      this.openSnackBar(Messages.teamSuccess);
-    } else {
-      this.golfDataService.deleteGolferPicks(this.mapFormToPicks());
-      this.openSnackBar(Messages.deleteSuccess);
-    }
+    this.golfFacade.updateUserPicks(this.mapFormToPicks(), action);
+    this.openSnackBar(Messages.teamSuccess);
     this.isLoading = false;
     this.router.navigate(['/leader']);
   }

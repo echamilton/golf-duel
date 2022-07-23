@@ -50,6 +50,11 @@ export enum GolferStatus {
   withdrawn = 'WD'
 }
 
+export enum Operation {
+  update = 'Update',
+  delete = 'Delete'
+}
+
 export const LeaderColumns: string[] = [
   'position',
   'team',
@@ -66,8 +71,7 @@ export enum Messages {
   submitTeam = 'Are you sure you want to submit your team?',
   deleteTeam = 'Are you sure you want to delete your entry?',
   teamError = 'Complete your entry!',
-  teamSuccess = 'Picks have been submitted!',
-  deleteSuccess = 'Picks have been removed!',
+  teamSuccess = 'Your picks have been updated',
   golferCut = 'Golfer has been cut!',
   picksActiveTourny = 'Picks not submitted, tournament already in progress'
 }

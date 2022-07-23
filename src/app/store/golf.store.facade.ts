@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Operation } from '../models/constants';
 import {
   IGolferGroupingsUI,
   ITournamentResults,
@@ -54,8 +55,10 @@ export class GolfStoreFacade {
     this.store.dispatch(getUserSelectedPicks());
   }
 
-  updateUserPicks(userSelections: IUserGolfPicks): void {
-    this.store.dispatch(updateUserSelectedPicks(userSelections));
+  updateUserPicks(userSelections: IUserGolfPicks, operation: Operation): void {
+    this.store.dispatch(
+      updateUserSelectedPicks({ picks: userSelections, operation: operation })
+    );
   }
 
   triggerRefreshData(): void {

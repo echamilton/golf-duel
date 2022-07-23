@@ -15,14 +15,17 @@
       ></app-golfer-picks-form>
 
       <div style="text-align: center">
-        <button mat-raised-button (click)="openConfirmationPopup('update')">
+        <button
+          mat-raised-button
+          (click)="openConfirmationPopup(updateOperation)"
+        >
           Submit Team
         </button>
 
         <button
           mat-raised-button
           *ngIf="existingEntry"
-          (click)="openConfirmationPopup('delete')"
+          (click)="openConfirmationPopup(deleteOperation)"
         >
           Delete Entry
         </button>

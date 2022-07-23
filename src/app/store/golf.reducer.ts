@@ -50,9 +50,9 @@ export const golfReducer = createReducer(
   on(getUserSelectedPicks, (state) => ({
     ...state
   })),
-  on(updateUserSelectedPicks, (state, userSelections: IUserGolfPicks) => ({
+  on(updateUserSelectedPicks, (state, action) => ({
     ...state,
-    userSelectedPicks: userSelections,
+    userSelectedPicks: action.picks,
     isUserPicksUpdating: true
   })),
   on(updateUserSelectedPicksComplete, (state) => ({

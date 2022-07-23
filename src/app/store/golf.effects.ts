@@ -17,10 +17,12 @@ import {
   IGolferGrouping,
   IGolferGroupingsUI,
   IGolfersGroupPick,
-  ITournamentResults
+  ITournamentResults,
+  IUserGolfPicks
 } from './../models/models';
 import { SportsApiService } from '../services/sports-api.service';
 import { GolfDataStoreService } from '../services/golf-data-store.service';
+import { Operation } from '../models/constants';
 
 @Injectable()
 export class UserEffects {
@@ -75,7 +77,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(updateUserSelectedPicks),
       mergeMap((action) =>
-        this.golfData.updateGolferPicks(action).pipe(
+        this.updateUserPicks(action.picks, action.operation).pipe(
           map(() => {
             return updateUserSelectedPicksComplete();
           })
@@ -83,6 +85,17 @@ export class UserEffects {
       )
     )
   );
+
+  private updateUserPicks(
+    picks: IUserGolfPicks,
+    operation: Operation
+  ): Observable<boolean> {
+    if (operation === Operation.update)
+      return this.golfData.updateGolferPicks(picks);
+    else {
+      return this.golfData.deleteGolferPicks(picks);
+    }
+  }
 
   private filterGolfGroupings(
     groupingsFromDB: IGolferGrouping[]

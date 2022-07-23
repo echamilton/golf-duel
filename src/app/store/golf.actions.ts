@@ -1,4 +1,5 @@
 import { props, createAction } from '@ngrx/store';
+import { Operation } from '../models/constants';
 import {
   ITournamentResults,
   IGolferGroupingsUI,
@@ -20,7 +21,7 @@ export const getUserSelectedPicksComplete = createAction(
 );
 export const updateUserSelectedPicks = createAction(
   '[Golf] Update user selected picks',
-  props<IUserGolfPicks>()
+  props<{ picks: IUserGolfPicks; operation: Operation }>()
 );
 export const updateUserSelectedPicksComplete = createAction(
   '[Golf] Update user selected picks complete'
