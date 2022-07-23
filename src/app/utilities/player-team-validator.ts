@@ -21,20 +21,14 @@ export function isInvalidGolfer(
       isInvalid = true;
     }
   });
-
-  //CHeck if the golfer is missing from the list - this should be in pick team
   return isInvalid;
 }
 
 function getGolferKeyValue(playerPicksObject: IUserGolfPicks): string[] {
   const playerPicksArray: string[] = [];
-  // const test: IUserGolfPicks = { ...playerPicksObject };
-
-  const test: IUserGolfPicks = { ...playerPicksObject, golfer1: '569' };
-  console.log(test);
-  for (let key in test) {
+  for (let key in playerPicksObject) {
     if (key.includes('golfer')) {
-      playerPicksArray.push(test[key as keyof IUserGolfPicks]);
+      playerPicksArray.push(playerPicksObject[key as keyof IUserGolfPicks]);
     }
   }
   return playerPicksArray;
