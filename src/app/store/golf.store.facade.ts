@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Operation } from '../models/constants';
 import {
   IGolferGroupingsUI,
@@ -67,5 +67,12 @@ export class GolfStoreFacade {
 
   isDataRefreshed(): EventEmitter<boolean> {
     return this.refreshData;
+  }
+
+  getToolbarValidationData(): Observable<any> {
+    return combineLatest([
+      this.store.pipe(select(getGolfTournamentData)),
+      this.store.pipe(select(getUserPicks))
+    ]);
   }
 }
