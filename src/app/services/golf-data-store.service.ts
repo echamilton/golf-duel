@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IUserGolfPicks, IGolferGrouping } from '../models/models';
 import { INITIALIZED_VALUE, TournamentConfig } from '../models/constants';
@@ -82,28 +82,22 @@ export class GolfDataStoreService {
     return userPicks;
   }
 
-  updateGolferPicks(userPicks: IUserGolfPicks): void {
+  updateGolferPicks(userPicks: IUserGolfPicks): Observable<boolean> {
     this.fireDb
       .object(
         'myGolfers/' + this.sportsApi.getActiveEventId() + '-' + userPicks.team
       )
       .update(userPicks)
       .then((_) => {});
+
+    return of(true);
   }
 
-  saveGolferPicks(userPicks: IUserGolfPicks): void {
-    this.fireDb
-      .list('myGolfers')
-      .push(
-        'myGolfers/' + this.sportsApi.getActiveEventId() + '-' + userPicks.team
-      )
-      .then((_) => {});
-  }
-
-  deleteGolferPicks(userPicks: IUserGolfPicks): void {
+  deleteGolferPicks(userPicks: IUserGolfPicks): Observable<boolean> {
     this.fireDb
       .list('myGolfers')
       .remove(this.sportsApi.getActiveEventId() + '-' + userPicks.team)
       .then((_) => {});
+    return of(true);
   }
 }
