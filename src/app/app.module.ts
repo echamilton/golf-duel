@@ -58,6 +58,10 @@ export function loadGolfGroups(golfStoreFacade: GolfStoreFacade) {
   return () => golfStoreFacade.loadGolferGroupings();
 }
 
+export function loadUserPicks(golfStoreFacade: GolfStoreFacade) {
+  return () => golfStoreFacade.loadUserPicks();
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -121,6 +125,12 @@ export function loadGolfGroups(golfStoreFacade: GolfStoreFacade) {
       provide: APP_INITIALIZER,
       multi: true,
       useFactory: loadGolfGroups,
+      deps: [GolfStoreFacade]
+    },
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: loadUserPicks,
       deps: [GolfStoreFacade]
     }
     // {

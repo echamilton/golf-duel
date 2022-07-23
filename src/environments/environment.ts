@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  enablePlayerMap: true,
+  enablePlayerMap: false,
   firebase: {
     apiKey: 'AIzaSyABOO_Xt0f-Y52mib9D79Kog95osDxuY50',
     authDomain: 'legbreaker-app.firebaseapp.com',

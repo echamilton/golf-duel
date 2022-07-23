@@ -18,6 +18,10 @@ export const getGolferGroups = createSelector(featureSlice, (state) => {
   return state.golferGroupings!;
 });
 
+export const getUserPicks = createSelector(featureSlice, (state) => {
+  return state.userSelectedPicks!;
+});
+
 export const getIsTournamentLoading = createSelector(featureSlice, (state) => {
   return state.isLoading;
 });

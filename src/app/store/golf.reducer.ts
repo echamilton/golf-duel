@@ -1,10 +1,16 @@
 import { createReducer, on } from '@ngrx/store';
-import { IGolferGroupingsUI, ITournamentResults } from './../models/models';
+import {
+  IGolferGroupingsUI,
+  ITournamentResults,
+  IUserGolfPicks
+} from './../models/models';
 import {
   getTournamentLoad,
   getTournamentLoadSuccess,
   getGolferGroupings,
-  getGolferGroupingsComplete
+  getGolferGroupingsComplete,
+  getUserSelectedPicks,
+  getUserSelectedPicksComplete
 } from './golf.actions';
 
 export interface IGolfAppState {
@@ -12,6 +18,7 @@ export interface IGolfAppState {
   isLoading: boolean;
   golferGroupings?: IGolferGroupingsUI;
   isLoadingGroups: boolean;
+  userSelectedPicks?: IUserGolfPicks;
 }
 
 const INITIAL_STORE_STATE: Readonly<IGolfAppState> = {
@@ -35,5 +42,15 @@ export const golfReducer = createReducer(
     ...state,
     isLoadingGroups: false,
     golferGroupings: groupings
-  }))
+  })),
+  on(getUserSelectedPicks, (state) => ({
+    ...state
+  })),
+  on(
+    getUserSelectedPicksComplete,
+    (state, userSelectedPicks: IUserGolfPicks) => ({
+      ...state,
+      userSelectedPicks: userSelectedPicks
+    })
+  )
 );

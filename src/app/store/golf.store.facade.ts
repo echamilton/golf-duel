@@ -1,12 +1,22 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IGolferGroupingsUI, ITournamentResults } from '../models/models';
-import { getGolferGroupings, getTournamentLoad } from './golf.actions';
+import {
+  IGolferGroupingsUI,
+  ITournamentResults,
+  IUserGolfPicks
+} from '../models/models';
+import {
+  getGolferGroupings,
+  getTournamentLoad,
+  getUserSelectedPicks,
+  updateUserSelectedPicks
+} from './golf.actions';
 import {
   getGolferGroups,
   getGolfTournamentData,
-  getIsTournamentLoading
+  getIsTournamentLoading,
+  getUserPicks
 } from './golf.selector';
 
 @Injectable({
@@ -32,8 +42,20 @@ export class GolfStoreFacade {
     return this.store.pipe(select(getGolferGroups));
   }
 
+  getUserSelectedPicks(): Observable<IUserGolfPicks> {
+    return this.store.pipe(select(getUserPicks));
+  }
+
   loadGolferGroupings(): void {
     this.store.dispatch(getGolferGroupings());
+  }
+
+  loadUserPicks(): void {
+    this.store.dispatch(getUserSelectedPicks());
+  }
+
+  updateUserPicks(userSelections: IUserGolfPicks): void {
+    this.store.dispatch(updateUserSelectedPicks());
   }
 
   triggerRefreshData(): void {

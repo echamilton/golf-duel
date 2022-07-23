@@ -6,7 +6,9 @@ import {
   getGolferGroupings,
   getGolferGroupingsComplete,
   getTournamentLoad,
-  getTournamentLoadSuccess
+  getTournamentLoadSuccess,
+  getUserSelectedPicks,
+  getUserSelectedPicksComplete
 } from './golf.actions';
 import { map, mergeMap } from 'rxjs/operators';
 import {
@@ -48,6 +50,19 @@ export class UserEffects {
             return getGolferGroupingsComplete(
               this.filterGolfGroupings(golfGroupings)
             );
+          })
+        )
+      )
+    )
+  );
+
+  getUserSelectedPicks$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getUserSelectedPicks),
+      mergeMap(() =>
+        this.golfData.loadUserPicks().pipe(
+          map((userPicks) => {
+            return getUserSelectedPicksComplete(userPicks);
           })
         )
       )

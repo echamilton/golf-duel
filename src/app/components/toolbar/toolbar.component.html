@@ -36,6 +36,9 @@
       </button>
     </mat-menu>
   </mat-toolbar-row>
+  <mat-toolbar-row class="warning" *ngIf="isInvalidLineup">
+    <div>{{ invalidPlayerText }}</div>
+  </mat-toolbar-row>
   <mat-toolbar-row class="leaders scrolling-wrapper">
     <app-tournament-leaders></app-tournament-leaders
   ></mat-toolbar-row>
