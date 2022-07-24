@@ -21,12 +21,7 @@ export class GolferPicksFormComponent implements OnInit {
     if (golferDropDown === currentGolfer) {
       return false;
     }
-    const golferArray = [];
-    for (let key in this.picksFg.value) {
-      if (this.picksFg.value.hasOwnProperty(key)) {
-        golferArray.push(this.picksFg.value[key]);
-      }
-    }
+    const golferArray = Object.values(this.picksFg.value);
     return golferArray.includes(golferDropDown);
   }
 }
