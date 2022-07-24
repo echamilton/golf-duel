@@ -30,14 +30,14 @@ export class ToolbarComponent implements OnInit {
     return this.authService.isLoggedIn();
   }
 
+  get invalidPlayerText(): string {
+    return 'You have an invalid lineup';
+  }
+
   reloadLeaderboard(): void {
     this.golfFacade.loadTournamentData();
     this.golfFacade.triggerRefreshData();
     this.router.navigate(['/leader']);
-  }
-
-  get invalidPlayerText(): string {
-    return 'You have an invalid lineup';
   }
 
   logout(): void {
