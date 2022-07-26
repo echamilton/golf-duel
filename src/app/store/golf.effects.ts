@@ -12,24 +12,28 @@ import {
   updateUserSelectedPicks,
   updateUserSelectedPicksComplete
 } from './golf.actions';
-import { map, mergeMap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { concatMap, map, mergeMap, switchMap } from 'rxjs/operators';
 import {
   IGolferGrouping,
   IGolferGroupingsUI,
   IGolfersGroupPick,
+  IPlayer,
   ITournamentResults,
   IUserGolfPicks
 } from './../models/models';
 import { SportsApiService } from '../services/sports-api.service';
 import { GolfDataStoreService } from '../services/golf-data-store.service';
 import { Operation } from '../models/constants';
+import { getGolfTournamentData } from './golf.selector';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
     private sportsApi: SportsApiService,
-    private golfData: GolfDataStoreService
+    private golfData: GolfDataStoreService,
+    private store: Store
   ) {}
 
   getTournamentData$: Observable<Action> = createEffect(() =>
@@ -48,11 +52,15 @@ export class UserEffects {
   getGolferGroupings$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(getGolferGroupings),
-      mergeMap(() =>
+      concatMap(({}) => this.store.select(getGolfTournamentData)),
+      switchMap((tournamentStoreData) =>
         this.golfData.getGolferGroupings().pipe(
           map((golfGroupings) => {
             return getGolferGroupingsComplete(
-              this.filterGolfGroupings(golfGroupings)
+              this.filterGolfGroupings(
+                golfGroupings,
+                tournamentStoreData.golfers
+              )
             );
           })
         )
@@ -98,21 +106,32 @@ export class UserEffects {
   }
 
   private filterGolfGroupings(
-    groupingsFromDB: IGolferGrouping[]
+    groupingsFromDB: IGolferGrouping[],
+    tournamentGolfers: IPlayer[]
   ): IGolferGroupingsUI {
+    if (tournamentGolfers) {
+      const groupingsDBFiltered = this.checkGroupingsAgainstTournament(
+        groupingsFromDB,
+        tournamentGolfers
+      );
+
+      return this.splitGroupings(groupingsDBFiltered);
+    }
+    return {};
+  }
+
+  private splitGroupings(groupingsDb: IGolferGrouping[]): IGolferGroupingsUI {
     const golferGroupings: IGolferGroupingsUI = {
       groupA: [],
       groupB: [],
       groupC: []
     };
-
-    if (groupingsFromDB) {
-      groupingsFromDB.forEach((golfer) => {
+    if (groupingsDb) {
+      groupingsDb.forEach((golfer) => {
         const golferPick: IGolfersGroupPick = {
           id: golfer.golferId,
           name: golfer.name
         };
-
         if (golfer.group == 'A') {
           golferGroupings.groupA!.push(golferPick);
         } else if (golfer.group == 'B') {
@@ -123,5 +142,17 @@ export class UserEffects {
       });
     }
     return golferGroupings;
+  }
+
+  private checkGroupingsAgainstTournament(
+    groupingsData: IGolferGrouping[],
+    tournamentResultsGolfers: IPlayer[]
+  ): IGolferGrouping[] {
+    const filteredResults = groupingsData.filter((golfer) =>
+      tournamentResultsGolfers.find(
+        (player) => player.golferId === golfer.golferId.toString()
+      )
+    );
+    return filteredResults;
   }
 }
