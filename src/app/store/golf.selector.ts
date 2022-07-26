@@ -25,3 +25,7 @@ export const getUserPicks = createSelector(featureSlice, (state) => {
 export const getIsTournamentLoading = createSelector(featureSlice, (state) => {
   return state.isLoading;
 });
+
+export const getAreGroupsLoading = createSelector(featureSlice, (state) => {
+  return state.isLoadingGroups;
+});

@@ -50,6 +50,7 @@ export class PickTeamComponent implements OnInit {
   ngOnInit(): void {
     this.loadUserPicks();
     this.getGolferGroupings();
+    this.checkLoadingStatus();
   }
 
   get isLoggedIn(): boolean {
@@ -75,12 +76,10 @@ export class PickTeamComponent implements OnInit {
         this.picksFg.get('team')!.disable();
         this.mapPicksToForm(picks);
       }
-      this.isLoading = false;
     });
   }
 
   private getGolferGroupings(): Observable<IGolferGroupingsUI> {
-    this.isLoading = true; // Resolve issue
     return this.golfFacade.getGolferGroups();
   }
 
@@ -99,14 +98,20 @@ export class PickTeamComponent implements OnInit {
     this.launchConfirmModal(popupText, action);
   }
 
-  processData(answer: string, action: Operation): void {
+  processData(answer: string, operation: Operation): void {
     this.isLoading = true;
     if (answer === 'Yes') {
       this.sportsApi.getGolfScores().subscribe((apiData) => {
-        this.validateSubmit(action, apiData.status);
+        if (this.sportsApi.isTournamentActive(apiData.status)) {
+          this.openSnackBar(Messages.picksActiveTourny);
+          return;
+        }
+
+        this.golfFacade.updateUserPicks(this.mapFormToPicks(), operation);
+        this.openSnackBar(Messages.teamSuccess);
+        this.isLoading = false;
+        this.router.navigate(['/leader']);
       });
-    } else {
-      this.isLoading = false;
     }
   }
 
@@ -121,18 +126,6 @@ export class PickTeamComponent implements OnInit {
     dialogRef
       .afterClosed()
       .subscribe((answer) => this.processData(answer, action));
-  }
-
-  private validateSubmit(action: Operation, status: string): void {
-    if (this.sportsApi.isTournamentActive(status)) {
-      this.openSnackBar(Messages.picksActiveTourny);
-      this.isLoading = false;
-      return;
-    }
-    this.golfFacade.updateUserPicks(this.mapFormToPicks(), action);
-    this.openSnackBar(Messages.teamSuccess);
-    this.isLoading = false;
-    this.router.navigate(['/leader']);
   }
 
   openSnackBar(text: string): void {
@@ -186,5 +179,11 @@ export class PickTeamComponent implements OnInit {
       eventId: this.sportsApi.getActiveEventId()
     };
     return userPicks;
+  }
+
+  private checkLoadingStatus() {
+    this.golfFacade
+      .getAreGroupsLoading()
+      .subscribe((isLoading) => (this.isLoading = isLoading));
   }
 }

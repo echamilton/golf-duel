@@ -14,6 +14,7 @@ import {
   updateUserSelectedPicks
 } from './golf.actions';
 import {
+  getAreGroupsLoading,
   getGolferGroups,
   getGolfTournamentData,
   getIsTournamentLoading,
@@ -53,6 +54,10 @@ export class GolfStoreFacade {
 
   loadUserPicks(): void {
     this.store.dispatch(getUserSelectedPicks());
+  }
+
+  getAreGroupsLoading(): Observable<boolean> {
+    return this.store.pipe(select(getAreGroupsLoading));
   }
 
   updateUserPicks(userSelections: IUserGolfPicks, operation: Operation): void {
