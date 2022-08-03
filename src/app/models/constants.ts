@@ -72,7 +72,7 @@ export enum Messages {
   deleteTeam = 'Are you sure you want to delete your entry?',
   teamError = 'Complete your entry!',
   teamSuccess = 'Your picks have been updated',
-  golferCut = 'Golfer has been cut!',
+  golferCut = 'Golfer is no longer playing!',
   picksActiveTourny = 'Picks not submitted, tournament already in progress'
 }
 

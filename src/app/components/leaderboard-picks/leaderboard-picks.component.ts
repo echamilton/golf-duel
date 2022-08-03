@@ -21,6 +21,14 @@ export class LeaderboardPicksComponent implements OnInit {
     return GolferStatus.cut;
   }
 
+  get golferActiveStatus(): string {
+    return GolferStatus.active;
+  }
+
+  get golferWithdrawnStatus(): string {
+    return GolferStatus.withdrawn;
+  }
+
   openPopup(golfer: IPlayer): void {
     if (!golfer.isActive) {
       this.openSnackBar();
