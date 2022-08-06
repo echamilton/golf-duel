@@ -51,6 +51,7 @@ export class PickTeamComponent implements OnInit {
     this.loadUserPicks();
     this.getGolferGroupings();
     this.checkLoadingStatus();
+    this.preFormCheck();
   }
 
   get isLoggedIn(): boolean {
@@ -83,6 +84,10 @@ export class PickTeamComponent implements OnInit {
     return this.golfFacade.getGolferGroups();
   }
 
+  private preFormCheck(): void {
+    if (this.isTournamentActive) this.picksFg.disable();
+  }
+
   openConfirmationPopup(action: Operation): void {
     let popupText: string;
     if (action === Operation.update) {
@@ -112,6 +117,8 @@ export class PickTeamComponent implements OnInit {
         this.isLoading = false;
         this.router.navigate(['/leader']);
       });
+    } else {
+      this.isLoading = false;
     }
   }
 

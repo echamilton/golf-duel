@@ -2,19 +2,17 @@
   <div class="container-fluid" (click)="openPopup(golfer)">
     <div class="stats-container">
       <img class="pic" src="{{ golfer.imageLink }}" />
-      <div class="score">
+      <div class="score" [ngSwitch]="golfer.status">
         <!-- Golfer score -->
-        <ng-container
-          *ngIf="golfer.status === golferCutStatus; then cut; else notCut"
-        ></ng-container>
-        <ng-template #cut>C</ng-template>
-        <ng-template #notCut>
+        <div *ngSwitchCase="golferActiveStatus">
           <ng-container
             *ngIf="golfer.score != 0; then score; else evenScore"
           ></ng-container>
           <ng-template #score> {{ golfer.score }}</ng-template>
           <ng-template #evenScore>E</ng-template>
-        </ng-template>
+        </div>
+        <div *ngSwitchCase="golferWithdrawnStatus">WD</div>
+        <div *ngSwitchDefault>C</div>
       </div>
 
       <!-- Golfer Name -->
@@ -24,11 +22,10 @@
 
       <!-- Golfer Ownership Percentage -->
       <p class="summary" *ngIf="golfer.status !== golferCutStatus">
-        {{ golfer.thru }} | Owned {{ golfer.ownPct | number: '1.0-0' }}% |
-        {{ golfer.group }}
+        {{ golfer.thru }} | Owned {{ golfer.ownPct | number: '1.0-0' }}%
       </p>
       <p class="summary" *ngIf="golfer.status === golferCutStatus">
-        Owned {{ golfer.ownPct | number: '1.0-0' }}% | {{ golfer.group }}
+        Owned {{ golfer.ownPct | number: '1.0-0' }}%
       </p>
     </div>
   </div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GolfStoreFacade } from './../../store/golf.store.facade';
 import { AuthService } from '../../services/auth.service';
-import { isInvalidGolfer } from 'src/app/utilities/player-team-validator';
+import { isInvalidGolfer } from '../../utilities/player-team-util';
 import { Observable } from 'rxjs';
 import { ITournamentResults, IUserGolfPicks } from 'src/app/models/models';
 

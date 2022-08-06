@@ -1,5 +1,5 @@
 <mat-card class="memory-card">
-  <ng-container *ngIf="!isTournamentActive && isLoggedIn">
+  <ng-container *ngIf="isLoggedIn">
     <mat-card-header> </mat-card-header>
     <mat-card-content *ngIf="isLoading">
       <div class="spinner">
@@ -13,8 +13,7 @@
         [golferGrpB]="(golferGroupings$ | async)?.groupB"
         [golferGrpC]="(golferGroupings$ | async)?.groupC"
       ></app-golfer-picks-form>
-
-      <div style="text-align: center">
+      <div *ngIf="!isTournamentActive" style="text-align: center">
         <button
           mat-raised-button
           (click)="openConfirmationPopup(updateOperation)"
@@ -32,14 +31,7 @@
       </div>
     </mat-card-content>
   </ng-container>
-  <ng-container *ngIf="isTournamentActive">
-    <mat-card-header>
-      <mat-card-content class="message">
-        Tournament is currently in progress!
-      </mat-card-content>
-    </mat-card-header>
-  </ng-container>
-  <ng-container *ngIf="!isTournamentActive && !isLoggedIn">
+  <ng-container *ngIf="!isLoggedIn">
     <mat-card-header>
       <mat-card-content class="message">
         Login to view or make picks!
