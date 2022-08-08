@@ -17,7 +17,7 @@ export const getUserSelectedPicks = createAction(
 );
 export const getUserSelectedPicksComplete = createAction(
   '[Golf] Get user selected picks success',
-  props<IUserGolfPicks>()
+  props<{ picks: IUserGolfPicks; allUserPicks: Array<IUserGolfPicks> }>()
 );
 export const updateUserSelectedPicks = createAction(
   '[Golf] Update user selected picks',

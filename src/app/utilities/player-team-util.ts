@@ -1,5 +1,10 @@
 import { GolferStatus } from '../models/constants';
-import { IPlayer, IUserGolfPicks } from '../models/models';
+import {
+  ILeaderResults,
+  IOwnershipPerGolfer,
+  IPlayer,
+  IUserGolfPicks
+} from '../models/models';
 
 export const isInvalidGolfer = (
   golfPlayersSelections: IUserGolfPicks,
@@ -23,4 +28,55 @@ export const isInvalidGolfer = (
 export const determineHolesRemaining = (currentRound: number) => {
   /**4 rounds, 5 golfers, 18 holes */
   return (5 - (currentRound > 0 ? currentRound : 1)) * (5 * 18);
+};
+
+export const rankEntries = (
+  leaderBoardEntries: Array<ILeaderResults>,
+  ownPct: Array<IOwnershipPerGolfer>
+) => {
+  let position = 0;
+  let dupPos = 0;
+  let prevScore = 999;
+  const totalEntries = leaderBoardEntries.length;
+  for (const fantasyLeader of leaderBoardEntries) {
+    if (fantasyLeader.score === prevScore) {
+      fantasyLeader.position = position;
+      dupPos++;
+    } else {
+      position++;
+      position = position + dupPos;
+      dupPos = 0;
+      fantasyLeader.position = position;
+    }
+    prevScore = fantasyLeader.score;
+    /** This will iterate through the golfers and map the value of  */
+    for (const golferKey of fantasyLeader.golfers) {
+      const golferSelectedCount = ownPct.find(
+        (record) => record.golferId === golferKey.golferId
+      );
+      if (golferSelectedCount) {
+        golferKey.ownPct = (golferSelectedCount.count / totalEntries) * 100;
+      }
+    }
+  }
+  return leaderBoardEntries;
+};
+
+export const updatePercentageOwned = (
+  playerPick: IPlayer,
+  ownPctArray: IOwnershipPerGolfer[]
+) => {
+  const ownPct = ownPctArray.find(
+    (golfer) => golfer.golferId === playerPick.golferId
+  );
+  if (ownPct) {
+    ownPct.count++;
+  } else {
+    const ownPctNew: IOwnershipPerGolfer = {
+      golferId: playerPick.golferId,
+      count: 1
+    };
+    ownPctArray.push(ownPctNew);
+  }
+  return ownPctArray;
 };

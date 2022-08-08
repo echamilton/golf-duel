@@ -21,7 +21,13 @@
       </div>
 
       <!-- Golfer Ownership Percentage -->
-      <p class="summary" *ngIf="golfer.status !== golferCutStatus">
+      <p
+        class="summary"
+        *ngIf="
+          golfer.status !== golferCutStatus &&
+          golfer.status !== golferWithdrawnStatus
+        "
+      >
         {{ golfer.thru }} | Owned {{ golfer.ownPct | number: '1.0-0' }}%
       </p>
       <p class="summary" *ngIf="golfer.status === golferCutStatus">

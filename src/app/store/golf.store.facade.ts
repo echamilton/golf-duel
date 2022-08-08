@@ -14,6 +14,7 @@ import {
   updateUserSelectedPicks
 } from './golf.actions';
 import {
+  getAllUserPicks,
   getAreGroupsLoading,
   getGolferGroups,
   getGolfTournamentData,
@@ -46,6 +47,10 @@ export class GolfStoreFacade {
 
   getUserSelectedPicks(): Observable<IUserGolfPicks> {
     return this.store.pipe(select(getUserPicks));
+  }
+
+  getAllUserSelectedPicks(): Observable<IUserGolfPicks[]> {
+    return this.store.pipe(select(getAllUserPicks));
   }
 
   loadGolferGroupings(): void {

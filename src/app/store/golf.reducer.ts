@@ -20,6 +20,7 @@ export interface IGolfAppState {
   isLoading: boolean;
   golferGroupings?: IGolferGroupingsUI;
   isLoadingGroups: boolean;
+  allUserPicks?: Array<IUserGolfPicks>;
   userSelectedPicks?: IUserGolfPicks;
   isUserPicksUpdating: boolean;
 }
@@ -59,11 +60,9 @@ export const golfReducer = createReducer(
     ...state,
     isUserPicksUpdating: false
   })),
-  on(
-    getUserSelectedPicksComplete,
-    (state, userSelectedPicks: IUserGolfPicks) => ({
-      ...state,
-      userSelectedPicks: userSelectedPicks
-    })
-  )
+  on(getUserSelectedPicksComplete, (state, action) => ({
+    ...state,
+    userSelectedPicks: action.picks,
+    allUserPicks: action.allUserPicks
+  }))
 );

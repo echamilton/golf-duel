@@ -22,6 +22,10 @@ export const getUserPicks = createSelector(featureSlice, (state) => {
   return state.userSelectedPicks!;
 });
 
+export const getAllUserPicks = createSelector(featureSlice, (state) => {
+  return state.allUserPicks!;
+});
+
 export const getIsTournamentLoading = createSelector(featureSlice, (state) => {
   return state.isLoading;
 });
