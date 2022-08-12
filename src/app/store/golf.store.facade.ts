@@ -85,4 +85,11 @@ export class GolfStoreFacade {
       this.store.pipe(select(getUserPicks))
     ]);
   }
+
+  getLeaderboardData(): Observable<any> {
+    return combineLatest([
+      this.store.pipe(select(getGolfTournamentData)),
+      this.store.pipe(select(getAllUserPicks))
+    ]);
+  }
 }
