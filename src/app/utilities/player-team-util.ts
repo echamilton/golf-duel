@@ -3,8 +3,74 @@ import {
   ILeaderResults,
   IOwnershipPerGolfer,
   IPlayer,
+  ITournamentResults,
   IUserGolfPicks
 } from '../models/models';
+import { sortScores } from './sorter';
+
+export const buildLeaderboardResults = (
+  contestants: IUserGolfPicks[],
+  tournamentResults: ITournamentResults,
+  ownedPercentages: Array<IOwnershipPerGolfer>
+) => {
+  const leaderBoardResults: Array<ILeaderResults> = [];
+
+  for (const contestant of contestants) {
+    const fantasyLeader: ILeaderResults = {
+      position: 0,
+      team: contestant.team,
+      score: 0,
+      holesRemain: determineHolesRemaining(Number(tournamentResults.round)),
+      golfersRemain: 0,
+      golfers: []
+    };
+
+    const contestantPicks: IPlayer[] = buildContestantGolferScores(
+      contestant,
+      tournamentResults,
+      ownedPercentages
+    );
+
+    /**This is where we will check number of active golfers are left */
+    let i = 0;
+    let remain = 0;
+    if (tournamentResults.isTournamentActive) {
+      fantasyLeader.golfers = [];
+      for (const pick of contestantPicks) {
+        if (pick.isActive) {
+          if (i < 5) {
+            i++;
+            fantasyLeader.score = +fantasyLeader.score + +pick.score;
+            fantasyLeader.holesRemain =
+              fantasyLeader.holesRemain - Number(pick.thru);
+          }
+          remain++;
+        } else {
+          pick.thru = 'CUT';
+        }
+        fantasyLeader.golfers.push(pick);
+      }
+    } else {
+      /**Default to 8 active golfers and 99 score when golf tourny not active */
+      remain = 8;
+      fantasyLeader.score = 99;
+    }
+
+    /** if less than 5 golfers then we know that they didnt' make the cut */
+    if (remain < 5) {
+      fantasyLeader.score = 99;
+      fantasyLeader.holesRemain = 0;
+    }
+
+    fantasyLeader.golfersRemain = remain;
+    leaderBoardResults.push(fantasyLeader);
+  }
+  if (leaderBoardResults.length > 0) {
+    sortScores(leaderBoardResults);
+  }
+
+  return leaderBoardResults;
+};
 
 export const isInvalidGolfer = (
   golfPlayersSelections: IUserGolfPicks,
@@ -79,4 +145,28 @@ export const updatePercentageOwned = (
     ownPctArray.push(ownPctNew);
   }
   return ownPctArray;
+};
+
+export const buildContestantGolferScores = (
+  contestant: IUserGolfPicks,
+  tournyResults: ITournamentResults,
+  ownedPercentages: Array<IOwnershipPerGolfer>
+) => {
+  const contestantPicks = [];
+  let i = 1;
+  while (i <= 8) {
+    const golferIndetifier = `golfer${i}`;
+    const pgaPlayer = tournyResults.golfers.find(
+      (player: IPlayer) =>
+        // @ts-ignore
+        player.golferId == contestant[golferIndetifier].toString()
+    );
+    if (pgaPlayer) {
+      contestantPicks.push(pgaPlayer);
+      updatePercentageOwned(pgaPlayer, ownedPercentages);
+    }
+    i++;
+  }
+  sortScores(contestantPicks);
+  return contestantPicks;
 };
