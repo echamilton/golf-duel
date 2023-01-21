@@ -1,4 +1,7 @@
-<div *ngIf="scorecard$ | async as scorecard; else loading">
+<div
+  *ngIf="scorecard$ | async as scorecard; else loading"
+  class="scorecard-container"
+>
   <div class="header">{{ scorecard.playerName }}</div>
   <div class="header">
     <img class="pic" src="{{ imageLink }}" />
@@ -97,7 +100,9 @@
               }"
               data-hole-number="1"
             >
-              <div *ngIf="scorecard.hole1.score !=0">{{ scorecard.hole1.score }}</div>
+              <div *ngIf="scorecard.hole1.score != 0">
+                {{ scorecard.hole1.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -106,7 +111,9 @@
               }"
               data-hole-number="2"
             >
-              <div *ngIf="scorecard.hole2.score !=0">{{ scorecard.hole2.score }}</div>
+              <div *ngIf="scorecard.hole2.score != 0">
+                {{ scorecard.hole2.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -115,7 +122,9 @@
               }"
               data-hole-number="3"
             >
-              <div *ngIf="scorecard.hole3.score !=0">{{ scorecard.hole3.score }}</div>
+              <div *ngIf="scorecard.hole3.score != 0">
+                {{ scorecard.hole3.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -124,7 +133,9 @@
               }"
               data-hole-number="4"
             >
-              <div *ngIf="scorecard.hole4.score !=0">{{ scorecard.hole4.score }}</div>
+              <div *ngIf="scorecard.hole4.score != 0">
+                {{ scorecard.hole4.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -133,7 +144,9 @@
               }"
               data-hole-number="5"
             >
-              <div *ngIf="scorecard.hole5.score !=0">{{ scorecard.hole5.score }}</div>
+              <div *ngIf="scorecard.hole5.score != 0">
+                {{ scorecard.hole5.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -142,7 +155,9 @@
               }"
               data-hole-number="6"
             >
-              <div *ngIf="scorecard.hole6.score !=0">{{ scorecard.hole6.score }}</div>
+              <div *ngIf="scorecard.hole6.score != 0">
+                {{ scorecard.hole6.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -151,7 +166,9 @@
               }"
               data-hole-number="7"
             >
-              <div *ngIf="scorecard.hole7.score !=0">{{ scorecard.hole7.score }}</div>
+              <div *ngIf="scorecard.hole7.score != 0">
+                {{ scorecard.hole7.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -160,7 +177,9 @@
               }"
               data-hole-number="8"
             >
-              <div *ngIf="scorecard.hole8.score !=0">{{ scorecard.hole8.score }}</div>
+              <div *ngIf="scorecard.hole8.score != 0">
+                {{ scorecard.hole8.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -169,7 +188,9 @@
               }"
               data-hole-number="9"
             >
-              <div *ngIf="scorecard.hole9.score !=0">{{ scorecard.hole9.score }}</div>
+              <div *ngIf="scorecard.hole9.score != 0">
+                {{ scorecard.hole9.score }}
+              </div>
             </td>
             <td>
               <div>{{ scorecard.Out.score }}</div>
@@ -268,7 +289,9 @@
               }"
               data-hole-number="10"
             >
-              <div *ngIf="scorecard.hole10.score !=0">{{ scorecard.hole10.score }}</div>
+              <div *ngIf="scorecard.hole10.score != 0">
+                {{ scorecard.hole10.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -277,7 +300,9 @@
               }"
               data-hole-number="11"
             >
-              <div *ngIf="scorecard.hole11.score !=0">{{ scorecard.hole11.score }}</div>
+              <div *ngIf="scorecard.hole11.score != 0">
+                {{ scorecard.hole11.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -286,7 +311,9 @@
               }"
               data-hole-number="12"
             >
-              <div *ngIf="scorecard.hole12.score !=0">{{ scorecard.hole12.score }}</div>
+              <div *ngIf="scorecard.hole12.score != 0">
+                {{ scorecard.hole12.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -295,7 +322,9 @@
               }"
               data-hole-number="13"
             >
-              <div *ngIf="scorecard.hole13.score !=0">{{ scorecard.hole13.score }}</div>
+              <div *ngIf="scorecard.hole13.score != 0">
+                {{ scorecard.hole13.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -304,7 +333,9 @@
               }"
               data-hole-number="14"
             >
-              <div *ngIf="scorecard.hole14.score !=0">{{ scorecard.hole14.score }}</div>
+              <div *ngIf="scorecard.hole14.score != 0">
+                {{ scorecard.hole14.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -313,7 +344,9 @@
               }"
               data-hole-number="15"
             >
-              <div *ngIf="scorecard.hole15.score !=0">{{ scorecard.hole15.score }}</div>
+              <div *ngIf="scorecard.hole15.score != 0">
+                {{ scorecard.hole15.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -322,7 +355,9 @@
               }"
               data-hole-number="16"
             >
-              <div *ngIf="scorecard.hole16.score !=0">{{ scorecard.hole16.score }}</div>
+              <div *ngIf="scorecard.hole16.score != 0">
+                {{ scorecard.hole16.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -331,7 +366,9 @@
               }"
               data-hole-number="17"
             >
-              <div *ngIf="scorecard.hole17.score !=0">{{ scorecard.hole17.score }}</div>
+              <div *ngIf="scorecard.hole17.score != 0">
+                {{ scorecard.hole17.score }}
+              </div>
             </td>
             <td
               class="score"
@@ -340,7 +377,9 @@
               }"
               data-hole-number="18"
             >
-              <div *ngIf="scorecard.hole18.score !=0">{{ scorecard.hole18.score }}</div>
+              <div *ngIf="scorecard.hole18.score != 0">
+                {{ scorecard.hole18.score }}
+              </div>
             </td>
             <td>
               <div>{{ scorecard.In.score }}</div>
