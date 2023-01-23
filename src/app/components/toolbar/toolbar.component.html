@@ -20,19 +20,19 @@
     <mat-menu #menu="matMenu">
       <button mat-menu-item [routerLink]="['/login']" *ngIf="!isLoggedIn">
         <mat-icon>person</mat-icon>
-        <span>Login</span>
+        <span class="text">Login</span>
       </button>
       <button mat-menu-item [routerLink]="['/signup']" *ngIf="!isLoggedIn">
         <mat-icon>person_add</mat-icon>
-        <span>Sign up</span>
+        <span class="text">Sign up</span>
       </button>
       <button mat-menu-item [routerLink]="['/reset']" *ngIf="!isLoggedIn">
         <mat-icon>lock_open</mat-icon>
-        <span>Reset Password</span>
+        <span class="text">Reset Password</span>
       </button>
       <button mat-menu-item (click)="logout()" *ngIf="isLoggedIn">
         <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
+        <span class="text">Logout</span>
       </button>
     </mat-menu>
   </mat-toolbar-row>
