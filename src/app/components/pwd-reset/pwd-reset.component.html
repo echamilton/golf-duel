@@ -5,10 +5,12 @@
   <mat-card-content>
     <form>
       <div style="text-align: center">
-        <mat-form-field>
+        <mat-form-field class="form_field">
+          <mat-label>Email</mat-label>
           <input
             matInput
-            placeholder="Email"
+            type="email"
+            placeholder="Ex. bob@email.com"
             [(ngModel)]="emailAddress"
             name="email"
             required
@@ -17,11 +19,9 @@
       </div>
     </form>
     <div style="text-align: center">
-      <mat-card-actions>
-        <button mat-raised-button (click)="submitPwdReset()" color="primary">
-          Submit
-        </button>
-      </mat-card-actions>
+      <button mat-raised-button (click)="submitPwdReset()" color="primary">
+        Submit
+      </button>
     </div>
   </mat-card-content>
 </mat-card>

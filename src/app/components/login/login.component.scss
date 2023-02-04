@@ -10,11 +10,14 @@
     background-size: contain;
   }
 }
-.mat-form-field {
-  width: 70%;
+.form_field {
+  width: 75%;
   margin: 7px;
+  font-size: 13px;
 }
-.mat-raised-button {
-  color: white;
-  background: blue;
+.button {
+  text-align: center;
+  margin: auto;
+  display: block;
+  margin-bottom: 15px;
 }

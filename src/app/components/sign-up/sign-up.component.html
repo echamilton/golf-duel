@@ -7,10 +7,12 @@
   <mat-card-content>
     <form>
       <div style="text-align: center">
-        <mat-form-field>
+        <mat-form-field class="form_field">
+          <mat-label>Email</mat-label>
           <input
             matInput
-            placeholder="Email"
+            type="email"
+            placeholder="Ex. bob@email.com"
             [(ngModel)]="email"
             name="email"
             required
@@ -18,24 +20,25 @@
         </mat-form-field>
       </div>
       <div style="text-align: center">
-        <mat-form-field>
+        <mat-form-field class="form_field">
+          <mat-label>Password</mat-label>
           <input
             matInput
-            placeholder="Password"
             [(ngModel)]="password"
-            type="password"
             name="password"
+            [type]="hide ? 'password' : 'text'"
             required
           />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? 'visibility_off' : 'visibility'
+          }}</mat-icon>
         </mat-form-field>
       </div>
     </form>
     <div style="text-align: center">
-      <mat-card-actions>
-        <button mat-raised-button (click)="signup()" color="primary">
-          Sign Up
-        </button>
-      </mat-card-actions>
+      <button mat-raised-button (click)="signup()" color="primary">
+        Sign Up
+      </button>
     </div>
   </mat-card-content>
 </mat-card>
