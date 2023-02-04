@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   config = new MatSnackBarConfig();
+  hide: boolean = true;
 
   constructor(
     private router: Router,
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/leader']);
       },
       (err: firebase.FirebaseError) => {
-        const message = err.message;
+        const message = Messages.userLoginFail;
         this.openSnackBar(message);
       }
     );

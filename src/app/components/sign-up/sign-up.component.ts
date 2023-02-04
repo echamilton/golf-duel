@@ -18,6 +18,7 @@ export class SignUpComponent implements OnInit {
   email: string = INITIALIZED_VALUE;
   password: string = INITIALIZED_VALUE;
   config = new MatSnackBarConfig();
+  hide: boolean = true;
 
   constructor(
     private router: Router,
