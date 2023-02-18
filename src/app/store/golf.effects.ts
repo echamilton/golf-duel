@@ -59,7 +59,7 @@ export class UserEffects {
             return getGolferGroupingsComplete(
               this.filterGolfGroupings(
                 golfGroupings,
-                tournamentStoreData.golfers
+                tournamentStoreData?.golfers
               )
             );
           })
