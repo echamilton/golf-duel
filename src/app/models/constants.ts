@@ -24,6 +24,7 @@ export const TournamentConfig: ITournament[] = [
 export const AppTitle = '443 Fantasy Golf';
 
 export const INITIALIZED_VALUE = '';
+export const INITIALIZED_GOLFER = 0;
 
 export enum ScoreValues {
   birdie = 'Birdie',

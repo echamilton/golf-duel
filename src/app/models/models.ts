@@ -2,14 +2,14 @@ export interface IUserGolfPicks {
   eventId: string;
   team: string;
   email: string;
-  golfer1: string;
-  golfer2: string;
-  golfer3: string;
-  golfer4: string;
-  golfer5: string;
-  golfer6: string;
-  golfer7: string;
-  golfer8: string;
+  golfer1: number;
+  golfer2: number;
+  golfer3: number;
+  golfer4: number;
+  golfer5: number;
+  golfer6: number;
+  golfer7: number;
+  golfer8: number;
 }
 
 export interface IGolferGrouping {

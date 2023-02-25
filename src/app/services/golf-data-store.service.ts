@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IUserGolfPicks, IGolferGrouping } from '../models/models';
-import { INITIALIZED_VALUE, TournamentConfig } from '../models/constants';
+import {
+  INITIALIZED_VALUE,
+  INITIALIZED_GOLFER,
+  TournamentConfig
+} from '../models/constants';
 import { SportsApiService } from './sports-api.service';
 import { AuthService } from './auth.service';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
@@ -56,14 +60,14 @@ export class GolfDataStoreService {
 
   filterUserPicks(allUserSelections: IUserGolfPicks[]): IUserGolfPicks {
     let userPicks: IUserGolfPicks = {
-      golfer1: INITIALIZED_VALUE,
-      golfer2: INITIALIZED_VALUE,
-      golfer3: INITIALIZED_VALUE,
-      golfer4: INITIALIZED_VALUE,
-      golfer5: INITIALIZED_VALUE,
-      golfer6: INITIALIZED_VALUE,
-      golfer7: INITIALIZED_VALUE,
-      golfer8: INITIALIZED_VALUE,
+      golfer1: INITIALIZED_GOLFER,
+      golfer2: INITIALIZED_GOLFER,
+      golfer3: INITIALIZED_GOLFER,
+      golfer4: INITIALIZED_GOLFER,
+      golfer5: INITIALIZED_GOLFER,
+      golfer6: INITIALIZED_GOLFER,
+      golfer7: INITIALIZED_GOLFER,
+      golfer8: INITIALIZED_GOLFER,
       team: INITIALIZED_VALUE,
       eventId: INITIALIZED_VALUE,
       email: INITIALIZED_VALUE
@@ -78,7 +82,6 @@ export class GolfDataStoreService {
     if (userRecord) {
       userPicks = { ...userRecord };
     }
-
     return userPicks;
   }
 
