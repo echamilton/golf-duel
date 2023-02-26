@@ -6,7 +6,7 @@ import {
   ITournamentResults,
   IUserGolfPicks
 } from '../models/models';
-import { sortScores } from './sorter';
+import { numbersOnlyObject, sortScores } from './generic-util';
 
 export const buildLeaderboardResults = (
   contestants: IUserGolfPicks[],
@@ -77,14 +77,20 @@ export const isInvalidGolfer = (
   golferScores: IPlayer[]
 ) => {
   let isInvalid: boolean = false;
-  const golferPicksArray = Object.values(golfPlayersSelections);
+  const golferPicksArray = numbersOnlyObject(
+    Object.values(golfPlayersSelections)
+  );
 
   //Iterate through each selection to see if there are present in list
   golferPicksArray.forEach((picks: string) => {
     const playerRecord = golferScores.find(
       (golfer) => golfer.golferId == picks
     );
-    if (playerRecord?.status == GolferStatus.withdrawn) {
+
+    if (
+      playerRecord?.status == GolferStatus.withdrawn ||
+      playerRecord == undefined
+    ) {
       isInvalid = true;
     }
   });

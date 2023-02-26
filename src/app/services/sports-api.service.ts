@@ -15,7 +15,7 @@ import {
   INITIALIZED_VALUE
 } from '../models/constants';
 import { map, catchError } from 'rxjs/operators';
-import { sortScores } from '../utilities/sorter';
+import { sortScores } from '../utilities/generic-util';
 import { buildPlayerList } from '../utilities/player-generator';
 import { environment } from 'src/environments/environment';
 

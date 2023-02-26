@@ -1,4 +1,4 @@
-export function sortScores(data: any) {
+export const sortScores = (data: any) => {
   return data.sort((a: any, b: any) => {
     switch ('score') {
       case 'score':
@@ -10,4 +10,14 @@ export function sortScores(data: any) {
       return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
   });
-}
+};
+
+export const numbersOnlyObject = (object: any) => {
+  let key;
+  for (key in object) {
+    if (typeof object[key] !== 'number') {
+      delete object[key];
+    }
+  }
+  return object;
+};

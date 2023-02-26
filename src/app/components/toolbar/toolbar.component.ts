@@ -4,7 +4,7 @@ import { GolfStoreFacade } from './../../store/golf.store.facade';
 import { AuthService } from '../../services/auth.service';
 import { isInvalidGolfer } from '../../utilities/player-team-util';
 import { Observable } from 'rxjs';
-import { ITournamentResults, IUserGolfPicks } from 'src/app/models/models';
+import { ITournamentResults, IUserGolfPicks } from './../../models/models';
 
 @Component({
   selector: 'app-toolbar',
@@ -49,7 +49,11 @@ export class ToolbarComponent implements OnInit {
     this.golfFacade
       .getToolbarValidationData()
       .subscribe(([tournamentResults, userSelections]) => {
-        if (userSelections != undefined && tournamentResults != undefined) {
+        if (
+          userSelections != undefined &&
+          tournamentResults != undefined &&
+          this.isLoggedIn
+        ) {
           this.isInvalidLineup = isInvalidGolfer(
             userSelections,
             tournamentResults.golfers
