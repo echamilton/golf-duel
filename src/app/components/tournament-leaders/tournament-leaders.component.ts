@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { IPlayer, ITournamentResults } from '../../models/models';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
-import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
+import { GolfStoreFacade } from '../../store/golf.store.facade';
 import { Observable } from 'rxjs';
 
 @Component({

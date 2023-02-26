@@ -17,7 +17,7 @@ import {
 import { map, catchError } from 'rxjs/operators';
 import { sortScores } from '../utilities/generic-util';
 import { buildPlayerList } from '../utilities/player-generator';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
