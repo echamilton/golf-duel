@@ -1,11 +1,9 @@
-<div class="scrolling-wrapper">
-  <div *ngIf="tournamentData$ | async as tournamentData">
-    <div *ngFor="let golfer of tournamentData.golfers" class="card">
-      <span (click)="openPopup(golfer, tournamentData.isTournamentActive)">
-        <img class="golfer-pic" src="{{ golfer.imageLink }}" />
-        <div>{{ golfer.position }} | {{ golfer.name }}</div>
-        <div>{{ golfer.score }} | {{ golfer.thru }}</div>
-      </span>
-    </div>
+<div *ngIf="tournamentData$ | async as tournamentData">
+  <div *ngFor="let golfer of tournamentData.golfers" class="card">
+    <span (click)="openPopup(golfer, tournamentData.isTournamentActive)">
+      <img class="golfer-pic" src="{{ golfer.imageLink }}" />
+      <div>{{ golfer.position }} | {{ golfer.name }}</div>
+      <div>{{ golfer.score }} | {{ golfer.thru }}</div>
+    </span>
   </div>
 </div>
