@@ -1,45 +1,40 @@
 .memory-card {
-  width: 450px;
+  // width: 450px;
   margin: auto;
-  @media screen and (max-width: 600px) {
-    width: 300px;
+  // @media screen and (max-width: 600px) {
+  //   width: 300px;
+  //   background-size: contain;
+  // }
+  @media screen and (min-width: 900px) {
+    width: 500px;
     background-size: contain;
   }
-  @media screen and (max-width: 900px) {
-    width: 320px;
-    background-size: contain;
-  }
 }
-.mat-form-field {
-  width: 45%;
-  margin: 7px;
-}
-.mat-raised-button {
-  color: white;
-  background: blue;
-  margin-left: 10px;
-}
+// .mat-form-field {
+//   width: 45%;
+//   margin: 7px;
+// }
 .spinner {
   justify-content: center;
   display: flex;
 }
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  select,
-  textarea,
-  input {
-    font-size: 16px;
-  }
-}
-mat-card {
-  mat-card-header {
-    justify-content: center;
-    .message {
-      margin-top: 3.125em !important;
-      margin-bottom: 3.125em !important;
-    }
-  }
-}
+// @media screen and (-webkit-min-device-pixel-ratio: 0) {
+//   select,
+//   textarea,
+//   input {
+//     font-size: 16px;
+//   }
+// }
+// mat-card {
+//   mat-card-header {
+//     justify-content: center;
+//     .message {
+//       margin-top: 3.125em !important;
+//       margin-bottom: 3.125em !important;
+//     }
+//   }
+// }
 
-:host ::ng-deep .mat-card-header-text {
-  margin: 0px;
-}
+// :host ::ng-deep .mat-card-header-text {
+//   margin: 0px;
+// }
