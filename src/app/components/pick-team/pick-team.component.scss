@@ -1,40 +1,26 @@
 .memory-card {
-  // width: 450px;
   margin: auto;
-  // @media screen and (max-width: 600px) {
-  //   width: 300px;
-  //   background-size: contain;
-  // }
   @media screen and (min-width: 900px) {
     width: 500px;
     background-size: contain;
   }
+
+  mat-card-header {
+    justify-content: center;
+    margin-top: 3.125em;
+    margin-bottom: 3.125em;
+  }
 }
-// .mat-form-field {
-//   width: 45%;
-//   margin: 7px;
-// }
+
+.button-row {
+  text-align: center;
+}
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
 .spinner {
   justify-content: center;
   display: flex;
 }
-// @media screen and (-webkit-min-device-pixel-ratio: 0) {
-//   select,
-//   textarea,
-//   input {
-//     font-size: 16px;
-//   }
-// }
-// mat-card {
-//   mat-card-header {
-//     justify-content: center;
-//     .message {
-//       margin-top: 3.125em !important;
-//       margin-bottom: 3.125em !important;
-//     }
-//   }
-// }
-
-// :host ::ng-deep .mat-card-header-text {
-//   margin: 0px;
-// }
