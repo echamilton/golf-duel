@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   IPlayer,
   ITournamentResults,
@@ -14,7 +14,7 @@ import {
   ScoreValues,
   INITIALIZED_VALUE
 } from '../models/constants';
-import { map, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { sortScores } from '../utilities/generic-util';
 import { buildPlayerList } from '../utilities/player-generator';
 import { environment } from '../../environments/environment';
@@ -29,16 +29,9 @@ export class SportsApiService {
 
   getGolfScores(): Observable<ITournamentResults> {
     return this.service.get(this.getEventEndpoint()).pipe(
-      map(
-        (response: any) => {
-          return this.buildGolferScores(response);
-        },
-        catchError((err) => {
-          return throwError(
-            'Golf Scores API call failed' + '-' + this.getActiveEventId()
-          );
-        })
-      )
+      map((response: any) => {
+        return this.buildGolferScores(response);
+      })
     );
   }
 
