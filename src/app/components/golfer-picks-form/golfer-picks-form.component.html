@@ -1,6 +1,7 @@
 <form [formGroup]="picksFg">
   <div style="text-align: center">
     <mat-form-field>
+      <mat-label>Team</mat-label>
       <input
         matInput
         name="team"
@@ -13,7 +14,7 @@
   </div>
   <h4>Group A</h4>
   <div style="text-align: center">
-    <mat-form-field>
+    <mat-form-field class="golf-pick-field">
       <mat-select
         required
         name="golfer1"
@@ -29,7 +30,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="golf-pick-field">
       <mat-select
         required
         name="golfer2"
@@ -50,7 +51,7 @@
   <!-- Group B Golfers -->
   <h4>Group B</h4>
   <div style="text-align: center">
-    <mat-form-field>
+    <mat-form-field class="golf-pick-field">
       <mat-select
         required
         name="golfer3"
@@ -66,7 +67,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="golf-pick-field">
       <mat-select
         required
         name="golfer4"
@@ -87,7 +88,7 @@
   <!-- Group C Golfers -->
   <h4>Group C</h4>
   <div style="text-align: center">
-    <mat-form-field>
+    <mat-form-field class="golf-pick-field">
       <mat-select
         required
         name="golfer5"
@@ -103,7 +104,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="golf-pick-field">
       <mat-select
         required
         name="golfer6"
@@ -119,7 +120,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="golf-pick-field">
       <mat-select
         required
         name="golfer7"
@@ -135,7 +136,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="golf-pick-field">
       <mat-select
         required
         name="golfer8"
