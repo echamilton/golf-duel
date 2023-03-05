@@ -12,28 +12,24 @@ import {
   updateUserSelectedPicks,
   updateUserSelectedPicksComplete
 } from './golf.actions';
-import { Store } from '@ngrx/store';
-import { concatMap, map, mergeMap, switchMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import {
   IGolferGrouping,
   IGolferGroupingsUI,
   IGolfersGroupPick,
-  IPlayer,
   ITournamentResults,
   IUserGolfPicks
 } from './../models/models';
 import { SportsApiService } from '../services/sports-api.service';
 import { GolfDataStoreService } from '../services/golf-data-store.service';
 import { Operation } from '../models/constants';
-import { getGolfTournamentData } from './golf.selector';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
     private sportsApi: SportsApiService,
-    private golfData: GolfDataStoreService,
-    private store: Store
+    private golfData: GolfDataStoreService
   ) {}
 
   getTournamentData$: Observable<Action> = createEffect(() =>
@@ -52,15 +48,11 @@ export class UserEffects {
   getGolferGroupings$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(getGolferGroupings),
-      concatMap(({}) => this.store.select(getGolfTournamentData)),
-      switchMap((tournamentStoreData) =>
+      mergeMap(() =>
         this.golfData.getGolferGroupings().pipe(
           map((golfGroupings) => {
             return getGolferGroupingsComplete(
-              this.filterGolfGroupings(
-                golfGroupings,
-                tournamentStoreData?.golfers
-              )
+              this.filterGolfGroupings(golfGroupings)
             );
           })
         )
@@ -110,18 +102,9 @@ export class UserEffects {
   }
 
   private filterGolfGroupings(
-    groupingsFromDB: IGolferGrouping[],
-    tournamentGolfers: IPlayer[]
+    groupingsFromDB: IGolferGrouping[]
   ): IGolferGroupingsUI {
-    if (tournamentGolfers) {
-      const groupingsDBFiltered = this.checkGroupingsAgainstTournament(
-        groupingsFromDB,
-        tournamentGolfers
-      );
-
-      return this.splitGroupings(groupingsDBFiltered);
-    }
-    return {};
+    return this.splitGroupings(groupingsFromDB);
   }
 
   private splitGroupings(groupingsDb: IGolferGrouping[]): IGolferGroupingsUI {
@@ -146,17 +129,5 @@ export class UserEffects {
       });
     }
     return golferGroupings;
-  }
-
-  private checkGroupingsAgainstTournament(
-    groupingsData: IGolferGrouping[],
-    tournamentResultsGolfers: IPlayer[]
-  ): IGolferGrouping[] {
-    const filteredResults = groupingsData.filter((golfer) =>
-      tournamentResultsGolfers.find(
-        (player) => player.golferId === golfer.golferId.toString()
-      )
-    );
-    return filteredResults;
   }
 }
