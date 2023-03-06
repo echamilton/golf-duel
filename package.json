@@ -27,7 +27,7 @@
     "@ngrx/store": "^15.3.0",
     "@ngrx/store-devtools": "^15.3.0",
     "@schematics/angular": "^12.2.17",
-    "firebase": "^9.17.1",
+    "firebase": "^9.17.2",
     "lodash-es": "^4.17.21",
     "rxfire": "^6.0.3",
     "rxjs": "7.8.0",
