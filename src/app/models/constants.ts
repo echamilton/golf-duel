@@ -2,22 +2,13 @@ import { ITournament, IScoreColor } from './models';
 
 export const TournamentConfig: ITournament[] = [
   {
-    eventId: 'MASTERS-2022',
-    tournyId: 'MASTERS-2022',
-    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401353232',
-    active: false,
-    groupName: 'masters2022',
-    scorecard:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401353232/playersummary?region=us&lang=en&season=2020&player='
-  },
-  {
-    eventId: 'THEOPEN-2022',
-    tournyId: 'THEOPEN-2022',
-    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401353217',
+    eventId: 'PLAYERS-2023',
+    tournyId: 'PLAYERS-2023',
+    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401465526',
     active: true,
-    groupName: 'theOpen2022',
+    groupName: 'players2023',
     scorecard:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401353217/playersummary?region=us&lang=en&season=2020&player='
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401465526/playersummary?region=us&lang=en&season=2020&player='
   }
 ];
 
