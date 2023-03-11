@@ -51,7 +51,6 @@ export class PickTeamComponent implements OnInit {
     this.loadUserPicks();
     this.getGolferGroupings();
     this.checkLoadingStatus();
-    this.preFormCheck();
   }
 
   get isLoggedIn(): boolean {
@@ -84,8 +83,10 @@ export class PickTeamComponent implements OnInit {
     return this.golfFacade.getGolferGroups();
   }
 
-  private preFormCheck(): void {
-    if (this.isTournamentActive) this.picksFg.disable();
+  private preFormCheck(isTourneyLoading: boolean): void {
+    if (this.isTournamentActive && !isTourneyLoading) {
+      this.picksFg.disable();
+    }
   }
 
   openConfirmationPopup(action: Operation): void {
@@ -189,6 +190,10 @@ export class PickTeamComponent implements OnInit {
   }
 
   private checkLoadingStatus() {
+    this.golfFacade
+      .getLoadingIndicator()
+      .subscribe((x) => this.preFormCheck(x));
+
     this.golfFacade
       .getAreGroupsLoading()
       .subscribe((isLoading) => (this.isLoading = isLoading));
