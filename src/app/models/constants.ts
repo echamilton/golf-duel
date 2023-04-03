@@ -2,13 +2,13 @@ import { ITournament, IScoreColor } from './models';
 
 export const TournamentConfig: ITournament[] = [
   {
-    eventId: 'PLAYERS-2023',
-    tournyId: 'PLAYERS-2023',
-    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401465526',
+    eventId: 'MASTERS-2023',
+    tournyId: 'MASTERS-2023',
+    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401465508',
     active: true,
-    groupName: 'players2023',
+    groupName: 'masters2023',
     scorecard:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401465526/playersummary?region=us&lang=en&season=2020&player='
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401465508/playersummary?region=us&lang=en&season=2020&player='
   }
 ];
 
