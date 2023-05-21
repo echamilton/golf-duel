@@ -55,7 +55,6 @@ export interface IPlayer {
 
 export interface ITournament {
   eventId: string;
-  tournyId: string;
   url: string;
   active: boolean;
   groupName: string;

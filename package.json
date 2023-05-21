@@ -52,5 +52,13 @@
     "karma-jasmine": "^4.0.2",
     "karma-jasmine-html-reporter": "^1.7.0",
     "typescript": "^5.0.4"
+  },
+  "overrides": {
+    "@angular/fire": {
+      "@angular/common": "^16.0.1",
+      "@angular/core": "^16.0.1",
+      "@angular/platform-browser": "^16.0.1",
+      "@angular/platform-browser-dynamic": "^16.0.1"
+    }
   }
 }
