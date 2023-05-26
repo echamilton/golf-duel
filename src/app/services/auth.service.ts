@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
-  Auth,
-  sendPasswordResetEmail,
-  signOut,
+  getAuth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from '@angular/fire/auth';
+  Auth,
+  signInWithEmailAndPassword,
+  signOut,
+  sendPasswordResetEmail
+} from 'firebase/auth';
 import { FirebaseError } from '@firebase/util';
 import { INITIALIZED_VALUE } from './../models/constants';
 
@@ -14,7 +15,10 @@ import { INITIALIZED_VALUE } from './../models/constants';
 })
 export class AuthService {
   private user: string = INITIALIZED_VALUE;
-  constructor(private auth: Auth) {}
+  private auth: Auth;
+  constructor() {
+    this.auth = getAuth();
+  }
 
   signup(email: string, password: string): any {
     return new Promise<any>((resolve, reject) => {
