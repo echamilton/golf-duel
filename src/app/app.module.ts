@@ -22,15 +22,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { AngularFireModule } from '@angular/fire/compat';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GolferPicksFormComponent } from './components/golfer-picks-form/golfer-picks-form.component';
 import { environment } from '../environments/environment';
 import { PickTeamComponent } from './components/pick-team/pick-team.component';
 import { PopupComponent } from './components/popup/popup.component';
 import { AuthService } from './services/auth.service';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { ScorecardPopComponent } from './components/scorecard-pop/scorecard-pop.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
@@ -45,10 +42,11 @@ import { golfReducer } from './store/golf.reducer';
 import { UserEffects } from './store/golf.effects';
 import { GolfStoreFacade } from './store/golf.store.facade';
 import { NoCacheHeadersInterceptor } from './services/http-cache';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { initializeApp } from 'firebase/app';
+
 import { EffectsModule } from '@ngrx/effects';
+
+initializeApp(environment.firebase);
 
 export function loadInitialData(golfStoreFacade: GolfStoreFacade) {
   return () => golfStoreFacade.loadTournamentData();
@@ -100,12 +98,6 @@ export function loadUserPicks(golfStoreFacade: GolfStoreFacade) {
     MatFormFieldModule,
     MatDialogModule,
     MatButtonModule,
-    AngularFireModule.initializeApp(environment.firebase, 'legbreaker-app'),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
     MatTableModule,
     StoreModule.forRoot({ golfData: golfReducer }),
     EffectsModule.forRoot([UserEffects]),

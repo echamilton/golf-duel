@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {
+  getDatabase,
+  ref,
+  Database,
+  get,
+  remove,
+  update
+} from 'firebase/database';
 import { IUserGolfPicks, IGolferGrouping } from '../models/models';
 import {
   INITIALIZED_VALUE,
@@ -9,20 +17,21 @@ import {
 } from '../models/constants';
 import { SportsApiService } from './sports-api.service';
 import { AuthService } from './auth.service';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GolfDataStoreService {
+  private fireData: Database;
   constructor(
-    private fireDb: AngularFireDatabase,
     private sportsApi: SportsApiService,
     private authService: AuthService
-  ) {}
+  ) {
+    this.fireData = getDatabase();
+  }
 
   getGolferGroupings(): Observable<IGolferGrouping[]> {
-    return this.getGolferGroupingsDb().pipe(
+    return from(this.getGolferGroupingsDb()).pipe(
       map((groupings: any) => {
         const tournamentGroups: IGolferGrouping[] = groupings[0];
         return tournamentGroups;
@@ -30,17 +39,25 @@ export class GolfDataStoreService {
     );
   }
 
-  getGolferPicksDb(): any {
-    return this.fireDb.list('myGolfers').valueChanges();
+  async getGolferPicksDb(): Promise<IUserGolfPicks[]> {
+    const dataSnapshot = await get(ref(this.fireData, 'myGolfers'));
+    const entries: IUserGolfPicks[] = [];
+
+    dataSnapshot.forEach((childSnapshot) => {
+      entries.push(childSnapshot.val());
+    });
+
+    return entries;
   }
 
-  getGolferGroupingsDb(): any {
+  async getGolferGroupingsDb(): Promise<any> {
     const entityName = TournamentConfig.find((data) => data.active)!.groupName;
-    return this.fireDb.list<IGolferGrouping>(entityName).valueChanges();
+    const groupsSnapshot = await get(ref(this.fireData, entityName));
+    return groupsSnapshot.val();
   }
 
   getGolferPicks(): Observable<IUserGolfPicks[]> {
-    return this.getGolferPicksDb().pipe(
+    return from(this.getGolferPicksDb()).pipe(
       map((contestants: any) => {
         const filteredContestants = contestants.filter(
           (record: any) => record.eventId === this.sportsApi.getActiveEventId()
@@ -86,21 +103,19 @@ export class GolfDataStoreService {
   }
 
   updateGolferPicks(userPicks: IUserGolfPicks): Observable<boolean> {
-    this.fireDb
-      .object(
-        'myGolfers/' + this.sportsApi.getActiveEventId() + '-' + userPicks.team
-      )
-      .update(userPicks)
-      .then((_) => {});
+    const entryReferenceKey =
+      'myGolfers/' + this.sportsApi.getActiveEventId() + '-' + userPicks.team;
+    const dataToUpdate: any = {};
 
+    dataToUpdate[entryReferenceKey as keyof IUserGolfPicks] = userPicks;
+    update(ref(this.fireData), dataToUpdate);
     return of(true);
   }
 
   deleteGolferPicks(userPicks: IUserGolfPicks): Observable<boolean> {
-    this.fireDb
-      .list('myGolfers')
-      .remove(this.sportsApi.getActiveEventId() + '-' + userPicks.team)
-      .then((_) => {});
+    const entryReferenceKey =
+      'myGolfers/' + this.sportsApi.getActiveEventId() + '-' + userPicks.team;
+    remove(ref(this.fireData, entryReferenceKey)).then((_) => {});
     return of(true);
   }
 }
