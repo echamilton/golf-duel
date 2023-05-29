@@ -116,6 +116,7 @@ export class PickTeamComponent implements OnInit {
         this.golfFacade.updateUserPicks(this.mapFormToPicks(), operation);
         this.openSnackBar(Messages.teamSuccess);
         this.isLoading = false;
+        this.golfFacade.loadUserPicks();
         this.router.navigate(['/leader']);
       });
     } else {

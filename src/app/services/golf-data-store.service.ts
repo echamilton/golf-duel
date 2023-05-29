@@ -42,7 +42,6 @@ export class GolfDataStoreService {
   async getGolferPicksDb(): Promise<IUserGolfPicks[]> {
     const dataSnapshot = await get(ref(this.fireData, 'myGolfers'));
     const entries: IUserGolfPicks[] = [];
-
     dataSnapshot.forEach((childSnapshot) => {
       entries.push(childSnapshot.val());
     });
