@@ -14,7 +14,7 @@ import { INITIALIZED_VALUE } from './../models/constants';
   providedIn: 'root'
 })
 export class AuthService {
-  private user: string = INITIALIZED_VALUE;
+  private userId: string = INITIALIZED_VALUE;
   private auth: Auth;
   constructor() {
     this.auth = getAuth();
@@ -24,8 +24,8 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       createUserWithEmailAndPassword(this.auth, email, password).then(
         (res) => {
-          localStorage.setItem('user', email);
-          this.user = email.toLowerCase();
+          localStorage.setItem('userId', res.user.uid);
+          this.userId = res.user.uid;
           resolve(res);
         },
         (err: FirebaseError) => reject(err)
@@ -34,12 +34,11 @@ export class AuthService {
   }
 
   getCurrentUser(): string {
-    if (this.user === undefined || this.user === INITIALIZED_VALUE) {
-      const storedUser = localStorage.getItem('user');
-      this.user =
-        storedUser !== null ? storedUser.toLowerCase() : INITIALIZED_VALUE;
+    if (this.userId === undefined || this.userId === INITIALIZED_VALUE) {
+      const storedUser = localStorage.getItem('userId');
+      this.userId = storedUser !== null ? storedUser : INITIALIZED_VALUE;
     }
-    return this.user;
+    return this.userId;
   }
 
   isLoggedIn(): boolean {
@@ -61,8 +60,8 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       signInWithEmailAndPassword(this.auth, email, password).then(
         (res) => {
-          localStorage.setItem('user', email);
-          this.user = email.toLowerCase();
+          localStorage.setItem('userId', res.user.uid);
+          this.userId = res.user.uid;
           resolve(res);
         },
         (err: FirebaseError) => reject(err)
@@ -72,7 +71,7 @@ export class AuthService {
 
   logout(): void {
     signOut(this.auth);
-    this.user = INITIALIZED_VALUE;
-    localStorage.removeItem('user');
+    this.userId = INITIALIZED_VALUE;
+    localStorage.removeItem('userId');
   }
 }

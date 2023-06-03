@@ -1,7 +1,5 @@
 export interface IUserGolfPicks {
-  eventId: string;
   team: string;
-  email: string;
   golfer1: number;
   golfer2: number;
   golfer3: number;
@@ -13,7 +11,6 @@ export interface IUserGolfPicks {
 }
 
 export interface IGolferGrouping {
-  eventId: string;
   group: string;
   golferId: string;
   name: string;
