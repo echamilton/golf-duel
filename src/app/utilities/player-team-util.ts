@@ -78,9 +78,9 @@ export const isInvalidGolfer = (
 ) => {
   let isInvalid: boolean = false;
 
-  if (golfPlayersSelections.email != null) {
-    return false;
-  }
+  // if (golfPlayersSelections.email != null) {
+  //   return false;
+  // }
 
   const golferPicksArray = numbersOnlyObject(
     Object.values(golfPlayersSelections)

@@ -66,12 +66,14 @@ export class PickTeamComponent implements OnInit {
   }
 
   get isTournamentActive(): boolean {
+    return false;
     return this.sportsApi.isTournamentActive();
   }
 
   private loadUserPicks(): void {
     this.userPicks$.subscribe((picks) => {
-      if (picks && picks.email) {
+      // if (picks && picks.email) {
+      if (picks && picks.team) {
         this.existingEntry = true;
         this.picksFg.get('team')!.disable();
         this.mapPicksToForm(picks);
@@ -108,10 +110,10 @@ export class PickTeamComponent implements OnInit {
     this.isLoading = true;
     if (answer === 'Yes') {
       this.sportsApi.getGolfScores().subscribe((apiData) => {
-        if (this.sportsApi.isTournamentActive(apiData.status)) {
-          this.openSnackBar(Messages.picksActiveTourny);
-          return;
-        }
+        // if (this.sportsApi.isTournamentActive(apiData.status)) {
+        //   this.openSnackBar(Messages.picksActiveTourny);
+        //   return;
+        // }
 
         this.golfFacade.updateUserPicks(this.mapFormToPicks(), operation);
         this.openSnackBar(Messages.teamSuccess);
@@ -183,9 +185,7 @@ export class PickTeamComponent implements OnInit {
       golfer6: this.picksFg.value.golfer6,
       golfer7: this.picksFg.value.golfer7,
       golfer8: this.picksFg.value.golfer8,
-      team: this.picksFg.get('team')!.value,
-      email: this.authService.getCurrentUser(),
-      eventId: this.sportsApi.getActiveEventId()
+      team: this.picksFg.get('team')!.value
     };
     return userPicks;
   }

@@ -30,6 +30,10 @@ export class GolfDataStoreService {
     this.fireData = getDatabase();
   }
 
+  getGolferPicks(): Observable<IUserGolfPicks[]> {
+    return from(this.getGolferPicksDb());
+  }
+
   getGolferGroupings(): Observable<IGolferGrouping[]> {
     return from(this.getGolferGroupingsDb()).pipe(
       map((groupings: any) => {
@@ -40,8 +44,12 @@ export class GolfDataStoreService {
   }
 
   async getGolferPicksDb(): Promise<IUserGolfPicks[]> {
-    const dataSnapshot = await get(ref(this.fireData, 'myGolfers'));
+    const dataSnapshot = await get(
+      ref(this.fireData, 'tournaments/' + this.sportsApi.getActiveEventId())
+    );
+
     const entries: IUserGolfPicks[] = [];
+    console.log(dataSnapshot.val()[this.authService.getCurrentUser()]);
     dataSnapshot.forEach((childSnapshot) => {
       entries.push(childSnapshot.val());
     });
@@ -55,25 +63,6 @@ export class GolfDataStoreService {
     return groupsSnapshot.val();
   }
 
-  getGolferPicks(): Observable<IUserGolfPicks[]> {
-    return from(this.getGolferPicksDb()).pipe(
-      map((contestants: any) => {
-        const filteredContestants = contestants.filter(
-          (record: any) => record.eventId === this.sportsApi.getActiveEventId()
-        );
-        return filteredContestants;
-      })
-    );
-  }
-
-  loadUserPicks(): Observable<IUserGolfPicks> {
-    return this.getGolferPicks().pipe(
-      map((allUserPicks: IUserGolfPicks[]) => {
-        return this.filterUserPicks(allUserPicks);
-      })
-    );
-  }
-
   filterUserPicks(allUserSelections: IUserGolfPicks[]): IUserGolfPicks {
     let userPicks: IUserGolfPicks = {
       golfer1: INITIALIZED_GOLFER,
@@ -84,29 +73,28 @@ export class GolfDataStoreService {
       golfer6: INITIALIZED_GOLFER,
       golfer7: INITIALIZED_GOLFER,
       golfer8: INITIALIZED_GOLFER,
-      team: INITIALIZED_VALUE,
-      eventId: INITIALIZED_VALUE,
-      email: INITIALIZED_VALUE
+      team: INITIALIZED_VALUE
     };
 
-    const userRecord = allUserSelections.find(
-      (picks) =>
-        picks.eventId === this.sportsApi.getActiveEventId() &&
-        picks.email === this.authService.getCurrentUser()
-    );
+    // const userRecord = allUserSelections.find(
+    //   (picks) => picks.email === this.authService.getCurrentUser()
+    // );
 
-    if (userRecord) {
-      userPicks = { ...userRecord };
-    }
+    // if (userRecord) {
+    //   userPicks = { ...userRecord };
+    // }
     return userPicks;
   }
 
   updateGolferPicks(userPicks: IUserGolfPicks): Observable<boolean> {
-    const entryReferenceKey =
-      'myGolfers/' + this.sportsApi.getActiveEventId() + '-' + userPicks.team;
     const dataToUpdate: any = {};
+    dataToUpdate[
+      'tournaments/' +
+        this.sportsApi.getActiveEventId() +
+        '/' +
+        this.authService.getCurrentUser()
+    ] = userPicks;
 
-    dataToUpdate[entryReferenceKey as keyof IUserGolfPicks] = userPicks;
     update(ref(this.fireData), dataToUpdate);
     return of(true);
   }
