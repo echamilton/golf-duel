@@ -41,7 +41,9 @@ export class GolfDataStoreService {
   getGolferGroupings(): Observable<IGolferGrouping[]> {
     return from(this.getGolferGroupingsDb()).pipe(
       map((groupings: any) => {
-        const tournamentGroups: IGolferGrouping[] = groupings[0];
+        const tournamentGroups: IGolferGrouping[] = groupings
+          ? groupings[0]
+          : [];
         return tournamentGroups;
       })
     );
@@ -68,7 +70,10 @@ export class GolfDataStoreService {
       userEntry: userPicks
     };
 
-    entryData.userEntry = dataSnapshot.val()[this.authService.getCurrentUser()];
+    if (dataSnapshot.val())
+      entryData.userEntry =
+        dataSnapshot.val()[this.authService.getCurrentUser()];
+
     dataSnapshot.forEach((childSnapshot) => {
       entryData.allEntries.push(childSnapshot.val());
     });
