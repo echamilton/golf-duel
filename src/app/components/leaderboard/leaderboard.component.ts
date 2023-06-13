@@ -65,7 +65,7 @@ export class LeaderboardComponent implements OnInit {
     this.golfFacade.getLeaderboardData().subscribe(([results, contestants]) => {
       if (results && contestants) {
         const tournamentResults: ITournamentResults = cloneDeep(results);
-
+        console.log('double method hit on reload');
         this.fantasyLeaders = buildLeaderboardResults(
           contestants,
           tournamentResults,
