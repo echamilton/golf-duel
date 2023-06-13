@@ -2,12 +2,12 @@ import { ITournament, IScoreColor } from './models';
 
 export const TournamentConfig: ITournament[] = [
   {
-    eventId: 'PGACHAMP-2023',
-    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401465523',
+    eventId: 'USOPEN-2023',
+    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401465533',
     active: true,
-    groupName: 'pgaChamp2023',
+    groupName: 'usOpen2023',
     scorecard:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401465523/playersummary?region=us&lang=en&season=2020&player='
+      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401465533/playersummary?region=us&lang=en&season=2020&player='
   }
 ];
 

@@ -1,5 +1,4 @@
 export interface IGolferFile {
-  eventId: string;
   golferId: number | string;
   group: string;
   name: string;
@@ -7,531 +6,653 @@ export interface IGolferFile {
 
 export const golfersFile: IGolferFile[] = [
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'A',
     name: 'Scottie Scheffler'
   },
   {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'A',
-    name: 'Rory McIlroy'
-  },
-  {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'A',
     name: 'Jon Rahm'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'A',
-    name: 'Jordan Spieth'
+    name: 'Brooks Koepka'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'A',
-    name: 'Patrick Cantlay'
+    name: 'Rory McIlroy'
   },
   {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'A',
-    name: 'Tony Finau'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'A',
-    name: 'Justin Thomas'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'A',
-    name: 'Jason Day'
-  },
-  {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'A',
     name: 'Xander Schauffele'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'A',
-    name: 'Dustin Johnson'
+    name: 'Patrick Cantlay'
   },
   {
-    eventId: 'MASTERS-2023',
+    golferId: '  ',
+    group: 'A',
+    name: 'Viktor Hovland'
+  },
+  {
+    golferId: '  ',
+    group: 'A',
+    name: 'Max Homa'
+  },
+  {
     golferId: '  ',
     group: 'A',
     name: 'Collin Morikawa'
   },
   {
-    eventId: 'MASTERS-2023',
+    golferId: '  ',
+    group: 'A',
+    name: 'Tyrrell Hatton'
+  },
+  {
+    golferId: '  ',
+    group: 'A',
+    name: 'Matt Fitzpatrick'
+  },
+  {
+    golferId: '  ',
+    group: 'A',
+    name: 'Justin Thomas'
+  },
+  {
+    golferId: '  ',
+    group: 'A',
+    name: 'Jordan Spieth'
+  },
+  {
     golferId: '  ',
     group: 'A',
     name: 'Cameron Smith'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'B',
-    name: 'Max Homa'
+    name: 'Tony Finau'
   },
   {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Cameron Young'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Will Zalatoris'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Viktor Hovland'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Sung-Jae Im'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Sam Burns'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Corey Conners'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Brooks Koepka'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Hideki Matsuyama'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Matthew Fitzpatrick'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Tyrrell Hatton'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Tommy Fleetwood'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Justin Rose'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'B',
-    name: 'Joaquin Niemann'
-  },
-  {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'B',
     name: 'Shane Lowry'
   },
   {
-    eventId: 'MASTERS-2023',
+    golferId: '  ',
+    group: 'B',
+    name: 'Dustin Johnson'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Sam Burns'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Hideki Matsuyama'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Cameron Young'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Jason Day'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Sungjae Im'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Joaquin Niemann'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Joohyung Kim'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Corey Conners'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Tommy Fleetwood'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Justin Rose'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Bryson DeChambeau'
+  },
+  {
+    golferId: '  ',
+    group: 'B',
+    name: 'Rickie Fowler'
+  },
+  {
     golferId: '  ',
     group: 'B',
     name: 'Patrick Reed'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
-    group: 'C',
-    name: 'Tiger Woods'
+    group: 'B',
+    name: 'Keegan Bradley'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
-    group: 'C',
-    name: 'Min Woo Lee'
+    group: 'B',
+    name: 'Adam Scott'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
-    group: 'C',
-    name: 'Joohyung Kim'
+    group: 'B',
+    name: 'Wyndham Clark'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
-    group: 'C',
-    name: 'Keith Mitchell'
+    group: 'B',
+    name: 'Sahith Theegala'
   },
   {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Si Woo Kim'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Mito Pereira'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Tom Hoge'
-  },
-  {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
     name: 'Louis Oosthuizen'
   },
   {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Bryson DeChambeau'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Adam Scott'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Sahith Theegala'
-  },
-  {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
     name: 'Abraham Ancer'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Keegan Bradley'
+    name: 'Taylor Montgomery'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Thomas Pieters'
+    name: 'Mito Pereira'
   },
   {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Talor Gooch'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Sergio Garcia'
-  },
-  {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
     name: 'Seamus Power'
   },
   {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Danny Willett'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Brian Harman'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Kurt Kitayama'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Chris Kirk'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Russell Henley'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Ryan Fox'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Harold Varner III'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Billy Horschel'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Taylor Moore'
-  },
-  {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
     name: 'Gary Woodland'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Alex Noren'
+    name: 'Billy Horschel'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Phil Mickelson'
+    name: 'Aaron Wise'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Mackenzie Hughes'
+    name: 'Ryan Fox'
   },
   {
-    eventId: 'MASTERS-2023',
+    golferId: '  ',
+    group: 'C',
+    name: 'Victor Perez'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Taylor Moore'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Keith Mitchell'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Cam Davis'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Talor Gooch'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Si Woo Kim'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Sergio Garcia'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Russell Henley'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Matthew NeSmith'
+  },
+  {
     golferId: '  ',
     group: 'C',
     name: 'Jason Kokrak'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Harris English'
+    name: 'Harold Varner III'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Bubba Watson'
+    name: 'Phil Mickelson'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'J.T. Poston'
+    name: 'J.J. Spaun'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Adam Svensson'
+    name: 'Chris Kirk'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Sepp Straka'
+    name: 'Thomas Pieters'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Kevin Na'
+    name: 'Robert MacIntyre'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'K.H.Lee'
+    name: 'Patrick Rodgers'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Francesco Molinari'
+    name: 'Marc Leishman'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Charl Schwartzel'
+    name: 'Kyoung-Hoon Lee'
   },
   {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Cameron Champ'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Adrian Meronk'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Scott Stallings'
-  },
-  {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
     name: 'Kevin Kisner'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Kazuki Higa'
+    name: 'Joel Dahmen'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Zach Johnson'
+    name: 'Harris English'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Gordon Sargent'
+    name: 'Denny McCarthy'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Bernhard Langer'
+    name: 'Davis Riley'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Sam Bennett'
+    name: 'Brian Harman'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Mike Weir'
+    name: 'Adam Hadwin'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Fred Couples'
+    name: 'Matt Kuchar'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Harrison Crowe'
+    name: 'Maverick McNealy'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Ben Carr'
+    name: 'Tom Hoge'
   },
   {
-    eventId: 'MASTERS-2023',
     golferId: '  ',
     group: 'C',
-    name: 'Mateo Fernandez de Oliveira'
+    name: 'Sepp Straka'
   },
   {
-    eventId: 'MASTERS-2023',
+    golferId: '  ',
+    group: 'C',
+    name: 'Scott Stallings'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Min Woo Lee'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Lucas Herbert'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Jordan Smith'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Francesco Molinari'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Christiaan Bezuidenhout'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Sebastian Munoz'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Nick Hardy'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Mackenzie Hughes'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Cameron Tringale'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Thriston Lawrence'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Justin Suh'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Jens Dantorp'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'J.T. Poston'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Hayden Buckley'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Carson Young'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Andrew Putnam'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Adrian Meronk'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Adam Svensson'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Kurt Kitayama'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Carlos Ortiz'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Matthieu Pavon'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'David Puig'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Kevin Streelman'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Wilco Nienaber'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Padraig Harrington'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'David Horsey'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Austin Eckroat'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Vincent Norrman'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Ryan Gerard'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Ryan Armour'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Charley Hoffman'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Austen Truslow'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Davis Thompson'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Ross Fisher'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Paul Haley'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Hank Lebioda'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Nicolas Echavarria'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Ryutaro Nagano'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Ryo Ishikawa'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Roger Sloan'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Gunn Charoenkul'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Deon Germishuys'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Brent Grant'
+  },
+  {
     golferId: '  ',
     group: 'C',
     name: 'Matthew McClean'
   },
   {
-    eventId: 'MASTERS-2023',
+    golferId: '  ',
+    group: 'C',
+    name: 'Alejandro Del Rey'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Kyle Mueller'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'J.J. Grey'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Berry Henson'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Andrew Svoboda'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Olin Browne Jr.'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Wenyi Ding'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Sam Bennett'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Mateo Fernandez de Oliveira'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Jacob Solomon'
+  },
+  {
+    golferId: '  ',
+    group: 'C',
+    name: 'Ben Carr'
+  },
+  {
     golferId: '  ',
     group: 'C',
     name: 'Aldrich Potgieter'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Vijay Singh'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Sandy Lyle'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Larry Mize'
-  },
-  {
-    eventId: 'MASTERS-2023',
-    golferId: '  ',
-    group: 'C',
-    name: 'Jose Maria Olazabal'
   }
 ];
