@@ -9,7 +9,11 @@ import {
   remove,
   update
 } from 'firebase/database';
-import { IUserGolfPicks, IGolferGrouping } from '../models/models';
+import {
+  IUserGolfPicks,
+  IGolferGrouping,
+  IEntriesGolferDataStore
+} from '../models/models';
 import {
   INITIALIZED_VALUE,
   INITIALIZED_GOLFER,
@@ -30,7 +34,7 @@ export class GolfDataStoreService {
     this.fireData = getDatabase();
   }
 
-  getGolferPicks(): Observable<IUserGolfPicks[]> {
+  getGolferPicks(): Observable<IEntriesGolferDataStore> {
     return from(this.getGolferPicksDb());
   }
 
@@ -43,28 +47,12 @@ export class GolfDataStoreService {
     );
   }
 
-  async getGolferPicksDb(): Promise<IUserGolfPicks[]> {
+  async getGolferPicksDb(): Promise<IEntriesGolferDataStore> {
     const dataSnapshot = await get(
       ref(this.fireData, 'tournaments/' + this.sportsApi.getActiveEventId())
     );
 
-    const entries: IUserGolfPicks[] = [];
-    console.log(dataSnapshot.val()[this.authService.getCurrentUser()]);
-    dataSnapshot.forEach((childSnapshot) => {
-      entries.push(childSnapshot.val());
-    });
-
-    return entries;
-  }
-
-  async getGolferGroupingsDb(): Promise<any> {
-    const entityName = TournamentConfig.find((data) => data.active)!.groupName;
-    const groupsSnapshot = await get(ref(this.fireData, entityName));
-    return groupsSnapshot.val();
-  }
-
-  filterUserPicks(allUserSelections: IUserGolfPicks[]): IUserGolfPicks {
-    let userPicks: IUserGolfPicks = {
+    const userPicks: IUserGolfPicks = {
       golfer1: INITIALIZED_GOLFER,
       golfer2: INITIALIZED_GOLFER,
       golfer3: INITIALIZED_GOLFER,
@@ -75,15 +63,23 @@ export class GolfDataStoreService {
       golfer8: INITIALIZED_GOLFER,
       team: INITIALIZED_VALUE
     };
+    const entryData: IEntriesGolferDataStore = {
+      allEntries: [],
+      userEntry: userPicks
+    };
 
-    // const userRecord = allUserSelections.find(
-    //   (picks) => picks.email === this.authService.getCurrentUser()
-    // );
+    entryData.userEntry = dataSnapshot.val()[this.authService.getCurrentUser()];
+    dataSnapshot.forEach((childSnapshot) => {
+      entryData.allEntries.push(childSnapshot.val());
+    });
 
-    // if (userRecord) {
-    //   userPicks = { ...userRecord };
-    // }
-    return userPicks;
+    return entryData;
+  }
+
+  async getGolferGroupingsDb(): Promise<any> {
+    const entityName = TournamentConfig.find((data) => data.active)!.groupName;
+    const groupsSnapshot = await get(ref(this.fireData, entityName));
+    return groupsSnapshot.val();
   }
 
   updateGolferPicks(userPicks: IUserGolfPicks): Observable<boolean> {

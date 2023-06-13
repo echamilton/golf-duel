@@ -16,6 +16,11 @@ export interface IGolferGrouping {
   name: string;
 }
 
+export interface IEntriesGolferDataStore {
+  allEntries: IUserGolfPicks[];
+  userEntry: IUserGolfPicks;
+}
+
 export interface IGolfersGroupPick {
   id: string;
   name: string;

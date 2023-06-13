@@ -66,13 +66,11 @@ export class PickTeamComponent implements OnInit {
   }
 
   get isTournamentActive(): boolean {
-    return false;
     return this.sportsApi.isTournamentActive();
   }
 
   private loadUserPicks(): void {
     this.userPicks$.subscribe((picks) => {
-      // if (picks && picks.email) {
       if (picks && picks.team) {
         this.existingEntry = true;
         this.picksFg.get('team')!.disable();
@@ -110,10 +108,10 @@ export class PickTeamComponent implements OnInit {
     this.isLoading = true;
     if (answer === 'Yes') {
       this.sportsApi.getGolfScores().subscribe((apiData) => {
-        // if (this.sportsApi.isTournamentActive(apiData.status)) {
-        //   this.openSnackBar(Messages.picksActiveTourny);
-        //   return;
-        // }
+        if (this.sportsApi.isTournamentActive(apiData.status)) {
+          this.openSnackBar(Messages.picksActiveTourny);
+          return;
+        }
 
         this.golfFacade.updateUserPicks(this.mapFormToPicks(), operation);
         this.openSnackBar(Messages.teamSuccess);

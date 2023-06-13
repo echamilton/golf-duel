@@ -66,10 +66,9 @@ export class UserEffects {
       mergeMap(() =>
         this.golfData.getGolferPicks().pipe(
           map((allUserPicks) => {
-            const userPicks = this.golfData.filterUserPicks(allUserPicks);
             return getUserSelectedPicksComplete({
-              picks: userPicks,
-              allUserPicks: allUserPicks
+              picks: allUserPicks.userEntry,
+              allUserPicks: allUserPicks.allEntries
             });
           })
         )
