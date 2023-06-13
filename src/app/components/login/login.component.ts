@@ -4,7 +4,7 @@ import { Messages } from './../../models/constants';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat';
-import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
+import { GolfStoreFacade } from './../../store/golf.store.facade';
 
 @Component({
   selector: 'app-login',
