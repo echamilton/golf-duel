@@ -21,6 +21,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
 import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GolferPicksFormComponent } from './components/golfer-picks-form/golfer-picks-form.component';
@@ -98,6 +99,7 @@ export function loadUserPicks(golfStoreFacade: GolfStoreFacade) {
     MatFormFieldModule,
     MatDialogModule,
     MatButtonModule,
+    MatTabsModule,
     MatTableModule,
     StoreModule.forRoot({ golfData: golfReducer }),
     EffectsModule.forRoot([UserEffects]),
