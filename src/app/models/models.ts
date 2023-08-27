@@ -21,6 +21,10 @@ export interface IEntriesGolferDataStore {
   userEntry: IUserGolfPicks;
 }
 
+export interface ITabStructure {
+  entryName: string;
+}
+
 export interface IGolfersGroupPick {
   id: string;
   name: string;
