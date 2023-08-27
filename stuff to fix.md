@@ -1,5 +1,5 @@
-fix the error handling with new auth stuff
-
-Fix modular for database fetch
+multiple entries selection
 
 Any typings
+
+mutliple firing log on main page
