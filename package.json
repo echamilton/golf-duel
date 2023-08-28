@@ -26,10 +26,10 @@
     "@ngrx/store": "16.2.0",
     "@ngrx/store-devtools": "16.2.0",
     "@schematics/angular": "^12.2.17",
-    "firebase": "^10.2.0",
+    "firebase": "^10.3.0",
     "lodash-es": "^4.17.21",
     "rxjs": "7.8.1",
-    "tslib": "^2.6.1",
+    "tslib": "^2.6.2",
     "zone.js": "^0.13.1"
   },
   "devDependencies": {
@@ -38,7 +38,7 @@
     "@angular/cli": "^16.2.0",
     "@angular/compiler-cli": "^16.2.2",
     "@types/jasmine": "~3.6.0",
-    "@types/lodash": "^4.14.196",
+    "@types/lodash": "^4.14.197",
     "firebase-tools": "12.4.8",
     "jasmine-core": "~3.8.0",
     "karma": "^6.4.2",
