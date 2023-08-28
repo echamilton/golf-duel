@@ -1,3 +1,15 @@
+<!-- <mat-tab-group (selectedTabChange)="selectedTabValue($event)" #tabGroup>
+  <mat-tab
+    *ngFor="let tt of selelectedTabs; let index = index"
+    [label]="tt.tabDescription"
+    class="tab-title"
+  >
+    <button mat-button mat-raised-button (click)="testmemethod()">
+      Click me!
+    </button>
+  </mat-tab>
+</mat-tab-group> -->
+
 <mat-card class="memory-card">
   <ng-container *ngIf="isLoggedIn">
     <mat-card-content *ngIf="isLoading">

@@ -8,7 +8,11 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IGolferGroupingsUI, IUserGolfPicks } from '../../models/models';
+import {
+  IGolferGroupingsUI,
+  IUserGolfPicks,
+  ITabStructure
+} from '../../models/models';
 import { SportsApiService } from '../../services/sports-api.service';
 import { AuthService } from '../../services/auth.service';
 import {
@@ -33,6 +37,7 @@ export class PickTeamComponent implements OnInit {
   golferGroupings$: Observable<IGolferGroupingsUI>;
   existingEntry = false;
   picksFg: UntypedFormGroup;
+  teamEntries: Array<ITabStructure> = [];
 
   constructor(
     private sportsApi: SportsApiService,
@@ -45,6 +50,11 @@ export class PickTeamComponent implements OnInit {
     this.golferGroupings$ = this.getGolferGroupings();
     this.picksFg = this.initializeForm();
     this.userPicks$ = this.golfFacade.getUserSelectedPicks();
+
+    // const newtab: ITabStructure = {
+    //   entryName: 'Entry 1'
+    // };
+    // this.teamEntries.push(newtab);
   }
 
   ngOnInit(): void {
@@ -197,4 +207,13 @@ export class PickTeamComponent implements OnInit {
       .getAreGroupsLoading()
       .subscribe((isLoading) => (this.isLoading = isLoading));
   }
+
+  newEntry(): void {
+    const newEntry: ITabStructure = {
+      entryName: 'Entry ' + (this.teamEntries.length + 1).toString()
+    };
+    this.teamEntries.push(newEntry);
+  }
+
+  selectedTabValue(event: any) {}
 }
