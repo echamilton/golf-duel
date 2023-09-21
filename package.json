@@ -7,7 +7,7 @@
     "build": "ng build",
     "buildprod": "ng build --base-href # --configuration production --build-optimizer --aot",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "jest --coverage"
   },
   "private": true,
   "dependencies": {
@@ -37,15 +37,11 @@
     "@angular-devkit/build-angular": "^16.2.3",
     "@angular/cli": "^16.2.3",
     "@angular/compiler-cli": "^16.2.6",
-    "@types/jasmine": "~3.6.0",
+    "@types/jest": "^29.5.5",
     "@types/lodash": "^4.14.197",
     "firebase-tools": "12.4.8",
-    "jasmine-core": "~3.8.0",
-    "karma": "^6.4.2",
-    "karma-chrome-launcher": "^3.1.1",
-    "karma-coverage": "~2.0.3",
-    "karma-jasmine": "^4.0.2",
-    "karma-jasmine-html-reporter": "^1.7.0",
+    "jest": "^29.7.0",
+    "jest-preset-angular": "^13.1.2",
     "typescript": "^5.1.6"
   }
 }
