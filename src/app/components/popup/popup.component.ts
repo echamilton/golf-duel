@@ -20,7 +20,7 @@ export class PopupComponent {
     this.dialogRef.close('Yes');
   }
 
-  onClose(): void {
+  onNo(): void {
     this.dialogRef.close('No');
   }
 }
