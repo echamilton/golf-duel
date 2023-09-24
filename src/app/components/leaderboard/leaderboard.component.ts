@@ -6,18 +6,14 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import {
-  IOwnershipPerGolfer,
-  ILeaderResults,
-  ITournamentResults
-} from '../../models/models';
+import { IOwnershipPerGolfer, ILeaderResults } from '../../models/models';
 import { LeaderColumns } from './../../models/constants';
 import { GolfStoreFacade } from '../../store/golf.store.facade';
-import { cloneDeep } from 'lodash';
 import {
   rankEntries,
   buildLeaderboardResults
 } from '../../utilities/player-team-util';
+import { cloneMe } from './../../utilities/generic-util';
 
 @Component({
   selector: 'app-leaderboard',
@@ -64,7 +60,8 @@ export class LeaderboardComponent implements OnInit {
     this.isLoading = true;
     this.golfFacade.getLeaderboardData().subscribe(([results, contestants]) => {
       if (results && contestants) {
-        const tournamentResults: ITournamentResults = cloneDeep(results);
+        const tournamentResults = cloneMe(results);
+
         console.log('double method hit on reload');
         this.fantasyLeaders = buildLeaderboardResults(
           contestants,
