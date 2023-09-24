@@ -1,16 +1,16 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { SportsApiService } from '../../services/sports-api.service';
 import { IScoreCardModal, IScoreCard } from '../../models/models';
 import { ScoreValueColors } from './../../models/constants';
-import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-scorecard-pop',
+  selector: 'golf-scorecard-pop',
   templateUrl: './scorecard-pop.component.html',
   styleUrls: ['./scorecard-pop.component.scss']
 })
-export class ScorecardPopComponent implements OnInit {
+export class ScorecardPopComponent {
   scorecard$: Observable<IScoreCard>;
   imageLink: string;
 
@@ -24,8 +24,6 @@ export class ScorecardPopComponent implements OnInit {
     );
     this.imageLink = data.img;
   }
-
-  ngOnInit() {}
 
   getColor(score: string) {
     const scoreColor = ScoreValueColors.find(
