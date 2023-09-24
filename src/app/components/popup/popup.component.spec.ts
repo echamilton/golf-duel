@@ -34,11 +34,11 @@ describe('PopupComponent', () => {
 
   it('should pass yes on click of yes button', () => {
     component.onYes();
-    expect(dialogMock.close).toHaveBeenCalled();
+    expect(dialogMock.close).toHaveBeenCalledWith('Yes');
   });
 
   it('should pass no on click of no button', () => {
     component.onNo();
-    expect(dialogMock.close).toHaveBeenCalled();
+    expect(dialogMock.close).toHaveBeenCalledWith('No');
   });
 });
