@@ -3,7 +3,7 @@ import { AppTitle } from './models/constants';
 import packageInfo from '../../package.json';
 
 @Component({
-  selector: 'app-root',
+  selector: 'golf-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

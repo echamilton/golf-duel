@@ -3,7 +3,7 @@ import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-pwd-reset',
+  selector: 'golf-pwd-reset',
   templateUrl: './pwd-reset.component.html',
   styleUrls: ['./pwd-reset.component.scss']
 })

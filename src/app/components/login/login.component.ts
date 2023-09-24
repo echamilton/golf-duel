@@ -7,7 +7,7 @@ import firebase from 'firebase/compat';
 import { GolfStoreFacade } from './../../store/golf.store.facade';
 
 @Component({
-  selector: 'app-login',
+  selector: 'golf-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })

@@ -10,7 +10,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'golf-signup',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })

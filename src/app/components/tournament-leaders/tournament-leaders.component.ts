@@ -6,7 +6,7 @@ import { GolfStoreFacade } from '../../store/golf.store.facade';
 import { IPlayer, ITournamentResults } from '../../models/models';
 
 @Component({
-  selector: 'app-tournament-leaders',
+  selector: 'golf-tournament-leaders',
   templateUrl: './tournament-leaders.component.html',
   styleUrls: ['./tournament-leaders.component.scss']
 })

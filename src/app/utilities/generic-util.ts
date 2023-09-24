@@ -21,3 +21,7 @@ export const numbersOnlyObject = (object: any) => {
   }
   return object;
 };
+
+export const cloneMe = (object: any) => {
+  return JSON.parse(JSON.stringify(object));
+};

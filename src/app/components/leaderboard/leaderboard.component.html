@@ -53,7 +53,9 @@
             "
           >
             <ul class="review_bottom">
-              <app-leader-picks [golfers]="element.golfers"></app-leader-picks>
+              <golf-leader-picks
+                [golfers]="element.golfers"
+              ></golf-leader-picks>
               <div *ngIf="element.golfers?.length == 0">
                 Picks will show when tournament starts
               </div>

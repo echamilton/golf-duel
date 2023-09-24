@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { ITournamentResults, IUserGolfPicks } from './../../models/models';
 
 @Component({
-  selector: 'app-toolbar',
+  selector: 'golf-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })

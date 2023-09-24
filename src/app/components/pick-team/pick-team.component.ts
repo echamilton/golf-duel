@@ -24,7 +24,7 @@ import { PopupComponent } from './../popup/popup.component';
 import { GolfStoreFacade } from './../../store/golf.store.facade';
 
 @Component({
-  selector: 'app-pick-team',
+  selector: 'golf-pick-team',
   templateUrl: './pick-team.component.html',
   styleUrls: ['./pick-team.component.scss']
 })

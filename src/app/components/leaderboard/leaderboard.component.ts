@@ -16,7 +16,7 @@ import {
 import { cloneMe } from './../../utilities/generic-util';
 
 @Component({
-  selector: 'app-leaderboard',
+  selector: 'golf-leaderboard',
   styleUrls: ['leaderboard.component.scss'],
   templateUrl: 'leaderboard.component.html',
   animations: [

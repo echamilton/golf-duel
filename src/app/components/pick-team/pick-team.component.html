@@ -18,12 +18,12 @@
       </div>
     </mat-card-content>
     <mat-card-content *ngIf="!isLoading">
-      <app-golfer-picks-form
+      <golf-golfer-picks-form
         [(picksFg)]="picksFg"
         [golferGrpA]="(golferGroupings$ | async)?.groupA"
         [golferGrpB]="(golferGroupings$ | async)?.groupB"
         [golferGrpC]="(golferGroupings$ | async)?.groupC"
-      ></app-golfer-picks-form>
+      ></golf-golfer-picks-form>
       <div *ngIf="!isTournamentActive" class="button-row">
         <button
           mat-raised-button

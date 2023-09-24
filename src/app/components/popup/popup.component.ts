@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IPopupModalData } from './../../models/models';
 
 @Component({
-  selector: 'app-popup',
+  selector: 'golf-popup',
   templateUrl: './popup.component.html',
   styleUrls: ['./popup.component.scss']
 })
