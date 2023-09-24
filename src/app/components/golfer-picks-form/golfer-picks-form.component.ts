@@ -3,7 +3,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import { IGolfersGroupPick } from '../../models/models';
 
 @Component({
-  selector: 'app-golfer-picks-form',
+  selector: 'golf-golfer-picks-form',
   templateUrl: './golfer-picks-form.component.html',
   styleUrls: ['./golfer-picks-form.component.scss']
 })

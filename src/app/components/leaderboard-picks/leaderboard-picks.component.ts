@@ -6,7 +6,7 @@ import { GolferStatus, Messages } from './../../models/constants';
 import { IPlayer } from './../../models/models';
 
 @Component({
-  selector: 'app-leader-picks',
+  selector: 'golf-leader-picks',
   styleUrls: ['leaderboard-picks.component.scss'],
   templateUrl: 'leaderboard-picks.component.html'
 })
