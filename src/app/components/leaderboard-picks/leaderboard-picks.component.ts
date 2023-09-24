@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
@@ -10,12 +10,11 @@ import { IPlayer } from './../../models/models';
   styleUrls: ['leaderboard-picks.component.scss'],
   templateUrl: 'leaderboard-picks.component.html'
 })
-export class LeaderboardPicksComponent implements OnInit {
+export class LeaderboardPicksComponent {
   @Input() golfers: IPlayer[] = [];
   config = new MatSnackBarConfig();
-  constructor(private popup: MatDialog, private snackBar: MatSnackBar) {}
 
-  ngOnInit(): void {}
+  constructor(private popup: MatDialog, private snackBar: MatSnackBar) {}
 
   get golferCutStatus(): string {
     return GolferStatus.cut;
@@ -34,11 +33,7 @@ export class LeaderboardPicksComponent implements OnInit {
       this.openSnackBar();
       return;
     }
-    const dialogRef = this.popup.open(
-      ScorecardPopComponent,
-      this.setPopupConfig(golfer)
-    );
-    dialogRef.afterClosed().subscribe();
+    this.popup.open(ScorecardPopComponent, this.setPopupConfig(golfer));
   }
 
   private setPopupConfig(golfer: IPlayer): MatDialogConfig {
