@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { GolferPicksFormComponent } from './golfer-picks-form.component';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { GolferPicksFormComponent } from './golfer-picks-form.component';
 
 describe('GolferPicksComponent', () => {
   let component: GolferPicksFormComponent;
