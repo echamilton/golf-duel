@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { IGolfersGroupPick } from '../../models/models';
 
@@ -7,15 +7,13 @@ import { IGolfersGroupPick } from '../../models/models';
   templateUrl: './golfer-picks-form.component.html',
   styleUrls: ['./golfer-picks-form.component.scss']
 })
-export class GolferPicksFormComponent implements OnInit {
+export class GolferPicksFormComponent {
   @Input() picksFg!: UntypedFormGroup;
   @Input() golferGrpA: Array<IGolfersGroupPick> = [];
   @Input() golferGrpB: Array<IGolfersGroupPick> = [];
   @Input() golferGrpC: Array<IGolfersGroupPick> = [];
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   checkGolferSelected(golferDropDown: string, currentGolfer: string): boolean {
     if (golferDropDown === currentGolfer) {

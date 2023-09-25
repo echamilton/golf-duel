@@ -56,7 +56,7 @@ export class LeaderboardComponent implements OnInit {
     return this.isTournyActive;
   }
 
-  private buildGolferLeaderBoard(): void {
+  buildGolferLeaderBoard(): void {
     this.isLoading = true;
     this.golfFacade.getLeaderboardData().subscribe(([results, contestants]) => {
       if (results && contestants) {
