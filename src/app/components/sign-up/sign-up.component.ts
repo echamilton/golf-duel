@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { FirebaseError } from '@firebase/util';
 import { AuthService } from '../../services/auth.service';
-import firebase from 'firebase/compat';
 import {
   INITIALIZED_VALUE,
   Messages,
   ServiceCodes
 } from '../../models/constants';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'golf-signup',
@@ -35,7 +35,7 @@ export class SignUpComponent implements OnInit {
         this.openSnackBar(Messages.userCreateSuccess);
         this.router.navigate(['/leader']);
       },
-      (err: firebase.FirebaseError) => {
+      (err: FirebaseError) => {
         const message =
           err.code === ServiceCodes.userFailCode
             ? Messages.userCreateFail
