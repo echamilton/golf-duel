@@ -7,6 +7,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AuthService } from './services/auth.service';
 import { GolfStoreFacade } from './store/golf.store.facade';
 import { TournamentLeadersComponent } from './components/tournament-leaders/tournament-leaders.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -30,7 +32,10 @@ describe('AppComponent', () => {
         AppComponent,
         ToolbarComponent,
         MatMenu,
-        TournamentLeadersComponent
+        TournamentLeadersComponent,
+        MatIcon,
+        MatToolbarRow,
+        MatToolbar
       ],
       providers: [
         {
