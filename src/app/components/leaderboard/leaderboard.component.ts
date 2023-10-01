@@ -76,7 +76,7 @@ export class LeaderboardComponent implements OnInit {
     });
   }
 
-  private initializeLeaderboard(): void {
+  initializeLeaderboard(): void {
     this.fantasyLeaders = [];
     this.ownPct = [];
     this.isLoading = true;

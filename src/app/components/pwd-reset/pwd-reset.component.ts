@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './../../services/auth.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './../../services/auth.service';
 
 @Component({
   selector: 'golf-pwd-reset',
   templateUrl: './pwd-reset.component.html',
   styleUrls: ['./pwd-reset.component.scss']
 })
-export class PwdResetComponent implements OnInit {
+export class PwdResetComponent {
   emailAddress: string = '';
   constructor(private authService: AuthService, private router: Router) {}
-
-  ngOnInit(): void {}
 
   submitPwdReset(): void {
     this.authService.resetPassword(this.emailAddress);
