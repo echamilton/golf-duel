@@ -2,13 +2,13 @@ import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenu } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AuthService } from './services/auth.service';
 import { GolfStoreFacade } from './store/golf.store.facade';
 import { TournamentLeadersComponent } from './components/tournament-leaders/tournament-leaders.component';
-import { MatIcon } from '@angular/material/icon';
-import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 
 describe('AppComponent', () => {
   let component: AppComponent;
