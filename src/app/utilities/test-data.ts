@@ -1,4 +1,5 @@
 import { IPlayer } from '../models/models';
+import { IGolfAppState } from '../store/golf.reducer';
 
 export const GOLFER_ACTIVE: IPlayer = {
   name: 'Tiger Woods',
@@ -28,4 +29,10 @@ export const GOLFER_INACTIVE: IPlayer = {
   imageLink: 'www.image.com',
   isActive: false,
   thru: '9'
+};
+
+export const GOLF_STATE: IGolfAppState = {
+  isLoadingGroups: true,
+  isLoading: true,
+  isUserPicksUpdating: true
 };

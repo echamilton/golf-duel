@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { FirebaseError } from 'firebase/app';
 import { AuthService } from '../../services/auth.service';
 import { Messages } from './../../models/constants';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import firebase from 'firebase/compat';
 import { GolfStoreFacade } from './../../store/golf.store.facade';
 
 @Component({
@@ -11,7 +11,7 @@ import { GolfStoreFacade } from './../../store/golf.store.facade';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   email: string = '';
   password: string = '';
   config = new MatSnackBarConfig();
@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
     private golfFacade: GolfStoreFacade
   ) {}
 
-  ngOnInit(): void {}
-
   login(): void {
     this.authService.login(this.email, this.password).then(
       () => {
@@ -34,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.golfFacade.loadUserPicks();
         this.router.navigate(['/leader']);
       },
-      (err: firebase.FirebaseError) => {
+      (err: FirebaseError) => {
         const message = Messages.userLoginFail;
         this.openSnackBar(message);
       }

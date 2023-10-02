@@ -7,13 +7,6 @@ export const getGolfTournamentData = createSelector(featureSlice, (state) => {
   return state.tournamentData!;
 });
 
-export const selectLoggedInUser = createSelector(
-  featureSlice,
-  (state: IGolfAppState) => {
-    return state.isLoading;
-  }
-);
-
 export const getGolferGroups = createSelector(featureSlice, (state) => {
   return state.golferGroupings!;
 });
