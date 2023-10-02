@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { PwdResetComponent } from './pwd-reset.component';
 import { AuthService } from './../../services/auth.service';
 
@@ -17,6 +19,7 @@ describe('PwdResetComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [MatCardModule, MatFormFieldModule],
       declarations: [PwdResetComponent],
       providers: [
         {
