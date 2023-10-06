@@ -1,8 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { buildPlayerList } from './player-generator';
+import { buildContestantGolferScores } from './player-team-util';
+import { golfersFile } from './players';
+import { GOLFER_ACTIVE } from './test-data';
 
-describe('Generic-Util', () => {
-  it('should create', () => {
-    expect(1).toBe(1);
+describe('player-team-util', () => {
+  it('should build the contestant scores', () => {
+    //  const result = buildContestantGolferScores();
   });
 });

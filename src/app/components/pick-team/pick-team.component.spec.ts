@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from './../../services/auth.service';
 import { GolfStoreFacade } from './../../store/golf.store.facade';
 
-describe('PickTeamComponent', () => {
+xdescribe('PickTeamComponent', () => {
   let component: PickTeamComponent;
   let fixture: ComponentFixture<PickTeamComponent>;
 

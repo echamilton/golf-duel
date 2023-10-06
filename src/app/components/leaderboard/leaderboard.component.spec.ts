@@ -44,6 +44,14 @@ describe('LeaderboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should run initit calls when loading component', () => {
+    jest.spyOn(component, 'initializeLeaderboard');
+    jest.spyOn(component, 'buildGolferLeaderBoard');
+    component.ngOnInit();
+    expect(component.initializeLeaderboard).toHaveBeenCalled();
+    expect(component.buildGolferLeaderBoard).toHaveBeenCalled();
+  });
+
   it('should return columns for getter', () => {
     expect(component.tableColumns[0]).toBe('position');
     expect(component.tableColumns[1]).toBe('team');
@@ -55,6 +63,20 @@ describe('LeaderboardComponent', () => {
   it('should return is tournament active for getter', () => {
     component.isTournyActive = true;
     expect(component.isTournamentActive).toBeTruthy();
+  });
+
+  it('should initialize leaderboard models', () => {
+    component.initializeLeaderboard();
+    expect(component.fantasyLeaders).toEqual([]);
+    expect(component.ownPct).toEqual([]);
+    expect(component.isLoading).toBeTruthy();
+  });
+
+  it('should build the leaderboard', () => {
+    component.buildGolferLeaderBoard();
+    // jest.spyOn(validationFacade, 'validateOrder').mockReturnValue(of(validationResponseMock));
+
+    expect;
   });
 
   afterEach(() => {
