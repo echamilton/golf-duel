@@ -84,10 +84,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "golf-duel:build:production"
+              "buildTarget": "golf-duel:build:production"
             },
             "development": {
-              "browserTarget": "golf-duel:build:development"
+              "buildTarget": "golf-duel:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -95,7 +95,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "golf-duel:build"
+            "buildTarget": "golf-duel:build"
           }
         },
         "test": {
