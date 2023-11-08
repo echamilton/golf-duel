@@ -89,3 +89,10 @@ li {
   width: 20px;
   text-align: center;
 }
+
+.golf-leader-container {
+  @media only screen and (min-width: 600px) {
+    padding-left: 32%;
+    padding-right: 32%;
+  }
+}

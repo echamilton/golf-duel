@@ -1,82 +1,88 @@
-<div class="spinner" *ngIf="isLoading; else loaded">
-  <golf-loader></golf-loader>
-</div>
-<ng-template #loaded>
-  <div class="mat-elevation-z8">
-    <table
-      mat-table
-      [dataSource]="fantasyLeaders"
-      multiTemplateDataRows
-      aria-label="Elements"
-    >
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef>Position</th>
-        <td mat-cell *matCellDef="let element">
-          <img class="position" src="./assets/{{ element.position }}.png" />
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="team">
-        <th mat-header-cell *matHeaderCellDef>Team</th>
-        <td mat-cell *matCellDef="let element">{{ element.team }}</td>
-      </ng-container>
-      <ng-container matColumnDef="golfersRemain">
-        <th class="leader-center" mat-header-cell *matHeaderCellDef>Golfers</th>
-        <td class="leader-center" mat-cell *matCellDef="let element">
-          {{ element.golfersRemain }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="holesRemain">
-        <th class="leader-center" mat-header-cell *matHeaderCellDef>Holes</th>
-        <td class="leader-center" mat-cell *matCellDef="let element">
-          {{ element.holesRemain }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="score">
-        <th class="leader-center" mat-header-cell *matHeaderCellDef>Score</th>
-        <td class="leader-center" mat-cell *matCellDef="let element">
-          <div *ngIf="element.score !== 99">{{ element.score }}</div>
-          <div *ngIf="element.score === 99 && !isTournamentActive">-</div>
-          <div *ngIf="element.score === 99 && isTournamentActive">CUT</div>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="expandedDetail">
-        <td
-          mat-cell
-          *matCellDef="let element"
-          [attr.colspan]="tableColumns.length"
-        >
-          <div
-            class="team-element-detail"
-            [@detailExpand]="
-              element == expandedElement ? 'expanded' : 'collapsed'
-            "
-          >
-            <ul class="review_bottom">
-              <golf-leader-picks
-                [golfers]="element.golfers"
-              ></golf-leader-picks>
-              <div *ngIf="element.golfers?.length == 0">
-                Picks will show when tournament starts
-              </div>
-            </ul>
-          </div>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let element; columns: tableColumns"
-        class="team-element-row"
-        [class.team-expanded-row]="expandedElement === element"
-        (click)="expandedElement = expandedElement === element ? null : element"
-      ></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: ['expandedDetail']"
-        class="team-detail-row"
-      ></tr>
-    </table>
+<div class="golf-leader-container">
+  <div class="spinner" *ngIf="isLoading; else loaded">
+    <golf-loader></golf-loader>
   </div>
-</ng-template>
+  <ng-template #loaded>
+    <div class="mat-elevation-z8">
+      <table
+        mat-table
+        [dataSource]="fantasyLeaders"
+        multiTemplateDataRows
+        aria-label="Elements"
+      >
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>Position</th>
+          <td mat-cell *matCellDef="let element">
+            <img class="position" src="./assets/{{ element.position }}.png" />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="team">
+          <th mat-header-cell *matHeaderCellDef>Team</th>
+          <td mat-cell *matCellDef="let element">{{ element.team }}</td>
+        </ng-container>
+        <ng-container matColumnDef="golfersRemain">
+          <th class="leader-center" mat-header-cell *matHeaderCellDef>
+            Golfers
+          </th>
+          <td class="leader-center" mat-cell *matCellDef="let element">
+            {{ element.golfersRemain }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="holesRemain">
+          <th class="leader-center" mat-header-cell *matHeaderCellDef>Holes</th>
+          <td class="leader-center" mat-cell *matCellDef="let element">
+            {{ element.holesRemain }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="score">
+          <th class="leader-center" mat-header-cell *matHeaderCellDef>Score</th>
+          <td class="leader-center" mat-cell *matCellDef="let element">
+            <div *ngIf="element.score !== 99">{{ element.score }}</div>
+            <div *ngIf="element.score === 99 && !isTournamentActive">-</div>
+            <div *ngIf="element.score === 99 && isTournamentActive">CUT</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [attr.colspan]="tableColumns.length"
+          >
+            <div
+              class="team-element-detail"
+              [@detailExpand]="
+                element == expandedElement ? 'expanded' : 'collapsed'
+              "
+            >
+              <ul class="review_bottom">
+                <golf-leader-picks
+                  [golfers]="element.golfers"
+                ></golf-leader-picks>
+                <div *ngIf="element.golfers?.length == 0">
+                  Picks will show when tournament starts
+                </div>
+              </ul>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let element; columns: tableColumns"
+          class="team-element-row"
+          [class.team-expanded-row]="expandedElement === element"
+          (click)="
+            expandedElement = expandedElement === element ? null : element
+          "
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['expandedDetail']"
+          class="team-detail-row"
+        ></tr>
+      </table>
+    </div>
+  </ng-template>
+</div>
