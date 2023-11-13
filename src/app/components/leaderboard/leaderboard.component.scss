@@ -91,8 +91,12 @@ li {
 }
 
 .golf-leader-container {
-  @media only screen and (min-width: 600px) {
-    padding-left: 32%;
-    padding-right: 32%;
+  @media only screen and (min-width: 601px) {
+    padding-left: 35%;
+    padding-right: 35%;
+  }
+  @media only screen and (max-width: 600px) {
+    padding-left: 5%;
+    padding-right: 5%;
   }
 }
