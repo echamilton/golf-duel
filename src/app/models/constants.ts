@@ -1,15 +1,13 @@
 import { ITournament, IScoreColor } from './models';
 
-export const TournamentConfig: ITournament[] = [
-  {
-    eventId: 'OPEN-2023',
-    url: 'https://site.web.api.espn.com/apis/site/v2/sports/golf/leaderboard?event=401465539',
-    active: true,
-    groupName: 'open2023',
-    scorecard:
-      'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401465539/playersummary?region=us&lang=en&season=2020&player='
-  }
-];
+export const TournamentConfig: ITournament = {
+  eventId: 'OPEN-2023',
+  url: 'http://localhost:3000/api/golf-data/leaderboardData',
+  active: true,
+  groupName: 'open2023',
+  scorecard:
+    'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401465539/playersummary?region=us&lang=en&season=2020&player='
+};
 
 export const AppTitle = '443 Fantasy Golf';
 

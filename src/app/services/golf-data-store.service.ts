@@ -51,7 +51,7 @@ export class GolfDataStoreService {
 
   async getGolferPicksDb(): Promise<IEntriesGolferDataStore> {
     const dataSnapshot = await get(
-      ref(this.fireData, 'tournaments/' + this.sportsApi.getActiveEventId())
+      ref(this.fireData, 'tournaments/' + TournamentConfig.eventId)
     );
 
     const userPicks: IUserGolfPicks = {
@@ -82,7 +82,7 @@ export class GolfDataStoreService {
   }
 
   async getGolferGroupingsDb(): Promise<any> {
-    const entityName = TournamentConfig.find((data) => data.active)!.groupName;
+    const entityName = TournamentConfig.groupName;
     const groupsSnapshot = await get(ref(this.fireData, entityName));
     return groupsSnapshot.val();
   }
@@ -91,7 +91,7 @@ export class GolfDataStoreService {
     const dataToUpdate: any = {};
     dataToUpdate[
       'tournaments/' +
-        this.sportsApi.getActiveEventId() +
+        TournamentConfig.eventId +
         '/' +
         this.authService.getCurrentUser()
     ] = userPicks;
@@ -102,7 +102,7 @@ export class GolfDataStoreService {
 
   deleteGolferPicks(userPicks: IUserGolfPicks): Observable<boolean> {
     const entryReferenceKey =
-      'myGolfers/' + this.sportsApi.getActiveEventId() + '-' + userPicks.team;
+      'myGolfers/' + TournamentConfig.eventId + '-' + userPicks.team;
     remove(ref(this.fireData, entryReferenceKey)).then((_) => {});
     return of(true);
   }

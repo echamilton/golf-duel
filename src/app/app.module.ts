@@ -42,7 +42,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { golfReducer } from './store/golf.reducer';
 import { UserEffects } from './store/golf.effects';
 import { GolfStoreFacade } from './store/golf.store.facade';
-import { NoCacheHeadersInterceptor } from './services/http-cache';
 import { initializeApp } from 'firebase/app';
 
 import { EffectsModule } from '@ngrx/effects';
@@ -127,11 +126,6 @@ export function loadUserPicks(golfStoreFacade: GolfStoreFacade) {
       useFactory: loadUserPicks,
       deps: [GolfStoreFacade]
     }
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: NoCacheHeadersInterceptor,
-    //   multi: true
-    // }
   ],
   bootstrap: [AppComponent]
 })

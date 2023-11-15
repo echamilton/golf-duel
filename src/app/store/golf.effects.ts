@@ -36,7 +36,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(getTournamentLoad),
       mergeMap(() =>
-        this.sportsApi.getGolfScores().pipe(
+        this.sportsApi.getTournamentLeaderboard().pipe(
           map((tournamentResults: ITournamentResults) => {
             return getTournamentLoadSuccess(tournamentResults);
           })
