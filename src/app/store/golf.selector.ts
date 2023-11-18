@@ -26,3 +26,7 @@ export const getIsTournamentLoading = createSelector(featureSlice, (state) => {
 export const getAreGroupsLoading = createSelector(featureSlice, (state) => {
   return state.isLoadingGroups;
 });
+
+export const getGolferScorecardData = createSelector(featureSlice, (state) => {
+  return state.golferScorecard;
+});

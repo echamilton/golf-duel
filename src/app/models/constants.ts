@@ -1,36 +1,14 @@
-import { ITournament, IScoreColor } from './models';
-
-export const TournamentConfig: ITournament = {
-  eventId: 'OPEN-2023',
-  url: 'http://localhost:3000/api/golf-data/leaderboardData',
-  active: true,
-  groupName: 'open2023',
-  scorecard:
-    'https://site.web.api.espn.com/apis/site/v2/sports/golf/pga/leaderboard/401465539/playersummary?region=us&lang=en&season=2020&player='
-};
-
-export const AppTitle = '443 Fantasy Golf';
+import { IScoreColor } from './models';
 
 export const INITIALIZED_VALUE = '';
-export const INITIALIZED_GOLFER = 0;
-
-export enum ScoreValues {
-  birdie = 'Birdie',
-  par = 'Par',
-  eagle = 'Eagle',
-  double = 'Double Bogey',
-  triple = 'Triple Bogey',
-  bogey = 'Bogey',
-  noScore = 'NOSCORE'
-}
 
 export const ScoreValueColors: IScoreColor[] = [
-  { score: ScoreValues.par, color: 'black' },
-  { score: ScoreValues.birdie, color: 'blue' },
-  { score: ScoreValues.bogey, color: 'red' },
-  { score: ScoreValues.eagle, color: 'green' },
-  { score: ScoreValues.double, color: 'purple' },
-  { score: ScoreValues.noScore, color: 'black' }
+  { score: 'Birdie', color: 'black' },
+  { score: 'Par', color: 'blue' },
+  { score: 'Bogey', color: 'red' },
+  { score: 'Eagle', color: 'green' },
+  { score: 'Double Bogey', color: 'purple' },
+  { score: 'NOSCORE', color: 'black' }
 ];
 
 export enum GolferStatus {
@@ -63,10 +41,6 @@ export enum Messages {
   teamSuccess = 'Your picks have been updated',
   golferCut = 'Golfer is no longer playing!',
   picksActiveTourny = 'Picks not submitted, tournament already in progress'
-}
-
-export enum ServiceCodes {
-  userFailCode = 'auth/argument-error'
 }
 
 export enum TournamentStatus {

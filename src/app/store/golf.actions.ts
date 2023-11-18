@@ -3,7 +3,8 @@ import { Operation } from '../models/constants';
 import {
   ITournamentResults,
   IGolferGroupingsUI,
-  IUserGolfPicks
+  IUserGolfPicks,
+  IScoreCard
 } from './../models/models';
 
 export const getTournamentLoad = createAction('[Golf] Get tournament Load');
@@ -29,4 +30,12 @@ export const updateUserSelectedPicksComplete = createAction(
 export const getGolferGroupingsComplete = createAction(
   '[Golf] Get groupings complete',
   props<IGolferGroupingsUI>()
+);
+export const getGolferScorecard = createAction(
+  '[Golf] Get golfer scorecard',
+  props<{ golferId: string; round: string }>()
+);
+export const getGolferScorecardComplete = createAction(
+  '[Golf] Get golfer scorecard complete',
+  props<{ golferScorecard: IScoreCard }>()
 );

@@ -22,12 +22,7 @@ export class TournamentLeadersComponent {
       const popupConfig = new MatDialogConfig();
       popupConfig.disableClose = false;
       popupConfig.autoFocus = true;
-      popupConfig.data = {
-        golferId: golfer.golferId,
-        round: golfer.round,
-        img: golfer.imageLink
-      };
-
+      this.golfFacade.loadGolferScorecard(golfer.golferId, golfer.round);
       this.popup.open(ScorecardPopComponent, popupConfig);
     }
   }

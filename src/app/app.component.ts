@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AppTitle } from './models/constants';
 import packageInfo from '../../package.json';
 
 @Component({
@@ -8,7 +7,7 @@ import packageInfo from '../../package.json';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = AppTitle;
+  title = '443 Fantasy Golf';
   version = packageInfo.version;
 
   constructor() {}

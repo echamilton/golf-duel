@@ -4,6 +4,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ScorecardPopComponent } from '../scorecard-pop/scorecard-pop.component';
 import { GolferStatus, Messages } from './../../models/constants';
 import { IPlayer } from './../../models/models';
+import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
 
 @Component({
   selector: 'golf-leader-picks',
@@ -14,7 +15,11 @@ export class LeaderboardPicksComponent {
   @Input() golfers: IPlayer[] = [];
   config = new MatSnackBarConfig();
 
-  constructor(private popup: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(
+    private popup: MatDialog,
+    private snackBar: MatSnackBar,
+    private golfFacade: GolfStoreFacade
+  ) {}
 
   get golferCutStatus(): string {
     return GolferStatus.cut;
@@ -33,17 +38,13 @@ export class LeaderboardPicksComponent {
       this.openSnackBar();
       return;
     }
+    this.golfFacade.loadGolferScorecard(golfer.golferId, golfer.round);
     this.popup.open(ScorecardPopComponent, this.setPopupConfig(golfer));
   }
 
   private setPopupConfig(golfer: IPlayer): MatDialogConfig {
     const popupConfig = new MatDialogConfig();
     popupConfig.autoFocus = true;
-    popupConfig.data = {
-      golferId: golfer.golferId,
-      round: golfer.round,
-      img: golfer.imageLink
-    };
     return popupConfig;
   }
 
