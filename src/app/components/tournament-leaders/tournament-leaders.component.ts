@@ -15,6 +15,10 @@ export class TournamentLeadersComponent {
 
   constructor(private popup: MatDialog, private golfFacade: GolfStoreFacade) {
     this.tournamentData$ = this.golfFacade.getTournamentData();
+
+    this.popup.afterAllClosed.subscribe(() => {
+      this.golfFacade.resetGolferScorecard();
+    });
   }
 
   openPopup(golfer: IPlayer, tournamentActive: boolean): void {

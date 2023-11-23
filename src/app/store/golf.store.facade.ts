@@ -12,6 +12,7 @@ import {
   getGolferScorecard,
   getTournamentLoad,
   getUserSelectedPicks,
+  resetGolferScorecard,
   updateUserSelectedPicks
 } from './golf.actions';
 import {
@@ -21,7 +22,9 @@ import {
   getGolfTournamentData,
   getIsTournamentLoading,
   getUserPicks,
-  getGolferScorecardData
+  getGolferScorecardData,
+  getTournamentActive,
+  isScorecardLoading
 } from './golf.selector';
 
 @Injectable({
@@ -95,7 +98,19 @@ export class GolfStoreFacade {
     this.store.dispatch(getGolferScorecard({ golferId, round }));
   }
 
+  resetGolferScorecard(): void {
+    this.store.dispatch(resetGolferScorecard());
+  }
+
   getGolferScorecard(): Observable<any> {
     return this.store.select(getGolferScorecardData);
+  }
+
+  isTournamentActive(): Observable<any> {
+    return this.store.select(getTournamentActive);
+  }
+
+  isScorecardLoading(): Observable<boolean> {
+    return this.store.select(isScorecardLoading);
   }
 }

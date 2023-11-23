@@ -1,400 +1,402 @@
 <div
-  *ngIf="scorecard$ | async as scorecard; else loading"
+  *ngIf="!(isScorecardLoading$ | async); else loading"
   class="scorecard-container"
 >
-  <div class="header">{{ scorecard.playerName }}</div>
-  <div class="header">
-    <img class="pic" src="{{ scorecard.imageLink }}" />
-  </div>
-  <ul>
-    <li style="display: list-item" class="list">
-      <table class="scorecard scorecards">
-        <thead>
-          <tr>
-            <th class="first-col">
-              <div>HOLE</div>
-            </th>
-            <th class="head" data-hole-number="1">
-              <div>1</div>
-            </th>
-            <th class="head" data-hole-number="2">
-              <div>2</div>
-            </th>
-            <th class="head" data-hole-number="3">
-              <div>3</div>
-            </th>
-            <th class="head" data-hole-number="4">
-              <div>4</div>
-            </th>
-            <th class="head" data-hole-number="5">
-              <div>5</div>
-            </th>
-            <th class="head" data-hole-number="6">
-              <div>6</div>
-            </th>
-            <th class="head" data-hole-number="7">
-              <div>7</div>
-            </th>
-            <th class="head" data-hole-number="8">
-              <div>8</div>
-            </th>
-            <th class="head" data-hole-number="9">
-              <div>9</div>
-            </th>
-            <th>
-              <div><span>OUT</span></div>
-            </th>
+  <div *ngIf="scorecard$ | async; let scorecard">
+    <div class="header">{{ scorecard.playerName }}</div>
+    <div class="header">
+      <img class="pic" src="{{ scorecard.imageLink }}" />
+    </div>
+    <ul>
+      <li style="display: list-item" class="list">
+        <table class="scorecard scorecards">
+          <thead>
+            <tr>
+              <th class="first-col">
+                <div>HOLE</div>
+              </th>
+              <th class="head" data-hole-number="1">
+                <div>1</div>
+              </th>
+              <th class="head" data-hole-number="2">
+                <div>2</div>
+              </th>
+              <th class="head" data-hole-number="3">
+                <div>3</div>
+              </th>
+              <th class="head" data-hole-number="4">
+                <div>4</div>
+              </th>
+              <th class="head" data-hole-number="5">
+                <div>5</div>
+              </th>
+              <th class="head" data-hole-number="6">
+                <div>6</div>
+              </th>
+              <th class="head" data-hole-number="7">
+                <div>7</div>
+              </th>
+              <th class="head" data-hole-number="8">
+                <div>8</div>
+              </th>
+              <th class="head" data-hole-number="9">
+                <div>9</div>
+              </th>
+              <th>
+                <div><span>OUT</span></div>
+              </th>
 
-            <th class="last-col">
-              <div><span>TOT</span></div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="first-col">
-              <div>PAR</div>
-            </td>
-            <td data-hole-number="1">
-              <div>{{ scorecard.hole1.par }}</div>
-            </td>
-            <td data-hole-number="2">
-              <div>{{ scorecard.hole2.par }}</div>
-            </td>
-            <td data-hole-number="3">
-              <div>{{ scorecard.hole3.par }}</div>
-            </td>
-            <td data-hole-number="4">
-              <div>{{ scorecard.hole4.par }}</div>
-            </td>
-            <td data-hole-number="5">
-              <div>{{ scorecard.hole5.par }}</div>
-            </td>
-            <td data-hole-number="6">
-              <div>{{ scorecard.hole6.par }}</div>
-            </td>
-            <td data-hole-number="7">
-              <div>{{ scorecard.hole7.par }}</div>
-            </td>
-            <td data-hole-number="8">
-              <div>{{ scorecard.hole8.par }}</div>
-            </td>
-            <td data-hole-number="9">
-              <div>{{ scorecard.hole9.par }}</div>
-            </td>
-            <td>
-              <div>{{ scorecard.Out.par }}</div>
-            </td>
-            <td class="last-col">
-              <div>{{ scorecard.Total.par }}</div>
-            </td>
-          </tr>
-          <tr>
-            <td class="first-col">
-              <div>ROUND</div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole1.indicator)
-              }"
-              data-hole-number="1"
-            >
-              <div *ngIf="scorecard.hole1.score != 0">
-                {{ scorecard.hole1.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole2.indicator)
-              }"
-              data-hole-number="2"
-            >
-              <div *ngIf="scorecard.hole2.score != 0">
-                {{ scorecard.hole2.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole3.indicator)
-              }"
-              data-hole-number="3"
-            >
-              <div *ngIf="scorecard.hole3.score != 0">
-                {{ scorecard.hole3.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole4.indicator)
-              }"
-              data-hole-number="4"
-            >
-              <div *ngIf="scorecard.hole4.score != 0">
-                {{ scorecard.hole4.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole5.indicator)
-              }"
-              data-hole-number="5"
-            >
-              <div *ngIf="scorecard.hole5.score != 0">
-                {{ scorecard.hole5.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole6.indicator)
-              }"
-              data-hole-number="6"
-            >
-              <div *ngIf="scorecard.hole6.score != 0">
-                {{ scorecard.hole6.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole7.indicator)
-              }"
-              data-hole-number="7"
-            >
-              <div *ngIf="scorecard.hole7.score != 0">
-                {{ scorecard.hole7.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole8.indicator)
-              }"
-              data-hole-number="8"
-            >
-              <div *ngIf="scorecard.hole8.score != 0">
-                {{ scorecard.hole8.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole9.indicator)
-              }"
-              data-hole-number="9"
-            >
-              <div *ngIf="scorecard.hole9.score != 0">
-                {{ scorecard.hole9.score }}
-              </div>
-            </td>
-            <td>
-              <div>{{ scorecard.Out.score }}</div>
-            </td>
-            <td class="last-col">
-              <div>{{ scorecard.Total.score }}</div>
-            </td>
-          </tr>
-          <tr></tr>
-        </tbody>
-      </table>
-    </li>
-    <li style="display: list-item" class="list">
-      <table class="scorecard scorecards">
-        <thead>
-          <tr>
-            <th class="first-col">
-              <div>HOLE</div>
-            </th>
-            <th class="head" data-hole-number="10">
-              <div>10</div>
-            </th>
-            <th class="head" data-hole-number="11">
-              <div>11</div>
-            </th>
-            <th class="head" data-hole-number="12">
-              <div>12</div>
-            </th>
-            <th class="head" data-hole-number="13">
-              <div>13</div>
-            </th>
-            <th class="head" data-hole-number="14">
-              <div>14</div>
-            </th>
-            <th class="head" data-hole-number="15">
-              <div>15</div>
-            </th>
-            <th class="head" data-hole-number="16">
-              <div>16</div>
-            </th>
-            <th class="head" data-hole-number="17">
-              <div>17</div>
-            </th>
-            <th class="head" data-hole-number="18">
-              <div>18</div>
-            </th>
-            <th>
-              <div><span>IN</span></div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="first-col">
-              <div>PAR</div>
-            </td>
-            <td data-hole-number="10">
-              <div>{{ scorecard.hole10.par }}</div>
-            </td>
-            <td data-hole-number="11">
-              <div>{{ scorecard.hole11.par }}</div>
-            </td>
-            <td data-hole-number="12">
-              <div>{{ scorecard.hole12.par }}</div>
-            </td>
-            <td data-hole-number="13">
-              <div>{{ scorecard.hole13.par }}</div>
-            </td>
-            <td data-hole-number="14">
-              <div>{{ scorecard.hole14.par }}</div>
-            </td>
-            <td data-hole-number="15">
-              <div>{{ scorecard.hole15.par }}</div>
-            </td>
-            <td data-hole-number="16">
-              <div>{{ scorecard.hole16.par }}</div>
-            </td>
-            <td data-hole-number="17">
-              <div>{{ scorecard.hole17.par }}</div>
-            </td>
-            <td data-hole-number="18">
-              <div>{{ scorecard.hole18.par }}</div>
-            </td>
-            <td>
-              <div>{{ scorecard.In.par }}</div>
-            </td>
-          </tr>
-          <tr>
-            <td class="first-col">
-              <div>ROUND</div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole10.indicator)
-              }"
-              data-hole-number="10"
-            >
-              <div *ngIf="scorecard.hole10.score != 0">
-                {{ scorecard.hole10.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole11.indicator)
-              }"
-              data-hole-number="11"
-            >
-              <div *ngIf="scorecard.hole11.score != 0">
-                {{ scorecard.hole11.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole12.indicator)
-              }"
-              data-hole-number="12"
-            >
-              <div *ngIf="scorecard.hole12.score != 0">
-                {{ scorecard.hole12.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole13.indicator)
-              }"
-              data-hole-number="13"
-            >
-              <div *ngIf="scorecard.hole13.score != 0">
-                {{ scorecard.hole13.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole14.indicator)
-              }"
-              data-hole-number="14"
-            >
-              <div *ngIf="scorecard.hole14.score != 0">
-                {{ scorecard.hole14.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole15.indicator)
-              }"
-              data-hole-number="15"
-            >
-              <div *ngIf="scorecard.hole15.score != 0">
-                {{ scorecard.hole15.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole16.indicator)
-              }"
-              data-hole-number="16"
-            >
-              <div *ngIf="scorecard.hole16.score != 0">
-                {{ scorecard.hole16.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole17.indicator)
-              }"
-              data-hole-number="17"
-            >
-              <div *ngIf="scorecard.hole17.score != 0">
-                {{ scorecard.hole17.score }}
-              </div>
-            </td>
-            <td
-              class="score"
-              [ngStyle]="{
-                'background-color': getColor(scorecard.hole18.indicator)
-              }"
-              data-hole-number="18"
-            >
-              <div *ngIf="scorecard.hole18.score != 0">
-                {{ scorecard.hole18.score }}
-              </div>
-            </td>
-            <td>
-              <div>{{ scorecard.In.score }}</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </li>
-  </ul>
-  <div class="legend">
-    <div class="eagle">Eagle</div>
-    <div class="birdie">Birdie</div>
-    <div class="par">Par</div>
-    <div class="bogey">Bogey</div>
-    <div class="double">Double +</div>
+              <th class="last-col">
+                <div><span>TOT</span></div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="first-col">
+                <div>PAR</div>
+              </td>
+              <td data-hole-number="1">
+                <div>{{ scorecard.hole1.par }}</div>
+              </td>
+              <td data-hole-number="2">
+                <div>{{ scorecard.hole2.par }}</div>
+              </td>
+              <td data-hole-number="3">
+                <div>{{ scorecard.hole3.par }}</div>
+              </td>
+              <td data-hole-number="4">
+                <div>{{ scorecard.hole4.par }}</div>
+              </td>
+              <td data-hole-number="5">
+                <div>{{ scorecard.hole5.par }}</div>
+              </td>
+              <td data-hole-number="6">
+                <div>{{ scorecard.hole6.par }}</div>
+              </td>
+              <td data-hole-number="7">
+                <div>{{ scorecard.hole7.par }}</div>
+              </td>
+              <td data-hole-number="8">
+                <div>{{ scorecard.hole8.par }}</div>
+              </td>
+              <td data-hole-number="9">
+                <div>{{ scorecard.hole9.par }}</div>
+              </td>
+              <td>
+                <div>{{ scorecard.Out.par }}</div>
+              </td>
+              <td class="last-col">
+                <div>{{ scorecard.Total.par }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="first-col">
+                <div>ROUND</div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole1.indicator)
+                }"
+                data-hole-number="1"
+              >
+                <div *ngIf="scorecard.hole1.score != 0">
+                  {{ scorecard.hole1.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole2.indicator)
+                }"
+                data-hole-number="2"
+              >
+                <div *ngIf="scorecard.hole2.score != 0">
+                  {{ scorecard.hole2.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole3.indicator)
+                }"
+                data-hole-number="3"
+              >
+                <div *ngIf="scorecard.hole3.score != 0">
+                  {{ scorecard.hole3.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole4.indicator)
+                }"
+                data-hole-number="4"
+              >
+                <div *ngIf="scorecard.hole4.score != 0">
+                  {{ scorecard.hole4.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole5.indicator)
+                }"
+                data-hole-number="5"
+              >
+                <div *ngIf="scorecard.hole5.score != 0">
+                  {{ scorecard.hole5.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole6.indicator)
+                }"
+                data-hole-number="6"
+              >
+                <div *ngIf="scorecard.hole6.score != 0">
+                  {{ scorecard.hole6.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole7.indicator)
+                }"
+                data-hole-number="7"
+              >
+                <div *ngIf="scorecard.hole7.score != 0">
+                  {{ scorecard.hole7.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole8.indicator)
+                }"
+                data-hole-number="8"
+              >
+                <div *ngIf="scorecard.hole8.score != 0">
+                  {{ scorecard.hole8.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole9.indicator)
+                }"
+                data-hole-number="9"
+              >
+                <div *ngIf="scorecard.hole9.score != 0">
+                  {{ scorecard.hole9.score }}
+                </div>
+              </td>
+              <td>
+                <div>{{ scorecard.Out.score }}</div>
+              </td>
+              <td class="last-col">
+                <div>{{ scorecard.Total.score }}</div>
+              </td>
+            </tr>
+            <tr></tr>
+          </tbody>
+        </table>
+      </li>
+      <li style="display: list-item" class="list">
+        <table class="scorecard scorecards">
+          <thead>
+            <tr>
+              <th class="first-col">
+                <div>HOLE</div>
+              </th>
+              <th class="head" data-hole-number="10">
+                <div>10</div>
+              </th>
+              <th class="head" data-hole-number="11">
+                <div>11</div>
+              </th>
+              <th class="head" data-hole-number="12">
+                <div>12</div>
+              </th>
+              <th class="head" data-hole-number="13">
+                <div>13</div>
+              </th>
+              <th class="head" data-hole-number="14">
+                <div>14</div>
+              </th>
+              <th class="head" data-hole-number="15">
+                <div>15</div>
+              </th>
+              <th class="head" data-hole-number="16">
+                <div>16</div>
+              </th>
+              <th class="head" data-hole-number="17">
+                <div>17</div>
+              </th>
+              <th class="head" data-hole-number="18">
+                <div>18</div>
+              </th>
+              <th>
+                <div><span>IN</span></div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="first-col">
+                <div>PAR</div>
+              </td>
+              <td data-hole-number="10">
+                <div>{{ scorecard.hole10.par }}</div>
+              </td>
+              <td data-hole-number="11">
+                <div>{{ scorecard.hole11.par }}</div>
+              </td>
+              <td data-hole-number="12">
+                <div>{{ scorecard.hole12.par }}</div>
+              </td>
+              <td data-hole-number="13">
+                <div>{{ scorecard.hole13.par }}</div>
+              </td>
+              <td data-hole-number="14">
+                <div>{{ scorecard.hole14.par }}</div>
+              </td>
+              <td data-hole-number="15">
+                <div>{{ scorecard.hole15.par }}</div>
+              </td>
+              <td data-hole-number="16">
+                <div>{{ scorecard.hole16.par }}</div>
+              </td>
+              <td data-hole-number="17">
+                <div>{{ scorecard.hole17.par }}</div>
+              </td>
+              <td data-hole-number="18">
+                <div>{{ scorecard.hole18.par }}</div>
+              </td>
+              <td>
+                <div>{{ scorecard.In.par }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td class="first-col">
+                <div>ROUND</div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole10.indicator)
+                }"
+                data-hole-number="10"
+              >
+                <div *ngIf="scorecard.hole10.score != 0">
+                  {{ scorecard.hole10.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole11.indicator)
+                }"
+                data-hole-number="11"
+              >
+                <div *ngIf="scorecard.hole11.score != 0">
+                  {{ scorecard.hole11.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole12.indicator)
+                }"
+                data-hole-number="12"
+              >
+                <div *ngIf="scorecard.hole12.score != 0">
+                  {{ scorecard.hole12.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole13.indicator)
+                }"
+                data-hole-number="13"
+              >
+                <div *ngIf="scorecard.hole13.score != 0">
+                  {{ scorecard.hole13.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole14.indicator)
+                }"
+                data-hole-number="14"
+              >
+                <div *ngIf="scorecard.hole14.score != 0">
+                  {{ scorecard.hole14.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole15.indicator)
+                }"
+                data-hole-number="15"
+              >
+                <div *ngIf="scorecard.hole15.score != 0">
+                  {{ scorecard.hole15.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole16.indicator)
+                }"
+                data-hole-number="16"
+              >
+                <div *ngIf="scorecard.hole16.score != 0">
+                  {{ scorecard.hole16.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole17.indicator)
+                }"
+                data-hole-number="17"
+              >
+                <div *ngIf="scorecard.hole17.score != 0">
+                  {{ scorecard.hole17.score }}
+                </div>
+              </td>
+              <td
+                class="score"
+                [ngStyle]="{
+                  'background-color': getColor(scorecard.hole18.indicator)
+                }"
+                data-hole-number="18"
+              >
+                <div *ngIf="scorecard.hole18.score != 0">
+                  {{ scorecard.hole18.score }}
+                </div>
+              </td>
+              <td>
+                <div>{{ scorecard.In.score }}</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    </ul>
+    <div class="legend">
+      <div class="eagle">Eagle</div>
+      <div class="birdie">Birdie</div>
+      <div class="par">Par</div>
+      <div class="bogey">Bogey</div>
+      <div class="double">Double +</div>
+    </div>
   </div>
 </div>
 <ng-template #loading>

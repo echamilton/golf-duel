@@ -15,7 +15,8 @@ import {
   updateUserSelectedPicks,
   updateUserSelectedPicksComplete,
   getGolferScorecard,
-  getGolferScorecardComplete
+  getGolferScorecardComplete,
+  resetGolferScorecard
 } from './golf.actions';
 
 export interface IGolfAppState {
@@ -27,12 +28,14 @@ export interface IGolfAppState {
   userSelectedPicks?: IUserGolfPicks;
   isUserPicksUpdating: boolean;
   golferScorecard?: IScoreCard;
+  isScorecardLoading: boolean;
 }
 
 const INITIAL_STORE_STATE: Readonly<IGolfAppState> = {
   isLoading: false,
   isLoadingGroups: false,
-  isUserPicksUpdating: false
+  isUserPicksUpdating: false,
+  isScorecardLoading: false
 };
 
 export const golfReducer = createReducer(
@@ -76,6 +79,11 @@ export const golfReducer = createReducer(
   on(getGolferScorecardComplete, (state, action) => ({
     ...state,
     golferScorecard: action.golferScorecard,
+    isScorecardLoading: false
+  })),
+  on(resetGolferScorecard, (state) => ({
+    ...state,
+    golferScorecard: {},
     isScorecardLoading: false
   }))
 );

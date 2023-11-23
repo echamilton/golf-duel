@@ -39,3 +39,6 @@ export const getGolferScorecardComplete = createAction(
   '[Golf] Get golfer scorecard complete',
   props<{ golferScorecard: IScoreCard }>()
 );
+export const resetGolferScorecard = createAction(
+  '[Golf] Reset golfer scorecard'
+);

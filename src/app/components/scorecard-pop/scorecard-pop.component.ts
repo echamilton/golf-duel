@@ -1,7 +1,6 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IScoreCardModal, IScoreCard } from '../../models/models';
+import { IScoreCard } from '../../models/models';
 import { ScoreValueColors } from './../../models/constants';
 import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
 
@@ -12,12 +11,11 @@ import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
 })
 export class ScorecardPopComponent {
   scorecard$: Observable<IScoreCard>;
+  isScorecardLoading$: Observable<boolean>;
 
-  constructor(
-    private golfFacade: GolfStoreFacade,
-    @Inject(MAT_DIALOG_DATA) data: IScoreCardModal
-  ) {
+  constructor(private golfFacade: GolfStoreFacade) {
     this.scorecard$ = this.golfFacade.getGolferScorecard();
+    this.isScorecardLoading$ = this.golfFacade.isScorecardLoading();
   }
 
   getColor(score: string) {
