@@ -1,9 +1,8 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SportsApiService } from '../../services/sports-api.service';
-import { IScoreCardModal, IScoreCard } from '../../models/models';
+import { IScoreCard } from '../../models/models';
 import { ScoreValueColors } from './../../models/constants';
+import { GolfStoreFacade } from 'src/app/store/golf.store.facade';
 
 @Component({
   selector: 'golf-scorecard-pop',
@@ -12,17 +11,11 @@ import { ScoreValueColors } from './../../models/constants';
 })
 export class ScorecardPopComponent {
   scorecard$: Observable<IScoreCard>;
-  imageLink: string;
+  isScorecardLoading$: Observable<boolean>;
 
-  constructor(
-    private sportsApi: SportsApiService,
-    @Inject(MAT_DIALOG_DATA) data: IScoreCardModal
-  ) {
-    this.scorecard$ = this.sportsApi.getGolferScoreCard(
-      data.golferId,
-      Number(data.round)
-    );
-    this.imageLink = data.img;
+  constructor(private golfFacade: GolfStoreFacade) {
+    this.scorecard$ = this.golfFacade.getGolferScorecard();
+    this.isScorecardLoading$ = this.golfFacade.isScorecardLoading();
   }
 
   getColor(score: string) {

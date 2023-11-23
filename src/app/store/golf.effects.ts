@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { Action } from '@ngrx/store';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
   getGolferGroupings,
   getGolferGroupingsComplete,
+  getGolferScorecard,
+  getGolferScorecardComplete,
   getTournamentLoad,
   getTournamentLoadSuccess,
   getUserSelectedPicks,
@@ -14,30 +17,29 @@ import {
 } from './golf.actions';
 import { map, mergeMap } from 'rxjs/operators';
 import {
-  IGolferGrouping,
+  IEntriesGolferDataStore,
   IGolferGroupingsUI,
-  IGolfersGroupPick,
-  ITournamentResults,
+  IScoreCard,
   IUserGolfPicks
 } from './../models/models';
-import { SportsApiService } from '../services/sports-api.service';
-import { GolfDataStoreService } from '../services/golf-data-store.service';
 import { Operation } from '../models/constants';
+import { environment } from './../../environments/environment';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
-    private sportsApi: SportsApiService,
-    private golfData: GolfDataStoreService
+    private httpService: HttpClient,
+    private authService: AuthService
   ) {}
 
   getTournamentData$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(getTournamentLoad),
       mergeMap(() =>
-        this.sportsApi.getGolfScores().pipe(
-          map((tournamentResults: ITournamentResults) => {
+        this.httpService.get(environment.leaderBoardApiUrl).pipe(
+          map((tournamentResults: any) => {
             return getTournamentLoadSuccess(tournamentResults);
           })
         )
@@ -49,11 +51,9 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(getGolferGroupings),
       mergeMap(() =>
-        this.golfData.getGolferGroupings().pipe(
-          map((golfGroupings) => {
-            return getGolferGroupingsComplete(
-              this.filterGolfGroupings(golfGroupings)
-            );
+        this.httpService.get(environment.playerGroupingsUrl).pipe(
+          map((golfGroupings: IGolferGroupingsUI) => {
+            return getGolferGroupingsComplete(golfGroupings);
           })
         )
       )
@@ -64,14 +64,18 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(getUserSelectedPicks),
       mergeMap(() =>
-        this.golfData.getGolferPicks().pipe(
-          map((allUserPicks) => {
-            return getUserSelectedPicksComplete({
-              picks: allUserPicks.userEntry,
-              allUserPicks: allUserPicks.allEntries
-            });
-          })
-        )
+        this.httpService
+          .get(environment.entriesApiUrl, { headers: this.buildHeader() })
+          .pipe(
+            map((response) => {
+              const allUserPicks: IEntriesGolferDataStore =
+                response as IEntriesGolferDataStore;
+              return getUserSelectedPicksComplete({
+                picks: allUserPicks.userEntry,
+                allUserPicks: allUserPicks.allEntries
+              });
+            })
+          )
       )
     )
   );
@@ -89,44 +93,51 @@ export class UserEffects {
     )
   );
 
+  getGolferScorecard$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getGolferScorecard),
+      mergeMap((params) =>
+        this.httpService
+          .get(
+            `${environment.leaderBoardApiUrl}/${params.golferId}/scorecard?round=${params.round}`
+          )
+          .pipe(
+            map((scorecard: IScoreCard) => {
+              return getGolferScorecardComplete({ golferScorecard: scorecard });
+            })
+          )
+      )
+    )
+  );
+
   private updateUserPicks(
     picks: IUserGolfPicks,
     operation: Operation
   ): Observable<boolean> {
     if (operation === Operation.update)
-      return this.golfData.updateGolferPicks(picks);
+      return this.httpService
+        .post(environment.entriesApiUrl, picks, {
+          headers: this.buildHeader()
+        })
+        .pipe(
+          map(() => {
+            return true;
+          })
+        );
     else {
-      return this.golfData.deleteGolferPicks(picks);
+      return this.httpService
+        .delete(environment.entriesApiUrl, {
+          headers: this.buildHeader()
+        })
+        .pipe(
+          map(() => {
+            return true;
+          })
+        );
     }
   }
 
-  private filterGolfGroupings(
-    groupingsFromDB: IGolferGrouping[]
-  ): IGolferGroupingsUI {
-    return this.splitGroupings(groupingsFromDB);
-  }
-
-  private splitGroupings(groupingsDb: IGolferGrouping[]): IGolferGroupingsUI {
-    const golferGroupings: IGolferGroupingsUI = {
-      groupA: [],
-      groupB: [],
-      groupC: []
-    };
-    if (groupingsDb) {
-      groupingsDb.forEach((golfer) => {
-        const golferPick: IGolfersGroupPick = {
-          id: golfer.golferId,
-          name: golfer.name
-        };
-        if (golfer.group == 'A') {
-          golferGroupings.groupA!.push(golferPick);
-        } else if (golfer.group == 'B') {
-          golferGroupings.groupB!.push(golferPick);
-        } else {
-          golferGroupings.groupC!.push(golferPick);
-        }
-      });
-    }
-    return golferGroupings;
+  private buildHeader(): HttpHeaders {
+    return new HttpHeaders({ userId: this.authService.getCurrentUser() });
   }
 }

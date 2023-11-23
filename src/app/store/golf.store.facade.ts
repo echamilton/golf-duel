@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { Operation } from '../models/constants';
 import {
@@ -9,8 +9,10 @@ import {
 } from '../models/models';
 import {
   getGolferGroupings,
+  getGolferScorecard,
   getTournamentLoad,
   getUserSelectedPicks,
+  resetGolferScorecard,
   updateUserSelectedPicks
 } from './golf.actions';
 import {
@@ -19,7 +21,10 @@ import {
   getGolferGroups,
   getGolfTournamentData,
   getIsTournamentLoading,
-  getUserPicks
+  getUserPicks,
+  getGolferScorecardData,
+  getTournamentActive,
+  isScorecardLoading
 } from './golf.selector';
 
 @Injectable({
@@ -34,23 +39,19 @@ export class GolfStoreFacade {
   }
 
   getTournamentData(): Observable<ITournamentResults> {
-    return this.store.pipe(select(getGolfTournamentData));
+    return this.store.select(getGolfTournamentData);
   }
 
   getLoadingIndicator(): Observable<boolean> {
-    return this.store.pipe(select(getIsTournamentLoading));
+    return this.store.select(getIsTournamentLoading);
   }
 
   getGolferGroups(): Observable<IGolferGroupingsUI> {
-    return this.store.pipe(select(getGolferGroups));
+    return this.store.select(getGolferGroups);
   }
 
   getUserSelectedPicks(): Observable<IUserGolfPicks> {
-    return this.store.pipe(select(getUserPicks));
-  }
-
-  getAllUserSelectedPicks(): Observable<IUserGolfPicks[]> {
-    return this.store.pipe(select(getAllUserPicks));
+    return this.store.select(getUserPicks);
   }
 
   loadGolferGroupings(): void {
@@ -62,7 +63,7 @@ export class GolfStoreFacade {
   }
 
   getAreGroupsLoading(): Observable<boolean> {
-    return this.store.pipe(select(getAreGroupsLoading));
+    return this.store.select(getAreGroupsLoading);
   }
 
   updateUserPicks(userSelections: IUserGolfPicks, operation: Operation): void {
@@ -81,15 +82,35 @@ export class GolfStoreFacade {
 
   getToolbarValidationData(): Observable<any> {
     return combineLatest([
-      this.store.pipe(select(getGolfTournamentData)),
-      this.store.pipe(select(getUserPicks))
+      this.store.select(getGolfTournamentData),
+      this.store.select(getUserPicks)
     ]);
   }
 
   getLeaderboardData(): Observable<any> {
     return combineLatest([
-      this.store.pipe(select(getGolfTournamentData)),
-      this.store.pipe(select(getAllUserPicks))
+      this.store.select(getGolfTournamentData),
+      this.store.select(getAllUserPicks)
     ]);
+  }
+
+  loadGolferScorecard(golferId: string, round: string): void {
+    this.store.dispatch(getGolferScorecard({ golferId, round }));
+  }
+
+  resetGolferScorecard(): void {
+    this.store.dispatch(resetGolferScorecard());
+  }
+
+  getGolferScorecard(): Observable<any> {
+    return this.store.select(getGolferScorecardData);
+  }
+
+  isTournamentActive(): Observable<any> {
+    return this.store.select(getTournamentActive);
+  }
+
+  isScorecardLoading(): Observable<boolean> {
+    return this.store.select(isScorecardLoading);
   }
 }

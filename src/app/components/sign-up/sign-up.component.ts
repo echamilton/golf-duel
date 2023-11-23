@@ -3,11 +3,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FirebaseError } from '@firebase/util';
 import { AuthService } from '../../services/auth.service';
-import {
-  INITIALIZED_VALUE,
-  Messages,
-  ServiceCodes
-} from '../../models/constants';
+import { INITIALIZED_VALUE, Messages } from '../../models/constants';
 
 @Component({
   selector: 'golf-signup',
@@ -19,6 +15,7 @@ export class SignUpComponent implements OnInit {
   password: string = INITIALIZED_VALUE;
   config = new MatSnackBarConfig();
   hide: boolean = true;
+  USER_FAIL_CODE = 'auth/argument-error';
 
   constructor(
     private router: Router,
@@ -37,7 +34,7 @@ export class SignUpComponent implements OnInit {
       },
       (err: FirebaseError) => {
         const message =
-          err.code === ServiceCodes.userFailCode
+          err.code === this.USER_FAIL_CODE
             ? Messages.userCreateFail
             : err.message;
         this.openSnackBar(message);

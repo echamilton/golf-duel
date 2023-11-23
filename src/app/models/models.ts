@@ -10,19 +10,9 @@ export interface IUserGolfPicks {
   golfer8: number;
 }
 
-export interface IGolferGrouping {
-  group: string;
-  golferId: string;
-  name: string;
-}
-
 export interface IEntriesGolferDataStore {
   allEntries: IUserGolfPicks[];
   userEntry: IUserGolfPicks;
-}
-
-export interface ITabStructure {
-  entryName: string;
 }
 
 export interface IGolfersGroupPick {
@@ -57,14 +47,6 @@ export interface IPlayer {
   isActive: boolean;
   thru: string;
   imageLink: string;
-}
-
-export interface ITournament {
-  eventId: string;
-  url: string;
-  active: boolean;
-  groupName: string;
-  scorecard?: string;
 }
 
 export interface ILeaderResults {

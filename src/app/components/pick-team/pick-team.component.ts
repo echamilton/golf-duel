@@ -8,12 +8,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import {
-  IGolferGroupingsUI,
-  IUserGolfPicks,
-  ITabStructure
-} from '../../models/models';
-import { SportsApiService } from '../../services/sports-api.service';
+import { IGolferGroupingsUI, IUserGolfPicks } from '../../models/models';
 import { AuthService } from '../../services/auth.service';
 import {
   INITIALIZED_VALUE,
@@ -37,10 +32,9 @@ export class PickTeamComponent implements OnInit {
   golferGroupings$: Observable<IGolferGroupingsUI>;
   existingEntry = false;
   picksFg: UntypedFormGroup;
-  teamEntries: Array<ITabStructure> = [];
+  isTournamentActive: boolean = false;
 
   constructor(
-    private sportsApi: SportsApiService,
     private router: Router,
     private snackBar: MatSnackBar,
     private popup: MatDialog,
@@ -51,10 +45,9 @@ export class PickTeamComponent implements OnInit {
     this.picksFg = this.initializeForm();
     this.userPicks$ = this.golfFacade.getUserSelectedPicks();
 
-    // const newtab: ITabStructure = {
-    //   entryName: 'Entry 1'
-    // };
-    // this.teamEntries.push(newtab);
+    this.golfFacade
+      .isTournamentActive()
+      .subscribe((x) => (this.isTournamentActive = x));
   }
 
   ngOnInit(): void {
@@ -73,10 +66,6 @@ export class PickTeamComponent implements OnInit {
 
   get deleteOperation(): Operation {
     return Operation.delete;
-  }
-
-  get isTournamentActive(): boolean {
-    return this.sportsApi.isTournamentActive();
   }
 
   private loadUserPicks(): void {
@@ -117,8 +106,9 @@ export class PickTeamComponent implements OnInit {
   processData(answer: string, operation: Operation): void {
     this.isLoading = true;
     if (answer === 'Yes') {
-      this.sportsApi.getGolfScores().subscribe((apiData) => {
-        if (this.sportsApi.isTournamentActive(apiData.status)) {
+      this.golfFacade.loadTournamentData();
+      this.golfFacade.getTournamentData().subscribe((apiData) => {
+        if (apiData.isTournamentActive) {
           this.openSnackBar(Messages.picksActiveTourny);
           return;
         }
@@ -207,13 +197,4 @@ export class PickTeamComponent implements OnInit {
       .getAreGroupsLoading()
       .subscribe((isLoading) => (this.isLoading = isLoading));
   }
-
-  newEntry(): void {
-    const newEntry: ITabStructure = {
-      entryName: 'Entry ' + (this.teamEntries.length + 1).toString()
-    };
-    this.teamEntries.push(newEntry);
-  }
-
-  selectedTabValue(event: any) {}
 }

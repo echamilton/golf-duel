@@ -15,6 +15,10 @@ export class TournamentLeadersComponent {
 
   constructor(private popup: MatDialog, private golfFacade: GolfStoreFacade) {
     this.tournamentData$ = this.golfFacade.getTournamentData();
+
+    this.popup.afterAllClosed.subscribe(() => {
+      this.golfFacade.resetGolferScorecard();
+    });
   }
 
   openPopup(golfer: IPlayer, tournamentActive: boolean): void {
@@ -22,12 +26,7 @@ export class TournamentLeadersComponent {
       const popupConfig = new MatDialogConfig();
       popupConfig.disableClose = false;
       popupConfig.autoFocus = true;
-      popupConfig.data = {
-        golferId: golfer.golferId,
-        round: golfer.round,
-        img: golfer.imageLink
-      };
-
+      this.golfFacade.loadGolferScorecard(golfer.golferId, golfer.round);
       this.popup.open(ScorecardPopComponent, popupConfig);
     }
   }
